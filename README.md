@@ -1,15 +1,15 @@
 # Proyecto HQ Apoyo Universitario
 > Developed by Eric & Jonatan
 ## Indice
-- [Web HQ Apoyo Universitario](#hq)
+- [Proyecto HQ Apoyo Universitario](#proyecto-hq-apoyo-universitario)
   - [Indice](#indice)
-    - [Información General](#información-general)
-    - [Screenshot](#screenshot)
+  - [Información General](#información-general)
+  - [Screenshots](#screenshots)
   - [Dependencias](#dependencias)
   - [Instalación](#instalación)
   - [Base de datos](#base-de-datos)
     - [Crear la base de datos con **migraciones**](#crear-la-base-de-datos-con-migraciones)
-    - [Crear la base de datos ejecutando un script](#crear-la-base-de-datos-ejecutando-un-script)
+  - [Levantar el servidor en local](#levantar-el-servidor-en-local)
   - [Deploy](#deploy)
 ## Información General
 ***
@@ -53,10 +53,8 @@ Crear el archivo <code>.env</code> con las siguientes claves:
 ```
 DB_DEV_USERNAME=
 DB_DEV_PASSWORD=
-DB_DEV_DATABASE=
-DB_DEV_HOST=
+DB_DEV_DATABASE=hq_db
 DB_DEV_PORT=
-
 ```
 ## Base de datos
 ***
@@ -67,6 +65,7 @@ $ npm install --save-dev sequelize-cli
 ```
 Correr migraciones y seeders
 ```
+$ sequelize db:create
 $ sequelize db:migrate
 $ sequelize db:seed:all
 ```
