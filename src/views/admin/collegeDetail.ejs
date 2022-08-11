@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<%- include('./partials/head',{ title : 'Universidad' }) %>
+
+    <body class="colleges bg-light">
+        <%- include('./partials/header') %>
+            <main class="container">
+                <section class="row mt-2 mt-md-3 mt-lg-5">
+                    <div class="col-12 col-md-10 col-lg-8 mx-auto">
+                        <article class="card shadow">
+                            <div class="card-header">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="/colleges">Universidades</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Universidad</li>
+                                    </ol>
+                                </nav>
+                                <hr>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex gap-3 flex-wrap justify-content-around align-items-center">
+                                        <img class="img-fluid" width="150px" src="/images/noImage.png"
+                                            alt="vista previa">
+                                    <div style="width:600px">
+                                        <h3>Universidad de Buenos Aires</h3>
+                                        <p class="text-muted">Estadísticas</p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+                </section>
+
+            </main>
+            <%- include('./partials/scripts') %>
+    </body>
+
+    </html>

@@ -302,3 +302,42 @@ template {
    */
 [hidden] {
   display: none; }
+
+ul, ol {
+  padding: 0; }
+
+li {
+  list-style: none; }
+
+a {
+  text-decoration: none;
+  color: inherit; }
+
+.courses__card {
+  width: 100%; }
+
+.courses__videos--box {
+  height: 100vh;
+  overflow-y: scroll; }
+
+.courses__banner--preview, .courses__info--preview {
+  width: 100%; }
+
+.material__card {
+  width: 100%; }
+
+@media (min-width: 768px) {
+  .courses__card {
+    width: 48%; }
+  .material__card {
+    width: 48%; } }
+
+@media (min-width: 1024px) {
+  .courses__card {
+    width: 32%; }
+  .courses__videos--box {
+    height: 97vh; }
+  .courses__banner--preview, .courses__info--preview {
+    width: 48%; }
+  .material__card {
+    width: 32%; } }

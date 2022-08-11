@@ -29,7 +29,7 @@ module.exports = {
           key: 'id'
         },
       },
-      CareerId: {
+      careerId: {
         type: Sequelize.INTEGER,
         references: {
           model: {
@@ -37,6 +37,9 @@ module.exports = {
           },
           key: 'id'
         },
+      },
+      visible : {
+        type: Sequelize.BOOLEAN,
       },
       createdAt: {
         allowNull: false,

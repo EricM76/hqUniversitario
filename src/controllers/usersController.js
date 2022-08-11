@@ -1,4 +1,7 @@
 module.exports = {
+    list : (req,res) => {
+        return res.render('users')
+    },
     register : (req,res) => {
         return res.render('userRegister')
     },
@@ -17,4 +20,13 @@ module.exports = {
     update : (req,res) => {
         return res.send(req.body)
     },
+    remove : (req,res) => {
+
+    },
+    search : (req,res) => {
+
+    },
+    filter : (req,res) => {
+        
+    }
 }

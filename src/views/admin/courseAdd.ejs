@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<%- include('./partials/head',{ title : 'Nueva materia' }) %>
+
+    <body class="courses bg-light">
+        <%- include('./partials/header') %>
+            <main class="container">
+                <section class="row mt-2 mt-md-3 mt-lg-5">
+                    <div class="col-12 mx-auto">
+                        <article class="card shadow">
+                            <div class="card-header">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="/courses">Materias</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Nueva materia</li>
+                                    </ol>
+                                </nav>
+                                <hr>
+                            </div>
+                            <div class="card-body">
+                                <form action="" class="row g-3" enctype="multipart/form-data">
+                                    <div class="col-12 col-md-7">
+                                        <div class="row">
+                                            <div class="col-12 mb-3">
+                                                <img src="/images/exampleBanner.jpeg" alt="" class="img-fluid">
+                                            </div>
+                                            <div class=" col-12 col-md-8 mb-3">
+                                                <label for="area" class="form-label">Nombre:</label>
+                                                <input type="text" class="form-control" id="area" name="name">
+                                            </div>
+                                            <div class=" col-12 col-md-4 mb-3 d-flex ">
+                                                <label for="formFile"
+                                                    class="btn bt btn-outline-dark w-100 align-self-end">Portada</label>
+                                                <input hidden class="form-control" type="file" id="formFile">
+                                            </div>
+                                            <div class=" col-12 col-md-6 mb-3">
+                                                <label for="area" class="form-label">Universidad:</label>
+                                                <select class="form-select" aria-label="Default select example">
+                                                    <option selected hidden>Seleccione...</option>
+                                                    <option value="1">One</option>
+                                                    <option value="2">Two</option>
+                                                    <option value="3">Three</option>
+                                                </select>
+                                            </div>
+                                            <div class=" col-12 col-md-6 mb-3">
+                                                <label for="area" class="form-label">Carrera</label>
+                                                <select class="form-select" aria-label="Default select example">
+                                                    <option selected hidden>Seleccione...</option>
+                                                    <option value="1">One</option>
+                                                    <option value="2">Two</option>
+                                                    <option value="3">Three</option>
+                                                </select>
+                                            </div>
+                                            <div class=" col-12 col-md-6 mb-3">
+                                                <label for="area" class="form-label">Area:</label>
+                                                <select class="form-select" aria-label="Default select example">
+                                                    <option selected hidden>Seleccione...</option>
+                                                    <option value="1">One</option>
+                                                    <option value="2">Two</option>
+                                                    <option value="3">Three</option>
+                                                </select>
+                                            </div>
+                                            <div class=" col-12 col-md-6 mb-3">
+                                                <label for="area" class="form-label">Profesor/a:</label>
+                                                <select class="form-select" aria-label="Default select example">
+                                                    <option selected hidden>Seleccione...</option>
+                                                    <option value="1">One</option>
+                                                    <option value="2">Two</option>
+                                                    <option value="3">Three</option>
+                                                </select>
+                                            </div>
+                                            <div class=" col-12 mb-3">
+                                                <label for="description" class="form-label">Descripción corta:</label>
+                                                <textarea style="resize: none;" class="form-control" id="description"
+                                                    rows="2"></textarea>
+                                            </div>
+                                            <div class=" col-12 mb-3">
+                                                <label for="description" class="form-label">Descripción larga:</label>
+                                                <textarea style="resize: none;" class="form-control" id="description"
+                                                    rows="4"></textarea>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                    <div class="courses__videos--box col-12 col-md-5" >
+                                        <div class="d-flex flex-wrap justify-content-between gap-2">
+                                            <% for( let i = 0; i < 24; i++ ) { %>
+                                                <article class="card courses__card">
+                                                    <img src="/images/videoPreview.png" class="card-img-top" alt="...">
+                                                    <div class="card-body">
+                                                      <h5 class="card-title">Video title</h5>
+                                                      <div class="d-flex justify-content-between">
+                                                        <div class="form-check mb-2">
+                                                            <input class="form-check-input" type="checkbox" value="" id="locked" checked>
+                                                            <label class="form-check-label" for="locked">
+                                                              Bloqueado
+                                                            </label>
+                                                          </div>
+                                                          <a href="" class="text-danger"><i class="fas fa-trash"></i></a>
+                                                      </div>
+                                                     
+                                                      <div class="mb-2">
+                                                        <select class="form-select form-select-sm" id="order" aria-label=".form-select-sm example">
+                                                            <option selected hidden>Orden...</option>
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                          </select>
+                                                      </div>
+                                                      <div class="mb-2">
+                                                        <select class="form-select form-select-sm" id="order" aria-label=".form-select-sm example">
+                                                            <option selected hidden>Categoría...</option>
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                          </select>
+                                                      </div>
+                                                    </div>
+                                                  </article>
+                                            <% } %>
+                                          
+                                            
+                                        </div>
+                                       
+        
+                                    </div>
+
+                                    <div class="card-footer text-end">
+                                        <button class="btn btn-outline-dark" type="submit">Guardar</button>
+                                    </div>
+
+                            </form>
+
+                        </article>
+
+                    </div>
+                </section>
+
+            </main>
+            <%- include('./partials/scripts') %>
+    </body>
+
+    </html>

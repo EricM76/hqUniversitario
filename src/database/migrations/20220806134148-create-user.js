@@ -29,11 +29,11 @@ module.exports = {
       status: {
         type: Sequelize.BOOLEAN
       },
-      genreId: {
+      genderId: {
         type: Sequelize.INTEGER,
         references: {
           model: {
-            tableName: 'Genres'
+            tableName: 'Genders'
           },
           key: 'id'
         },

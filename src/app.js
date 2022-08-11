@@ -5,10 +5,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var mainRouter = require('./routes/main');
-var usersRouter = require('./routes/users');
-var coursesRouter = require('./routes/courses');
-
 var app = express();
 
 const methoOverride = require('method-override');
@@ -31,9 +27,20 @@ app.use(session({
   saveUninitialized : true
 }))
 
-app.use('/', mainRouter);
-app.use('/users', usersRouter);
-app.use('/courses', coursesRouter);
+/* ROUTES */
+app
+  .use('/', require('./routes/main'))
+  .use('/areas', require('./routes/areas'))
+  .use('/careers', require('./routes/careers'))
+  .use('/categories', require('./routes/categories'))
+  .use('/colleges', require('./routes/colleges'))
+  .use('/courses', require('./routes/courses'))
+  .use('/genders', require('./routes/genders'))
+  .use('/memberships', require('./routes/memberships'))
+  .use('/teachers', require('./routes/teachers'))
+  .use('/tests', require('./routes/tests'))
+  .use('/users', require('./routes/users'))
+  .use('/videos', require('./routes/videos'))
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

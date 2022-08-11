@@ -17,15 +17,6 @@ module.exports = {
       visible :{
         type: Sequelize.BOOLEAN
       },
-      areaId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: {
-            tableName: 'Areas'
-          },
-          key: 'id'
-        },
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

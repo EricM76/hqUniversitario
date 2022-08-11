@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<%- include('./partials/head',{ title : 'Editar área' }) %>
+
+    <body class="areas bg-light">
+        <%- include('./partials/header') %>
+            <main class="container">
+                <section class="row mt-2 mt-md-3 mt-lg-5">
+                    <div class="col-12 col-md-10 col-lg-8 mx-auto">
+                        <article class="card shadow">
+                            <div class="card-header">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                      <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+                                      <li class="breadcrumb-item"><a href="/areas">Areas</a></li>
+                                      <li class="breadcrumb-item active" aria-current="page">Editar área</li>
+                                    </ol>
+                                  </nav>
+                                <hr>
+                            </div>
+                            <div class="card-body">
+                                <form action="" class="row g-2" enctype="multipart/form-data">
+                                    <div class="col-12 col-md-4 text-center">
+                                        <img class="img-fluid" width="150px" src="/images/noImage.png"
+                                            alt="vista previa">
+                                    </div>
+                                    <div class="col-12 col-md-8">
+                                        <div class="mb-3">
+                                            <label for="area" class="form-label">Nombre:</label>
+                                            <input type="text" class="form-control" id="area" name="name">
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-3">
+                                            <div class="">
+                                                <label for="formFile" class="btn btn-outline-dark">Agregar
+                                                    imagen</label>
+                                                <input hidden class="form-control" type="file" id="formFile"
+                                                    name="image">
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="card-footer text-end">
+                                <button class="btn btn-outline-dark" type="submit">Guardar</button>
+                            </div>
+                            </form>
+
+                        </article>
+
+                    </div>
+                </section>
+
+            </main>
+            <%- include('./partials/scripts') %>
+    </body>
+
+    </html>

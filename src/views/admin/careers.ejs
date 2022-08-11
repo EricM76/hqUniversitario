@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<%- include('./partials/head',{
+    title : 'Carreras'
+}) %> 
+<body class="carreras bg-light">
+    <%- include('./partials/header') %> 
+    <main class="container">
+        <section class="row mt-2 mt-md-3 mt-lg-5">
+            <div class="col-12 col-md-10 col-lg-8 mx-auto">
+             
+                <article class="card shadow">
+                    <div class="card-header">
+                      <div class="row g-2">
+                        <div class="col-12">
+                            <nav aria-label="breadcrumb">
+                              <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Carreras</li>
+                              </ol>
+                            </nav>
+                          <hr>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <select class="form-select">
+                                <option selected hidden>Ordenar por</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                              </select>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <select class="form-select">
+                                <option selected hidden>Filtar por</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                              </select>
+                        </div>
+                        <div class="col-12 col-md-12 col-lg-4">
+                            <form class="d-flex" role="search">
+                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-dark" type="submit">Buscar</button>
+                              </form>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Carrera</th>
+                                    <th scope="col">Universidad</th>
+                                    <th scope="col">Acciones</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <th class="align-middle" scope="row">1</th>
+                                    <td class="align-middle">Arquitectura y Diseño Industrial</td>
+                                    <td class="align-middle">
+                                        Universidad Nacional de Córdoba
+                                    </td>
+                                    <td class="align-middle">
+                                      <div class="d-flex align-items-center gap-2">
+                                        <a href="/careers/detail/1" class="btn btn-sm btn-outline-primary">+info</a>
+                                        <a href="/careers/edit/1" class="btn btn-sm btn-outline-success" >editar</a>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <th class="align-middle" scope="row">2</th>
+                                    <td class="align-middle">Ciencias Químicas</td>
+                                    <td class="align-middle">
+                                        Universidad Nacional de Córdoba
+                                    </td>
+                                    <td class="align-middle">
+                                      <div class="d-flex align-items-center gap-2">
+                                        <a href="/careers/detail" class="btn btn-sm btn-outline-primary">+info</a>
+                                        <a href="/careers/edit" class="btn btn-sm btn-outline-success" >editar</a>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                      <div class="d-flex justify-content-end">
+                        <a href="/careers/add" class="btn btn-outline-dark">Agregar</a>
+                    </div>
+                    </div>
+                </article>
+               
+            </div>
+        </section>
+
+    </main>
+    <%- include('./partials/scripts') %> 
+</body>
+</html>

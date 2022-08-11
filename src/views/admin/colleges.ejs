@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<%- include('./partials/head',{
+    title : 'Universidades'
+}) %> 
+<body class="colleges bg-light">
+    <%- include('./partials/header') %> 
+    <main class="container">
+        <section class="row mt-2 mt-md-3 mt-lg-5">
+            <div class="col-12 col-md-10 col-lg-8 mx-auto">
+             
+                <article class="card shadow">
+                    <div class="card-header">
+                      <div class="row g-2">
+                        <div class="col-12">
+                            <nav aria-label="breadcrumb">
+                              <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Universidades</li>
+                              </ol>
+                            </nav>
+                          <hr>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <select class="form-select">
+                                <option selected hidden>Ordenar por</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                              </select>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <select class="form-select">
+                                <option selected hidden>Filtar por</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                              </select>
+                        </div>
+                        <div class="col-12 col-md-12 col-lg-4">
+                            <form class="d-flex" role="search">
+                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-dark" type="submit">Buscar</button>
+                              </form>
+                        </div>
+                    </div>
+                       
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Logo</th>
+                                    <th scope="col">Area</th>
+                                    <th scope="col">Acciones</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <th class="align-middle" scope="row">1</th>
+                                    <td class="align-middle"><img width="100px" src="/images/noImage.png" alt=""></td>
+                                    <td class="align-middle">Universidad de Buenos Aires</td>
+                                    <td class="align-middle">
+                                      <div class="d-flex align-items-center gap-2">
+                                        <a href="/colleges/detail/1" class="btn btn-sm btn-outline-primary">+info</a>
+                                        <a href="/colleges/edit/1" class="btn btn-sm btn-outline-success" >editar</a>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <th class="align-middle" scope="row">1</th>
+                                    <td class="align-middle"><img width="100px" src="/images/noImage.png" alt=""></td>
+                                    <td class="align-middle">Universidad Nacional del Cuyo</td>
+                                    <td class="align-middle">
+                                      <div class="d-flex align-items-center gap-2">
+                                        <a href="/colleges/detail" class="btn btn-sm btn-outline-primary">+info</a>
+                                        <a href="/colleges/edit" class="btn btn-sm btn-outline-success" >editar</a>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                      <div class="d-flex justify-content-end">
+                        
+                        <a href="/colleges/add" class="btn btn-outline-dark">Agregar</a>
+                    </div>
+                       
+                    </div>
+                </article>
+               
+            </div>
+        </section>
+
+    </main>
+    <%- include('./partials/scripts') %> 
+</body>
+</html>

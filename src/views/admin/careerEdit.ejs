@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<%- include('./partials/head',{ title : 'Editar carrera' }) %>
+
+    <body class="careers bg-light">
+        <%- include('./partials/header') %>
+            <main class="container">
+                <section class="row mt-2 mt-md-3 mt-lg-5">
+                    <div class="col-12 col-md-10 col-lg-8 mx-auto">
+                        <article class="card shadow">
+                            <div class="card-header">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                      <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+                                      <li class="breadcrumb-item"><a href="/careers">Carreras</a></li>
+                                      <li class="breadcrumb-item active" aria-current="page">Editar carrera</li>
+                                    </ol>
+                                  </nav>
+                                <hr>
+                            </div>
+                            <div class="card-body">
+                                <form action="" class="row g-2" enctype="multipart/form-data">
+                                        <div class=" col-12 mb-3">
+                                            <label for="area" class="form-label">Nombre:</label>
+                                            <input type="text" class="form-control" id="area" name="name">
+                                        </div>
+                                        <div class=" col-12 col-md-6 mb-3">
+                                            <label for="area" class="form-label">Universidad:</label>
+                                            <select class="form-select" aria-label="Default select example">
+                                                <option selected hidden>Seleccione...</option>
+                                                <option value="1">One</option>
+                                                <option value="2">Two</option>
+                                                <option value="3">Three</option>
+                                              </select>
+                                        </div>
+                                        <div class=" col-12 col-md-6 mb-3">
+                                            <label for="area" class="form-label">Area:</label>
+                                            <select class="form-select" aria-label="Default select example">
+                                                <option selected hidden>Seleccione...</option>
+                                                <option value="1">One</option>
+                                                <option value="2">Two</option>
+                                                <option value="3">Three</option>
+                                              </select>
+                                        </div>
+                                        <div class=" col-12 mb-3">
+                                            <label for="description" class="form-label">Descripción:</label>
+                                            <textarea style="resize: none;" class="form-control" id="description" rows="3"></textarea>
+                                        </div>
+                            </div>
+                            <div class="card-footer text-end">
+                                <button class="btn btn-outline-dark" type="submit">Guardar</button>
+                            </div>
+                            </form>
+
+                        </article>
+
+                    </div>
+                </section>
+
+            </main>
+            <%- include('./partials/scripts') %>
+    </body>
+
+    </html>

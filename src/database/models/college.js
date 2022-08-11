@@ -17,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     image: DataTypes.STRING,
     visible: DataTypes.BOOLEAN,
-    areaId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'College',
