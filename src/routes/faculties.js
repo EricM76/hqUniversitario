@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const {add, store, list, detail, edit, update, remove, search, filter} = require('../controllers/facultiesController');
+const {add, store, list, detail, edit, update, remove, search, filter, getByUniversity} = require('../controllers/facultiesController');
 
 const {uploadLogos} = require('../middlewares/upLoadFiles')
 
@@ -16,6 +16,9 @@ router
   .delete('/remove/:id',remove)
   .get('/search',search)
   .get('/filter',filter)
+
+  /* APIS */
+  .get('/get-by-university',getByUniversity)
 
 
 module.exports = router;

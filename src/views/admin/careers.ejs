@@ -50,41 +50,30 @@
                                 <thead>
                                   <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Carreras</th>
+                                    <th scope="col">Carrera</th>
                                     <th scope="col">Facultad</th>
                                     <th scope="col">Universidad</th>
                                     <th scope="col">Acciones</th>
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <th class="align-middle" scope="row">1</th>
-                                    <td class="align-middle">Arquitectura, Diseño Industrial</td>
-                                    <td class="align-middle">Facultad de Arquietectura, Urbanismo y Diseño
-                                    </td>
-                                    <td class="align-middle">
-                                        Universidad Nacional de Córdoba
-                                    </td>
-                                    <td class="align-middle">
-                                      <div class="d-flex align-items-center gap-2">
-                                        <a href="/careers/detail/1" class="btn btn-sm btn-outline-primary">+info</a>
-                                        <a href="/careers/edit/1" class="btn btn-sm btn-outline-success" >editar</a>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="align-middle" scope="row">2</th>
-                                    <td class="align-middle">Ciencias Químicas</td>
-                                    <td class="align-middle">
-                                        Universidad Nacional de Córdoba
-                                    </td>
-                                    <td class="align-middle">
-                                      <div class="d-flex align-items-center gap-2">
-                                        <a href="/careers/detail" class="btn btn-sm btn-outline-primary">+info</a>
-                                        <a href="/careers/edit" class="btn btn-sm btn-outline-success" >editar</a>
-                                      </div>
-                                    </td>
-                                  </tr>
+                                  <% careers.forEach(({id,name,university,faculty}) => { %>
+                                    <tr>
+                                      <th class="align-middle" scope="row"><%= id %></th>
+                                      <td class="align-middle"><%= name %></td>
+                                      <td class="align-middle"><%= faculty.acronym %> 
+                                      </td>
+                                      <td class="align-middle">
+                                          <%= university.acronym %> 
+                                      </td>
+                                      <td class="align-middle">
+                                        <div class="d-flex align-items-center gap-2">
+                                          <a href="/careers/detail/<%= id %>" class="btn btn-sm btn-outline-primary">+info</a>
+                                          <a href="/careers/edit/<%= id %>" class="btn btn-sm btn-outline-success" >editar</a>
+                                        </div>
+                                      </td>
+                                    </tr>
+                                  <% }) %>
                                 </tbody>
                               </table>
                         </div>

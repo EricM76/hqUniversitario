@@ -98,5 +98,25 @@ module.exports = {
     },
     filter : (req,res) => {
         
+    },
+    /* APIS */
+    getByUniversity : async (req,res) => {
+        try {
+            let faculties = await db.Faculty.findAll({
+                where : {
+                    universityId : req.query.universityId
+                }
+            })
+            return res.status(200).json({
+                ok : true,
+                data : faculties
+            })
+        } catch (error) {
+            console.log(error);
+            return res.status(error.status).json({
+                ok: false,
+                data : error
+            })
+        }
     }
 }

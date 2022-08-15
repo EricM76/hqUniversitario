@@ -11,13 +11,22 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Career.belongsTo(models.University,{
+        foreignKey: 'universityId',
+        as : 'university'
+      });
+
+      Career.belongsTo(models.Faculty,{
+        foreignKey: 'facultyId',
+        as : 'faculty'
+      });
     }
   };
   Career.init({
     name: DataTypes.STRING,
     description: DataTypes.TEXT,
     facultyId: DataTypes.INTEGER,
-    universityId: DataTypes.INTEGER
+    universityId: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Career',

@@ -21,11 +21,13 @@
                                 <div class="d-flex gap-3 flex-wrap justify-content-around align-items-center">
                                         <img class="img-fluid" width="150px" src="/images/logos/<%= image ? image : 'noImage.png' %>"
                                             alt="vista previa">
-                                    <div style="width:600px">
+                                    <div style="width:600px" class="d-flex flex-column">
+                                        <a href="/faculties/edit/<%= id %>" class="btn btn-sm btn-outline-success align-self-end justify-content-center  mb-3">Editar</a>
                                         <h3><%= acronym %> | <%= name %></h3>
                                         <h5><%= university.name %> </h5>
                                         <p class="text-muted">Estadísticas</p>
                                     </div>
+                                    
                                 </div>
 
                             </div>

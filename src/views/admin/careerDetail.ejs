@@ -12,22 +12,23 @@
                                     <ol class="breadcrumb">
                                       <li class="breadcrumb-item"><a href="/admin">Home</a></li>
                                       <li class="breadcrumb-item"><a href="/careers">Carreras</a></li>
-                                      <li class="breadcrumb-item active" aria-current="page"> Carrera</li>
+                                      <li class="breadcrumb-item active" aria-current="page"> <%= name %> </li>
                                     </ol>
                                   </nav>
                                 <hr>
                             </div>
                             <div class="card-body">
                                         <div class=" col-12 mb-3">
-                                            <h3 for="area" class="form-label">Arquitectura y Diseño Industrial</h3>
-                                            <p class="text-muted">Estadísticas</p>
+                                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                                <h3 class="form-label"><%= name %></h3>
+                                                <a href="/careers/edit/<%= id %>" class="btn btn-sm btn-outline-success">Editar</a>
+                                            </div>
+                                            <h5 class=""><%= faculty.name %> | <%= university.name %> </h5>
+                                            <p><%= description %> </p>
+                                            <hr>
                                         </div>
                                         <div class="col-12 mb-3">
-                                            <ul class="list-group list-group-flush">
-                                                <li class="list-group-item">Universidad</li>
-                                                <li class="list-group-item">Area</li>
-                                                <li class="list-group-item">Descripción</li>
-                                              </ul>
+                                            <p class="text-muted">Estadísticas </p>
                                         </div>
                             </div>
                            
