@@ -30,10 +30,10 @@ app.use(session({
 /* ROUTES */
 app
   .use('/', require('./routes/main'))
-  .use('/areas', require('./routes/areas'))
+  .use('/faculties', require('./routes/faculties'))
   .use('/careers', require('./routes/careers'))
   .use('/categories', require('./routes/categories'))
-  .use('/colleges', require('./routes/colleges'))
+  .use('/universities', require('./routes/universities'))
   .use('/courses', require('./routes/courses'))
   .use('/genders', require('./routes/genders'))
   .use('/memberships', require('./routes/memberships'))

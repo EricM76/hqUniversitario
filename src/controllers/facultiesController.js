@@ -1,18 +1,20 @@
 module.exports = {
     add : (req,res) => {
-        return res.render('admin/collegeAdd')
+        return res.render('admin/facultyAdd')
+
     },
     store : (req,res) => {
 
     },
     list : (req,res) => {
-        return res.render('admin/colleges')
+        return res.render('admin/faculties')
     },
     detail : (req,res) => {
-        return res.render('admin/collegeDetail')
+        return res.render('admin/facultyDetail')
+
     },
     edit : (req,res) => {
-        return res.render('admin/collegeEdit')
+        return res.render('admin/facultyEdit')
     },
     update : (req,res) => {
 

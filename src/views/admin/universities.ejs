@@ -2,7 +2,7 @@
 <%- include('./partials/head',{
     title : 'Universidades'
 }) %> 
-<body class="colleges bg-light">
+<body class="universities bg-light">
     <%- include('./partials/header') %> 
     <main class="container">
         <section class="row mt-2 mt-md-3 mt-lg-5">
@@ -52,33 +52,25 @@
                                   <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Logo</th>
-                                    <th scope="col">Area</th>
+                                    <th scope="col">Universidad</th>
                                     <th scope="col">Acciones</th>
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <th class="align-middle" scope="row">1</th>
-                                    <td class="align-middle"><img width="100px" src="/images/noImage.png" alt=""></td>
-                                    <td class="align-middle">Universidad de Buenos Aires</td>
-                                    <td class="align-middle">
-                                      <div class="d-flex align-items-center gap-2">
-                                        <a href="/colleges/detail/1" class="btn btn-sm btn-outline-primary">+info</a>
-                                        <a href="/colleges/edit/1" class="btn btn-sm btn-outline-success" >editar</a>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="align-middle" scope="row">1</th>
-                                    <td class="align-middle"><img width="100px" src="/images/noImage.png" alt=""></td>
-                                    <td class="align-middle">Universidad Nacional del Cuyo</td>
-                                    <td class="align-middle">
-                                      <div class="d-flex align-items-center gap-2">
-                                        <a href="/colleges/detail" class="btn btn-sm btn-outline-primary">+info</a>
-                                        <a href="/colleges/edit" class="btn btn-sm btn-outline-success" >editar</a>
-                                      </div>
-                                    </td>
-                                  </tr>
+                                  <% universities.forEach(({id,name, acronym},index) => { %>
+                                    <tr>
+                                      <th class="align-middle" scope="row"><%= index + 1 %></th>
+                                      <td class="align-middle"><%= acronym %> </td>
+                                      <td class="align-middle"><%= name %> </td>
+                                      <td class="align-middle">
+                                        <div class="d-flex align-items-center gap-2">
+                                          <a href="/universities/detail/<%= id %>" class="btn btn-sm btn-outline-primary">+info</a>
+                                          <a href="/universities/edit/<%= id %>" class="btn btn-sm btn-outline-success" >editar</a>
+                                        </div>
+                                      </td>
+                                    </tr>
+                                  <% }) %>
+                                 
                                 </tbody>
                               </table>
                         </div>
@@ -86,7 +78,7 @@
                     <div class="card-footer">
                       <div class="d-flex justify-content-end">
                         
-                        <a href="/colleges/add" class="btn btn-outline-dark">Agregar</a>
+                        <a href="/universities/add" class="btn btn-outline-dark">Agregar</a>
                     </div>
                        
                     </div>

@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-const {add, store, list, detail, edit, update, remove, search, filter} = require('../controllers/collegesController');
+const {add, store, list, detail, edit, update, remove, search, filter} = require('../controllers/universitiesController');
 
-/* /colleges */
+/* /universities */
 router
   .get('/', list)
   .get('/detail/:id',detail)
