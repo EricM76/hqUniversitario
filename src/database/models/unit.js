@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Unit',
+    paranoid : true
   });
   return Unit;
 };

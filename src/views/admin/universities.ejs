@@ -57,9 +57,9 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <% universities.forEach(({id,name, acronym},index) => { %>
+                                  <% universities.forEach(({id,name, acronym}) => { %>
                                     <tr>
-                                      <th class="align-middle" scope="row"><%= index + 1 %></th>
+                                      <th class="align-middle" scope="row"><%= id %></th>
                                       <td class="align-middle"><%= acronym %> </td>
                                       <td class="align-middle"><%= name %> </td>
                                       <td class="align-middle">
@@ -70,7 +70,6 @@
                                       </td>
                                     </tr>
                                   <% }) %>
-                                 
                                 </tbody>
                               </table>
                         </div>
