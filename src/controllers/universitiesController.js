@@ -2,11 +2,20 @@ const db = require('../database/models');
 
 module.exports = {
     add : (req,res) => {
-       
             return res.render('admin/universityAdd')
     },
-    store : (req,res) => {
-        return res.send(req.body)
+    store : async (req,res) => {
+        try {
+            let {name, acronym} = req.body
+            await db.University.create({
+                name : name.trim(),
+                acronym : acronym.trim(),
+                image : req.file ? req.file.filename : "noImage.png"
+            })
+            return res.redirect('/universities')
+        } catch (error) {
+            console.log(error)
+        }
     },
     list : async (req,res) => {
         try {
@@ -22,7 +31,6 @@ module.exports = {
     detail : async (req,res) => {
         try {
             const university = await db.University.findByPk(req.params.id);
-            console.log(university);
             return res.render('admin/universityDetail', {
                 ...university.dataValues
             })
@@ -42,19 +50,21 @@ module.exports = {
             console.log(error)
         }    },
     update : async (req,res) => {
-        return res.send(req.body)
         try {
+            let {name, acronym} = req.body;
+            let university = await db.University.findByPk(req.params.id);
+
             await db.University.update(
                 {
-                    ...body
+                    name : name.trim(),
+                    acronym : acronym.trim(),
+                    image : req.file ? req.file.filename : university.image
                 },
                 {
                     where : {id : req.params.id}
                 }
             )
-            return res.render('admin/universityDetail', {
-                university
-            })
+            return res.redirect('/universities/detail/' + req.params.id)
 
         } catch (error) {
             console.log(error)

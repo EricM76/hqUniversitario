@@ -20,7 +20,7 @@
                             <div class="card-body">
                                 <form action="/universities/update/<%= id %>?_method=PUT" class="row g-2" enctype="multipart/form-data" method="POST">
                                     <div class="col-12 col-md-4 text-center">
-                                        <img class="img-fluid" width="150px" src="/images/<%= image %>"
+                                        <img class="img-fluid" width="150px" src="/images/logos/<%= image %>"
                                             alt="vista previa">
                                     </div>
                                     <div class="col-12 col-md-8">
@@ -37,7 +37,7 @@
                                                 <label for="formFile" class="btn btn-outline-dark"><%= image ? "Cambiar" : "Agregar" %>  
                                                     imagen</label>
                                                 <input hidden class="form-control" type="file" id="formFile"
-                                                    name="image">
+                                                    name="image" accept="image/*">
                                             </div>
                                         </div>
                                     </div>

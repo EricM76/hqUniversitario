@@ -58,30 +58,21 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <th class="align-middle" scope="row">1</th>
-                                    <td class="align-middle">FCEFyN</td>
-                                    <td class="align-middle">Facultad de Ciencias Exactas, Física y Naturales</td>
-                                    <td class="align-middle">UNC</td>
-                                    <td class="align-middle">
-                                      <div class="d-flex align-items-center gap-2">
-                                        <a href="/faculties/detail/1" class="btn btn-sm btn-outline-primary">+info</a>
-                                        <a href="/faculties/edit/1" class="btn btn-sm btn-outline-success" >editar</a>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="align-middle" scope="row">2</th>
-                                    <td class="align-middle">FCM</td>
-                                    <td class="align-middle">Facultad de Ciencias Médicas</td>
-                                    <td class="align-middle">UNC</td>
-                                    <td class="align-middle">
-                                      <div class="d-flex align-items-center gap-2">
-                                        <a href="/faculties/detail/2" class="btn btn-sm btn-outline-primary">+info</a>
-                                        <a href="/faculties/edit/2" class="btn btn-sm btn-outline-success" >editar</a>
-                                      </div>
-                                    </td>
-                                  </tr>
+                                  <% faculties.forEach(({id,name,acrosym,university}) => { %>
+                                    <tr>
+                                      <th class="align-middle" scope="row"><%= id %></th>
+                                      <td class="align-middle"><%= acrosym %></td>
+                                      <td class="align-middle"><%= name %></td>
+                                      <td class="align-middle"><%= university.acronym %></td>
+                                      <td class="align-middle">
+                                        <div class="d-flex align-items-center gap-2">
+                                          <a href="/faculties/detail/<%= id %>" class="btn btn-sm btn-outline-primary">+info</a>
+                                          <a href="/faculties/edit/<%= id %>" class="btn btn-sm btn-outline-success" >editar</a>
+                                        </div>
+                                      </td>
+                                    </tr>
+                                  <% }) %>
+                                 
                                 </tbody>
                               </table>
                         </div>
