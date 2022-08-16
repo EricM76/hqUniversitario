@@ -3,11 +3,13 @@ const router = express.Router();
 
 const {presentation,content, add, store, detail, edit, update,remove, filter, search, list } = require('../controllers/coursesController');
 
+const {upLoadNotes} = require('../middlewares/upLoadFiles')
+
 /* /courses */
 router
   .get('/',list)
   .get('/add', add)
-  .post('/add',store)
+  .post('/add',upLoadNotes.array('notes'),store)
   .get('/detail/:id',detail)
   .get('/edit/:id',edit)
   .put('/update/:id',update)

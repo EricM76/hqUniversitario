@@ -18,94 +18,83 @@
                                 <hr>
                             </div>
                             <div class="card-body">
-                                <form action="" class="row g-3" enctype="multipart/form-data">
+                                <form action="" class="row g-3" enctype="multipart/form-data" method="POST">
                                     <div class="col-12 col-md-7">
                                         <div class="row">
                                             <div class="col-12 mb-3">
                                                 <img src="/images/exampleBanner.jpeg" alt="" class="img-fluid">
                                             </div>
                                             <div class=" col-12 col-md-8 mb-3">
-                                                <label for="area" class="form-label">Nombre:</label>
-                                                <input type="text" class="form-control" id="area" name="name">
+                                                <label for="name" class="form-label">Nombre:</label>
+                                                <input type="text" class="form-control" id="name" name="name">
                                             </div>
                                             <div class=" col-12 col-md-4 mb-3 d-flex ">
                                                 <label for="formFile"
                                                     class="btn bt btn-outline-dark w-100 align-self-end">Portada</label>
-                                                <input hidden class="form-control" type="file" id="formFile">
+                                                <input hidden class="form-control" type="file" name="image" id="formFile">
                                             </div>
                                             <div class=" col-12 col-md-6 mb-3">
-                                                <label for="area" class="form-label">Universidad:</label>
-                                                <select class="form-select" aria-label="Default select example">
-                                                    <option selected hidden>Seleccione...</option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
+                                                <label for="universityId" class="form-label">Universidad:</label>
+                                                <select class="form-select" name="universityId" id="universityId">
+                                                    <option value="" selected hidden>Seleccione...</option>
+                                                   <% universities.forEach(university => { %>
+                                                    <option value="<%= university.id %>"><%= university.name %></option>
+                                                   <% }) %>
                                                 </select>
                                             </div>
                                             <div class=" col-12 col-md-6 mb-3">
-                                                <label for="area" class="form-label">Carrera</label>
-                                                <select class="form-select" aria-label="Default select example">
-                                                    <option selected hidden>Seleccione...</option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
+                                                <label for="facultyId" class="form-label">Facultad:</label>
+                                                <select class="form-select"  name="facultyId" id="facultyId">
+                                                   
                                                 </select>
                                             </div>
                                             <div class=" col-12 col-md-6 mb-3">
-                                                <label for="area" class="form-label">Area:</label>
-                                                <select class="form-select" aria-label="Default select example">
-                                                    <option selected hidden>Seleccione...</option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
+                                                <label for="careerId" class="form-label">Carreras</label>
+                                                <select class="form-select" name="careerId" id="careerId" multiple style="height: 130px;">
+                
                                                 </select>
                                             </div>
-                                            <div class=" col-12 col-md-6 mb-3">
-                                                <label for="area" class="form-label">Profesor/a:</label>
-                                                <select class="form-select" aria-label="Default select example">
-                                                    <option selected hidden>Seleccione...</option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
-                                                </select>
+                                           
+                                            <div class=" col-12 col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="teacherId" class="form-label">Profesor/a:</label>
+                                                    <select class="form-select" id="teacherId" name="teacherId">
+                                                        <option value="" selected hidden>Seleccione...</option>
+                                                        <% teachers.forEach(teacher => { %>
+                                                            <option value="<%= teacher.id %>"><%= teacher.surname %>, <%= teacher.name %></option>
+                                                           <% }) %>
+                                                    </select>
+                                                </div>
+                                              <div class="mb-3">
+                                                <label for="video" class="form-label">Video de presentación</label>
+                                                <input type="text" class="form-control">
+                                              </div>
                                             </div>
                                             <div class=" col-12 mb-3">
-                                                <label for="description" class="form-label">Descripción corta:</label>
-                                                <textarea style="resize: none;" class="form-control" id="description"
-                                                    rows="2"></textarea>
+                                                <label for="review" class="form-label">Descripción corta:</label>
+                                                <textarea style="resize: none;" class="form-control" id="review"
+                                                    rows="2" name="review"></textarea>
                                             </div>
                                             <div class=" col-12 mb-3">
                                                 <label for="description" class="form-label">Descripción larga:</label>
-                                                <textarea style="resize: none;" class="form-control" id="description"
+                                                <textarea style="resize: none;" class="form-control" id="description" name="description"
                                                     rows="4"></textarea>
                                             </div>
                                             <div class=" col-12 col-md-6 mb-3">
                                                 <div class="mb-2">
                                                     <label for="area" class="form-label">Exámenes</label>
-                                                    <select class="form-select" aria-label="Default select example">
+                                                    <select class="form-select" multiple id="tests" name="tests">
                                                         <option value="1">One</option>
                                                         <option value="2">Two</option>
                                                         <option value="3">Three</option>
                                                     </select>
                                                 </div>
-                                               
-                                                <select class="form-select" aria-label="Default select example" multiple>
-                                                    
-                                                </select>
                                             </div>
                                             <div class=" col-12 col-md-6 mb-3">
                                                 <div class="mb-2">
-                                                    <label for="area" class="form-label">Apuntes</label>
-                                                    <select class="form-select" aria-label="Default select example">
-                                                        <option value="1">One</option>
-                                                        <option value="2">Two</option>
-                                                        <option value="3">Three</option>
-                                                    </select>
+                                                    <label for="formFileMultiple" class="form-label">Apuntes</label>
+                                                    <input class="form-control" type="file" id="formFileMultiple" multiple>
                                                 </div>
-                                               
-                                                <select class="form-select" aria-label="Default select example" multiple>
-                                                    
-                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -146,11 +135,7 @@
                                                     </div>
                                                   </article>
                                             <% } %>
-                                          
-                                            
                                         </div>
-                                       
-        
                                     </div>
 
                                     <div class="card-footer text-end">
@@ -166,6 +151,7 @@
 
             </main>
             <%- include('./partials/scripts') %>
+
     </body>
 
     </html>

@@ -1,9 +1,21 @@
+const db = require('../database/models');
+
 module.exports = {
-    add : (req,res) => {
-        return res.render('admin/courseAdd')
+    add : async (req,res) => {
+        try {
+            let universities = await db.University.findAll();
+            let teachers = await db.Teacher.findAll();
+            return res.render('admin/courseAdd',{
+                universities,
+                teachers
+            })
+
+        } catch (error) {
+            console.log(error)
+        }
     },
     store : (req,res) => {
-
+        return res.send(req.body)
     },
     list : (req,res) => {
         return res.render('admin/courses')

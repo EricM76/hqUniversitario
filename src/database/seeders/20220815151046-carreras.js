@@ -42,7 +42,7 @@ const carreras4 = [
 ];
 
 const carreras5 = [
-"Bioquíca",
+"Bioquímica",
 "Farmacia",
 "Licenciatura en Química",
 "Licenciatura en Biotecnología",
