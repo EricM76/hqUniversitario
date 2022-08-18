@@ -31,44 +31,50 @@
                                             <div class=" col-12 col-md-4 mb-3 d-flex ">
                                                 <label for="formFile"
                                                     class="btn bt btn-outline-dark w-100 align-self-end">Portada</label>
-                                                <input hidden class="form-control" type="file" name="image" id="formFile">
+                                                <input hidden class="form-control" type="file" name="image"
+                                                    id="formFile">
                                             </div>
                                             <div class=" col-12 col-md-6 mb-3">
                                                 <label for="universityId" class="form-label">Universidad:</label>
                                                 <select class="form-select" name="universityId" id="universityId">
                                                     <option value="" selected hidden>Seleccione...</option>
-                                                   <% universities.forEach(university => { %>
-                                                    <option value="<%= university.id %>"><%= university.name %></option>
-                                                   <% }) %>
+                                                    <% universities.forEach(university=> { %>
+                                                        <option value="<%= university.id %>">
+                                                            <%= university.name %>
+                                                        </option>
+                                                        <% }) %>
                                                 </select>
                                             </div>
                                             <div class=" col-12 col-md-6 mb-3">
                                                 <label for="facultyId" class="form-label">Facultad:</label>
-                                                <select class="form-select"  name="facultyId" id="facultyId">
-                                                   
+                                                <select class="form-select" name="facultyId" id="facultyId">
+
                                                 </select>
                                             </div>
                                             <div class=" col-12 col-md-6 mb-3">
                                                 <label for="careerId" class="form-label">Carreras</label>
-                                                <select class="form-select" name="careerId" id="careerId" multiple style="height: 130px;">
-                
+                                                <select class="form-select" name="careerId" id="careerId" multiple
+                                                    style="height: 130px;">
+
                                                 </select>
                                             </div>
-                                           
+
                                             <div class=" col-12 col-md-6">
                                                 <div class="mb-3">
                                                     <label for="teacherId" class="form-label">Profesor/a:</label>
                                                     <select class="form-select" id="teacherId" name="teacherId">
                                                         <option value="" selected hidden>Seleccione...</option>
-                                                        <% teachers.forEach(teacher => { %>
-                                                            <option value="<%= teacher.id %>"><%= teacher.surname %>, <%= teacher.name %></option>
-                                                           <% }) %>
+                                                        <% teachers.forEach(teacher=> { %>
+                                                            <option value="<%= teacher.id %>">
+                                                                <%= teacher.surname %>, <%= teacher.name %>
+                                                            </option>
+                                                            <% }) %>
                                                     </select>
                                                 </div>
-                                              <div class="mb-3">
-                                                <label for="video" class="form-label">Video de presentación</label>
-                                                <input type="text" class="form-control">
-                                              </div>
+                                                <div class="mb-3">
+                                                    <label for="video" class="form-label">Video de presentación</label>
+                                                    <input type="text" class="form-control">
+                                                </div>
                                             </div>
                                             <div class=" col-12 mb-3">
                                                 <label for="review" class="form-label">Descripción corta:</label>
@@ -77,8 +83,30 @@
                                             </div>
                                             <div class=" col-12 mb-3">
                                                 <label for="description" class="form-label">Descripción larga:</label>
-                                                <textarea style="resize: none;" class="form-control" id="description" name="description"
-                                                    rows="4"></textarea>
+                                                <textarea style="resize: none;" class="form-control" id="description"
+                                                    name="description" rows="4"></textarea>
+                                            </div>
+                                            <div class=" col-12 mb-3" id="box-notes">
+                                                <label for="" class="form-label">Apuntes</label>
+                                                <div class="d-flex align-items-center gap-2" id="box1">
+                                                    <div class="mb-3">
+                                                        <label id="label1" class="fs-2 text-danger d-none"><i class="fa fa-file-pdf-o"></i></label>
+                                                        <input class="form-control" type="file" id="note"  name="note"
+                                                            accept=".pdf" data-box="1" onchange="addInput(event)">
+                                                    </div>
+                                                   
+                                                    <div id="box-note1" class="d-flex gap-2 align-items-center w-100 d-none">
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text"
+                                                                id="basic-addon3">Título</span>
+                                                            <input type="text" class="form-control" id="title1"
+                                                                aria-describedby="basic-addon3" name="titles">
+                                                        </div>
+                                                        <p class="fs-2 text-danger" onclick="removeInput('box1')">
+                                                            <i class="fa fa-times"></i>
+                                                        </p>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class=" col-12 col-md-6 mb-3">
                                                 <div class="mb-2">
@@ -90,51 +118,49 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class=" col-12 col-md-6 mb-3">
-                                                <div class="mb-2">
-                                                    <label for="formFileMultiple" class="form-label">Apuntes</label>
-                                                    <input class="form-control" type="file" id="formFileMultiple" multiple>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
-                                    <div class="courses__videos--box col-12 col-md-5" >
+                                    <div class="courses__videos--box col-12 col-md-5">
                                         <div class="d-flex flex-wrap justify-content-between gap-2">
-                                            <% for( let i = 0; i < 24; i++ ) { %>
+                                            <% for( let i=0; i < 24; i++ ) { %>
                                                 <article class="card courses__card">
                                                     <img src="/images/videoPreview.png" class="card-img-top" alt="...">
                                                     <div class="card-body">
-                                                      <h5 class="card-title">Video title</h5>
-                                                      <div class="d-flex justify-content-around">
-                                                        <div class=" mb-2">
-                                                            <label class="fs-4" for="locked">
-                                                                <i class="fas fa-lock"></i>
-                                                            </label>
-                                                            <input type="checkbox" value="" id="locked" checked hidden>
-                                                            
-                                                          </div>
-                                                          <a href="" class="fs-4 text-danger"><i class="fas fa-trash"></i></a>
-                                                      </div>
-                                                     
-                                                      <div class="mb-2">
-                                                        <select class="form-select form-select-sm" id="order" aria-label=".form-select-sm example">
-                                                            <option selected hidden>Orden...</option>
-                                                            <option value="1">1</option>
-                                                            <option value="2">2</option>
-                                                            <option value="3">3</option>
-                                                          </select>
-                                                      </div>
-                                                      <div class="mb-2">
-                                                        <select class="form-select form-select-sm" id="order" aria-label=".form-select-sm example">
-                                                            <option selected hidden>Categoría...</option>
-                                                            <option value="1">1</option>
-                                                            <option value="2">2</option>
-                                                            <option value="3">3</option>
-                                                          </select>
-                                                      </div>
+                                                        <h5 class="card-title">Video title</h5>
+                                                        <div class="d-flex justify-content-around">
+                                                            <div class=" mb-2">
+                                                                <label class="fs-4" for="locked">
+                                                                    <i class="fas fa-lock"></i>
+                                                                </label>
+                                                                <input type="checkbox" value="" id="locked" checked
+                                                                    hidden>
+
+                                                            </div>
+                                                            <a href="" class="fs-4 text-danger"><i
+                                                                    class="fas fa-trash"></i></a>
+                                                        </div>
+
+                                                        <div class="mb-2">
+                                                            <select class="form-select form-select-sm" id="order"
+                                                                aria-label=".form-select-sm example">
+                                                                <option selected hidden>Orden...</option>
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="mb-2">
+                                                            <select class="form-select form-select-sm" id="order"
+                                                                aria-label=".form-select-sm example">
+                                                                <option selected hidden>Categoría...</option>
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
-                                                  </article>
-                                            <% } %>
+                                                </article>
+                                                <% } %>
                                         </div>
                                     </div>
 
@@ -142,7 +168,7 @@
                                         <button class="btn btn-outline-dark" type="submit">Guardar</button>
                                     </div>
 
-                            </form>
+                                </form>
 
                         </article>
 
@@ -151,7 +177,7 @@
 
             </main>
             <%- include('./partials/scripts') %>
-
+            <script src="/javascripts/courses.js"></script>
     </body>
 
     </html>

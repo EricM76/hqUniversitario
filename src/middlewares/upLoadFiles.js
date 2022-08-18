@@ -43,12 +43,12 @@ const fileFilterDocuments = function(req, file,callback) {
 
 const uploadLogos =  multer({
     storage : storageLogos,
-    fileFilterImages,
+    fileFilter: fileFilterImages,
 });
 
 const upLoadNotes = multer({
     storage : storageNotes,
-    fileFilterDocuments
+    fileFilter: fileFilterDocuments
 })
 
 

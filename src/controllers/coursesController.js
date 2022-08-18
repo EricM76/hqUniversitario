@@ -15,7 +15,7 @@ module.exports = {
         }
     },
     store : (req,res) => {
-        return res.send(req.body)
+        return res.send(req.files)
     },
     list : (req,res) => {
         return res.render('admin/courses')

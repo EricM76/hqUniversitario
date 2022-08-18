@@ -9,7 +9,7 @@ const {upLoadNotes} = require('../middlewares/upLoadFiles')
 router
   .get('/',list)
   .get('/add', add)
-  .post('/add',upLoadNotes.array('notes'),store)
+  .post('/add',upLoadNotes.any(),store)
   .get('/detail/:id',detail)
   .get('/edit/:id',edit)
   .put('/update/:id',update)

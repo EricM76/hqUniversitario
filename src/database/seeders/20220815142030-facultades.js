@@ -37,6 +37,12 @@ const facultades = [
     "image" : null,
     "universityId" : 1 
   },
+  {
+    "name": "Facultad Ciencias Médicas",
+    "acronym": "FCM",
+    "image" : null,
+    "universityId" : 2
+  },
 ]
 
 
