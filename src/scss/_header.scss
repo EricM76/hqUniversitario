@@ -1,9 +1,25 @@
-.header__logo-container{
-    width: 4rem;
-    height: 4rem;
-    a {
-        img {
-            width: 100%;
+.main-header{
+    .header__logo-container{
+        width: 4rem;
+        height: 4rem;
+        a {
+            img {
+                width: 100%;
+            }
+        }
+    }
+    .header__searchBar-container {
+        display: flex;
+        justify-content: space-between;
+        border: 1px solid $hq-secondary;
+        background-color: white;
+        padding: 0.5rem 1rem;
+        .header__searchBar-input{
+            border:none;
+            background-color: white;
+        }
+        .header__searchBar-button{
+            
         }
     }
 }
