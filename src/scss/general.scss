@@ -1,3 +1,6 @@
+body {
+    font-family: $hq-font !important;
+}
 ul, ol {
     padding: 0;
 }
@@ -5,6 +8,35 @@ li {
     list-style: none;
 }
 a{
-    text-decoration: none;
+    text-decoration: none !important;
     color: inherit;
+}
+
+.button-base {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0rem 1rem;
+    height: 3rem;
+    transition: all 0.5s ease;
+}
+
+.button__light {
+    @extend .button-base;
+    border: 1px solid $hq-secondary;
+    color: $hq-secondary;
+    &:hover {
+        color: white;
+        background-color: $hq-secondary;
+    }
+}
+.button__dark {
+    @extend .button-base;
+    color: white;
+    background-color: $hq-secondary;
+    border: 1px solid $hq-secondary;
+    &:hover {
+        background-color: white;
+        color: $hq-secondary;
+    }
 }
