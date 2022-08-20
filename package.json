@@ -5,10 +5,11 @@
   "scripts": {
     "start": "node ./src/bin/www",
     "scss": "node-sass --recursive ./src/scss -o ./public/stylesheets",
-    "dev" : "concurrently \"nodemon ./src/bin/www \" \"node-sass --watch ./src/scss -o ./public/stylesheets \"  "
+    "dev": "concurrently \"nodemon ./src/bin/www \" \"node-sass --watch ./src/scss -o ./public/stylesheets \"  "
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "bootstrap": "^5.2.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^16.0.1",
