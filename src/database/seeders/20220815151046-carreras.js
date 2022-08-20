@@ -60,6 +60,26 @@ const carreras6 = [
   "Tecnicatura Universitaria en Matemática Aplicada",
 ]
 
+const carreras7 = [
+  "Medicina",
+  "Enfermería Universitaria",
+  "Licenciatura en Higiene y Seguridad en el Trabajo",
+  "Tecnicatura en Anestesia",
+  "Tecnicatura en Diagnóstico por Imágenes",
+  "Tecnicatura Universitaria en Hemoterapia",
+  "Tecnicatura universitaria en Laboratorio",
+  "Tecnicatura en Oftalmología",
+  "Tecnicatura universitaria en Quirófano"
+]
+
+const carreras8 = [
+  "CBC",
+]
+
+const carreras9 = [
+  "UBA XXI",
+]
+
 let carreras = carreras1.map(carrera => {
   return {
     name: carrera,
@@ -129,6 +149,45 @@ carreras_db = carreras6.map(carrera => {
     description: null,
     facultyId: 6,
     universityId: 1,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  }
+});
+
+carreras = [...carreras, ...carreras_db];
+
+carreras_db = carreras7.map(carrera => {
+  return {
+    name: carrera,
+    description: null,
+    facultyId: 7,
+    universityId: 2,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  }
+});
+
+carreras = [...carreras, ...carreras_db];
+
+carreras_db = carreras8.map(carrera => {
+  return {
+    name: carrera,
+    description: null,
+    facultyId: 8,
+    universityId: 3,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  }
+});
+
+carreras = [...carreras, ...carreras_db];
+
+carreras_db = carreras9.map(carrera => {
+  return {
+    name: carrera,
+    description: null,
+    facultyId: 9,
+    universityId: 3,
     createdAt: new Date(),
     updatedAt: new Date(),
   }

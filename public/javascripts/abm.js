@@ -16,9 +16,10 @@ $('universityId') && $('universityId').addEventListener('change', async ({ targe
         let result = await response.json()
         /* console.log(result) */
         if (result.ok) {
+            $('careerId').innerHTML = null;
             $('facultyId').innerHTML = '<option value="" select hidden>Seleccione...</option>'
             result.data.forEach(faculty => {
-                $('facultyId').innerHTML += `<option value="${faculty.id}">${faculty.name}</option>`
+            $('facultyId').innerHTML += `<option value="${faculty.id}">${faculty.name}</option>`
             })
         } else {
             throw new Error('upss, algo anduvo mal')
@@ -39,6 +40,11 @@ $('facultyId') && $('facultyId').addEventListener('change', async ({ target }) =
             result.data.forEach(career => {
             $('careerId').innerHTML += `<option value="${career.id}">${career.name}</option>`
         })
+
+        if($('check-all')){
+            $('check-all').disabled = false
+        } 
+
         } else {
             throw new Error('upss, algo anduvo mal')
         }
@@ -46,6 +52,24 @@ $('facultyId') && $('facultyId').addEventListener('change', async ({ target }) =
         console.error
     }
 });
+
+$('check-all') && $('check-all').addEventListener('click', ({target}) => {
+    if(target.checked){
+        for (var i = 0; i <  $('careerId').options.length; i++) {
+            $('careerId').options[i].selected = true;
+        }
+        for (var i = 0; i <  $('careerId').options.length; i++) {
+            careersSelected[i] =  $('careerId').options[i].selected;
+        }
+    }else {
+        for (var i = 0; i <  $('careerId').options.length; i++) {
+            $('careerId').options[i].selected = false;
+        }
+        for (var i = 0; i <  $('careerId').options.length; i++) {
+            careersSelected[i] =  $('careerId').options[i].selected;
+        }
+    }
+})
 
 
 $('careerId') && $('careerId').addEventListener('change', ({ target }) => {

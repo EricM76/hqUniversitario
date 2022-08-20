@@ -43,12 +43,24 @@ const facultades = [
     "image" : null,
     "universityId" : 2
   },
+  {
+    "name": "Ciclo Básico Común",
+    "acronym": "CBC",
+    "image" : null,
+    "universityId" : 3
+  },
+  {
+    "name": "Educación a Distancia de la UBA",
+    "acronym": "UBA XXI",
+    "image" : null,
+    "universityId" : 3
+  }
 ]
 
 
-const facultades_db = facultades.map(universidad => {
+const facultades_db = facultades.map(facultad => {
   return {
-    ...universidad,
+    ...facultad,
     createdAt: new Date(),
     updatedAt: new Date(),
   }
