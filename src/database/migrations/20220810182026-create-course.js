@@ -32,11 +32,20 @@ module.exports = {
           key: 'id'
         },
       },
-      careerId: {
+      universityId: {
         type: Sequelize.INTEGER,
         references: {
           model: {
-            tableName: 'Careers'
+            tableName: 'Universities'
+          },
+          key: 'id'
+        },
+      },
+      facultyId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'Faculties'
           },
           key: 'id'
         },

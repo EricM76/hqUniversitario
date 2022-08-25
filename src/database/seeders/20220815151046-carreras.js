@@ -7,28 +7,28 @@ const carreras1 = [
 
 const carreras2 = [
   "Contador/a Público/a",
-  "Licenciatura en Administración",
-  "Licenciatura en Economía",
-  "Profesorado en Ciencias Económicas",
-  "Licenciatura en Gestión Universitaria",
+  "Lic. en Administración",
+  "Lic. en Economía",
+  "Prof. en Ciencias Económicas",
+  "Lic. en Gestión Universitaria",
 ]
 
 const carreras3 = [
-  "Ingeniería Mecánica",
-  "Ingenería Electrónica",
-  "Ingeniería Civil",
-  "Ingeniería Industrial",
-  "Ingeniería en Computación",
-  "Profesorado en Ciencias Biológicas",
+  "Ing. Mecánica",
+  "Ing. Electrónica",
+  "Ing. Civil",
+  "Ing. Industrial",
+  "Ing. en Computación",
+  "Prof. en Ciencias Biológicas",
   "Ciencias Biolócias",
   "Ciencias Geológicas",
-  "Ingenería en Agrimensura",
-  "Ingeniería Aeronáutica",
-  "Ingenería Biomédica",
+  "Ing. en Agrimensura",
+  "Ing. Aeronáutica",
+  "Ing. Biomédica",
   "Constructor",
-  "Ingenería Ambiental",
-  "Ingenería Química",
-  "Ingeniería Electromecánica",
+  "Ing. Ambiental",
+  "Ing. Química",
+  "Ing. Electromecánica",
   "Técnico Mecánico Electricista",
 ]
 
@@ -44,32 +44,32 @@ const carreras4 = [
 const carreras5 = [
 "Bioquímica",
 "Farmacia",
-"Licenciatura en Química",
-"Licenciatura en Biotecnología",
+"Lic. en Química",
+"Lic. en Biotecnología",
 ]
 
 const carreras6 = [
-  "Licenciatura en Matemática",
-  "Licenciatura en Física",
-  "Licenciatura en Astronomía",
-  "Licenciatura en Ciencias de la Computación",
-  "Profesorado en Matemática",
-  "Profesorado en Física",
+  "Lic. en Matemática",
+  "Lic. en Física",
+  "Lic. en Astronomía",
+  "Lic. en Ciencias de la Computación",
+  "Prof. en Matemática",
+  "Prof. en Física",
   "Analista en Computación",
-  "Licenciatura en Matemática Aplicada",
-  "Tecnicatura Universitaria en Matemática Aplicada",
+  "Lic. en Matemática Aplicada",
+  "Tec. Universitaria en Matemática Aplicada",
 ]
 
 const carreras7 = [
   "Medicina",
   "Enfermería Universitaria",
-  "Licenciatura en Higiene y Seguridad en el Trabajo",
-  "Tecnicatura en Anestesia",
-  "Tecnicatura en Diagnóstico por Imágenes",
-  "Tecnicatura Universitaria en Hemoterapia",
-  "Tecnicatura universitaria en Laboratorio",
-  "Tecnicatura en Oftalmología",
-  "Tecnicatura universitaria en Quirófano"
+  "Lic. en Higiene y Seguridad en el Trabajo",
+  "Tec. en Anestesia",
+  "Tec. en Diagnóstico por Imágenes",
+  "Tec. Universitaria en Hemoterapia",
+  "Tec. universitaria en Laboratorio",
+  "Tec. en Oftalmología",
+  "Tec. universitaria en Quirófano"
 ]
 
 const carreras8 = [

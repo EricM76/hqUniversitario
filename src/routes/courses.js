@@ -3,16 +3,16 @@ const router = express.Router();
 
 const {presentation,content, add, store, detail, edit, update,remove, filter, search, list } = require('../controllers/coursesController');
 
-const {upLoadNotes} = require('../middlewares/upLoadFiles')
+const {uploadCourse} = require('../middlewares/upLoadFiles')
 
 /* /courses */
 router
   .get('/',list)
   .get('/add', add)
-  .post('/add',upLoadNotes.any(),store)
+  .post('/add',uploadCourse.fields([ {name:'image'}, {name:'video'}, {name:'note'}]),store)
   .get('/detail/:id',detail)
   .get('/edit/:id',edit)
-  .put('/update/:id',update)
+  .put('/update/:id',uploadCourse.fields([ {name:'image'}, {name:'video'}, {name:'note'}]),update)
   .delete('/remove/:id',remove)
   .get('/filter',filter)
   .get('/search',search)

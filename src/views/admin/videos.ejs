@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<%- include('./partials/head',{
+    title : 'Videos'
+}) %> 
+<body class="admin">
+    <%- include('./partials/header') %> 
+    <main class="container">
+        <h1>Video Test</h1>
+        <video id="videoPlayer" width="650" controls autoplay>
+            <source src="/videos/show" type="video/mp4" />
+          </video>
+    </main>
+    <%- include('./partials/scripts') %> 
+</body>
+</html>

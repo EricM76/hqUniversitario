@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const {add, store, list, detail, edit, update, remove, search, filter} = require('../controllers/videosController');
+const {add, store,show, list, detail, edit, update, remove, search, filter} = require('../controllers/videosController');
 
 /* /videos */
 router
   .get('/', list)
+  .get('/show',show)
   .get('/detail/:id',detail)
   .get('/add',add)
   .post('/add',store)

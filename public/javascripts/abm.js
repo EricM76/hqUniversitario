@@ -16,7 +16,7 @@ $('universityId') && $('universityId').addEventListener('change', async ({ targe
         let result = await response.json()
         /* console.log(result) */
         if (result.ok) {
-            $('careerId').innerHTML = null;
+            $('careers').innerHTML = null;
             $('facultyId').innerHTML = '<option value="" select hidden>Seleccione...</option>'
             result.data.forEach(faculty => {
             $('facultyId').innerHTML += `<option value="${faculty.id}">${faculty.name}</option>`
@@ -35,10 +35,10 @@ $('facultyId') && $('facultyId').addEventListener('change', async ({ target }) =
         let result = await response.json()
         
         if (result.ok) {
-            $('careerId').innerHTML = null;
+            $('careers').innerHTML = null;
             careersSelected = [];
             result.data.forEach(career => {
-            $('careerId').innerHTML += `<option value="${career.id}">${career.name}</option>`
+            $('careers').innerHTML += `<option value="${career.id}">${career.name}</option>`
         })
 
         if($('check-all')){
@@ -55,24 +55,24 @@ $('facultyId') && $('facultyId').addEventListener('change', async ({ target }) =
 
 $('check-all') && $('check-all').addEventListener('click', ({target}) => {
     if(target.checked){
-        for (var i = 0; i <  $('careerId').options.length; i++) {
-            $('careerId').options[i].selected = true;
+        for (var i = 0; i <  $('careers').options.length; i++) {
+            $('careers').options[i].selected = true;
         }
-        for (var i = 0; i <  $('careerId').options.length; i++) {
-            careersSelected[i] =  $('careerId').options[i].selected;
+        for (var i = 0; i <  $('careers').options.length; i++) {
+            careersSelected[i] =  $('careers').options[i].selected;
         }
     }else {
-        for (var i = 0; i <  $('careerId').options.length; i++) {
-            $('careerId').options[i].selected = false;
+        for (var i = 0; i <  $('careers').options.length; i++) {
+            $('careers').options[i].selected = false;
         }
-        for (var i = 0; i <  $('careerId').options.length; i++) {
-            careersSelected[i] =  $('careerId').options[i].selected;
+        for (var i = 0; i <  $('careers').options.length; i++) {
+            careersSelected[i] =  $('careers').options[i].selected;
         }
     }
 })
 
 
-$('careerId') && $('careerId').addEventListener('change', ({ target }) => {
+$('careers') && $('careers').addEventListener('change', ({ target }) => {
     let index = target.selectedIndex;
 
     careersSelected[index] = !careersSelected[index];

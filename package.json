@@ -8,6 +8,7 @@
     "dev": "concurrently \"nodemon ./src/bin/www \" \"node-sass --watch ./src/scss -o ./public/stylesheets \"  "
   },
   "dependencies": {
+    "@vimeo/player": "^2.17.1",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.2.0",
     "cookie-parser": "~1.4.4",
@@ -24,6 +25,7 @@
     "mysql2": "^2.3.3",
     "node-sass": "^7.0.1",
     "normalize.css": "^8.0.1",
-    "sequelize": "^6.21.3"
+    "sequelize": "^6.21.3",
+    "vimeo": "^2.1.1"
   }
 }

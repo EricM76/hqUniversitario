@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%- include('./partials/head',{ title : 'Editar materia' }) %>
+<%- include('./partials/head',{ title : 'Nueva materia' }) %>
 
     <body class="courses bg-light">
         <%- include('./partials/header') %>
@@ -18,147 +18,266 @@
                                 <hr>
                             </div>
                             <div class="card-body">
-                                <form action="" class="row g-3" enctype="multipart/form-data">
-                                    <div class="col-12 col-md-7">
-                                        <div class="row">
-                                            <div class="col-12 mb-3">
-                                                <img src="/images/exampleBanner.jpeg" alt="" class="img-fluid">
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link <%= next === 'info' && 'active' %>" id="info-tab" data-bs-toggle="tab"
+                                            data-bs-target="#info-tab-pane" type="button" role="tab"
+                                            aria-controls="info-tab-pane" aria-selected="true">Información</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link <%= next === 'notes' && 'active' %>" id="apuntes-tab" data-bs-toggle="tab"
+                                            data-bs-target="#apuntes-tab-pane" type="button" role="tab"
+                                            aria-controls="apuntes-tab-pane" aria-selected="false">Apuntes</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link <%= next === 'videos' && 'active' %>" id="videos-tab" data-bs-toggle="tab"
+                                            data-bs-target="#videos-tab-pane" type="button" role="tab"
+                                            aria-controls="videos-tab-pane" aria-selected="false">Videos</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link <%= next === 'tests' && 'active' %>" id="examenes-tab" data-bs-toggle="tab"
+                                            data-bs-target="#examenes-tab-pane" type="button" role="tab"
+                                            aria-controls="examenes-tab-pane" aria-selected="false">Exámenes</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation" hidden>
+                                        <button class="nav-link text-dark" id="disabled-tab" data-bs-toggle="tab"
+                                            data-bs-target="#disabled-tab-pane" type="button" role="tab"
+                                            aria-controls="disabled-tab-pane" aria-selected="false"
+                                            disabled>Disabled</button>
+                                    </li>
+                                </ul>
+                                  <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade <%= next === 'info' && 'show active' %> py-3" id="info-tab-pane" role="tabpanel" aria-labelledby="info-tab" tabindex="0">
+                                        <form action="/courses/update/<%= course.id %>?_method=PUT&section=info" class="row g-3 position-relative" enctype="multipart/form-data" method="POST" id="form-add-course">
+                                            <div class="col-12 col-lg-6">
+                                                <div class="row">
+                                                   
+                                                    <div class=" col-12 mb-3">
+                                                        <label for="name" class="form-label">Nombre:</label>
+                                                        <input type="text" class="form-control" id="name" name="name" value="<%= course.name %>">
+                                                    </div>
+                                                    <div class=" col-12 mb-3">
+                                                        <label for="review" class="form-label">Descripción corta:</label>
+                                                        <textarea style="resize: none;" class="form-control" id="review"
+                                                            rows="1" name="review"><%= course.review %></textarea>
+                                                    </div>
+                                                    <div class=" col-12 mb-3">
+                                                        <label for="description" class="form-label">Descripción larga:</label>
+                                                        <textarea style="resize: none;" class="form-control" id="description"
+                                                            name="description" rows="2"><%= course.description %></textarea>
+                                                    </div>
+                                                    <div class=" col-12 mb-3">
+                                                        <label for="description" class="form-label">Aprenderás...:</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" id="add-feature">
+                                                            <span class="input-group-text btn btn-outline-dark" id="btn-add-feature"><i class="fa fa-check" aria-hidden="true"></i></span>
+                                                          </div>
+                                                    </div>
+                                                    <div class=" col-12 mb-3">
+                                                        <select name="features" id="features" multiple style="height: 200px;" class="form-control">
+                                                        <% course.features.forEach(feature => { %>
+                                                         <option value="<%= feature.content %>"><%= feature.content %></option>
+                                                        <% }) %>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                
                                             </div>
-                                            <div class=" col-12 col-md-8 mb-3">
-                                                <label for="area" class="form-label">Nombre:</label>
-                                                <input type="text" class="form-control" id="area" name="name">
-                                            </div>
-                                            <div class=" col-12 col-md-4 mb-3 d-flex ">
-                                                <label for="formFile"
-                                                    class="btn bt btn-outline-dark w-100 align-self-end">Portada</label>
-                                                <input hidden class="form-control" type="file" id="formFile">
-                                            </div>
-                                            <div class=" col-12 col-md-6 mb-3">
-                                                <label for="area" class="form-label">Universidad:</label>
-                                                <select class="form-select" aria-label="Default select example">
-                                                    <option selected hidden>Seleccione...</option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
-                                                </select>
-                                            </div>
-                                            <div class=" col-12 col-md-6 mb-3">
-                                                <label for="area" class="form-label">Carrera</label>
-                                                <select class="form-select" aria-label="Default select example">
-                                                    <option selected hidden>Seleccione...</option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
-                                                </select>
-                                            </div>
-                                            <div class=" col-12 col-md-6 mb-3">
-                                                <label for="area" class="form-label">Area:</label>
-                                                <select class="form-select" aria-label="Default select example">
-                                                    <option selected hidden>Seleccione...</option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
-                                                </select>
-                                            </div>
-                                            <div class=" col-12 col-md-6 mb-3">
-                                                <label for="area" class="form-label">Profesor/a:</label>
-                                                <select class="form-select" aria-label="Default select example">
-                                                    <option selected hidden>Seleccione...</option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
-                                                </select>
-                                            </div>
-                                            <div class=" col-12 mb-3">
-                                                <label for="description" class="form-label">Descripción corta:</label>
-                                                <textarea style="resize: none;" class="form-control" id="description"
-                                                    rows="2"></textarea>
-                                            </div>
-                                            <div class=" col-12 mb-3">
-                                                <label for="description" class="form-label">Descripción larga:</label>
-                                                <textarea style="resize: none;" class="form-control" id="description"
-                                                    rows="4"></textarea>
-                                            </div>
-                                            <div class=" col-12 col-md-6 mb-3">
-                                                <div class="mb-2">
-                                                    <label for="area" class="form-label">Exámenes</label>
-                                                    <select class="form-select" aria-label="Default select example">
-                                                        <option value="1">One</option>
-                                                        <option value="2">Two</option>
-                                                        <option value="3">Three</option>
+                                            <div class="courses__videos--box col-12 col-lg-6 ">
+                                              <div class="row ">
+                                                <div class=" col-12 col-md-4 mb-3 d-flex align-items-center justify-content-center">
+                                                    <video id="videoSource" src="/videos/<%= course.video %>" type="video/mp4" width="100%" controls>
+                                                </div>
+                                               <div class="col-12 col-md-8 mb-3">
+                                                <div style="height: 120px; overflow: hidden;">
+                                                    <img id="imagePreview" src="/images/courses/<%= course.image %>" alt="imagen de portada" style="object-fit:cover; object-position: center center;" height="100%" width="100%">
+                                                </div>
+                                               </div>
+                                                <div class=" col-12 col-md-6 mb-3">
+                                                    <label for="universityId" class="form-label">Universidad:</label>
+                                                    <select class="form-select" name="universityId" id="universityId">
+                                                        <% universities.forEach(university=> { %>
+                                                            <option value="<%= university.id %>" <%= university.id === course.universityId && 'selected' %> >
+                                                                <%= university.name %>
+                                                            </option>
+                                                            <% }) %>
                                                     </select>
                                                 </div>
-                                               
-                                                <select class="form-select" aria-label="Default select example" multiple>
-                                                    
-                                                </select>
-                                            </div>
-                                            <div class=" col-12 col-md-6 mb-3">
-                                                <div class="mb-2">
-                                                    <label for="area" class="form-label">Apuntes</label>
-                                                    <select class="form-select" aria-label="Default select example">
-                                                        <option value="1">One</option>
-                                                        <option value="2">Two</option>
-                                                        <option value="3">Three</option>
+                                                <div class=" col-12 col-md-6 mb-3">
+                                                    <label for="facultyId" class="form-label">Facultad:</label>
+                                                    <select class="form-select" name="facultyId" id="facultyId">
+                                                        <% faculties.forEach(faculty=> { %>
+                                                            <option value="<%= faculty.id %>" <%= faculty.id === course.facultyId && 'selected' %> >
+                                                                <%= faculty.name %>
+                                                            </option>
+                                                            <% }) %>
                                                     </select>
                                                 </div>
-                                               
-                                                <select class="form-select" aria-label="Default select example" multiple>
-                                                    
-                                                </select>
-                                            </div>
-                                           
-                                        </div>
-                                    </div>
-                                    <div class="courses__videos--box col-12 col-md-5" >
-                                        <div class="d-flex flex-wrap justify-content-between gap-2">
-                                            <% for( let i = 0; i < 24; i++ ) { %>
-                                                <article class="card courses__card">
-                                                    <img src="/images/videoPreview.png" class="card-img-top" alt="...">
-                                                    <div class="card-body">
-                                                      <h5 class="card-title">Video title</h5>
-                                                      <div class="d-flex justify-content-between">
-                                                        <div class="form-check mb-2">
-                                                            <input class="form-check-input" type="checkbox" value="" id="locked" checked>
-                                                            <label class="form-check-label" for="locked">
-                                                              Bloqueado
+                                                <div class=" col-12 col-md-6 mb-3">
+                                                    <div class="d-flex justify-content-between">
+                                                        <label for="careerId" class="form-label">Carreras</label>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" disabled type="checkbox" value="" id="check-all">
+                                                            <label class="form-check-label" for="check-all">
+                                                              Todas
                                                             </label>
                                                           </div>
-                                                          <a href="" class="text-danger"><i class="fas fa-trash"></i></a>
-                                                      </div>
-                                                     
-                                                      <div class="mb-2">
-                                                        <select class="form-select form-select-sm" id="order" aria-label=".form-select-sm example">
-                                                            <option selected hidden>Orden...</option>
-                                                            <option value="1">1</option>
-                                                            <option value="2">2</option>
-                                                            <option value="3">3</option>
-                                                          </select>
-                                                      </div>
-                                                      <div class="mb-2">
-                                                        <select class="form-select form-select-sm" id="order" aria-label=".form-select-sm example">
-                                                            <option selected hidden>Categoría...</option>
-                                                            <option value="1">1</option>
-                                                            <option value="2">2</option>
-                                                            <option value="3">3</option>
-                                                          </select>
-                                                      </div>
-                                                      
                                                     </div>
-                                                  </article>
-                                            <% } %>
-                                          
-                                            
-                                        </div>
-                                       
+                                                  
+                                                    <select class="form-select" name="careers" id="careers" multiple
+                                                        style="height: 180px;">
+                                                        <% course.careers.forEach(career => { %>
+                                                         <option value="<%= career.id %>" selected><%= career.name %></option>
+                                                        <% }) %>
+                                                    </select>
+                                                </div>
+    
+                                                <div class=" col-12 col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="teacherId" class="form-label">Profesor/a:</label>
+                                                        <select class="form-select" id="teacherId" name="teacherId">
+                                                            <% teachers.forEach(teacher=> { %>
+                                                                <option value="<%= teacher.id %>" <%= teacher.id === course.teacherId && 'selected' %> >
+                                                                    <%= teacher.surname %>, <%= teacher.name %>
+                                                                </option>
+                                                                <% }) %>
+                                                        </select>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="video" class="btn btn-outline-dark w-100" class="form-label">Video de presentación</label>
+                                                        <input type="file" hidden class="form-control" name="video" id="video">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="image" class="btn btn-outline-dark w-100">Imagen de portada</label>
+                                                        <input type="file" hidden class="form-control" name="image" id="image">
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 d-flex justify-content-end align-items-end" style="height: 120px;">
+                                                    <button class="btn btn-outline-dark " type="submit"
+                                                        id="btn-submit">Guardar cambios</button>
+                                                </div>
+                                                
+                                              </div>
+                                             
+                                            </div>
+                                           
+
+                                        </form>
         
                                     </div>
-
-                                    <div class="card-footer text-end">
-                                        <button class="btn btn-outline-dark" type="submit">Guardar</button>
+                                    <div class="tab-pane fade <%= next === 'notes' && 'show active' %>" id="apuntes-tab-pane" role="tabpanel" aria-labelledby="apuntes-tab" tabindex="0">
+                                        <form action="/courses/update/<%= course.id %>?_method=PUT&section=notes" class="row mx-3 g-3 position-relative mt-2 mt-lg-3" enctype="multipart/form-data" method="POST" id="form-addNotes-course">
+                                            <div class="col-12" id="box-store-notes">
+                                                <label for="" class="form-label">Apuntes actuales:</label>
+                                                <% if (course.notes.length > 0) { %>
+                                                    <% course.notes.forEach((note,index) => { %>
+                                                        <div class="d-flex align-items-center gap-2" id="storeNote<%= note.id %>">
+                                                            <div class="d-flex gap-2 align-items-center w-100 ">
+                                                                <p class="fs-2 text-danger">
+                                                                    <i class="fa fa-file-pdf-o"></i>
+                                                                </p>
+                                                                <div class="input-group mb-3">
+                                                                    <span class="input-group-text"
+                                                                        id="basic-addon3">Título</span>
+                                                                    <input type="text" class="form-control"
+                                                                        aria-describedby="basic-addon3" value="<%= note.title %>">
+                                                                </div>
+                                                                <p class="fs-2 text-danger" onclick="removeNote('<%=note.id%>', '<%=note.file%>')">
+                                                                    <i class="fa fa-times"></i>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    <% }) %>
+                                                <% }else{ %>
+                                                    <p class="alert alert-warning">El curso aún no tiene apuntes agregados</p>
+                                                <% } %>
+                                              
+                                            </div>
+                                            <hr>
+                                                <div class="col-12 mb-3" id="box-notes">
+                                                    <label for="" class="form-label">Agregar nuevos apuntes:</label>
+                                                    <div class="d-flex align-items-center gap-2" id="box1">
+                                                        <div class="mb-3">
+                                                            <label id="label1" class="fs-2 text-danger d-none"><i class="fa fa-file-pdf-o"></i></label>
+                                                            <input class="form-control" type="file" id="note"  name="note"
+                                                                accept=".pdf" data-box="1" onchange="addInput(event)">
+                                                        </div>
+                                                       
+                                                        <div id="box-note1" class="d-flex gap-2 align-items-center w-100 d-none">
+                                                            <div class="input-group mb-3">
+                                                                <span class="input-group-text"
+                                                                    id="basic-addon3">Título</span>
+                                                                <input type="text" class="form-control" id="title1"
+                                                                    aria-describedby="basic-addon3" name="titles" disabled>
+                                                            </div>
+                                                            <p class="fs-2 text-danger" onclick="removeInput('box1')">
+                                                                <i class="fa fa-times"></i>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 text-end">
+                                                    <button class="btn btn-outline-dark " type="submit" id="btn-submit">Guardar apuntes</button>
+                                                </div>
+                                        </form>
                                     </div>
+                                    <div class="tab-pane fade <%= next === 'videos' && 'show active' %>" id="videos-tab-pane" role="tabpanel" aria-labelledby="videos-tab" tabindex="0">
+                                        <div class="row p-2">
+                                            <% for( let i=0; i < 1; i++ ) { %>
 
-                            </form>
+                                            <div class="col-12 col-md-4 col-lg-2 my-3">
+                                                <article class="card">
+                                                    <img src="/images/videoPreview.png" class="card-img-top" alt="...">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">Video title</h5>
+                                                        <div class="d-flex justify-content-around">
+                                                            <div class=" mb-2">
+                                                                <label class="fs-4" for="locked">
+                                                                    <i class="fas fa-lock"></i>
+                                                                </label>
+                                                                <input type="checkbox" value="" id="locked" checked
+                                                                    hidden>
+
+                                                            </div>
+                                                            <a href="" class="fs-4 text-danger"><i
+                                                                    class="fas fa-trash"></i></a>
+                                                        </div>
+
+                                                        <div class="mb-2">
+                                                            <select class="form-select form-select-sm" id="order"
+                                                                aria-label=".form-select-sm example">
+                                                                <option selected hidden>Orden...</option>
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="mb-2">
+                                                            <select class="form-select form-select-sm" id="order"
+                                                                aria-label=".form-select-sm example">
+                                                                <option selected hidden>Categoría...</option>
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </article>
+                                            </div>
+                                               
+                                                <% } %>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade <%= next === 'tests' && 'show active' %>" id="examenes-tab-pane" role="tabpanel" aria-labelledby="examenes-tab" tabindex="0">...</div>
+                                    <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">...</div>
+                                  </div>
+                                </div>
+
+                                  <div class="card-footer text-end">
+                                                
+                                
+                                </div>
+                            </div>
 
                         </article>
 
@@ -167,6 +286,7 @@
 
             </main>
             <%- include('./partials/scripts') %>
+            <script src="/javascripts/courses.js"></script>
     </body>
 
     </html>

@@ -11,6 +11,32 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Course.belongsTo(models.University,{
+        foreignKey: 'universityId',
+        as : 'university'
+      });
+
+      Course.belongsTo(models.Faculty,{
+        foreignKey: 'facultyId',
+        as : 'faculty'
+      });
+
+      Course.hasMany(models.Feature,{
+        foreignKey : 'courseId',
+        as : 'features'
+      });
+
+      Course.hasMany(models.Note,{
+        foreignKey : 'courseId',
+        as : 'notes'
+      });
+
+      Course.belongsToMany(models.Career,{
+        as : 'careers',
+        through : 'CourseCareers',
+        foreignKey : 'courseId',
+        otherKey : 'careerId'
+      });
     }
   };
   Course.init({
@@ -20,6 +46,8 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING,
     review: DataTypes.STRING,
     teacherId: DataTypes.INTEGER,
+    universityId: DataTypes.INTEGER,
+    facultyId: DataTypes.INTEGER,
     visible : DataTypes.BOOLEAN
   }, {
     sequelize,

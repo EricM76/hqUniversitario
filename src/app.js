@@ -41,6 +41,8 @@ app
   .use('/tests', require('./routes/tests'))
   .use('/users', require('./routes/users'))
   .use('/videos', require('./routes/videos'))
+  .use('/notes', require('./routes/notes'))
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
