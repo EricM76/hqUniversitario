@@ -1,0 +1,125 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Nueva unidad</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="" class="row" id="form-modal-add-unit" onsubmit="sendModalForm(event,'<%=course.id%>')">
+            <div class="col-12 mb-3">
+                <label for="number" class="form-label">Unidad:</label>
+                <input id="number" type="number" class="form-control" name="number" id="number" onkeyup="check(event,'<%=course.id%>')" onfocus="this.classList.remove('is-invalid')">
+                <small class="text-danger" id="checkError"></small>
+            </div>
+            <div class="col-12 mb-3">
+                <label for="name" class="form-label">Nombre:</label>
+                <div class="d-flex gap-1">
+                    <input id="name" type="text" class="form-control" name="name" onfocus="this.classList.remove('is-invalid')">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-outline-dark">Guardar</button>
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>
+  <script>
+
+    document.getElementById('btn-modal-addUnit').addEventListener('click', () => {
+        document.getElementById('checkError').innerHTML =  null;
+        let elements = document.getElementById('form-modal-add-unit').elements
+
+        for (let i = 0; i < elements.length; i++) {
+            elements[i].value = null
+            elements[i].classList.remove('is-invalid')
+        }
+
+    })
+
+    const check = async ({target}, courseId) => {
+
+        if(target.getAttribute('data-unit') != target.value){
+            try {
+            let response = await fetch(`/units/check?number=${target.value}&courseId=${courseId}`);
+            let result = await response.json();
+
+            if(result.ok && result.find){
+                document.getElementById('checkError').innerHTML =  'Ya existe una unidad con este número';
+                target.classList.add('is-invalid')
+            }else{
+                document.getElementById('checkError').innerHTML =  null;
+                target.classList.remove('is-invalid')
+            }
+
+        } catch (error) {
+            console.error(result.msg)
+        }
+        }else{
+            target.classList.remove('is-invalid')
+
+        }
+    }   
+
+    const removeUnit = async (id,courseId) => {
+        try {
+            let response = await fetch('/units/remove/' + id,{
+            method : 'DELETE',
+        });
+        let result = await response.json()
+
+        console.log(result.msg);
+        window.location.href = `/courses/edit/${courseId}?next=units`;
+
+        } catch (error) {
+            console.error(result.msg)
+        }
+    }
+
+   const sendModalForm = async (e,id) => {
+    e.preventDefault();
+    const elements = e.target.elements;
+    let error = false;
+
+   for (let i = 0; i < elements.length - 2; i++) {
+        if(!elements[i].value){
+            elements[i].classList.add('is-invalid');
+            error = true
+        }
+   }
+
+   for (let i = 0; i < elements.length - 2; i++) {
+        if(elements[i].classList.contains('is-invalid')){
+            error = true
+        }
+   }
+
+   if(!error){
+    let data = {
+        number : elements.number.value,
+        name : elements.name.value,
+        courseId : id
+    }
+    try {
+        let response = await fetch('/units/add',{
+            method : 'POST',
+            body : JSON.stringify(data),
+            headers : {
+                'Content-Type' : 'application/json'
+            }
+        });
+        let result = await response.json()
+
+        console.log(result.msg);
+        window.location.href = `/courses/edit/${id}?next=units`
+
+    } catch (error) {
+        console.error(result.msg)
+    }
+   }
+   
+   }
+  </script>

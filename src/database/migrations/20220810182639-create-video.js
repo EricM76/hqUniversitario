@@ -50,6 +50,24 @@ module.exports = {
           key: 'id'
         },
       },
+      yearId : {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'Years'
+          },
+          key: 'id'
+        },
+      },
+      turnId : {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'Turns'
+          },
+          key: 'id'
+        },
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -31,6 +31,11 @@ module.exports = (sequelize, DataTypes) => {
         as : 'notes'
       });
 
+      Course.hasMany(models.Unit,{
+        foreignKey : 'courseId',
+        as : 'units'
+      });
+
       Course.belongsToMany(models.Career,{
         as : 'careers',
         through : 'CourseCareers',

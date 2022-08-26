@@ -25,6 +25,11 @@
                                             aria-controls="info-tab-pane" aria-selected="true">Información</button>
                                     </li>
                                     <li class="nav-item" role="presentation">
+                                        <button class="nav-link <%= next === 'units' && 'active' %>" id="units-tab" data-bs-toggle="tab"
+                                            data-bs-target="#units-tab-pane" type="button" role="tab"
+                                            aria-controls="units-tab-pane" aria-selected="false">Unidades</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
                                         <button class="nav-link <%= next === 'notes' && 'active' %>" id="apuntes-tab" data-bs-toggle="tab"
                                             data-bs-target="#apuntes-tab-pane" type="button" role="tab"
                                             aria-controls="apuntes-tab-pane" aria-selected="false">Apuntes</button>
@@ -86,7 +91,7 @@
                                             <div class="courses__videos--box col-12 col-lg-6 ">
                                               <div class="row ">
                                                 <div class=" col-12 col-md-4 mb-3 d-flex align-items-center justify-content-center">
-                                                    <video id="videoSource" src="/videos/<%= course.video %>" type="video/mp4" width="100%" controls>
+                                                    <video id="videoSource" src="/videos?video=<%= course.video %>" type="video/mp4" width="100%" controls>
                                                 </div>
                                                <div class="col-12 col-md-8 mb-3">
                                                 <div style="height: 120px; overflow: hidden;">
@@ -165,6 +170,48 @@
                                         </form>
         
                                     </div>
+                                    <div class="tab-pane fade <%= next === 'units' && 'show active' %>" id="units-tab-pane" role="tabpanel" aria-labelledby="units-tab" tabindex="0">
+                                        <form action="/units/update/<%= course.id %>?_method=PUT" class="row mx-0 mx-lg-3 mt-2 mt-lg-3" id="form-update-units" method="POST">
+                                        <% course.units.sort((a,b) => a.number > b.number ? 1 : a.number < b.number ? -1 : 0).forEach((unit, index) => { %>
+                                            <% if (index < (course.units.length / 2).toFixed(0)) { %>
+                                            <div class="col-12 col-md-2  col-lg-1 mb-3">
+                                                <div class="d-flex gap-1">
+                                                <input id="number<%= unit.id %>" type="text" class="form-control" value="<%= unit.number %>" name="numbers" onchange="check(event,'<%=course.id%>')" data-unit="<%= unit.number %>" onfocus="this.classList.remove('is-invalid')">
+                                                <input type="text" name="ids" hidden value="<%= unit.id %>">
+                                                </div>
+                                            </div>
+                                            <div class="col-12  col-md-10 col-lg-5 mb-3">
+                                                <div class="d-flex gap-1">
+                                                    <input id="name<%= unit.id %>" type="text" class="form-control" value="<%= unit.name %>" name="names">
+                                                    <button type="button" class="btn btn-sm btn-danger" onclick="removeUnit('<%=unit.id%>','<%=course.id%>')"><i class="fa fa-times" aria-hidden="true"></i></button>
+                                                </div>
+                                            </div>
+                                            <% } %>
+
+                                        <% }) %>
+                                        <% for( let i = (course.units.sort((a,b) => a.number > b.number ? 1 : a.number < b.number ? -1 : 0).length / 2).toFixed(0); i < course.units.sort((a,b) => a.number > b.number ? 1 : a.number < b.number ? -1 : 0).length; i++ ) { %>
+                                                <div class="col-12 col-md-2 col-lg-1 mb-3">
+                                                    <input id="number<%= course.units[i].id %>" type="text" class="form-control" value="<%= course.units[i].number %>" name="numbers">
+                                                    <input type="text" name="ids" hidden value="<%= course.units[i].id %>">
+                                                </div>
+                                                <div class="col-12 col-md-10 col-lg-5 mb-3">
+                                                    <div class="d-flex gap-1">
+                                                        <input id="name<%= course.units[i].id %>" type="text" class="form-control" value="<%= course.units[i].name %>" name="names">
+                                                        <button type="button" class="btn btn-sm btn-danger" onclick="removeUnit('<%=course.units[i].id%>','<%=course.id%>')"><i class="fa fa-times" aria-hidden="true"></i></button>
+                                                    </div>
+                                                </div>
+                                        <% } %>
+                                        <div class="col-12 text-end">
+                                            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="btn-modal-addUnit">
+                                                Nueva unidad
+                                              </button>
+                                            <button class="btn btn-outline-dark" type="submit">Guardar unidades</button>
+                                        </div>
+                                    </form>
+                                    <%- include('./modals/addUnit') %> 
+
+                                   
+                                    </div>
                                     <div class="tab-pane fade <%= next === 'notes' && 'show active' %>" id="apuntes-tab-pane" role="tabpanel" aria-labelledby="apuntes-tab" tabindex="0">
                                         <form action="/courses/update/<%= course.id %>?_method=PUT&section=notes" class="row mx-3 g-3 position-relative mt-2 mt-lg-3" enctype="multipart/form-data" method="POST" id="form-addNotes-course">
                                             <div class="col-12" id="box-store-notes">
@@ -222,50 +269,66 @@
                                         </form>
                                     </div>
                                     <div class="tab-pane fade <%= next === 'videos' && 'show active' %>" id="videos-tab-pane" role="tabpanel" aria-labelledby="videos-tab" tabindex="0">
-                                        <div class="row p-2">
-                                            <% for( let i=0; i < 1; i++ ) { %>
+                                        <div class="row">
 
-                                            <div class="col-12 col-md-4 col-lg-2 my-3">
+                                            <div class="col-12  my-3">
                                                 <article class="card">
-                                                    <img src="/images/videoPreview.png" class="card-img-top" alt="...">
                                                     <div class="card-body">
-                                                        <h5 class="card-title">Video title</h5>
-                                                        <div class="d-flex justify-content-around">
-                                                            <div class=" mb-2">
-                                                                <label class="fs-4" for="locked">
-                                                                    <i class="fas fa-lock"></i>
-                                                                </label>
-                                                                <input type="checkbox" value="" id="locked" checked
-                                                                    hidden>
 
+                                                    <div class="row">
+                                                        <div class="col-4">
+                                                            <label for="file" class="btn btn-outline-dark w-100 mb-3">Subir video</label>
+                                                            <input type="file" class="form-control" id="file" name="file" hidden>
+                                                                <video  id="videoSource" src="/videos/show?video=testVideo.mp4" type="video/mp4" width="100%" controls>
+                                                        </div>
+                                                        <div class="col-8">
+                                                                <form action="">
+                                                                    <div class="mb-3">
+                                                                        <label for="title" class="form-label">Título</label>
+                                                                        <input type="text" id="title" class="form-control">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="description" class="form-label">Descripción</label>
+                                                                        <textarea id="description" class="form-control" rows="2" style="resize: none;"></textarea>
+                                                                    </div>
+                                                                </form>
+                                                                <div class="d-flex justify-content-around">
+                                                                    <div class=" mb-2">
+                                                                        <label class="fs-4" for="locked">
+                                                                            <i class="fas fa-lock"></i>
+                                                                        </label>
+                                                                        <input type="checkbox" value="" id="locked" checked
+                                                                            hidden>
+                                                                    </div>
+                                                                    <a href="" class="fs-4 text-danger"><i
+                                                                            class="fas fa-trash"></i></a>
+                                                                </div>
+        
+                                                                <div class="mb-2">
+                                                                    <select class="form-select form-select-sm" id="order"
+                                                                        aria-label=".form-select-sm example">
+                                                                        <option selected hidden>Orden...</option>
+                                                                        <option value="1">1</option>
+                                                                        <option value="2">2</option>
+                                                                        <option value="3">3</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="mb-2">
+                                                                    <select class="form-select form-select-sm" id="order"
+                                                                        aria-label=".form-select-sm example">
+                                                                        <option selected hidden>Categoría...</option>
+                                                                        <option value="1">1</option>
+                                                                        <option value="2">2</option>
+                                                                        <option value="3">3</option>
+                                                                    </select>
+                                                                </div>
                                                             </div>
-                                                            <a href="" class="fs-4 text-danger"><i
-                                                                    class="fas fa-trash"></i></a>
-                                                        </div>
-
-                                                        <div class="mb-2">
-                                                            <select class="form-select form-select-sm" id="order"
-                                                                aria-label=".form-select-sm example">
-                                                                <option selected hidden>Orden...</option>
-                                                                <option value="1">1</option>
-                                                                <option value="2">2</option>
-                                                                <option value="3">3</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="mb-2">
-                                                            <select class="form-select form-select-sm" id="order"
-                                                                aria-label=".form-select-sm example">
-                                                                <option selected hidden>Categoría...</option>
-                                                                <option value="1">1</option>
-                                                                <option value="2">2</option>
-                                                                <option value="3">3</option>
-                                                            </select>
                                                         </div>
                                                     </div>
+                                                   
                                                 </article>
                                             </div>
                                                
-                                                <% } %>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade <%= next === 'tests' && 'show active' %>" id="examenes-tab-pane" role="tabpanel" aria-labelledby="examenes-tab" tabindex="0">...</div>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<%- include('./partials/head',{
+    title : 'Materias'
+}) %> 
+<body class="materias bg-light">
+    <%- include('./partials/header') %> 
+    <main class="container">
+        <section class="row mt-2 mt-md-3 mt-lg-5">
+            <div class="col-12  mx-auto">
+             
+                <article class="card shadow">
+                    <div class="card-header">
+                      <div class="row g-2">
+                        <div class="col-12 d-flex justify-content-between">
+                            <nav aria-label="breadcrumb">
+                              <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+                                <li class="breadcrumb-item" aria-current="page">Videos</li>
+                                <li class="breadcrumb-item active" aria-current="page">Nuevo video</li>
+
+                              </ol>
+                            </nav>
+                        </div>
+                       <hr>
+                    </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="file" class="btn btn-outline-dark w-100 mb-3">Subir video</label>
+                                <input type="file" class="form-control" id="file" name="file" hidden>
+                                    <video  id="videoSource" src="/videos/show?video=testVideo.mp4" type="video/mp4" width="100%" controls>
+                            </div>
+                            <div class="col-8">
+                                    <form action="">
+                                        <div class="mb-3">
+                                            <label for="title" class="form-label">Título</label>
+                                            <input type="text" id="title" class="form-control">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="description" class="form-label">Descripción</label>
+                                            <textarea id="description" class="form-control" rows="2" style="resize: none;"></textarea>
+                                        </div>
+                                    </form>
+                                    <div class="d-flex justify-content-around">
+                                        <div class=" mb-2">
+                                            <label class="fs-4" for="locked">
+                                                <i class="fas fa-lock"></i>
+                                            </label>
+                                            <input type="checkbox" value="" id="locked" checked
+                                                hidden>
+                                        </div>
+                                        <a href="" class="fs-4 text-danger"><i
+                                                class="fas fa-trash"></i></a>
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <select class="form-select form-select-sm" id="order"
+                                            aria-label=".form-select-sm example">
+                                            <option selected hidden>Orden...</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-2">
+                                        <select class="form-select form-select-sm" id="order"
+                                            aria-label=".form-select-sm example">
+                                            <option selected hidden>Categoría...</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="card-footer">
+                    
+                    </div>
+                </article>
+               
+            </div>
+        </section>
+
+    </main>
+    <%- include('./partials/scripts') %> 
+</body>
+</html>

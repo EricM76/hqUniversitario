@@ -123,6 +123,10 @@ module.exports = {
                         association : 'notes',
                         attributes : ['id','title','file']
                     },
+                    {
+                        association : 'units',
+                        attributes : ['id','number','name'],
+                    },
                 ]
             });
             return res.render('admin/courseEdit', {

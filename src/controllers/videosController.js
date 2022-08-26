@@ -1,15 +1,58 @@
 const fs = require('fs');
 const path = require('path');
+const db = require('../database/models');
 
 module.exports = {
-    add : (req,res) => {
-
+    add : async (req,res) => {
+      try {
+        let categories = await db.Category.findAll();
+        let units = await db.Unit.findAll();
+        let years = await db.Year.findAll();
+        let turns = await db.Turn.findAll();
+        let courses = await db.Course.findAll();
+        return res.render('admin/videoAdd',{
+          categories,
+          units,
+          years,
+          turns,
+          courses
+        })
+      } catch (error) {
+        console.log(error)
+      }
     },
     store : (req,res) => {
 
     },
-    list :(req,res) => {
-        return res.render('admin/videos')
+    list : async (req,res) => {
+        try {
+          let videos = await db.Video.findAll({
+            include : [
+              {
+                association : 'category',
+                attributes : ['id','name']
+              },
+              {
+                association : 'unit',
+                attributes : ['id','name']
+              },
+              {
+                association : 'year',
+                attributes : ['id','annum']
+              },
+              {
+                association : 'turn',
+                attributes : ['id','month']
+              },
+            ]
+          })
+          return res.render('admin/videos',{
+            videos
+          })
+
+        } catch (error) {
+          console.log(error)
+        }
     },
     show : (req,res) => {
         const range = req.headers.range;
@@ -18,7 +61,7 @@ module.exports = {
         }
       
         // get video stats (about 61MB)
-        const videoPath = path.resolve(__dirname, "..","assets","videos",req.query.video + '.mp4');
+        const videoPath = path.resolve(__dirname, "..","assets","videos",req.query.video);
         const videoSize = fs.statSync(videoPath).size;
       
         // Parse Range
