@@ -1,8 +1,13 @@
+html {
+    box-sizing: border-box;
+}   
+
 body {
     font-family: $hq-font !important;
 }
 ul, ol {
-    padding: 0;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 li {
     list-style: none;
@@ -35,6 +40,16 @@ a{
     color: white;
     background-color: $hq-secondary;
     border: 1px solid $hq-secondary;
+    &:hover {
+        background-color: white;
+        color: $hq-secondary;
+    }
+}
+.button__newsletter {
+    @extend .button-base;
+    color: white;
+    background-color: $hq-secondary;
+    border: 1px solid white;
     &:hover {
         background-color: white;
         color: $hq-secondary;
