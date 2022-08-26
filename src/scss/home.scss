@@ -1,0 +1,21 @@
+.home {
+    .carousel-item--container{
+        display: flex;
+        align-items: center;
+        background-color: lightblue;
+        padding: 2rem;
+        .carousel-item__imageContainer {
+            width: 70%;
+            height: 70%;
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+        .carousel-item__dataContainer {
+            width: 30%;
+            padding: 2rem;
+        }
+    }
+}

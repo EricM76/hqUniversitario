@@ -1,11 +1,11 @@
 footer {
     background-color: $hq-secondary;
     color: white;
-    padding: 2rem 0.5rem;
+    padding: 2rem 1rem;
     .footer__sectionContainer {
         display: flex;
         flex-direction: column;
-        padding: 2rem;
+        padding: 2rem 0;
         .footer__info {
             display: flex;
             flex-direction: column;
@@ -69,7 +69,7 @@ footer {
         }
         .footer__newsletterContainer {
             border: 1px solid white;
-            padding: 2rem;
+            padding: 2rem 1rem;
             .footer__newsletterContainer--text{
                 padding: 1rem 0;
                 h3 {

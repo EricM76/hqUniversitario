@@ -1,0 +1,15 @@
+.home .carousel-item--container {
+  display: flex;
+  align-items: center;
+  background-color: lightblue;
+  padding: 2rem; }
+  .home .carousel-item--container .carousel-item__imageContainer {
+    width: 70%;
+    height: 70%; }
+    .home .carousel-item--container .carousel-item__imageContainer img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; }
+  .home .carousel-item--container .carousel-item__dataContainer {
+    width: 30%;
+    padding: 2rem; }

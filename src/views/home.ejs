@@ -6,7 +6,148 @@
 <body class="home">
   <%- include('./partials/header') %> 
   <main class="container">
-    <h1>Home</h1>
+    <!-- CAROUSEL -->
+    <div id="carouselExampleInterval" class="carousel slide d-none d-md-block" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="10000">
+          <div class="carousel-item--container">
+            <div class="carousel-item__imageContainer">
+              <img src="images/banners/banner-prueba.jpg" alt="Banner">
+            </div>
+            <div class="carousel-item__dataContainer">
+              <h2>Titulo</h2>
+              <h3>Subtitulo</h3>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, tenetur!</p>
+              <button class="button__light">Registrarme</button>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item" data-bs-interval="10000">
+          <div class="carousel-item--container">
+            <div class="carousel-item__imageContainer">
+              <img src="images/banners/banner-prueba.jpg" alt="Banner">
+            </div>
+            <div class="carousel-item__dataContainer">
+              <h2>Titulo</h2>
+              <h3>Subtitulo</h3>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, tenetur!</p>
+              <button class="button__light">Registrarme</button>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item" data-bs-interval="10000">
+          <div class="carousel-item--container">
+            <div class="carousel-item__imageContainer">
+              <img src="images/banners/banner-prueba.jpg" alt="Banner">
+            </div>
+            <div class="carousel-item__dataContainer">
+              <h2>Titulo</h2>
+              <h3>Subtitulo</h3>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, tenetur!</p>
+              <button class="button__light">Registrarme</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    <!-- FINAL CAROUSEL -->
+    <!-- SECCIÓN UNIVERSIDADES -->
+    <section class="universities container p-md-5">
+      <div class="row">
+          <h2>Universidades</h2>
+      </div>
+      <div class="row">
+        <!-- Card Universidad -->
+        <div class="col-12 col-md-3 p-3">
+          <div class="card border border-0 shadow">
+            <img src="images/logos/unc_logo.png" class="card-img-top" alt="unc_logo">
+            <div class="card-body">
+              <h5 class="card-title">Universidad de Córdoba</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">10 Facultades</li>
+              <li class="list-group-item">25 Carreras</li>
+            </ul>
+            <div class="card-body">
+              <a href="#facultades">
+                <div class="button__dark">
+                    <span>Ver facultades</span>
+                </div>
+            </a>
+            </div>
+          </div>
+        </div>
+         <!-- Card Universidad -->
+         <div class="col-12 col-md-3 p-3">
+          <div class="card border border-0 shadow">
+            <img src="images/logos/unc_logo.png" class="card-img-top" alt="unc_logo">
+            <div class="card-body">
+              <h5 class="card-title">Universidad de Córdoba</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">10 Facultades</li>
+              <li class="list-group-item">25 Carreras</li>
+            </ul>
+            <div class="card-body">
+              <a href="#facultades">
+                <div class="button__dark">
+                    <span>Ver facultades</span>
+                </div>
+            </a>
+            </div>
+          </div>
+        </div>
+         <!-- Card Universidad -->
+         <div class="col-12 col-md-3 p-3">
+          <div class="card border border-0 shadow">
+            <img src="images/logos/unc_logo.png" class="card-img-top" alt="unc_logo">
+            <div class="card-body">
+              <h5 class="card-title">Universidad de Córdoba</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">10 Facultades</li>
+              <li class="list-group-item">25 Carreras</li>
+            </ul>
+            <div class="card-body">
+              <a href="#facultades">
+                <div class="button__dark">
+                    <span>Ver facultades</span>
+                </div>
+            </a>
+            </div>
+          </div>
+        </div>
+         <!-- Card Universidad -->
+         <div class="col-12 col-md-3 p-3">
+          <div class="card border border-0 shadow">
+            <img src="images/logos/unc_logo.png" class="card-img-top" alt="unc_logo">
+            <div class="card-body">
+              <h5 class="card-title">Universidad de Córdoba</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">10 Facultades</li>
+              <li class="list-group-item">25 Carreras</li>
+            </ul>
+            <div class="card-body">
+              <a href="#facultades">
+                <div class="button__dark">
+                    <span>Ver facultades</span>
+                </div>
+            </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- FINAL UNIVERSIDADES -->
   </main>
   <%- include('./partials/footer') %> 
   <%- include('./partials/scripts') %> 
