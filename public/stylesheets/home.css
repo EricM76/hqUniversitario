@@ -1,3 +1,13 @@
+.magicCenter, .home .home__content1-data {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.responsiveImage, .home .carousel-item--container .carousel-item__imageContainer img, .home .home__content1-imageContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; }
+
 .home .carousel-item--container {
   display: flex;
   align-items: center;
@@ -6,10 +16,13 @@
   .home .carousel-item--container .carousel-item__imageContainer {
     width: 70%;
     height: 70%; }
-    .home .carousel-item--container .carousel-item__imageContainer img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover; }
   .home .carousel-item--container .carousel-item__dataContainer {
     width: 30%;
     padding: 2rem; }
+
+.home .home__content1-data {
+  flex-direction: column; }
+  .home .home__content1-data .home__content1-buttonContainer {
+    display: flex;
+    justify-content: end;
+    align-items: center; }

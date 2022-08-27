@@ -1,3 +1,5 @@
+@import "utils";
+
 .home {
     .carousel-item--container{
         display: flex;
@@ -8,9 +10,7 @@
             width: 70%;
             height: 70%;
             img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
+                @extend .responsiveImage;
             }
         }
         .carousel-item__dataContainer {
@@ -18,4 +18,19 @@
             padding: 2rem;
         }
     }
+    .home__content1-imageContainer {
+        img {
+            @extend .responsiveImage
+        }
+    }
+    .home__content1-data {
+        @extend .magicCenter;
+        flex-direction: column;
+        .home__content1-buttonContainer {
+            display: flex;
+            justify-content: end;
+            align-items: center;
+        }
+    }
+    
 }
