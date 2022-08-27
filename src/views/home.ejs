@@ -3,207 +3,183 @@
     title : 'Home'
   }) %> 
 
-<body class="home">
-  <%- include('./partials/header') %> 
-  <main class="container">
-    <!-- CAROUSEL -->
-    <div id="carouselExampleInterval" class="carousel slide d-none d-md-block" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active" data-bs-interval="10000">
-          <div class="carousel-item--container">
-            <div class="carousel-item__imageContainer">
-              <img src="images/banners/banner-prueba.jpg" alt="Banner">
-            </div>
-            <div class="carousel-item__dataContainer">
-              <h2>Titulo</h2>
-              <h3>Subtitulo</h3>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, tenetur!</p>
-              <button class="button__light">Registrarme</button>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item" data-bs-interval="10000">
-          <div class="carousel-item--container">
-            <div class="carousel-item__imageContainer">
-              <img src="images/banners/banner-prueba.jpg" alt="Banner">
-            </div>
-            <div class="carousel-item__dataContainer">
-              <h2>Titulo</h2>
-              <h3>Subtitulo</h3>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, tenetur!</p>
-              <button class="button__light">Registrarme</button>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item" data-bs-interval="10000">
-          <div class="carousel-item--container">
-            <div class="carousel-item__imageContainer">
-              <img src="images/banners/banner-prueba.jpg" alt="Banner">
-            </div>
-            <div class="carousel-item__dataContainer">
-              <h2>Titulo</h2>
-              <h3>Subtitulo</h3>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, tenetur!</p>
-              <button class="button__light">Registrarme</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
-    <!-- FINAL CAROUSEL -->
-    <!-- SECCIÓN UNIVERSIDADES -->
-    <section class="universities container p-md-5">
-      <div class="row">
-          <h2>Universidades</h2>
-      </div>
-      <div class="row">
-        <!-- Card Universidad -->
-        <div class="col-12 col-md-3 p-3">
-          <div class="card border border-0 shadow">
-            <img src="images/logos/unc_logo.png" class="card-img-top" alt="unc_logo">
-            <div class="card-body">
-              <h5 class="card-title">Universidad de Córdoba</h5>
-            </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">10 Facultades</li>
-              <li class="list-group-item">25 Carreras</li>
-            </ul>
-            <div class="card-body">
-              <a href="#facultades">
-                <div class="button__dark">
-                    <span>Ver facultades</span>
-                </div>
-            </a>
-            </div>
-          </div>
-        </div>
-         <!-- Card Universidad -->
-         <div class="col-12 col-md-3 p-3">
-          <div class="card border border-0 shadow">
-            <img src="images/logos/unc_logo.png" class="card-img-top" alt="unc_logo">
-            <div class="card-body">
-              <h5 class="card-title">Universidad de Córdoba</h5>
-            </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">10 Facultades</li>
-              <li class="list-group-item">25 Carreras</li>
-            </ul>
-            <div class="card-body">
-              <a href="#facultades">
-                <div class="button__dark">
-                    <span>Ver facultades</span>
-                </div>
-            </a>
-            </div>
-          </div>
-        </div>
-         <!-- Card Universidad -->
-         <div class="col-12 col-md-3 p-3">
-          <div class="card border border-0 shadow">
-            <img src="images/logos/unc_logo.png" class="card-img-top" alt="unc_logo">
-            <div class="card-body">
-              <h5 class="card-title">Universidad de Córdoba</h5>
-            </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">10 Facultades</li>
-              <li class="list-group-item">25 Carreras</li>
-            </ul>
-            <div class="card-body">
-              <a href="#facultades">
-                <div class="button__dark">
-                    <span>Ver facultades</span>
-                </div>
-            </a>
-            </div>
-          </div>
-        </div>
-         <!-- Card Universidad -->
-         <div class="col-12 col-md-3 p-3">
-          <div class="card border border-0 shadow">
-            <img src="images/logos/unc_logo.png" class="card-img-top" alt="unc_logo">
-            <div class="card-body">
-              <h5 class="card-title">Universidad de Córdoba</h5>
-            </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">10 Facultades</li>
-              <li class="list-group-item">25 Carreras</li>
-            </ul>
-            <div class="card-body">
-              <a href="#facultades">
-                <div class="button__dark">
-                    <span>Ver facultades</span>
-                </div>
-            </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- FINAL UNIVERSIDADES -->
-    <!-- SECCIÓN CONTENIDO 1 -->
-    <section class="container p-3 p-md-4 p-lg-5">
-      <div class="row">
-        <div class="col-12 col-md-6 home__content1-imageContainer">
-          <img src="images/home/home1_img.png" alt="Ilustración">
-        </div>
-        <div class="col-12 col-md-6 home__content1-data p-5">
-          <h2 class="text-center">Llega preparado a los exámenes</h2>
-          <p class="text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi eveniet, odio inventore eos excepturi molestias.</p>
-          <div class="home__content1-buttonContainer">
-            <a href="/usuarios/registro">
-              <div class="button__dark">
-                  <span>Registrarme</span>
+  <body class="home">
+    <%- include('./partials/header') %> 
+    <main class="container">
+      <!-- CAROUSEL -->
+      <div id="carouselExampleInterval" class="carousel slide d-none d-md-block" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active" data-bs-interval="10000">
+            <div class="carousel-item--container">
+              <div class="carousel-item__imageContainer">
+                <img src="images/banners/banner-prueba.jpg" alt="Banner">
               </div>
-            </a>
+              <div class="carousel-item__dataContainer">
+                <h2>Titulo</h2>
+                <h3>Subtitulo</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, tenetur!</p>
+                <button class="button__light">Registrarme</button>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item" data-bs-interval="10000">
+            <div class="carousel-item--container">
+              <div class="carousel-item__imageContainer">
+                <img src="images/banners/banner-prueba.jpg" alt="Banner">
+              </div>
+              <div class="carousel-item__dataContainer">
+                <h2>Titulo</h2>
+                <h3>Subtitulo</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, tenetur!</p>
+                <button class="button__light">Registrarme</button>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item" data-bs-interval="10000">
+            <div class="carousel-item--container">
+              <div class="carousel-item__imageContainer">
+                <img src="images/banners/banner-prueba.jpg" alt="Banner">
+              </div>
+              <div class="carousel-item__dataContainer">
+                <h2>Titulo</h2>
+                <h3>Subtitulo</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, tenetur!</p>
+                <button class="button__light">Registrarme</button>
+              </div>
+            </div>
           </div>
         </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
-    </section>
-    <!-- FINAL CONTENIDO 1 -->
-    <!-- SECCIÓN ÚLTIMAS AGREGADAS -->
-    <section class="container p-5 border">
-      <div class="row border-bottom p-3">
-        <h3>ÚLTIMAS AGREGADAS</h3>
-        <p class="home__last-paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio placeat ea ipsa ratione, perspiciatis at consequuntur delectus reprehenderit praesentium sed.</p>
-      </div>
-      <div class="slide-container swiper">
-        <div class="slide-content">
-          <div class="card-wrapper swiper-wrapper">
-            <div class="col-12 col-md-3 p-3 swiper-slide">
-              <div class="card border border-0 shadow">
-                <img src="images/logos/uncuyo_fcm_logo.jpeg" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Materia</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <div class="card-body">
-                    <a href="#facultades">
-                      <div class="button__dark">
-                          <span>Ver materia</span>
-                      </div>
-                    </a>
+      <!-- FINAL CAROUSEL -->
+      <!-- SECCIÓN UNIVERSIDADES -->
+      <section class="universities container p-md-5">
+        <div class="row">
+            <h2>Universidades</h2>
+        </div>
+        <div class="row">
+          <!-- Card Universidad -->
+          <div class="col-12 col-md-3 p-3">
+            <div class="card border border-0 shadow">
+              <img src="images/logos/unc_logo.png" class="card-img-top" alt="unc_logo">
+              <div class="card-body">
+                <h5 class="card-title">Universidad de Córdoba</h5>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">10 Facultades</li>
+                <li class="list-group-item">25 Carreras</li>
+              </ul>
+              <div class="card-body">
+                <a href="#facultades">
+                  <div class="button__dark">
+                      <span>Ver facultades</span>
                   </div>
-                </div>
+              </a>
               </div>
-            </div>  
+            </div>
+          </div>
+          <!-- Card Universidad -->
+          <div class="col-12 col-md-3 p-3">
+            <div class="card border border-0 shadow">
+              <img src="images/logos/unc_logo.png" class="card-img-top" alt="unc_logo">
+              <div class="card-body">
+                <h5 class="card-title">Universidad de Córdoba</h5>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">10 Facultades</li>
+                <li class="list-group-item">25 Carreras</li>
+              </ul>
+              <div class="card-body">
+                <a href="#facultades">
+                  <div class="button__dark">
+                      <span>Ver facultades</span>
+                  </div>
+              </a>
+              </div>
+            </div>
+          </div>
+          <!-- Card Universidad -->
+          <div class="col-12 col-md-3 p-3">
+            <div class="card border border-0 shadow">
+              <img src="images/logos/unc_logo.png" class="card-img-top" alt="unc_logo">
+              <div class="card-body">
+                <h5 class="card-title">Universidad de Córdoba</h5>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">10 Facultades</li>
+                <li class="list-group-item">25 Carreras</li>
+              </ul>
+              <div class="card-body">
+                <a href="#facultades">
+                  <div class="button__dark">
+                      <span>Ver facultades</span>
+                  </div>
+              </a>
+              </div>
+            </div>
+          </div>
+          <!-- Card Universidad -->
+          <div class="col-12 col-md-3 p-3">
+            <div class="card border border-0 shadow">
+              <img src="images/logos/unc_logo.png" class="card-img-top" alt="unc_logo">
+              <div class="card-body">
+                <h5 class="card-title">Universidad de Córdoba</h5>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">10 Facultades</li>
+                <li class="list-group-item">25 Carreras</li>
+              </ul>
+              <div class="card-body">
+                <a href="#facultades">
+                  <div class="button__dark">
+                      <span>Ver facultades</span>
+                  </div>
+              </a>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-pagination"></div>
-      </div>
-    </section>
-    <!-- FINAL ÚLTIMAS AGREGADAS -->
-  </main>
-  <%- include('./partials/footer') %> 
-  <%- include('./partials/scripts') %> 
-  <script src="/javascripts/slider.js"></script>
-</body>
+      </section>
+      <!-- FINAL UNIVERSIDADES -->
+      <!-- SECCIÓN CONTENIDO 1 -->
+      <section class="container p-3 p-md-4 p-lg-5">
+        <div class="row">
+          <div class="col-12 col-md-6 home__content1-imageContainer">
+            <img src="images/home/home1_img.png" alt="Ilustración">
+          </div>
+          <div class="col-12 col-md-6 home__content1-data p-5">
+            <h2 class="text-center">Llega preparado a los exámenes</h2>
+            <p class="text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi eveniet, odio inventore eos excepturi molestias.</p>
+            <div class="home__content1-buttonContainer">
+              <a href="/usuarios/registro">
+                <div class="button__dark">
+                    <span>Registrarme</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- FINAL CONTENIDO 1 -->
+      <!-- SECCIÓN ÚLTIMAS AGREGADAS -->
+      <section class="border">
+        <div class="border-bottom">
+          <h3>ÚLTIMAS AGREGADAS</h3>
+          <p class="home__last-paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio placeat ea ipsa ratione, perspiciatis at consequuntur delectus reprehenderit praesentium sed.</p>
+        </div>
+        <%- include('./partials/slider') %> 
+      </section> 
+      <!-- FINAL ÚLTIMAS AGREGADAS -->
+    </main>
+    <%- include('./partials/footer') %> 
+    <%- include('./partials/scripts') %> 
+    <script src="/javascripts/slider.js"></script>
+  </body>
 </html>
