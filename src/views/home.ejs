@@ -60,7 +60,7 @@
       </div>
       <!-- FINAL CAROUSEL -->
       <!-- SECCIÓN UNIVERSIDADES -->
-      <section class="universities container p-md-5">
+      <section class="home__universities container mb-5">
         <div class="row">
             <h2>Universidades</h2>
         </div>
@@ -149,14 +149,14 @@
       </section>
       <!-- FINAL UNIVERSIDADES -->
       <!-- SECCIÓN CONTENIDO 1 -->
-      <section class="container p-3 p-md-4 p-lg-5">
+      <section class="container p-3 p-md-4 p-lg-5 mb-5">
         <div class="row">
           <div class="col-12 col-md-6 home__content1-imageContainer">
             <img src="images/home/home1_img.png" alt="Ilustración">
           </div>
           <div class="col-12 col-md-6 home__content1-data p-5">
             <h2 class="text-center">Llega preparado a los exámenes</h2>
-            <p class="text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi eveniet, odio inventore eos excepturi molestias.</p>
+            <p class="text-center">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus corporis illum tempora enim ea eligendi veniam, cupiditate beatae consequuntur minus, ex totam perferendis commodi et. In nesciunt rem quasi, non, impedit sint saepe, ea tenetur neque nemo recusandae labore omnis?</p>
             <div class="home__content1-buttonContainer">
               <a href="/usuarios/registro">
                 <div class="button__dark">
@@ -169,14 +169,86 @@
       </section>
       <!-- FINAL CONTENIDO 1 -->
       <!-- SECCIÓN ÚLTIMAS AGREGADAS -->
-      <section class="border">
-        <div class="border-bottom">
+      <section class="border mb-5">
+        <div class="border-bottom p-3">
           <h3>ÚLTIMAS AGREGADAS</h3>
-          <p class="home__last-paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio placeat ea ipsa ratione, perspiciatis at consequuntur delectus reprehenderit praesentium sed.</p>
+          <p class="home__last-paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, deleniti vel voluptatum repellendus ut maiores, expedita dolore ipsum earum explicabo minima quidem fugit, maxime eligendi placeat illum eius inventore nihil?</p>
         </div>
         <%- include('./partials/slider') %> 
       </section> 
       <!-- FINAL ÚLTIMAS AGREGADAS -->
+      <!-- SECCIÓN CONTENIDO 2 -->
+      <section class="home__content2--container mb-5">
+        <div class="home__content2--item">
+          <i class="fa-solid fa-award"></i>
+          <p>Contenido de calidad</p>
+        </div>
+        <div class="home__content2--item">
+          <i class="fa-solid fa-ranking-star"></i>
+          <p>El más completo</p>
+        </div>
+        <div class="home__content2--item">
+          <i class="fa-solid fa-person-chalkboard"></i>
+          <p>Los mejores docentes</p>
+        </div>
+      </section>
+      <!-- FINAL CONTENIDO 2 -->
+      <!-- SECCIÓN MATERIAS -->
+      <section class="container shadow p-3">
+        <nav>
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Materia 1</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Materia</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Materia</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Materia</a>
+            </li>
+          </ul>
+        </nav>
+        <div class="home__course--content">
+          <div class="home__course--content-info border-bottom pt-4 pb-3">
+            <h2>Materia</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos odio obcaecati debitis, maxime possimus expedita. Corporis ipsa id, minus ea velit temporibus nesciunt nobis quaerat, rerum voluptas veritatis sit dolores.</p>
+          </div>
+        </div>
+        <%- include('./partials/slider') %> 
+      </section>
+      <!-- FINAL MATERIAS -->
+      <!-- SECCIÓN CONTACTO -->
+      <section class="container home__contact-container">
+        <div class="row">
+          <div class="col-md-6">
+            <h1>CONTACTANOS</h1>
+            <p>Envianos un mensaje con tu consulta y en breve te responderemos</p>
+            <div class="home__contact-imgWrapper">
+              <img src="images/home/home2_img-contacto.png" alt="Ilustración de contacto">
+            </div>
+          </div>
+          <div class="col-md-6 container home__contact-formWrapper">
+            <form action="">
+              <div class="mb-3">
+                <input type="text" class="form-control" placeholder="Nombre y apellido">
+              </div>
+              <div class="mb-3">
+                <input type="email" class="form-control" placeholder="Correo electrónico">
+              </div>
+              <div class="mb-3">
+                <textarea class="form-control" rows="3" placeholder="Escribe tu consulta"></textarea>
+              </div>
+              <div class="home__contact-form-buttonContainer">
+                <button class="button__dark">Enviar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+      <!-- FINAL CONTACTO -->
     </main>
     <%- include('./partials/footer') %> 
     <%- include('./partials/scripts') %> 

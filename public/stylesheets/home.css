@@ -1,4 +1,4 @@
-.magicCenter, .home .home__content1-data {
+.magicCenter, .home .home__content1-data, .home .home__content2--container .home__content2--item {
   display: flex;
   justify-content: center;
   align-items: center; }
@@ -26,6 +26,19 @@
     display: flex;
     justify-content: end;
     align-items: center; }
+
+.home .home__content2--container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 3rem;
+  padding: 3rem; }
+  .home .home__content2--container .home__content2--item {
+    flex-direction: column;
+    text-align: center; }
+    .home .home__content2--container .home__content2--item i {
+      font-size: 3rem; }
 
 @media screen and (min-width: 500px) {
   .home .home__last-paragraph {
