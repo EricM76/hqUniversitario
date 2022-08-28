@@ -6,11 +6,6 @@ const {register, processRegister, login, processLogin, profile, update, list, re
 /* /users */
 router
   .get('/', list)
-  .get('/register', register)
-  .post('/register', processRegister)
-  .get('/login', login)
-  .post('/login', processLogin)
-  .get('/profile', profile)
   .put('/update', update)
   .delete('/remove', remove)
   .get('/filter', filter)

@@ -1,0 +1,5 @@
+@import "utils";
+.modal__close {
+    font-size: 2rem;
+    background-color: adjust-hue($color: #000000, $degrees: 0);
+}
