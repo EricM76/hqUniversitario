@@ -1,0 +1,238 @@
+<div class="modal fade" id="exampleModalVideo" tabindex="-1" aria-labelledby="exampleModalVideoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalVideoLabel">Nuevo video en <strong><%= course.name %></strong> | <%= course.university.acronym %> | <%= course.faculty.acronym %> </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="/videos/add?course=<%= course.id %>" class="row mx-3 g-3 mt-2 mt-lg-3"
+                enctype="multipart/form-data" method="POST" id="form-updateVideos-course">
+                                <div class="col-12 col-lg-4">
+                                    <div class="mb-3">
+                                        <input type="file" class="form-control" id="resource"
+                                            name="resource" hidden>
+                                        <video id="resourcePreview"
+                                            src="/videos/show?video=testVideo.mp4"
+                                            type="video/mp4" width="100%" controls>
+
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="resource"
+                                            class="btn btn-outline-dark w-100 mb-3">Subir
+                                            video</label>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 col-lg-8">
+                                            <div
+                                                class="d-flex flex-column align-items-lg-center flex-lg-row mb-3">
+                                                <label for="length"
+                                                    class="form-label me-2">Duración:</label>
+                                                <div class="input-group">
+                                                    <input type="number"
+                                                        class="form-control" min="0" name="length">
+                                                    <span class="input-group-text"
+                                                        for="">min</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-lg-4">
+                                            <div class="d-flex justify-content-around">
+                                                <div class=" mb-3">
+                                                    <label class="fs-4" for="locked" id="label-locked">
+                                                        <i class="fas fa-lock"></i>
+                                                    </label>
+                                                    <input type="checkbox" 
+                                                        id="locked" checked hidden onchange="document.getElementById('label-locked').innerHTML = this.checked ? `<i class='fas fa-lock'></i>` : `<i class='fas fa-lock-open'></i>`" name="locked">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-12 col-lg-8">
+                                    <div class="row">
+                                        <div class="col-12 mb-3">
+                                            <label for="title"
+                                                class="form-label">Título</label>
+                                            <input type="text" id="title"
+                                                class="form-control" name="title">
+                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <label for="description"
+                                                class="form-label">Descripción</label>
+                                            <textarea id="description" class="form-control"
+                                                rows="3" style="resize: none;" name="description"></textarea>
+                                        </div>
+                                        <div class="col-12 col-md-6 mb-3">
+                                            <select class="form-select form-select"
+                                                id="categoryId"
+                                                aria-label=".form-select-sm example" name="categoryId">
+                                                <option value="" selected hidden>Categoría...
+                                                </option>
+                                                <% course.faculty.categories.sort((a,b)=> a.name>b.name ? 1 : a.name<b.name ? -1 : 0).forEach(category => {%>
+                                                    <option value="<%=category.id%>"><%=category.name%></option>
+                                                <%})%>
+                                            </select>
+                                            <input type="text" value="<%= course.id %>" id="inputCourse" hidden>
+                                        </div>
+                                        <div class="col-12 col-md-6 mb-3">
+                                            <select class="form-select form-select"
+                                                id="unitId"
+                                                name="unitId"
+                                                disabled>
+                                                <option value="" selected hidden>Unidad...</option>
+                                                <% course.units.sort((a,b)=> a.number>b.number ? 1 : a.number<b.number ? -1 : 0).forEach(unit => {%>
+                                                    <option value="<%=unit.id%>"><%=unit.number%></option>
+                                                <%})%>
+                                            </select>
+                                        </div>
+                                        <div class="col-12 col-md-6 mb-3">
+                                            <select class="form-select form-select"
+                                                id="year"
+                                                name="year"
+                                                disabled>
+                                                <option value="" selected hidden>Año...</option>
+                                                <% for(let i=2005; i<= new Date().getFullYear(); i++ ) { %>
+                                                    <option value="<%=i%>"><%=i%></option>
+                                                <%}%>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="col-12 col-md-6 mb-3">
+                                            <select class="form-select form-select"
+                                                id="turnId"
+                                                name="turnId"
+                                                disabled>
+                                                <option value="" selected hidden>Turno...</option>
+                                                <% for(let i=0; i< turns.length; i++ ) { %>
+                                                    <option value="<%=turns[i].id%>"><%=turns[i].month%></option>
+                                                <%}%>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-12 col-md-6 mb-3">
+                                            <div class="input-group">
+                                                <span class="input-group-text">Orden</span>
+                                                <input name="order" class="form-control" type="text" value="<%=countVideos + 1%>" readonly>
+                                            </div>
+                                          <!--   <select class="form-select form-select"
+                                                id="order"
+                                                name="order"
+                                                aria-label=".form-select-sm example">
+                                                <option value="" selected hidden>Orden...</option>
+                                                <% for(let i=1; i <= +countVideos + 1; i++ ) { %>
+                                                    <option value="<%=i%>"><%=i%></option>
+                                                <%}%>
+                                            </select> -->
+                                        </div>
+                                        <div class="col-12 col-md-6 mb-3">
+                                                <button class="btn btn-outline-dark w-100" type="submit">
+                                                    Guardar cambios
+                                                </button>                                           
+                                        </div>
+                                </div>
+                            </div>
+            </form>
+           
+        </div>
+        <div class="modal-footer">
+         <!--  <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-outline-dark">Guardar</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    
+    let selectCategory = document.getElementById('categoryId');
+    let selectUnit = document.getElementById('unitId');
+    let selectYear = document.getElementById('year');
+    let selectTurn = document.getElementById('turnId');
+    let inputCourse = document.getElementById('inputCourse');
+    let result;
+
+    const apiCall = async(url) => {
+        try {
+            let response = await fetch(url);
+            let result = await response.json();
+            return result;
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    window.onload = async () => {
+        if(inputCourse.value == 13){
+            
+            selectYear.disabled = false;
+            selectTurn.disabled = false;
+            
+            selectCategory.innerHTML = '<option value="3">Exámenes integradores</option>';
+            
+            selectYear.innerHTML = '<option value="" selected hidden>Año...</option>';
+                for(let i=2005; i<= new Date().getFullYear(); i++ ) {
+                selectYear.innerHTML += `<option value="${i}">${i}</option>`
+                }
+
+                selectTurn.innerHTML = '<option value="" selected hidden>Turno...</option>';
+                result = await apiCall('/turns');
+                result.turns.forEach(turn => {
+                    selectTurn.innerHTML += `<option value="${turn.id}">${turn.month}</option>`;
+                });
+        }
+    }
+    
+
+    document.getElementById('categoryId').addEventListener('change', async (event) => {
+        
+        switch (event.target.value) {
+            case "2":
+            case "4":
+                selectUnit.disabled = false;
+                selectYear.disabled = true;
+                selectTurn.disabled = true;
+                selectYear.innerHTML = '<option value="" selected hidden>Año...</option>';
+                selectTurn.innerHTML = '<option value="" selected hidden>Turno...</option>';
+                
+                selectUnit.innerHTML = '<option value="" selected hidden>Unidad...</option>';
+                result = await apiCall('/units?course=' + inputCourse.value);
+                result.units.forEach(unit => {
+                    selectUnit.innerHTML += `<option value="${unit.id}">${unit.number}</option>`;
+                });
+
+                break;
+            case "3":
+            case "6":
+                selectUnit.disabled = true;
+                selectYear.disabled = false;
+                selectTurn.disabled = false;
+
+                selectUnit.innerHTML = '<option value="" selected hidden>Unidad...</option>';
+                
+                selectYear.innerHTML = '<option value="" selected hidden>Año...</option>';
+                for(let i=2005; i<= new Date().getFullYear(); i++ ) {
+                selectYear.innerHTML += `<option value="${i}">${i}</option>`
+                }
+
+                selectTurn.innerHTML = '<option value="" selected hidden>Turno...</option>';
+                result = await apiCall('/turns');
+                result.turns.forEach(turn => {
+                    selectTurn.innerHTML += `<option value="${turn.id}">${turn.month}</option>`;
+                });
+              
+                break;
+            default:
+                selectUnit.disabled = true;
+                selectYear.disabled = true;
+                selectTurn.disabled = true;
+                selectUnit.innerHTML = '<option value="" selected hidden>Unidad...</option>';
+                selectYear.innerHTML = '<option value="" selected hidden>Año...</option>';
+                selectTurn.innerHTML = '<option value="" selected hidden>Turno...</option>';
+                break;
+        }
+    })
+  </script>
+  

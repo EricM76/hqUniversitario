@@ -4,6 +4,9 @@ const multer = require('multer');
 let storageCourse = multer.diskStorage({
     destination : (req,file,cb) => {
         switch (file.fieldname) {
+            case 'resource':
+                cb(null, 'src/assets/videos')
+                break;
             case 'note':
                 cb(null, 'src/assets/downloads')
                 break;
@@ -39,6 +42,7 @@ const filters = (req,file, cb) => {
             cb(null,true);
             break;
         case 'video':
+        case 'resource':
             if(!file.originalname.match(/\.(mp4)$/)){
                 req.fileValidationError = "Solo se permite videos mp4";
                 console.log(req.fileValidationError)

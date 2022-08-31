@@ -43,6 +43,7 @@ app
   .use('/videos', require('./routes/videos'))
   .use('/notes', require('./routes/notes'))
   .use('/units', require('./routes/units'))
+  .use('/turns',require('./routes/turns'))
 
 
 

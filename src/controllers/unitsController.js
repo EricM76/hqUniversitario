@@ -89,5 +89,28 @@ module.exports = {
                 msg : 'Comuníquese con el administrador del sitio'
             })
         }
+    },
+    list : async (req,res) => {
+        try {
+            const {course} = req.query;
+            let units = await db.Unit.findAll({
+                where : {
+                    courseId : course
+                },
+                order : ['number']
+            });
+            return res.status(201).json({
+                ok : true,
+                code : res.statusCode,
+                units
+            })
+        } catch (error) {
+            console.log(error);
+            return res.status(res.statusCode || 500).json({
+                ok : false,
+                code : res.statusCode,
+                msg : 'Comuníquese con el administrador del sitio'
+            })
+        }
     }
 }

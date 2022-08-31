@@ -101,15 +101,60 @@ module.exports = {
             let universities = await db.University.findAll();
             let faculties = await db.Faculty.findAll();
             let teachers = await db.Teacher.findAll();
+            let categories = await db.Category.findAll();
+            let turns = await db.Turn.findAll();
+            let countVideos = await db.Video.count({where:{courseId:req.params.id}});
+            let videosCat1 = await db.Video.findAll({
+                where:{
+                    courseId:req.params.id,
+                    categoryId : 1
+                }
+            });
+            let videosCat2 = await db.Video.findAll({
+                where:{
+                    courseId:req.params.id,
+                    categoryId : 2
+                }
+            });
+            let videosCat3 = await db.Video.findAll({
+                where:{
+                    courseId:req.params.id,
+                    categoryId : 3
+                }
+            });
+            let videosCat4 = await db.Video.findAll({
+                where:{
+                    courseId:req.params.id,
+                    categoryId : 4
+                }
+            });
+            let videosCat5 = await db.Video.findAll({
+                where:{
+                    courseId:req.params.id,
+                    categoryId : 5
+                }
+            });
+            let videosCat6 = await db.Video.findAll({
+                where:{
+                    courseId:req.params.id,
+                    categoryId : 6
+                }
+            });
             let course = await db.Course.findByPk(req.params.id, {
                 include : [
                     {
                         association : 'university',
-                        attributes : ['id','name']
+                        attributes : ['id','name','acronym']
                     },
                     {
                         association : 'faculty',
-                        attributes : ['id','name']
+                        attributes : ['id','name','acronym'],
+                        include :
+                        {
+                            association : 'categories',
+                            attributes : ['id','name'],
+                            include : ['videos']
+                        }
                     },
                     {
                         association : 'careers',
@@ -127,6 +172,10 @@ module.exports = {
                         association : 'units',
                         attributes : ['id','number','name'],
                     },
+                    {
+                        association : 'videos',
+                        attributes : ['id','title'],
+                    },
                 ]
             });
             return res.render('admin/courseEdit', {
@@ -134,12 +183,20 @@ module.exports = {
                 faculties,
                 teachers,
                 course,
-                next : req.query.next ? req.query.next : 'info'
+                categories,
+                next : req.query.next ? req.query.next : 'info',
+                turns,
+                countVideos,
+                videosCat1,
+                videosCat2,
+                videosCat3,
+                videosCat4,
+                videosCat5,
+                videosCat6
             })
         } catch (error) {
             console.log(error)
         }
-       
 
     },
     update: async (req, res) => {
@@ -179,6 +236,7 @@ module.exports = {
                 }
     
             case 'videos':
+                return res.send(req.body)
                 return res.redirect(`/courses/edit/${req.params.id}?next=tests`)
                 break;
             case 'tests':

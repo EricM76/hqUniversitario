@@ -21,8 +21,28 @@ module.exports = {
         console.log(error)
       }
     },
-    store : (req,res) => {
+    store : async (req,res) => {
+      const {length, title, description, locked, categoryId, year, turn, unitId, order }= req.body;
 
+      try {
+        await db.Video.create({
+          resource : req.file.filename,
+          title : title.trim(),
+          description : description.trim(),
+          locked : locked ? 1 : 0,
+          year : year ? year : null,
+          turn : turn ? turn : null,
+          categoryId : categoryId ? categoryId : null,
+          unitId : unitId ? unitId : null,
+          courseId : req.query.course,
+          order,
+          length
+        })
+        return res.redirect('/courses/edit/' + req.query.course)
+
+      } catch (error) {
+        console.log(error)
+      }
     },
     list : async (req,res) => {
         try {
@@ -35,10 +55,6 @@ module.exports = {
               {
                 association : 'unit',
                 attributes : ['id','name']
-              },
-              {
-                association : 'year',
-                attributes : ['id','annum']
               },
               {
                 association : 'turn',

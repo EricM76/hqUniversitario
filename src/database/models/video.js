@@ -27,23 +27,21 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey : 'turnId',
         as : 'turn'
       });
-      Video.belongsTo(models.Year,{
-        foreignKey : 'yearId',
-        as : 'year'
-      });
     }
   };
   Video.init({
+    resource : DataTypes.STRING,
     title: DataTypes.STRING,
     description: DataTypes.STRING,
     length: DataTypes.NUMBER,
     locked: DataTypes.BOOLEAN,
     visible: DataTypes.BOOLEAN,
+    order: DataTypes.INTEGER,
     courseId : DataTypes.INTEGER,
     categoryId : DataTypes.INTEGER,
     unitId : DataTypes.INTEGER,
     turnId : DataTypes.INTEGER,
-    yearId : DataTypes.INTEGER
+    year : DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Video',
