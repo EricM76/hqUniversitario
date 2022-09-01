@@ -21,6 +21,31 @@
         height: 100%;
         width: 100%;
     }
+
+    .coursePresentation__rating {
+        .coursePresentation__rating--container {
+            .coursePresentation__rating--value {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 200px;
+                margin: 0 auto;
+                span {
+                    font-size: 80px;
+                }
+            }
+        }
+        .coursePresentation__comments--container {
+            .coursePresentation__comments--avatar {
+                .avatar {
+                    max-width: 5rem;
+                    img {
+                        @extend .responsiveImage
+                    }
+                }
+            }
+        }
+    }
 }
 
 
