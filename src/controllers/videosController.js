@@ -22,7 +22,7 @@ module.exports = {
       }
     },
     store : async (req,res) => {
-      const {length, title, description, locked, categoryId, year, turn, unitId, order }= req.body;
+      const {length, title, description, locked, categoryId, year, turnId, unitId, order }= req.body;
 
       try {
         await db.Video.create({
@@ -31,7 +31,7 @@ module.exports = {
           description : description.trim(),
           locked : locked ? 1 : 0,
           year : year ? year : null,
-          turn : turn ? turn : null,
+          turnId : turnId ? turnId : null,
           categoryId : categoryId ? categoryId : null,
           unitId : unitId ? unitId : null,
           courseId : req.query.course,
@@ -110,8 +110,45 @@ module.exports = {
     edit : (req,res) => {
 
     },
-    update : (req,res) => {
+    update : async (req,res) => {
+      const {length, title, description, locked, categoryId, year, turnId, unitId, order }= req.body;
 
+      try {
+        let video = await db.Video.findOne({
+          where : {id : req.params.id}
+        });
+
+        if(req.file){
+          if(fs.existsSync(path.resolve(__dirname, '..','assets','videos',video.resource))){
+            fs.unlinkSync(path.resolve(__dirname, '..','assets','videos',video.resource))
+          }
+        }
+
+        await db.Video.update(
+          {
+            length,
+            title : title.trim(),
+            description : description.trim(),
+            locked : locked ? 1 : 0,
+            year : year ? year : null,
+            turnId : turnId ? turnId : null,
+            categoryId : categoryId ? categoryId : null,
+            unitId : unitId ? unitId : null,
+            order,
+            resource : req.file ? req.file.filename : video.resource
+          },
+          {
+            where : {
+              id : req.params.id
+            }
+          }
+        )
+
+        return res.redirect(`/courses/edit/${req.query.course}?next=videos`)
+
+      } catch (error) {
+        console.log(error)
+      }
     },
     remove : (req,res) => {
 
@@ -121,5 +158,31 @@ module.exports = {
     },
     filter : (req,res) => {
         
+    },
+    /* apis */
+    changeLocked : async (req,res) => {
+     
+      try {
+        await db.Video.update(
+          {
+            locked : req.body.locked == 'true' ? 1 : 0
+          },
+          {
+            where : {
+                id : req.query.id
+            }
+          }
+        )
+        return res.status(200).json({
+            ok : true,
+            msg : 'cambio exitoso'
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(error.status).json({
+            ok: false,
+            msg : 'ups... error'
+        })
+    }
     }
 }

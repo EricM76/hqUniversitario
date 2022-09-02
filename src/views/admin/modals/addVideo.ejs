@@ -117,15 +117,6 @@
                                                 <span class="input-group-text">Orden</span>
                                                 <input name="order" class="form-control" type="text" value="<%=countVideos + 1%>" readonly>
                                             </div>
-                                          <!--   <select class="form-select form-select"
-                                                id="order"
-                                                name="order"
-                                                aria-label=".form-select-sm example">
-                                                <option value="" selected hidden>Orden...</option>
-                                                <% for(let i=1; i <= +countVideos + 1; i++ ) { %>
-                                                    <option value="<%=i%>"><%=i%></option>
-                                                <%}%>
-                                            </select> -->
                                         </div>
                                         <div class="col-12 col-md-6 mb-3">
                                                 <button class="btn btn-outline-dark w-100" type="submit">
@@ -233,6 +224,54 @@
                 selectTurn.innerHTML = '<option value="" selected hidden>Turno...</option>';
                 break;
         }
-    })
+    });
+
+    const changeOptions = async (e,id) => {
+        switch (event.target.value) {
+            case "2":
+            case "4":
+                document.getElementById('unitId' + id).disabled = false;
+                document.getElementById('year' + id).disabled = true;
+                document.getElementById('turnId' + id).disabled = true;
+                document.getElementById('year' + id).innerHTML = '<option value="" selected hidden>Año...</option>';
+                document.getElementById('turnId' + id).innerHTML = '<option value="" selected hidden>Turno...</option>';
+                
+                document.getElementById('unitId' + id).innerHTML = '<option value="" selected hidden>Unidad...</option>';
+                result = await apiCall('/units?course=' + inputCourse.value);
+                result.units.forEach(unit => {
+                    document.getElementById('unitId' + id).innerHTML += `<option value="${unit.id}">${unit.number}</option>`;
+                });
+
+                break;
+            case "3":
+            case "6":
+                document.getElementById('unitId' + id).disabled = true;
+                document.getElementById('year' + id).disabled = false;
+                document.getElementById('turnId' + id).disabled = false;
+
+                document.getElementById('unitId' + id).innerHTML = '<option value="" selected hidden>Unidad...</option>';
+                
+                document.getElementById('year' + id).innerHTML = '<option value="" selected hidden>Año...</option>';
+                for(let i=2005; i<= new Date().getFullYear(); i++ ) {
+                document.getElementById('year' + id).innerHTML += `<option value="${i}">${i}</option>`
+                }
+
+                document.getElementById('turnId' + id).innerHTML = '<option value="" selected hidden>Turno...</option>';
+                result = await apiCall('/turns');
+                result.turns.forEach(turn => {
+                    document.getElementById('turnId' + id).innerHTML += `<option value="${turn.id}">${turn.month}</option>`;
+                });
+              
+                break;
+            default:
+                document.getElementById('unitId' + id).disabled = true;
+                document.getElementById('year' + id).disabled = true;
+                document.getElementById('turnId' + id).disabled = true;
+                document.getElementById('unitId' + id).innerHTML = '<option value="" selected hidden>Unidad...</option>';
+                document.getElementById('year' + id).innerHTML = '<option value="" selected hidden>Año...</option>';
+                document.getElementById('turnId' + id).innerHTML = '<option value="" selected hidden>Turno...</option>';
+                break;
+        }
+    }
   </script>
   

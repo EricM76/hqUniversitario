@@ -104,42 +104,7 @@ module.exports = {
             let categories = await db.Category.findAll();
             let turns = await db.Turn.findAll();
             let countVideos = await db.Video.count({where:{courseId:req.params.id}});
-            let videosCat1 = await db.Video.findAll({
-                where:{
-                    courseId:req.params.id,
-                    categoryId : 1
-                }
-            });
-            let videosCat2 = await db.Video.findAll({
-                where:{
-                    courseId:req.params.id,
-                    categoryId : 2
-                }
-            });
-            let videosCat3 = await db.Video.findAll({
-                where:{
-                    courseId:req.params.id,
-                    categoryId : 3
-                }
-            });
-            let videosCat4 = await db.Video.findAll({
-                where:{
-                    courseId:req.params.id,
-                    categoryId : 4
-                }
-            });
-            let videosCat5 = await db.Video.findAll({
-                where:{
-                    courseId:req.params.id,
-                    categoryId : 5
-                }
-            });
-            let videosCat6 = await db.Video.findAll({
-                where:{
-                    courseId:req.params.id,
-                    categoryId : 6
-                }
-            });
+          
             let course = await db.Course.findByPk(req.params.id, {
                 include : [
                     {
@@ -153,6 +118,7 @@ module.exports = {
                         {
                             association : 'categories',
                             attributes : ['id','name'],
+                            order : ['id'],
                             include : ['videos']
                         }
                     },
@@ -187,12 +153,6 @@ module.exports = {
                 next : req.query.next ? req.query.next : 'info',
                 turns,
                 countVideos,
-                videosCat1,
-                videosCat2,
-                videosCat3,
-                videosCat4,
-                videosCat5,
-                videosCat6
             })
         } catch (error) {
             console.log(error)
