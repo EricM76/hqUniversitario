@@ -1,4 +1,4 @@
-<div class="modal fade" id="exampleModalVideo" tabindex="-1" aria-labelledby="exampleModalVideoLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModalVideo" tabindex="-1" aria-labelledby="exampleModalVideoLabel" aria-hidden="true" data-id="<%= course.id %>">
     <div class="modal-dialog modal-xl modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -12,32 +12,36 @@
                                     <div class="mb-3">
                                         <input type="file" class="form-control" id="resource"
                                             name="resource" hidden>
-                                        <video id="resourcePreview"
-                                            src="/videos/show?video=testVideo.mp4"
-                                            type="video/mp4" width="100%" controls>
-
+                                        <video id="resourceTag" controls width="100%" onchange="alert('epaaa')">
+                                            <source 
+                                                id="resourcePreview"
+                                                src=""
+                                                type="video/mp4"
+                                                
+                                            >
+                                            <p class="alert alert-danger">Upss, su navegador no soporta la reproducción de videos</p>
+                                        </video>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="resource"
+                                        <label for="resource" id="resourceLabel"
                                             class="btn btn-outline-dark w-100 mb-3">Subir
                                             video</label>
-
                                     </div>
                                     <div class="row">
-                                        <div class="col-12 col-lg-8">
+                                        <div class="col-12 col-md-8">
                                             <div
-                                                class="d-flex flex-column align-items-lg-center flex-lg-row mb-3">
+                                                class="d-flex flex-column align-items-md-center flex-md-row mb-3">
                                                 <label for="length"
                                                     class="form-label me-2">Duración:</label>
                                                 <div class="input-group">
                                                     <input type="number"
-                                                        class="form-control" min="0" name="length">
+                                                        class="form-control" min="0" name="length" id="length">
                                                     <span class="input-group-text"
                                                         for="">min</span>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-lg-4">
+                                        <div class="col-12 col-md-4">
                                             <div class="d-flex justify-content-around">
                                                 <div class=" mb-3">
                                                     <label class="fs-4" for="locked" id="label-locked">
@@ -143,6 +147,11 @@
     let selectYear = document.getElementById('year');
     let selectTurn = document.getElementById('turnId');
     let inputCourse = document.getElementById('inputCourse');
+    let inputResource = document.getElementById('resource');
+    let videoTag = document.getElementById('resourceTag');
+    let videoPreview = document.getElementById('resourcePreview');
+    let resourceLabel = document.getElementById('resourceLabel');
+    let inputLenth = document.getElementById('length');
     let result;
 
     const apiCall = async(url) => {
@@ -273,5 +282,36 @@
                 break;
         }
     }
+
+    inputResource.addEventListener('change', (event) => {
+
+        if (event.target.files && event.target.files[0]) {
+            let reader = new FileReader();
+
+            reader.onload = function(e) {
+            videoPreview.src = e.target.result
+            videoTag.load()
+
+            }.bind(this)
+
+
+            reader.readAsDataURL(event.target.files[0]);
+            resourceLabel.innerText = 'Cambiar video';
+
+           
+        }
+    });
+
+    videoTag.addEventListener('loadeddata', ({target}) => {
+        inputLenth.value = Math.round(target.duration / 60)
+    })
+
+    document.getElementById('exampleModalVideo').addEventListener('hidden.bs.modal', e => {
+       
+    });
+
+    document.getElementById('exampleModalVideo').addEventListener('shown.bs.modal', e => {
+
+    });
   </script>
   

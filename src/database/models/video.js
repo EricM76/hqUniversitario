@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     resource : DataTypes.STRING,
     title: DataTypes.STRING,
     description: DataTypes.STRING,
-    length: DataTypes.NUMBER,
+    length: DataTypes.INTEGER,
     locked: DataTypes.BOOLEAN,
     visible: DataTypes.BOOLEAN,
     order: DataTypes.INTEGER,
