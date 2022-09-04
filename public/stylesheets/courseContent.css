@@ -1,0 +1,48 @@
+.courseContent .courseContent__header {
+  margin-bottom: 3rem; }
+
+.courseContent .courseContent__videos {
+  margin-bottom: 3rem; }
+  .courseContent .courseContent__videos .courseContent__videos--card {
+    position: relative; }
+    .courseContent .courseContent__videos .courseContent__videos--card .courseContent__videos--card-iconsContainer {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 0.5rem;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      width: 25%; }
+    .courseContent .courseContent__videos .courseContent__videos--card .courseContent__videos--card-title {
+      width: 75%; }
+    .courseContent .courseContent__videos .courseContent__videos--card .courseContent__videos--card-data {
+      display: flex;
+      align-items: center;
+      justify-content: space-between; }
+
+.courseContent .courseContent__download,
+.courseContent .courseContent__test {
+  margin-bottom: 3rem; }
+  .courseContent .courseContent__download .courseContent__download--card,
+  .courseContent .courseContent__download .courseContent__test--card,
+  .courseContent .courseContent__test .courseContent__download--card,
+  .courseContent .courseContent__test .courseContent__test--card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
+    .courseContent .courseContent__download .courseContent__download--card p,
+    .courseContent .courseContent__download .courseContent__test--card p,
+    .courseContent .courseContent__test .courseContent__download--card p,
+    .courseContent .courseContent__test .courseContent__test--card p {
+      margin: 0; }
+    .courseContent .courseContent__download .courseContent__download--card span,
+    .courseContent .courseContent__download .courseContent__test--card span,
+    .courseContent .courseContent__test .courseContent__download--card span,
+    .courseContent .courseContent__test .courseContent__test--card span {
+      color: grey; }
+    .courseContent .courseContent__download .courseContent__download--card i,
+    .courseContent .courseContent__download .courseContent__test--card i,
+    .courseContent .courseContent__test .courseContent__download--card i,
+    .courseContent .courseContent__test .courseContent__test--card i {
+      font-size: 1.5rem; }

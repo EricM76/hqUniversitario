@@ -3,11 +3,215 @@
     title : 'Materia | Contenido'
   }) %> 
 
-<body class="content">
+<body class="courseContent">
   <%- include('./partials/header') %> 
   <main class="container">
-    <h1>Contenido de la Materia</h1>
+    <header class="courseContent__header container p-3">
+      <div class="row align-items-center">
+        <div class="col-12 col-md-6 p-3">
+          <h1>MATERIA - UNIVERSIDAD</h1>
+          <ul>
+            <li>20 Videos</li>
+            <li>6 ejercitaciones</li> 
+            <li>2 evaluaciones</li>
+          </ul>          
+        </div>
+        <div class="col-12 col-md-6 p-3">
+            <h2>Progreso</h2>       
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" aria-label="Example with label" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Viste el 25% del contenido</div>
+            </div> 
+        </div>
+      </div>
+    </header>
+    <h2 class="text-center">Contenido de la Materia</h2>
+    <!-- SECCIÓN VIDEOS -->
+    <section class="courseContent__videos container">
+      <h4 class="border-bottom pb-1 mb-3">Videos</h4>
+      <div class="row">
+        <!-- Content card -->
+        <div class="col-12 col-md-4 col-lg-3 p-1 mb-2">
+          <div class="courseContent__videos--card shadow rounded p-2">
+            <div class="courseContent__videos--card-iconsContainer">
+              <!-- Candado bloqueado -->
+              <i class="fa-solid fa-lock"></i>
+              <!-- Candado abierto -->
+              <i class="fa-solid fa-lock-open"></i>
+              <!-- Ojo -->
+              <i class="fa-solid fa-eye"></i>
+            </div>
+            <p class="courseContent__videos--card-title">GEOMETRÍA MOLECULAR Y FUERZAS INTERMOLECULARES</p>
+            <div class="courseContent__videos--card-data">
+              <ul>
+                <li>1 archivo adjunto</li>
+              </ul>
+              <a href="/usuarios/login" >
+                <div class="button__light">
+                  <span><a href="" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver video</a></span>
+                </div>
+            </a>
+            </div>
+          </div>
+        </div>
+        <li class="list-group-item university__school-itemContainer">
+          </li>
+        <!-- END Content card -->
+        <!-- Content card -->
+        <div class="col-12 col-md-4 col-lg-3 p-1 mb-2">
+          <div class="courseContent__videos--card shadow rounded p-2">
+            <div class="courseContent__videos--card-iconsContainer">
+              <!-- Candado bloqueado -->
+              <i class="fa-solid fa-lock"></i>
+              <!-- Candado abierto -->
+              <i class="fa-solid fa-lock-open"></i>
+              <!-- Ojo -->
+              <i class="fa-solid fa-eye"></i>
+            </div>
+            <p class="courseContent__videos--card-title">GEOMETRÍA MOLECULAR Y FUERZAS INTERMOLECULARES</p>
+            <div class="courseContent__videos--card-data">
+              <ul>
+                <li>1 archivo adjunto</li>
+              </ul>
+              <a href="/usuarios/login" >
+                <div class="button__light">
+                  <span><a href="" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver video</a></span>
+                </div>
+            </a>
+            </div>
+          </div>
+        </div>
+        <!-- END Content card -->
+        <!-- Content card -->
+        <div class="col-12 col-md-4 col-lg-3 p-1 mb-2">
+          <div class="courseContent__videos--card shadow rounded p-2">
+            <div class="courseContent__videos--card-iconsContainer">
+              <!-- Candado bloqueado -->
+              <i class="fa-solid fa-lock"></i>
+              <!-- Candado abierto -->
+              <i class="fa-solid fa-lock-open"></i>
+              <!-- Ojo -->
+              <i class="fa-solid fa-eye"></i>
+            </div>
+            <p class="courseContent__videos--card-title">GEOMETRÍA MOLECULAR Y FUERZAS INTERMOLECULARES</p>
+            <div class="courseContent__videos--card-data">
+              <ul>
+                <li>1 archivo adjunto</li>
+              </ul>
+              <a href="/usuarios/login" >
+                <div class="button__light">
+                    <span>Ver video</span>
+                </div>
+            </a>
+            </div>
+          </div>
+        </div>
+        <!-- END Content card -->
+        <!-- Content card -->
+        <div class="col-12 col-md-4 col-lg-3 p-1 mb-2">
+          <div class="courseContent__videos--card shadow rounded p-2">
+            <div class="courseContent__videos--card-iconsContainer">
+              <!-- Candado bloqueado -->
+              <i class="fa-solid fa-lock"></i>
+              <!-- Candado abierto -->
+              <i class="fa-solid fa-lock-open"></i>
+              <!-- Ojo -->
+              <i class="fa-solid fa-eye"></i>
+            </div>
+            <p class="courseContent__videos--card-title">GEOMETRÍA MOLECULAR Y FUERZAS INTERMOLECULARES</p>
+            <div class="courseContent__videos--card-data">
+              <ul>
+                <li>1 archivo adjunto</li>
+              </ul>
+              <a href="/usuarios/login" >
+                <div class="button__light">
+                    <span>Ver video</span>
+                </div>
+            </a>
+            </div>
+          </div>
+        </div>
+        <!-- END Content card -->
+        
+      </div>
+    </section>
+    <!-- FIN VIDEOS -->
+    <!-- SECCIÓN ADJUNTOS -->
+    <section class="courseContent__download">
+      <h4 class="border-bottom pb-1 mb-3">Material adjunto</h4>
+      <div class="container">
+        <div class="row">
+          <!-- Download card -->
+          <div class="col-12 col-md-4 p-2 mb-2">
+            <div class="courseContent__download--card shadow rounded p-2">
+              <p>Apunte Misterioso</p>
+              <span>Pdf</span>
+              <a href="http://">
+                <i class="fa-solid fa-download"></i>
+              </a>
+            </div>
+          </div>
+          <!-- END Download card -->
+          <!-- Download card -->
+          <div class="col-12 col-md-4 p-2 mb-2">
+            <div class="courseContent__download--card shadow rounded p-2">
+              <p>Apunte Misterioso</p>
+              <span>Pdf</span>
+              <a href="http://">
+                <i class="fa-solid fa-download"></i>
+              </a>
+            </div>
+          </div>
+          <!-- END Download card -->
+          <!-- Download card -->
+          <div class="col-12 col-md-4 p-2 mb-2">
+            <div class="courseContent__download--card shadow rounded p-2">
+              <p>Apunte Misterioso</p>
+              <span>Pdf</span>
+              <a href="http://">
+                <i class="fa-solid fa-download"></i>
+              </a>
+            </div>
+          </div>
+          <!-- END Download card -->
+          <!-- Download card -->
+          <div class="col-12 col-md-4 p-2 mb-2">
+            <div class="courseContent__download--card shadow rounded p-2">
+              <p>Apunte Misterioso</p>
+              <span>Pdf</span>
+              <a href="http://">
+                <i class="fa-solid fa-download"></i>
+              </a>
+            </div>
+          </div>
+          <!-- END Download card -->
+        </div>
+      </div>
+
+    </section>
+    <!-- FIN ADJUNTOS -->
+    <!-- SECCIÓN EXÁMENES -->
+    <section class="courseContent__test">
+      <h4 class="border-bottom pb-1 mb-3">Exámenes</h4>
+      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nulla quisquam sapiente non sit sunt cupiditate perspiciatis velit quasi dicta perferendis ut labore officiis architecto eos, quos earum minima eaque corrupti.</p>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-4 p-2 mb-2">
+            <div class="courseContent__test--card shadow rounded p-2">
+              <p>Examen</p>
+              <span>Acceder</span>
+              <a href="http://">
+                <i class="fa-solid fa-book"></i>
+              </a>
+            </div>
+          </div>         
+        </div>
+      </div>
+    </section>
+    <!-- FIN EXÁMENES -->
+
+    
   </main>
+  <%- include('./partials/modal/modal') %> 
   <%- include('./partials/footer') %> 
   <%- include('./partials/scripts') %> 
 </body>
