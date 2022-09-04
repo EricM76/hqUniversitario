@@ -1,78 +1,26 @@
 <div class="slide-container swiper">
     <div class="slide-content">
       <div class="card-wrapper swiper-wrapper">
-        <div class="slider__cardWrapper swiper-slide">
-          <div class="card border border-0 shadow">
-            <div class="slider__cardImageWrapper">
-                <img src="/images/logos/uncuyo_fcm_logo.jpeg" class="card-img-top" alt="...">
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">Materia</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <% lastestCourses.forEach(element => { %>
+          <div class="slider__cardWrapper swiper-slide">
+            <div class="card border border-0 shadow">
+              <div class="slider__cardImageWrapper">
+                  <img src="/images/<%- element.image %>" class="card-img-top" alt="Imagen <%- element.image %>">
+              </div>
               <div class="card-body">
-                <a href="#facultades">
-                  <div class="button__dark">
-                      <span>Ver materia</span>
-                  </div>
-                </a>
+                <h5 class="card-title"><%- element.name %> </h5>
+                <p class="card-text"><%- element.description ? element.description : "Una breve descripción" %> </p>
+                <div class="card-body">
+                  <a href="/materia/presentacion/<%- element.id %>">
+                    <div class="button__dark">
+                        <span>Ver materia</span>
+                    </div>
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-        </div>  
-        <div class="slider__cardWrapper swiper-slide">
-          <div class="card border border-0 shadow">
-            <div class="slider__cardImageWrapper">
-                <img src="/images/logos/uncuyo_fcm_logo.jpeg" class="card-img-top" alt="...">
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">Materia</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <div class="card-body">
-                <a href="#facultades">
-                  <div class="button__dark">
-                      <span>Ver materia</span>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>  
-        <div class="slider__cardWrapper swiper-slide">
-          <div class="card border border-0 shadow">
-            <div class="slider__cardImageWrapper">
-                <img src="/images/logos/uncuyo_fcm_logo.jpeg" class="card-img-top" alt="...">
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">Materia</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <div class="card-body">
-                <a href="#facultades">
-                  <div class="button__dark">
-                      <span>Ver materia</span>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>  
-        <div class="slider__cardWrapper swiper-slide">
-          <div class="card border border-0 shadow">
-            <div class="slider__cardImageWrapper">
-                <img src="/images/logos/uncuyo_fcm_logo.jpeg" class="card-img-top" alt="...">
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">Materia</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <div class="card-body">
-                <a href="#facultades">
-                  <div class="button__dark">
-                      <span>Ver materia</span>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>  
+          </div>  
+        <% }) %>
       </div>
     </div>
     <div class="swiper-button-next"></div>

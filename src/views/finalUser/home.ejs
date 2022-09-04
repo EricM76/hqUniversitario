@@ -66,85 +66,27 @@
         </div>
         <div class="row">
           <!-- Card Universidad -->
-          <div class="col-12 col-md-3 p-3">
-            <div class="card border border-0 shadow">
-              <img src="images/logos/unc_logo.png" class="card-img-top" alt="unc_logo">
-              <div class="card-body">
-                <h5 class="card-title">Universidad de Córdoba</h5>
-              </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">10 Facultades</li>
-                <li class="list-group-item">25 Carreras</li>
-              </ul>
-              <div class="card-body">
-                <a href="#facultades">
-                  <div class="button__dark">
-                      <span>Ver facultades</span>
-                  </div>
-              </a>
-              </div>
-            </div>
-          </div>
-          <!-- Card Universidad -->
-          <div class="col-12 col-md-3 p-3">
-            <div class="card border border-0 shadow">
-              <img src="images/logos/unc_logo.png" class="card-img-top" alt="unc_logo">
-              <div class="card-body">
-                <h5 class="card-title">Universidad de Córdoba</h5>
-              </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">10 Facultades</li>
-                <li class="list-group-item">25 Carreras</li>
-              </ul>
-              <div class="card-body">
-                <a href="#facultades">
-                  <div class="button__dark">
-                      <span>Ver facultades</span>
-                  </div>
-              </a>
+          <% universities.forEach(university => { %>
+            <div class="col-12 col-md-3 p-3">
+              <div class="card border border-0 shadow">
+                <img src="images/logos/<%- university.image %> " class="card-img-top" alt="unc_logo">
+                <div class="card-body">
+                  <h5 class="card-title"><%- university.name %></h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">10 Facultades</li>
+                  <li class="list-group-item">25 Carreras</li>
+                </ul>
+                <div class="card-body">
+                  <a href="/universidad/<%- university.id %>/facultades">
+                    <div class="button__dark">
+                        <span>Ver facultades</span>
+                    </div>
+                </a>
+                </div>
               </div>
             </div>
-          </div>
-          <!-- Card Universidad -->
-          <div class="col-12 col-md-3 p-3">
-            <div class="card border border-0 shadow">
-              <img src="images/logos/unc_logo.png" class="card-img-top" alt="unc_logo">
-              <div class="card-body">
-                <h5 class="card-title">Universidad de Córdoba</h5>
-              </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">10 Facultades</li>
-                <li class="list-group-item">25 Carreras</li>
-              </ul>
-              <div class="card-body">
-                <a href="#facultades">
-                  <div class="button__dark">
-                      <span>Ver facultades</span>
-                  </div>
-              </a>
-              </div>
-            </div>
-          </div>
-          <!-- Card Universidad -->
-          <div class="col-12 col-md-3 p-3">
-            <div class="card border border-0 shadow">
-              <img src="images/logos/unc_logo.png" class="card-img-top" alt="unc_logo">
-              <div class="card-body">
-                <h5 class="card-title">Universidad de Córdoba</h5>
-              </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">10 Facultades</li>
-                <li class="list-group-item">25 Carreras</li>
-              </ul>
-              <div class="card-body">
-                <a href="#facultades">
-                  <div class="button__dark">
-                      <span>Ver facultades</span>
-                  </div>
-              </a>
-              </div>
-            </div>
-          </div>
+          <% }) %>
         </div>
       </section>
       <!-- FINAL UNIVERSIDADES -->
@@ -174,7 +116,7 @@
           <h3>ÚLTIMAS AGREGADAS</h3>
           <p class="home__last-paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, deleniti vel voluptatum repellendus ut maiores, expedita dolore ipsum earum explicabo minima quidem fugit, maxime eligendi placeat illum eius inventore nihil?</p>
         </div>
-        <%- include('./partials/slider') %> 
+        <%- include('./partials/slider'); %> 
       </section> 
       <!-- FINAL ÚLTIMAS AGREGADAS -->
       <!-- SECCIÓN CONTENIDO 2 -->
