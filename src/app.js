@@ -39,7 +39,7 @@ app
   .use('/memberships', require('./routes/memberships'))
   .use('/teachers', require('./routes/teachers'))
   .use('/tests', require('./routes/tests'))
-  .use('/users', require('./routes/users'))
+  .use('/usuarios', require('./routes/users'))
   .use('/videos', require('./routes/videos'))
   .use('/notes', require('./routes/notes'))
   /* Final user routes */

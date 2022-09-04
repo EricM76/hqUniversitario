@@ -10,5 +10,10 @@ router
   .delete('/remove', remove)
   .get('/filter', filter)
   .get('/search', search)
+  .get('/registro', register)
+  .post('/registro', processRegister)
+  .get('/login', login)
+  .get('/login', processLogin)
+  .get('/perfil', profile)
 
 module.exports = router;

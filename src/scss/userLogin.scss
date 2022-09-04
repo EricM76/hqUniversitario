@@ -1,0 +1,62 @@
+.login__mainContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 3rem 0;
+    .login__formContainer {
+        position: relative;
+        max-width: 500px;
+        .login__logoContainer {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 4rem;
+            height: 4rem;
+        }
+        .login__buttonContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .googleSigninButton {
+            display: flex;
+            justify-content: center;
+            #customBtn {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background: white;
+                color: #444;
+                border-radius: 5px;
+                border: thin solid #888;
+                box-shadow: 1px 1px 1px grey;
+                width: 250px;
+                padding: 0 1rem;
+                &:hover {
+                  cursor: pointer;
+                }
+              }
+              span.label {
+                font-family: serif;
+                font-weight: normal;
+              }
+              span.icon {
+                background: url('https://developers-dot-devsite-v2-prod.appspot.com/identity/sign-in/g-normal.png') 50% no-repeat;
+                background-size: contain;
+                width: 3rem;
+                height: 3rem;
+              }
+              span.buttonText {
+                padding-left: 12px;
+                font-size: 14px;
+                font-weight: bold;
+                /* Use the Roboto font that is loaded in the <head> */
+                font-family: 'Roboto', sans-serif;
+              }
+            
+        }
+    }
+}
+
+

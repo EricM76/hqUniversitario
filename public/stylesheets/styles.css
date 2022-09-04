@@ -437,6 +437,126 @@ a {
     .home .home__contact-container .home__contact-formWrapper {
       padding: 4rem 2rem; } }
 
+.register__mainContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 3rem 0; }
+  .register__mainContainer .register__formContainer {
+    position: relative;
+    max-width: 500px; }
+    .register__mainContainer .register__formContainer .register__logoContainer {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 4rem;
+      height: 4rem; }
+    .register__mainContainer .register__formContainer .register__buttonContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center; }
+    .register__mainContainer .register__formContainer .googleSigninButton {
+      display: flex;
+      justify-content: center; }
+      .register__mainContainer .register__formContainer .googleSigninButton #customBtn {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: white;
+        color: #444;
+        border-radius: 5px;
+        border: thin solid #888;
+        box-shadow: 1px 1px 1px grey;
+        width: 250px;
+        padding: 0 1rem; }
+        .register__mainContainer .register__formContainer .googleSigninButton #customBtn:hover {
+          cursor: pointer; }
+      .register__mainContainer .register__formContainer .googleSigninButton span.label {
+        font-family: serif;
+        font-weight: normal; }
+      .register__mainContainer .register__formContainer .googleSigninButton span.icon {
+        background: url("https://developers-dot-devsite-v2-prod.appspot.com/identity/sign-in/g-normal.png") 50% no-repeat;
+        background-size: contain;
+        width: 3rem;
+        height: 3rem; }
+      .register__mainContainer .register__formContainer .googleSigninButton span.buttonText {
+        padding-left: 12px;
+        font-size: 14px;
+        font-weight: bold;
+        /* Use the Roboto font that is loaded in the <head> */
+        font-family: 'Roboto', sans-serif; }
+
+.login__mainContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 3rem 0; }
+  .login__mainContainer .login__formContainer {
+    position: relative;
+    max-width: 500px; }
+    .login__mainContainer .login__formContainer .login__logoContainer {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 4rem;
+      height: 4rem; }
+    .login__mainContainer .login__formContainer .login__buttonContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center; }
+    .login__mainContainer .login__formContainer .googleSigninButton {
+      display: flex;
+      justify-content: center; }
+      .login__mainContainer .login__formContainer .googleSigninButton #customBtn {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: white;
+        color: #444;
+        border-radius: 5px;
+        border: thin solid #888;
+        box-shadow: 1px 1px 1px grey;
+        width: 250px;
+        padding: 0 1rem; }
+        .login__mainContainer .login__formContainer .googleSigninButton #customBtn:hover {
+          cursor: pointer; }
+      .login__mainContainer .login__formContainer .googleSigninButton span.label {
+        font-family: serif;
+        font-weight: normal; }
+      .login__mainContainer .login__formContainer .googleSigninButton span.icon {
+        background: url("https://developers-dot-devsite-v2-prod.appspot.com/identity/sign-in/g-normal.png") 50% no-repeat;
+        background-size: contain;
+        width: 3rem;
+        height: 3rem; }
+      .login__mainContainer .login__formContainer .googleSigninButton span.buttonText {
+        padding-left: 12px;
+        font-size: 14px;
+        font-weight: bold;
+        /* Use the Roboto font that is loaded in the <head> */
+        font-family: 'Roboto', sans-serif; }
+
+.profile__mainContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0 2rem; }
+  .profile__mainContainer .profile__formContainer {
+    position: relative;
+    max-width: 500px; }
+    .profile__mainContainer .profile__formContainer .profile__logoContainer {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 4rem;
+      height: 4rem; }
+    .profile__mainContainer .profile__formContainer .profile__buttonContainer {
+      display: flex;
+      justify-content: end;
+      align-items: center; }
+
 .magicCenter, .home .home__content1-data, .home .home__content2--container .home__content2--item, .coursePresentation .coursePresentation__summary-content--buttonContainer {
   display: flex;
   justify-content: center;
