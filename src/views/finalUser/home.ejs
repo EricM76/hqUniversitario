@@ -14,8 +14,8 @@
               <div class="carousel-item__imageContainer">
                 <img src="images/banners/banner-prueba.jpg" alt="Banner">
               </div>
-              <div class="carousel-item__dataContainer">
-                <h2>Titulo</h2>
+              <div class="carousel-item__dataContainer" data-aos-delay="500" data-aos="fade-up" data-aos-duration="2000">
+                <h2 >Titulo</h2>
                 <h3>Subtitulo</h3>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, tenetur!</p>
                 <button class="button__light">Registrarme</button>
@@ -62,13 +62,13 @@
       <!-- SECCIÓN UNIVERSIDADES -->
       <section class="home__universities container mb-5">
         <div class="row">
-            <h2>Universidades</h2>
+            <h2 data-aos="fade-up" data-aos-duration="1000">Universidades</h2>
         </div>
-        <div class="row">
+        <div class="row" data-aos="fade-up" data-aos-duration="1500">
           <!-- Card Universidad -->
           <% universities.forEach(university => { %>
             <div class="col-12 col-md-3 p-3">
-              <div class="card border border-0 shadow">
+              <div class="card border border-0 shadow p-2">
                 <img src="images/logos/<%- university.image %> " class="card-img-top" alt="unc_logo">
                 <div class="card-body">
                   <h5 class="card-title"><%- university.name %></h5>
@@ -93,10 +93,10 @@
       <!-- SECCIÓN CONTENIDO 1 -->
       <section class="container p-3 p-md-4 p-lg-5 mb-5">
         <div class="row">
-          <div class="col-12 col-md-6 home__content1-imageContainer">
+          <div data-aos="fade" data-aos-duration="1500" class="col-12 col-md-6 home__content1-imageContainer">
             <img src="images/home/home1_img.png" alt="Ilustración">
           </div>
-          <div class="col-12 col-md-6 home__content1-data p-5">
+          <div data-aos="fade-left" data-aos-duration="1500"  class="col-12 col-md-6 home__content1-data p-5">
             <h2 class="text-center">Llega preparado a los exámenes</h2>
             <p class="text-center">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus corporis illum tempora enim ea eligendi veniam, cupiditate beatae consequuntur minus, ex totam perferendis commodi et. In nesciunt rem quasi, non, impedit sint saepe, ea tenetur neque nemo recusandae labore omnis?</p>
             <div class="home__content1-buttonContainer">
@@ -111,32 +111,34 @@
       </section>
       <!-- FINAL CONTENIDO 1 -->
       <!-- SECCIÓN ÚLTIMAS AGREGADAS -->
-      <section class="border mb-5">
+      <section class="border mb-5" data-aos="fade-up" data-aos-duration="1500">
         <div class="border-bottom p-3">
-          <h3>ÚLTIMAS AGREGADAS</h3>
+          <h3 >ÚLTIMAS AGREGADAS</h3>
           <p class="home__last-paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, deleniti vel voluptatum repellendus ut maiores, expedita dolore ipsum earum explicabo minima quidem fugit, maxime eligendi placeat illum eius inventore nihil?</p>
         </div>
-        <%- include('./partials/slider'); %> 
+        <%- include('./partials/slider', { 
+          sliderArray: locals.lastestCourses
+        }); %> 
       </section> 
       <!-- FINAL ÚLTIMAS AGREGADAS -->
       <!-- SECCIÓN CONTENIDO 2 -->
       <section class="home__content2--container mb-5">
-        <div class="home__content2--item">
+        <div data-aos="fade-up" data-aos-duration="750" class="home__content2--item">
           <i class="fa-solid fa-award"></i>
           <p>Contenido de calidad</p>
         </div>
-        <div class="home__content2--item">
+        <div data-aos="fade-up" data-aos-duration="1250" class="home__content2--item">
           <i class="fa-solid fa-ranking-star"></i>
           <p>El más completo</p>
         </div>
-        <div class="home__content2--item">
+        <div data-aos="fade-up" data-aos-duration="1750" class="home__content2--item">
           <i class="fa-solid fa-person-chalkboard"></i>
           <p>Los mejores docentes</p>
         </div>
       </section>
       <!-- FINAL CONTENIDO 2 -->
       <!-- SECCIÓN MATERIAS -->
-      <section class="container shadow p-3">
+      <section class="container shadow p-3" data-aos="fade-up" data-aos-duration="1500">
         <nav>
           <ul class="nav nav-tabs">
             <li class="nav-item">
@@ -159,32 +161,37 @@
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos odio obcaecati debitis, maxime possimus expedita. Corporis ipsa id, minus ea velit temporibus nesciunt nobis quaerat, rerum voluptas veritatis sit dolores.</p>
           </div>
         </div>
-        <%- include('./partials/slider') %> 
+        <%- include('./partials/slider', { 
+          sliderArray: locals.lastestCourses
+        }) %> 
       </section>
       <!-- FINAL MATERIAS -->
       <!-- SECCIÓN CONTACTO -->
       <section class="container home__contact-container">
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-6" data-aos="fade" data-aos-duration="1500" >
             <h1>CONTACTANOS</h1>
             <p>Envianos un mensaje con tu consulta y en breve te responderemos</p>
             <div class="home__contact-imgWrapper">
               <img src="images/home/home2_img-contacto.png" alt="Ilustración de contacto">
             </div>
           </div>
-          <div class="col-md-6 container home__contact-formWrapper">
-            <form action="">
+          <div class="col-md-6 container home__contact-formWrapper" data-aos="fade-left" data-aos-duration="1500" >
+            <form id="form">
               <div class="mb-3">
-                <input type="text" class="form-control" placeholder="Nombre y apellido">
+                <input type="text" id="inputName" class="form-control" name="name" placeholder="Nombre y apellido">
+                <small id="nameErrors" class="text-danger"></small>
               </div>
               <div class="mb-3">
-                <input type="email" class="form-control" placeholder="Correo electrónico">
+                <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Correo electrónico">
+                <small id="emailErrors" class="text-danger"></small>
               </div>
               <div class="mb-3">
-                <textarea class="form-control" rows="3" placeholder="Escribe tu consulta"></textarea>
+                <textarea class="form-control" id="message" rows="3" name="message" placeholder="Escribe tu consulta"></textarea>
+                <small id="messageErrors" class="text-danger"></small>
               </div>
               <div class="home__contact-form-buttonContainer">
-                <button class="button__dark">Enviar</button>
+                <button class="button__dark" type="submit">Enviar</button>
               </div>
             </form>
           </div>
@@ -195,5 +202,6 @@
     <%- include('./partials/footer') %> 
     <%- include('./partials/scripts') %> 
     <script src="/javascripts/slider.js"></script>
+    <script src="/javascripts/home/contactForm.js"></script>
   </body>
 </html>

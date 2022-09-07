@@ -1,4 +1,5 @@
-const db = require("../database/models")
+const db = require('../database/models');
+const {validationResult} = require('express-validator')
 
 module.exports = {
     home : (req,res) => {
@@ -28,5 +29,17 @@ module.exports = {
     },
     admin : (req,res) => {
         return res.render('admin/index')
+    },
+    contact: (req, res) => {
+        const errors = validationResult(req);
+
+        if (errors.isEmpty()) {
+            //Lógica de envio de email
+            res.status(200).json({message: "Mensaje enviado correctamente"})
+        } else {
+            res.status(400).json({
+                errores: errors.mapped(),
+            })
+        }
     }
 }
