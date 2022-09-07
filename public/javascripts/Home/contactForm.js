@@ -52,7 +52,6 @@ contactFormMessage.addEventListener("blur", (e) => {
 contactForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const formElements = e.target.elements;
-    console.log(formElements)
     for(let i = 0; i <= formElements.length - 1;i++){
         if(
             formElements[i].value === "" || 
