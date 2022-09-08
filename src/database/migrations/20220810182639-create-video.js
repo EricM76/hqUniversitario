@@ -8,6 +8,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      resource : {
+        type : Sequelize.STRING
+      },
       title: {
         type: Sequelize.STRING
       },
@@ -22,6 +25,9 @@ module.exports = {
       },
       visible: {
         type: Sequelize.BOOLEAN
+      },
+      order: {
+        type: Sequelize.INTEGER
       },
       courseId : {
         type: Sequelize.INTEGER,
@@ -46,6 +52,18 @@ module.exports = {
         references: {
           model: {
             tableName: 'Units'
+          },
+          key: 'id'
+        },
+      },
+      year : {
+        type: Sequelize.INTEGER,
+      },
+      turnId : {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'Turns'
           },
           key: 'id'
         },

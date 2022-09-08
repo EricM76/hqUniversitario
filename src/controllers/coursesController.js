@@ -101,15 +101,26 @@ module.exports = {
             let universities = await db.University.findAll();
             let faculties = await db.Faculty.findAll();
             let teachers = await db.Teacher.findAll();
+            let categories = await db.Category.findAll();
+            let turns = await db.Turn.findAll();
+            let countVideos = await db.Video.count({where:{courseId:req.params.id}});
+          
             let course = await db.Course.findByPk(req.params.id, {
                 include : [
                     {
                         association : 'university',
-                        attributes : ['id','name']
+                        attributes : ['id','name','acronym']
                     },
                     {
                         association : 'faculty',
-                        attributes : ['id','name']
+                        attributes : ['id','name','acronym'],
+                        include :
+                        {
+                            association : 'categories',
+                            attributes : ['id','name'],
+                            order : ['id'],
+                            include : ['videos']
+                        }
                     },
                     {
                         association : 'careers',
@@ -123,6 +134,14 @@ module.exports = {
                         association : 'notes',
                         attributes : ['id','title','file']
                     },
+                    {
+                        association : 'units',
+                        attributes : ['id','number','name'],
+                    },
+                    {
+                        association : 'videos',
+                        attributes : ['id','title'],
+                    },
                 ]
             });
             return res.render('admin/courseEdit', {
@@ -130,12 +149,14 @@ module.exports = {
                 faculties,
                 teachers,
                 course,
-                next : req.query.next ? req.query.next : 'info'
+                categories,
+                next : req.query.next ? req.query.next : 'info',
+                turns,
+                countVideos,
             })
         } catch (error) {
             console.log(error)
         }
-       
 
     },
     update: async (req, res) => {
@@ -175,6 +196,7 @@ module.exports = {
                 }
     
             case 'videos':
+                return res.send(req.body)
                 return res.redirect(`/courses/edit/${req.params.id}?next=tests`)
                 break;
             case 'tests':

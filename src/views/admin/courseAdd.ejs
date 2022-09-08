@@ -18,37 +18,7 @@
                                 <hr>
                             </div>
                             <div class="card-body">
-                                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link text-dark active" id="info-tab" data-bs-toggle="tab"
-                                            data-bs-target="#info-tab-pane" type="button" role="tab"
-                                            aria-controls="info-tab-pane" aria-selected="true">Información</button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="apuntes-tab" data-bs-toggle="tab"
-                                            data-bs-target="#apuntes-tab-pane" type="button" role="tab"
-                                            aria-controls="apuntes-tab-pane" aria-selected="false" disabled>Apuntes</button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="videos-tab" data-bs-toggle="tab"
-                                            data-bs-target="#videos-tab-pane" type="button" role="tab"
-                                            aria-controls="videos-tab-pane" aria-selected="false" disabled>Videos</button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="examenes-tab" data-bs-toggle="tab"
-                                            data-bs-target="#examenes-tab-pane" type="button" role="tab"
-                                            aria-controls="examenes-tab-pane" aria-selected="false" disabled>Exámenes</button>
-                                    </li>
-                                    <li class="nav-item" role="presentation" hidden>
-                                        <button class="nav-link text-dark" id="disabled-tab" data-bs-toggle="tab"
-                                            data-bs-target="#disabled-tab-pane" type="button" role="tab"
-                                            aria-controls="disabled-tab-pane" aria-selected="false"
-                                            disabled>Disabled</button>
-                                    </li>
-                                </ul>
-                                <div class="tab-content" id="myTabContent">
-                                    <div class="tab-pane fade show active py-3" id="info-tab-pane" role="tabpanel"
-                                        aria-labelledby="info-tab" tabindex="0">
+                               
                                         <form action="" class="row g-3 position-relative" enctype="multipart/form-data"
                                             method="POST" id="form-addInfo-course">
 
@@ -175,97 +145,7 @@
                                             </div>
                                         </form>
 
-                                    </div>
-                                    <div class="tab-pane fade show py-3" id="apuntes-tab-pane" role="tabpanel"
-                                        aria-labelledby="apuntes-tab" tabindex="0">
-                                        <form action="/courses/add?section=notes" class="row g-3 position-relative" enctype="multipart/form-data"
-                                            method="POST" id="form-add-course">
 
-                                            <div class=" col-12 mb-3" id="box-notes">
-                                                <label for="" class="form-label">Apuntes</label>
-                                                <div class="d-flex align-items-center gap-2" id="box1">
-                                                    <div class="mb-3">
-                                                        <label id="label1" class="fs-2 text-danger d-none"><i
-                                                                class="fa fa-file-pdf-o"></i></label>
-                                                        <input class="form-control" type="file" id="note" name="note"
-                                                            accept=".pdf" data-box="1" onchange="addInput(event)">
-                                                    </div>
-
-                                                    <div id="box-note1"
-                                                        class="d-flex gap-2 align-items-center w-100 d-none">
-                                                        <div class="input-group mb-3">
-                                                            <span class="input-group-text"
-                                                                id="basic-addon3">Título</span>
-                                                            <input type="text" class="form-control" id="title1"
-                                                                aria-describedby="basic-addon3" name="titles" disabled>
-                                                        </div>
-                                                        <p class="fs-2 text-danger" onclick="removeInput('box1')">
-                                                            <i class="fa fa-times"></i>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
-                                        </form>
-
-                                    </div>
-
-                                    <div class="tab-pane fade" id="videos-tab-pane" role="tabpanel"
-                                        aria-labelledby="videos-tab" tabindex="0">
-                                        <div class="row p-2">
-                                            <% for( let i=0; i < 24; i++ ) { %>
-
-                                                <div class="col-12 col-md-4 col-lg-2 my-3">
-                                                    <article class="card">
-                                                        <img src="/images/videoPreview.png" class="card-img-top"
-                                                            alt="...">
-                                                        <div class="card-body">
-                                                            <h5 class="card-title">Video title</h5>
-                                                            <div class="d-flex justify-content-around">
-                                                                <div class=" mb-2">
-                                                                    <label class="fs-4" for="locked">
-                                                                        <i class="fas fa-lock"></i>
-                                                                    </label>
-                                                                    <input type="checkbox" value="" id="locked" checked
-                                                                        hidden>
-
-                                                                </div>
-                                                                <a href="" class="fs-4 text-danger"><i
-                                                                        class="fas fa-trash"></i></a>
-                                                            </div>
-
-                                                            <div class="mb-2">
-                                                                <select class="form-select form-select-sm" id="order"
-                                                                    aria-label=".form-select-sm example">
-                                                                    <option selected hidden>Orden...</option>
-                                                                    <option value="1">1</option>
-                                                                    <option value="2">2</option>
-                                                                    <option value="3">3</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="mb-2">
-                                                                <select class="form-select form-select-sm" id="order"
-                                                                    aria-label=".form-select-sm example">
-                                                                    <option selected hidden>Categoría...</option>
-                                                                    <option value="1">1</option>
-                                                                    <option value="2">2</option>
-                                                                    <option value="3">3</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </article>
-                                                </div>
-
-                                                <% } %>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="examenes-tab-pane" role="tabpanel"
-                                        aria-labelledby="examenes-tab" tabindex="0">...</div>
-                                    <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel"
-                                        aria-labelledby="disabled-tab" tabindex="0">...</div>
-                                </div>
                             </div>
 
                             <div class="card-footer text-end">

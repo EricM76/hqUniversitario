@@ -11,16 +11,37 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Video.belongsTo(models.Course,{
+        foreignKey : 'courseId',
+        as : 'course'
+      });
+      Video.belongsTo(models.Category,{
+        foreignKey : 'categoryId',
+        as : 'category'
+      });
+      Video.belongsTo(models.Unit,{
+        foreignKey : 'unitId',
+        as : 'unit'
+      });
+      Video.belongsTo(models.Turn,{
+        foreignKey : 'turnId',
+        as : 'turn'
+      });
     }
   };
   Video.init({
+    resource : DataTypes.STRING,
     title: DataTypes.STRING,
     description: DataTypes.STRING,
-    length: DataTypes.NUMBER,
+    length: DataTypes.INTEGER,
     locked: DataTypes.BOOLEAN,
     visible: DataTypes.BOOLEAN,
+    order: DataTypes.INTEGER,
     courseId : DataTypes.INTEGER,
-    categoryId : DataTypes.INTEGER
+    categoryId : DataTypes.INTEGER,
+    unitId : DataTypes.INTEGER,
+    turnId : DataTypes.INTEGER,
+    year : DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Video',

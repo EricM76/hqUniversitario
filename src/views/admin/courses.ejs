@@ -11,15 +11,18 @@
                 <article class="card shadow">
                     <div class="card-header">
                       <div class="row g-2">
-                        <div class="col-12">
+                        <div class="col-12 d-flex justify-content-between">
                             <nav aria-label="breadcrumb">
                               <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="/admin">Home</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Materias</li>
                               </ol>
                             </nav>
-                          <hr>
+                            <div class="d-flex justify-content-end">
+                              <a href="/courses/add" class="btn btn-outline-dark">Agregar</a>
+                          </div>
                         </div>
+                        <hr>
                         <div class="col-12 col-md-6 col-lg-4">
                             <select class="form-select">
                                 <option selected hidden>Ordenar por</option>
@@ -37,10 +40,10 @@
                               </select>
                         </div>
                         <div class="col-12 col-md-12 col-lg-4">
-                            <form class="d-flex" role="search">
-                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                                <button class="btn btn-outline-dark" type="submit">Buscar</button>
-                              </form>
+                          <form class="d-flex position-relative" role="search">
+                            <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn bg-transparent border-start-1 position-absolute top-0 end-0" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                          </form>
                         </div>
                     </div>
                     </div>
@@ -76,9 +79,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                      <div class="d-flex justify-content-end">
-                        <a href="/courses/add" class="btn btn-outline-dark">Agregar</a>
-                    </div>
+                   
                     </div>
                 </article>
                

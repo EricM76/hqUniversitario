@@ -1,14 +1,93 @@
 <!DOCTYPE html>
 <%- include('./partials/head',{
-    title : 'Videos'
+    title : 'Materias'
 }) %> 
-<body class="admin">
+<body class="materias bg-light">
     <%- include('./partials/header') %> 
     <main class="container">
-        <h1>Video Test</h1>
-        <video id="videoPlayer" width="650" controls autoplay>
-            <source src="/videos/show" type="video/mp4" />
-          </video>
+        <section class="row mt-2 mt-md-3 mt-lg-5">
+            <div class="col-12  mx-auto">
+             
+                <article class="card shadow">
+                    <div class="card-header">
+                      <div class="row g-2">
+                        <div class="col-12 d-flex justify-content-between">
+                            <nav aria-label="breadcrumb">
+                              <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Videos</li>
+                              </ol>
+                            </nav>
+                            <div class="d-flex justify-content-end">
+                                <a href="/videos/add" class="btn btn-outline-dark">Agregar</a>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <select class="form-select">
+                                <option selected hidden>Ordenar por</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                              </select>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <select class="form-select">
+                                <option selected hidden>Filtar por</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                              </select>
+                        </div>
+                        <div class="col-12 col-md-12 col-lg-4">
+                            <form class="d-flex position-relative" role="search">
+                                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn bg-transparent border-start-1 position-absolute top-0 end-0" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                              </form>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Video</th>
+                                    <th scope="col">Materia</th>
+                                    <th scope="col">Facultad</th>
+                                    <th scope="col">Universidad</th>
+                                    <th scope="col">Acciones</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <% videos.forEach((video) => { %>
+                                    <tr>
+                                      <th class="align-middle" scope="row"><%=  %></th>
+                                      <td class="align-middle"><%=  %></td>
+                                      <td class="align-middle"><%=  %></td>
+                                      <td class="align-middle"><%=  %></td>
+                                      <td class="align-middle"><%=  %></td>
+                                      <td class="align-middle">
+                                        <div class="d-flex align-items-center gap-2">
+                                          <a href="/videos/detail/<%= id %>" class="btn btn-sm btn-outline-primary">+info</a>
+                                          <a href="/videos/edit/<%= id %>" class="btn btn-sm btn-outline-success" >editar</a>
+                                        </div>
+                                      </td>
+                                    </tr>
+                                  <% }) %>
+                                </tbody>
+                              </table>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                    
+                    </div>
+                </article>
+               
+            </div>
+        </section>
+
     </main>
     <%- include('./partials/scripts') %> 
 </body>

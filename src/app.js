@@ -39,9 +39,11 @@ app
   .use('/memberships', require('./routes/memberships'))
   .use('/teachers', require('./routes/teachers'))
   .use('/tests', require('./routes/tests'))
-  .use('/usuarios', require('./routes/users'))
+  .use('/users', require('./routes/users'))
   .use('/videos', require('./routes/videos'))
   .use('/notes', require('./routes/notes'))
+  .use('/turns', require('./routes/turns'))
+  .use('/units', require('./routes/units'))
   /* Final user routes */
   .use('/api', require('./routes/finalUser/api'))
   .use('/universidad', require('./routes/finalUser/university'))

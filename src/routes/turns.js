@@ -1,0 +1,12 @@
+const express = require('express');
+const router = express.Router();
+
+const {list} = require('../controllers/turnsController');
+
+/* /units */
+router
+/* APIs */
+  .get('/',list)
+
+
+module.exports = router;
