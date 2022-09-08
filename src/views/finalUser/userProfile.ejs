@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+  <%- include('./partials/head', {
+    title : 'Perfil de usuario'
+  }) %> 
+
+<body class="profile">
+  <%- include('./partials/header') %> 
+  <main class="container">
+    <h2 class="mx-4 pt-2">Hola Cosme!</h2>
+    <nav class="p-4">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#datosPersonales-tab-pane" type="button" role="tab" aria-controls="datosPersonales-tab-pane" aria-selected="true">Datos personales</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#membresia-tab-pane" type="button" role="tab" aria-controls="membresia-tab-pane" aria-selected="false">Membresías</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#referidos-tab-pane" type="button" role="tab" aria-controls="referidos-tab-pane" aria-selected="false">Mis referidos</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#intereses-tab-pane" type="button" role="tab" aria-controls="intereses-tab-pane" aria-selected="false">Mis intereses</button>
+        </li>
+      </ul>
+    </nav>
+    <div class="tab-content" id="myTabContent">
+      <section class="tab-pane fade show active profile__mainContainer" id="datosPersonales-tab-pane" role="tabpanel" aria-labelledby="datosPersonales-tap" tabindex="0">
+        <div class="container shadow rounded p-5 profile__formContainer">
+          <div class="profile__logoContainer">
+            <img src="/images/logos/LOGO HQ.png" alt="Logo HQ" class="w-100">
+          </div>
+          <h3 class="text-center">Modificá tus datos</h3>
+          <form method="" action="" class="row">
+            <div class="col-12">
+              <label for="birthday" class="form-label">Fecha de nacimiento</label>
+              <input type="date" class="form-control" name="birthday" id="birthday" value="">
+              <div class="feedback"></div>
+            </div>
+            <div class="col-12 mb-3">
+              <label for="province" class="form-label">Provicia</label>
+              <select class="form-select" id="province" name="province" aria-label="Default select example">
+                <option selected>Open this select menu</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+            </div>
+            <div class="col-12 mb-3">
+              <label for="cities" class="form-label">Localidad</label>
+              <select class="form-select" id="cities" name="province" aria-label="Default select example">
+                <option selected>Open this select menu</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+            </div>
+            <div class="col-12 profile__buttonContainer">
+              <button class="button__dark" type="submit">Guardar</button>
+            </div>
+          </form>
+        </div>
+      </section>
+      <section class="tab-pane fade profile__mainContainer" id="membresia-tab-pane" role="tabpanel" aria-labelledby="membresia-tap" tabindex="0">
+        <div class="container">
+          <h4>Tu membresía activa es: Pro</h4>
+          <p>Vigente hasta: xx/xx/xxxx</p>
+          <div class="row">
+            <div class="col-12 col-md-4 p-3">
+              <div class="shadow rounded p-2">
+                <h2 class="text-center">Premium</h2>
+                <p class="text-center">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rerum eum perferendis animi!</p>
+                <p class="text-center"><strong>$ 900</strong> final x mes</p>
+              </div>
+            </div>
+            <div class="col-12 col-md-4 p-3">
+              <div class="shadow rounded p-2">
+                <h2 class="text-center">Premium</h2>
+                <p class="text-center">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rerum eum perferendis animi!</p>
+                <p class="text-center"><strong>$ 900</strong> final x mes</p>
+              </div>
+            </div>
+            <div class="col-12 col-md-4 p-3">
+              <div class="shadow rounded p-2">
+                <h2 class="text-center">Premium</h2>
+                <p class="text-center">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rerum eum perferendis animi!</p>
+                <p class="text-center"><strong>$ 900</strong> final x mes</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="tab-pane fade profile__mainContainer" id="referidos-tab-pane" role="tabpanel" aria-labelledby="referidos-tap" tabindex="0">
+        <div class="container">
+          <h2>Mis Referidos</h2>
+        </div>
+      </section>
+      <section class="tab-pane fade profile__mainContainer" id="intereses-tab-pane" role="tabpanel" aria-labelledby="intereses-tap" tabindex="0">
+        <div class="container">
+          <h2>Mis intereses</h2>
+        </div>
+      </section>
+    </div>
+  </main>
+  <%- include('./partials/footer') %> 
+  <%- include('./partials/scripts') %> 
+</body>
+</html>

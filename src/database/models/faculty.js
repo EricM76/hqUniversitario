@@ -21,6 +21,11 @@ module.exports = (sequelize, DataTypes) => {
         through : 'FacultyCategories',
         as: 'categories',
       })
+
+      Faculty.hasMany(models.Career,{
+        foreignKey : 'facultyId',
+        as : 'careers'
+      });
     }
   };
   Faculty.init({

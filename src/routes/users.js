@@ -6,14 +6,14 @@ const {register, processRegister, login, processLogin, profile, update, list, re
 /* /users */
 router
   .get('/', list)
-  .get('/register', register)
-  .post('/register', processRegister)
-  .get('/login', login)
-  .post('/login', processLogin)
-  .get('/profile', profile)
   .put('/update', update)
   .delete('/remove', remove)
   .get('/filter', filter)
   .get('/search', search)
+  .get('/registro', register)
+  .post('/registro', processRegister)
+  .get('/login', login)
+  .get('/login', processLogin)
+  .get('/perfil', profile)
 
 module.exports = router;

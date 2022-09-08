@@ -1,0 +1,114 @@
+@import "utils";
+
+.home {
+    .home__universities {
+        padding: 2rem 0;
+    }
+    .carousel-item--container{
+        display: flex;
+        align-items: center;
+        background-color: lightblue;
+        padding: 2rem;
+        .carousel-item__imageContainer {
+            width: 70%;
+            height: 70%;
+            img {
+                @extend .responsiveImage;
+            }
+        }
+        .carousel-item__dataContainer {
+            width: 30%;
+            padding: 2rem;
+        }
+    }
+    .home__content1-imageContainer {
+        img {
+            @extend .responsiveImage
+        }
+    }
+    .home__content1-data {
+        @extend .magicCenter;
+        flex-direction: column;
+        .home__content1-buttonContainer {
+            display: flex;
+            justify-content: end;
+            align-items: center;
+        }
+    }
+    .home__content2--container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin: 5rem;
+        padding: 3rem;
+        .home__content2--item {
+            @extend .magicCenter;
+            flex-direction: column;
+            text-align: center;
+            margin-bottom: 2rem;
+            i {
+                font-size: 3rem;
+                color: $hq-primary;
+                margin-bottom: 0.7rem;
+            }
+        }
+    }
+    .home__contact-container {
+        padding: 4rem 1rem;
+        .home__contact-imgWrapper {
+            img {
+                @extend .responsiveImage
+            }
+        }
+        .home__contact-formWrapper {
+            padding: 2rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            form {
+                width: 100%;
+                max-width: 450px;
+                .form-control {
+                    border-radius: 0 !important;
+                    height: 3rem;
+                }
+                textarea {
+                    resize: none !important;
+                    min-height: 10rem;
+                }
+                .home__contact-form-buttonContainer {
+                    display: flex;
+                    justify-content: end;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 500px) {
+    .home {
+        .home__universities {
+            padding: 5rem 0;
+        }
+        .home__last-paragraph {
+            width: 70%;
+        }
+        .home__content2--container {
+            justify-content: space-evenly;
+            flex-direction: row;
+            .home__content2--item {
+                margin-bottom: 0;
+                i{
+                    font-size: 5rem;
+                }
+            }
+        }
+        .home__contact-container {
+            padding: 5rem 1rem;
+            .home__contact-formWrapper {
+                padding: 4rem 2rem;
+            }
+        }
+    }   
+}

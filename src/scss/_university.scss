@@ -1,0 +1,17 @@
+.university__main-wrapper {
+    padding: 2rem 1rem;
+    .university__school-wrapper {
+        padding: 3rem;
+        .university__school-itemContainer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+}
+
+@media screen and (min-width: 768px) {
+   /*  .university__main-wrapper {
+        padding: 2rem 2rem;
+    } */
+}

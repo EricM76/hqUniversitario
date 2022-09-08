@@ -1,0 +1,13 @@
+.slide-container {
+    padding: 1rem;
+    .card-wrapper,
+    .swiper-wrapper {
+        width: 100% !important;
+    }
+    .slider__cardImageWrapper {
+        padding: 1rem;
+        img{
+            @extend .responsiveImage
+        }
+    }
+}

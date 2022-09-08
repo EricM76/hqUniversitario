@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+  <%- include('./partials/head', {
+    title : 'Login'
+  }) %> 
+
+<body class="login">
+  <%- include('./partials/header') %> 
+  <main class="container login__mainContainer">
+    <div class="container shadow rounded p-5 login__formContainer">
+      <div class="login__logoContainer">
+        <img src="/images/logos/LOGO HQ.png" alt="Logo HQ" class="w-100">
+      </div>
+      <h2 class="text-center">Login</h2>
+      <form method="" action="" class="row">
+        <div class="col-12">
+          <label for="email" class="form-label">Email*</label>
+          <input type="email" class="form-control" name="email" id="email" value="">
+          <div class="feedback"></div>
+        </div>
+        <div class="col-12">
+          <label for="password" class="form-label">Contraseña*</label>
+          <input type="password" class="form-control" name="password" id="password" value="">
+          <div class="feedback"></div>
+        </div>
+        <div class="col-12 mb-3">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="sessionCheck" value="" id="check">
+            <label class="form-check-label" for="check">
+              Mantener mi sesión en este equipo
+            </label>
+            <div class="feedback"></div>
+          </div>
+        </div>
+        <div class="col-12 mb-3 login__buttonContainer">
+          <button class="button__dark" type="submit">Registrarme</button>
+        </div>
+        <div class="googleSigninButton" id="gSignInWrapper">
+          <div id="customBtn" class="customGPlusSignIn">
+            <span class="icon"></span>
+            <span class="buttonText">Ingresá con Google</span>
+          </div>
+        </div>
+      </form>
+      <p class="text-center mt-4">
+        <a href="/usuarios/registro">Aún no tengo cuenta</a>
+      </p>
+    </div>
+  </main>
+  <%- include('./partials/footer') %> 
+  <%- include('./partials/scripts') %> 
+</body>
+</html>

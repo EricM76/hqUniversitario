@@ -1,0 +1,49 @@
+.courseContent {
+    .courseContent__header {
+        margin-bottom: 3rem;
+    }
+    .courseContent__videos {
+        margin-bottom: 3rem;
+        .courseContent__videos--card {
+            position: relative;
+            .courseContent__videos--card-iconsContainer {
+                position: absolute;
+                top: 0;
+                right: 0;
+                padding: 0.5rem;
+                display: flex;
+                justify-content: space-evenly;
+                align-items: center;
+                width: 25%;
+            }
+            .courseContent__videos--card-title {
+                width: 75%;
+
+            }
+            .courseContent__videos--card-data {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+        }
+    }
+    .courseContent__download,
+    .courseContent__test {
+        margin-bottom: 3rem;
+        .courseContent__download--card,
+        .courseContent__test--card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            p {
+                margin: 0;
+            }
+            span {
+                color: grey;
+            }
+            i {
+                font-size: 1.5rem;
+            }
+        }
+    }
+}

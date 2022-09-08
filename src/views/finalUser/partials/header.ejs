@@ -4,30 +4,31 @@
             <div class="header__logo-container">
                 <a class="navbar-brand" href="#"><img src="/images/logos/LOGO HQ.png" alt="Logo HQ"></a>
             </div>
+           
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <form role="search">
                 <div class="header__searchBar-container">
                     <input class="header__searchBar-input" type="search" placeholder="Buscar" aria-label="Search">
                     <button class="header__searchBar-button" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
             </form>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-md-center justify-content-md-evenly w-100">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="/university" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Universidades
                     </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Universidad</a></li>
+                    <ul class="dropdown-menu shadow-sm border-0" id="universitiesMenu">
+                        
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Mis materias
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu shadow-sm border-0">
                         <li><a class="dropdown-item" href="#">Materia</a></li>
                     </ul>
                 </li>
@@ -37,7 +38,7 @@
                             <img src="" alt="">
                         </div>
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu shadow-sm border-0">
                         <li><a class="dropdown-item" href="#">Mi perfil</a></li>
                         <li><a class="dropdown-item" href="#">Cerrar sesión <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
                     </ul>
@@ -48,7 +49,7 @@
                             <span>Iniciar sesión</span>
                         </div>
                     </a>
-                    <a href="/usuarios/login">
+                    <a href="/usuarios/registro">
                         <div class="button__dark">
                             <span>Registrate</span>
                         </div>
