@@ -6,31 +6,37 @@
   <body class="university">
     <%- include('./partials/header') %> 
     <main class="university__main-wrapper">
-        <h1 class="text-center border-bottom mb-3">Nombre de la universidad</h1>
+        <h1 class="text-center border-bottom mb-3"><%= university.name %> - <%= university.acronym %></h1>
         <h2 class="text-center">Facultades y carreras</h2>
         <section class="container university__school-wrapper">
             <div class="row">
-                <div class="col-12 col-md-6 col-lg-4 mb-3">
-                    <div class="card border border-0 shadow p-2">
-                        <div class="card-body border-bottom">
-                            <h5 class="card-title">FACULTAD DE CIENCIAS MÉDICAS</h5>
+                <% university.faculties.forEach((faculty, index)=> { %>
+                    <div class="col-12 col-md-6 col-lg-4 mb-3">
+                        <div class="card border border-0 shadow p-2">
+                          <!--   <div class="card-body border-bottom">
+                                <h5 class="card-title"><%- faculty.name %> - (<%- faculty.acronym %>) </h5>
+                            </div> -->
+                            <div class="accordion accordion-flush" id="accordionFlushExample">
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-heading<%- index %>">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse<%- index %>" aria-expanded="false" aria-controls="flush-collapseOne">
+                                        <%- faculty.name %> - (<%- faculty.acronym %>)
+                                    </button>
+                                  </h2>
+                                  <div id="flush-collapse<%- index %>" class="accordion-collapse collapse" aria-labelledby="flush-heading<%- index %>" data-bs-parent="#accordionFlushExample">
+                                    <ul class="list-group list-group-flush">
+                                        <% faculty.careers.forEach(career => { %>
+                                            <li class="list-group-item university__school-itemContainer">
+                                                <span><%- career.name %></span><span><a href="" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver contenido</a></span>
+                                            </li>
+                                        <% }) %>
+                                    </ul>
+                                  </div>
+                                </div>
+                            </div>
                         </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item university__school-itemContainer">
-                            <span>Medicina</span><span><a href="" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver contenido</a></span>
-                            </li>
-                            <li class="list-group-item university__school-itemContainer">
-                            <span>Medicina</span><span><a href="" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver contenido</a></span>
-                            </li>
-                            <li class="list-group-item university__school-itemContainer">
-                            <span>Medicina</span><span><a href="" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver contenido</a></span>
-                            </li>
-                            <li class="list-group-item university__school-itemContainer">
-                            <span>Medicina</span><span><a href="" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver contenido</a></span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                    </div>  
+                <% }) %>
             </div>
         </section>
     </main>
@@ -39,3 +45,5 @@
     <%- include('./partials/scripts') %> 
   </body>
 </html>
+
+

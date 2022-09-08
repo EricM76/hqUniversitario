@@ -30,6 +30,7 @@ a{
     @extend .button-base;
     border: 1px solid $hq-secondary;
     color: $hq-secondary;
+    background-color: white;
     &:hover {
         color: white;
         background-color: $hq-secondary;

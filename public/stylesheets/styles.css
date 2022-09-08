@@ -331,7 +331,8 @@ a {
 
 .button__light {
   border: 1px solid black;
-  color: black; }
+  color: black;
+  background-color: white; }
   .button__light:hover {
     color: white;
     background-color: black; }
