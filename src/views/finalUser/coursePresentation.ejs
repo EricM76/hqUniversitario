@@ -10,8 +10,8 @@
     <section class="coursePresentation__banner container-fluid mb-5">
       <div class="row align-items-center">
         <div class="coursePresentation__banner--description col-12 col-md-6 p-3">
-          <h1 class="text-white">NOMBRE DE LA MATERIA</h1>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, voluptates adipisci unde aut cumque reprehenderit, sint suscipit, hic quaerat praesentium quia eum? Amet repudiandae ab repellat consequatur, beatae in dolore.</p>
+          <h1 class="text-white"><%= course.name %> </h1>
+          <p><%= course.description %> </p>
           <div class="coursePresentation__banner--buttonContainer">
             <a href="/usuarios/registro">
               <div class="button__dark">
@@ -186,7 +186,9 @@
       <div class="border-bottom p-3">
         <h3>Materias relacionadas</h3>
       </div>
-      <%- include('./partials/slider') %> 
+      <%- include('./partials/slider', { 
+        sliderArray: locals.relatedCourses
+      }) %> 
     </section> 
     <!-- FIN SLIDER RELACIONADAS -->
   </main>
