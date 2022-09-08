@@ -7,7 +7,7 @@
         </div>
         <div class="modal-body">
           <video id="resourceShowPreview<%= video.id %>" controls class="w-100" controlslist="nodownload">
-            <source src="/videos/show?video=<%= video.resource %>"
+            <source src="<%= video.resource && '/videos/show?video=' + video.resource%>"
             type="video/mp4">
           </video>
         </div>
@@ -16,7 +16,8 @@
   </div>
 
   <script>
-    document.getElementById('resourceShowPreview<%= video.id %>').volume = 0.5
+    document.getElementById('resourceShowPreview<%= video.id %>').volume = 0.5;
+   
     document.getElementById('modalShowVideo<%= video.id %>').addEventListener('hidden.bs.modal', e => {
         document.getElementById('resourceShowPreview<%= video.id %>').pause()
     })

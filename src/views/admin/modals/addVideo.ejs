@@ -6,8 +6,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form action="/videos/add?course=<%= course.id %>" class="row mx-3 g-3 mt-2 mt-lg-3"
-                enctype="multipart/form-data" method="POST" id="form-updateVideos-course">
+            <form action="/videos/add?course=<%= course.id %>" class="row mx-3 g-3 mt-2 mt-lg-3" method="POST" id="form-updateVideos-course" enctype="multipart/form-data">
                                 <div class="col-12 col-lg-4">
                                     <div class="mb-3">
                                         <input type="file" class="form-control" id="resource"
@@ -306,12 +305,5 @@
         inputLenth.value = Math.round(target.duration / 60)
     })
 
-    document.getElementById('exampleModalVideo').addEventListener('hidden.bs.modal', e => {
-       
-    });
-
-    document.getElementById('exampleModalVideo').addEventListener('shown.bs.modal', e => {
-
-    });
   </script>
   
