@@ -42,6 +42,12 @@ app
   .use('/usuarios', require('./routes/users'))
   .use('/videos', require('./routes/videos'))
   .use('/notes', require('./routes/notes'))
+  /* Final user routes */
+  .use('/api', require('./routes/finalUser/api'))
+  .use('/universidad', require('./routes/finalUser/university'))
+  .use('/materia', require('./routes/finalUser/course'))
+  .use('/examen', require('./routes/finalUser/test'))
+  .use('/usuario', require('./routes/finalUser/user'))
 
 
 // catch 404 and forward to error handler
