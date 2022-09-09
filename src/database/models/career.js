@@ -27,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey : 'careerId',
         otherKey : 'courseId'
       });
+
     }
   };
   Career.init({

@@ -27,7 +27,7 @@
                                     <ul class="list-group list-group-flush">
                                         <% faculty.careers.forEach(career => { %>
                                             <li class="list-group-item university__school-itemContainer">
-                                                <span><%- career.name %></span><span><a href="" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver contenido</a></span>
+                                                <span><%- career.name %></span><span><a href="" onclick=<%-`showCareerContent(${career.id})`%> data-bs-toggle="modal" data-bs-target="#exampleModal">Ver contenido</a></span>
                                             </li>
                                         <% }) %>
                                     </ul>
@@ -43,6 +43,7 @@
     <%- include('./partials/modal/modal') %> 
     <%- include('./partials/footer') %> 
     <%- include('./partials/scripts') %> 
+    <script src="/javascripts/Modals/careers.js"></script>
   </body>
 </html>
 

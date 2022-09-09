@@ -9,5 +9,15 @@ module.exports = {
             res.status(200).json(universities)
         })
         .catch(error => res.json(error))
+    },
+    careers: (req, res) => {
+        const careerId = req.query.career;
+        db.Career.findByPk(careerId, {
+            include: ["courses", "faculty" ,"university"],
+        })
+        .then(career => {
+            res.status(200).json(career)
+        })
+        .catch(error => res.json(error))
     }
 }

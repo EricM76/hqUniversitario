@@ -7,6 +7,6 @@ router
     .post("/login", processLogin)    
     .get("/registro", register)    
     .post("/registro", processRegister)    
-    .get("/perfil/:id", profile)  
+    .get("/perfil", profile)  
       
 module.exports = router;
