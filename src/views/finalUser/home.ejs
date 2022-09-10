@@ -6,6 +6,39 @@
   <body class="home">
     <%- include('./partials/header') %> 
     <main class="container">
+       <!-- SECCIÓN UNIVERSIDADES -->
+       <section class="home__universities container mb-5">
+        <div class="row">
+            <h2 data-aos="fade-up" data-aos-duration="1000">Universidades</h2>
+        </div>
+        <div class="row" data-aos="fade-up" data-aos-duration="1500">
+          <!-- Card Universidad -->
+          <% universities.forEach(university => { %>
+            <div class="col-12 col-md-4 p-3">
+              <div class="card border border-0 shadow p-2">
+                <div class="home__universities--cardImageContainer">
+                  <img src="images/logos/<%- university.image %> " alt="unc_logo">
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title"><%- university.name %></h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">10 Facultades</li>
+                  <li class="list-group-item">25 Carreras</li>
+                </ul>
+                <div class="card-body">
+                  <a href="/universidad/<%- university.id %>/facultades">
+                    <div class="button__dark">
+                        <span>Ver facultades</span>
+                    </div>
+                </a>
+                </div>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+      </section>
+      <!-- FINAL UNIVERSIDADES -->
       <!-- CAROUSEL -->
       <div id="carouselExampleInterval" class="carousel slide d-none d-md-block" data-bs-ride="carousel">
         <div class="carousel-inner">
@@ -59,37 +92,7 @@
         </button>
       </div>
       <!-- FINAL CAROUSEL -->
-      <!-- SECCIÓN UNIVERSIDADES -->
-      <section class="home__universities container mb-5">
-        <div class="row">
-            <h2 data-aos="fade-up" data-aos-duration="1000">Universidades</h2>
-        </div>
-        <div class="row" data-aos="fade-up" data-aos-duration="1500">
-          <!-- Card Universidad -->
-          <% universities.forEach(university => { %>
-            <div class="col-12 col-md-3 p-3">
-              <div class="card border border-0 shadow p-2">
-                <img src="images/logos/<%- university.image %> " class="card-img-top" alt="unc_logo">
-                <div class="card-body">
-                  <h5 class="card-title"><%- university.name %></h5>
-                </div>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item">10 Facultades</li>
-                  <li class="list-group-item">25 Carreras</li>
-                </ul>
-                <div class="card-body">
-                  <a href="/universidad/<%- university.id %>/facultades">
-                    <div class="button__dark">
-                        <span>Ver facultades</span>
-                    </div>
-                </a>
-                </div>
-              </div>
-            </div>
-          <% }) %>
-        </div>
-      </section>
-      <!-- FINAL UNIVERSIDADES -->
+     
       <!-- SECCIÓN CONTENIDO 1 -->
       <section class="container p-3 p-md-4 p-lg-5 mb-5">
         <div class="row">

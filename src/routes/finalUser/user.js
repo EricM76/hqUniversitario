@@ -1,12 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const { login, processLogin, register, processRegister, profile} = require("../../controllers/finalUser/userController");
+const { login, processLogin, register, processRegister, profile } = require("../../controllers/finalUser/userController");
+const userLoginValidator = require("../../validations/userLoginValidator");
+const userRegisterValidator = require("../../validations/userRegisterValidator");
 
 router
     .get("/login", login)    
-    .post("/login", processLogin)    
+    .post("/login", userLoginValidator ,processLogin)    
     .get("/registro", register)    
-    .post("/registro", processRegister)    
+    .post("/registro", userRegisterValidator, processRegister)    
     .get("/perfil", profile)  
       
 module.exports = router;
