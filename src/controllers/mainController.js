@@ -23,7 +23,8 @@ module.exports = {
         .then(([universities, lastestCourses]) => {
             return res.render("finalUser/home", {
                 universities,
-                lastestCourses
+                lastestCourses,
+                session: typeof req.session !== "undefined" ? req.session : null,
             })
         })
     },

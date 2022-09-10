@@ -1,4 +1,4 @@
-<header class="main-header">
+<header class="main-header fixed-top">
     <nav class="navbar navbar-expand-md bg-white shadow-sm">
         <div class="container-fluid">
             <div class="header__logo-container">
@@ -23,37 +23,42 @@
                         
                     </ul>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Mis materias
-                    </a>
-                    <ul class="dropdown-menu shadow-sm border-0">
-                        <li><a class="dropdown-item" href="#">Materia</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="header__avatar">
-                            <img src="" alt="">
-                        </div>
-                    </a>
-                    <ul class="dropdown-menu shadow-sm border-0">
-                        <li><a class="dropdown-item" href="#">Mi perfil</a></li>
-                        <li><a class="dropdown-item" href="#">Cerrar sesión <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
-                    </ul>
-                </li>
-                <div class="header__buttons-container">
-                    <a href="/usuario/login" >
-                        <div class="button__light">
-                            <span>Iniciar sesión</span>
-                        </div>
-                    </a>
-                    <a href="/usuario/registro">
-                        <div class="button__dark">
-                            <span>Registrate</span>
-                        </div>
-                    </a>
-                </div>
+               
+                <% if (session == null) { %>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Mis materias
+                        </a>
+                        <ul class="dropdown-menu shadow-sm border-0">
+                            <li><a class="dropdown-item" href="#">Materia</a></li>
+                        </ul>
+                    </li>
+                    
+                    <div class="header__buttons-container">
+                        <a href="/usuario/login" >
+                            <div class="button__light">
+                                <span>Iniciar sesión</span>
+                            </div>
+                        </a>
+                        <a href="/usuario/registro">
+                            <div class="button__dark">
+                                <span>Registrate</span>
+                            </div>
+                        </a>
+                    </div>
+                <% } else {%> 
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="header__avatar">
+                                <img src="" alt="">
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu shadow-sm border-0">
+                            <li><a class="dropdown-item" href="#">Mi perfil</a></li>
+                            <li><a class="dropdown-item" href="/usuario/logout">Cerrar sesión <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
+                        </ul>
+                    </li>
+                <% } %> 
             </ul>
           </div>
         </div>

@@ -4,6 +4,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const cookieSession = require('./middlewares/cookieSession');
 
 var app = express();
 
@@ -26,6 +27,8 @@ app.use(session({
   resave: false,
   saveUninitialized : true
 }))
+app.use(cookieSession);
+
 
 /* ROUTES */
 app
