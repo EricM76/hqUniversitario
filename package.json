@@ -27,6 +27,8 @@
     "mysql2": "^2.3.3",
     "node-sass": "^7.0.1",
     "normalize.css": "^8.0.1",
+    "passport": "^0.6.0",
+    "passport-google-oauth2": "^0.2.0",
     "sequelize": "^6.21.3",
     "vimeo": "^2.1.1"
   }

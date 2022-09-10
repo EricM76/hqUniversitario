@@ -37,8 +37,8 @@ module.exports = (sequelize, DataTypes) => {
     expires: DataTypes.DATE,
     address: DataTypes.INTEGER,
     city: DataTypes.INTEGER,
-    province: DataTypes.INTEGER
-
+    province: DataTypes.INTEGER,
+    social_id: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'User',

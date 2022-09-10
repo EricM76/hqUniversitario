@@ -4,7 +4,9 @@ const { validationResult } = require("express-validator");
 
 module.exports = {
   login: (req, res) => {
-    res.render("finalUser/userLogin");
+    res.render("finalUser/userLogin", {
+      session: req.session
+    });
   },
   processLogin: (req, res) => {
     let errors = validationResult(req);
@@ -43,8 +45,22 @@ module.exports = {
       });
     }
   },
+  googleLogin: (req, res) => {
+    let user = req.session.passport.user[0]
+
+    req.session.user = {
+      id: user.id,
+      name: user.name,
+      surname: user.surname,
+      email: user.email,
+      rol: user.rolId,
+      googleId: user.social_id,
+      membershipId: user.membershipId,
+    }
+    res.redirect('/')
+  },
   register: (req, res) => {
-    res.render("finalUser/userRegister");
+    res.render("finalUser/userRegister",{session:req.session});
   },
   processRegister: (req, res) => {
      let errors = validationResult(req);
@@ -90,7 +106,8 @@ module.exports = {
         .then((user) => {
             res.render("finalUser/userProfile", {
                 user,
-                provincias: data.provincias
+                provincias: data.provincias,
+                session:req.session
             })
         })
     })
