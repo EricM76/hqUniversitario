@@ -365,7 +365,7 @@ a {
   object-fit: cover; }
 
 .home .home__universities {
-  padding: 3rem 0; }
+  padding: 2rem 0; }
   .home .home__universities .home__universities--cardImageContainer {
     width: 100%;
     height: 250px; }
@@ -377,7 +377,6 @@ a {
 .home .carousel-item--container {
   display: flex;
   align-items: center;
-  background-color: lightblue;
   padding: 2rem; }
   .home .carousel-item--container .carousel-item__imageContainer {
     width: 70%;
@@ -431,7 +430,7 @@ a {
 
 @media screen and (min-width: 500px) {
   .home .home__universities {
-    padding: 6rem 0; }
+    padding: 1rem 0; }
   .home .home__last-paragraph {
     width: 70%; }
   .home .home__content2--container {
@@ -454,7 +453,8 @@ a {
   padding: 3rem 0; }
   .register__mainContainer .register__formContainer {
     position: relative;
-    max-width: 500px; }
+    max-width: 500px;
+    background-color: white; }
     .register__mainContainer .register__formContainer .register__logoContainer {
       position: absolute;
       top: 10px;
@@ -504,7 +504,8 @@ a {
   padding: 3rem 0; }
   .login__mainContainer .login__formContainer {
     position: relative;
-    max-width: 500px; }
+    max-width: 500px;
+    background-color: white; }
     .login__mainContainer .login__formContainer .login__logoContainer {
       position: absolute;
       top: 10px;

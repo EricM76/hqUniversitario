@@ -2,7 +2,7 @@
 
 .home {
     .home__universities {
-        padding: 3rem 0;
+        padding: 2rem 0;
         .home__universities--cardImageContainer {
             width: 100%;
             height: 250px;
@@ -16,7 +16,6 @@
     .carousel-item--container{
         display: flex;
         align-items: center;
-        background-color: lightblue;
         padding: 2rem;
         .carousel-item__imageContainer {
             width: 70%;
@@ -98,7 +97,7 @@
 @media screen and (min-width: 500px) {
     .home {
         .home__universities {
-            padding: 6rem 0;
+            padding: 1rem 0;
         }
         .home__last-paragraph {
             width: 70%;

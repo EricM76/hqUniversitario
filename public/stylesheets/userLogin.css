@@ -6,7 +6,8 @@
   padding: 3rem 0; }
   .login__mainContainer .login__formContainer {
     position: relative;
-    max-width: 500px; }
+    max-width: 500px;
+    background-color: white; }
     .login__mainContainer .login__formContainer .login__logoContainer {
       position: absolute;
       top: 10px;
