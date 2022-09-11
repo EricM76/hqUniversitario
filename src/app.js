@@ -10,6 +10,7 @@ var app = express();
 
 const methoOverride = require('method-override');
 const session = require('express-session');
+const passport = require('passport');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -28,6 +29,8 @@ app.use(session({
   saveUninitialized : true
 }))
 app.use(cookieSession);
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 /* ROUTES */

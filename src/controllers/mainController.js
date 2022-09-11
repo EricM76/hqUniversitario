@@ -24,7 +24,7 @@ module.exports = {
             return res.render("finalUser/home", {
                 universities,
                 lastestCourses,
-                session: typeof req.session !== "undefined" ? req.session : null,
+                session: req.session,
             })
         })
     },

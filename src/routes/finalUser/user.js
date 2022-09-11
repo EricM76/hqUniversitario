@@ -7,7 +7,12 @@ const userLoginValidator = require("../../validations/userLoginValidator");
 const userRegisterValidator = require("../../validations/userRegisterValidator");
 const passport = require("passport");
 require("../../middlewares/passportConfig")(passport);
-
+passport.serializeUser(function(user, done) {
+    done(null, user);
+});
+passport.deserializeUser(function(user, done) {
+done(null, user);
+});
 router
     .get("/login", userInSessionCheck, login)    
     .post("/login", userLoginValidator ,processLogin)    
@@ -24,6 +29,6 @@ passport.authenticate('google', { scope:
 router.get( '/auth/google/callback',
   passport.authenticate( 'google', {
       failureRedirect: '/usuario/login'
-}, googleLogin));
+}), googleLogin);
       
 module.exports = router;
