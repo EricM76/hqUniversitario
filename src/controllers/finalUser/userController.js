@@ -1,6 +1,7 @@
 const db = require("../../database/models");
 const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
+const axios = require("axios");
 
 module.exports = {
   login: (req, res) => {
@@ -62,6 +63,27 @@ module.exports = {
   register: (req, res) => {
     res.render("finalUser/userRegister",{session:req.session});
   },
+  referred: (req, res) => {
+     let errors = validationResult(req);
+      
+     if(errors.isEmpty()){
+         db.Referred.create({
+             name: req.body.name,
+             email: req.body.email,
+             userId: req.session.user.id,
+             active: false,
+         })
+         .then((user) => {
+             res.redirect("/usuario/perfil")
+         })
+         .catch(error => res.send(error))
+     }else{
+         res.render('finalUser/userRegister', {
+             errors: errors.mapped(),
+             old: req.body
+         })
+     }
+  },
   processRegister: (req, res) => {
      let errors = validationResult(req);
       
@@ -94,22 +116,17 @@ module.exports = {
     res.redirect('/');
   },
   profile: (req, res) => {
-    fetch("https://apis.datos.gob.ar/georef/api/provincias")
-    .then((res) => res.json())
-    .then((data) => {
-        db.User.findOne({
-            where: {
-                id: req.session.user.id
-            },
-            include: ["rols", "membership"],
-        })
-        .then((user) => {
-            res.render("finalUser/userProfile", {
-                user,
-                provincias: data.provincias,
-                session:req.session
-            })
-        })
+    const provincesPromise = axios.get("https://apis.datos.gob.ar/georef/api/provincias");
+    const userPromise = db.User.findOne({where: {id: req.session.user.id},include: ["rol", "membership", "referreds"],});
+    const membershipsPromise = db.Membership.findAll();
+    Promise.all([provincesPromise, userPromise, membershipsPromise])
+    .then(([{data}, user, memberships]) => {
+      res.render("finalUser/userProfile", {
+          user,
+          provincias: data.provincias,
+          session:req.session,
+          memberships
+      })
     })
   },
 };

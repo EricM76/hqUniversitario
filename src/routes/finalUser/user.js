@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { login, processLogin, register, processRegister, profile, logout, googleLogin } = require("../../controllers/finalUser/userController");
+const { login, processLogin, register, processRegister, profile, logout, googleLogin, referred } = require("../../controllers/finalUser/userController");
 const userInSessionCheck = require("../../middlewares/userInSessionCheck");
 const userSessionCheck = require("../../middlewares/userSessionCheck");
 const userLoginValidator = require("../../validations/userLoginValidator");
@@ -19,6 +19,7 @@ router
     .get("/registro", userInSessionCheck, register)    
     .post("/registro", userRegisterValidator, processRegister)    
     .get("/perfil", userSessionCheck, profile)  
+    .post("/referir", referred)
     .get("/logout", logout)
     
 router.get('/auth/google',

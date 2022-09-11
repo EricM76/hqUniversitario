@@ -20,6 +20,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "membershipId",
         as: "membership"
       })
+
+      User.hasMany(models.Referred, {
+        foreignKey: "userId",
+        as: "referreds"
+      })
     }
   };
   User.init({

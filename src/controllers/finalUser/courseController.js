@@ -13,7 +13,8 @@ module.exports = {
             .then((relatedCourses) => {
                 res.render("finalUser/coursePresentation", {
                     course,
-                    relatedCourses
+                    relatedCourses,
+                    session:req.session,
                 });
             })
         })

@@ -9,7 +9,8 @@ module.exports = {
         })
         .then((university) => {
             res.render("finalUser/university", {
-                university
+                university,
+                session:req.session,
             })
         })
     }
