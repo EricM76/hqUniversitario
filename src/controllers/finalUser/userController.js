@@ -129,4 +129,13 @@ module.exports = {
       })
     })
   },
+  profileUpdate: (req, res) => {
+    const userId = req.session.user.id;
+    db.User.update({...req.body}, {where: {id: userId,}})
+    .then((response) => {
+      if(response){
+        res.redirect("/usuario/perfil")
+      }
+    })
+  },
 };

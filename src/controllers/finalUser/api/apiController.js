@@ -19,5 +19,20 @@ module.exports = {
             res.status(200).json(career)
         })
         .catch(error => res.json(error))
+    },
+    referred: (req, res) => {
+        let userEmail = req.params.email
+        db.Users.findOne(
+            {
+                where: {
+                    email: userEmail
+                }
+            }).then((user) => {
+                if(user){
+                    res.status(200).json(true)
+                }else{
+                    res.status(400).json(false)
+                }
+            })
     }
 }

@@ -71,6 +71,9 @@ module.exports = {
       province: {
         type: Sequelize.STRING
       },
+      social_id: {
+        type: DataTypes.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
