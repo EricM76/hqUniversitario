@@ -56,9 +56,6 @@ module.exports = {
           key: 'id'
         },
       },
-      socialId : {
-        type: Sequelize.INTEGER
-      },
       entry : {
         type: Sequelize.DATE,
       },
