@@ -38,6 +38,7 @@ module.exports = (sequelize, DataTypes) => {
     genderId: DataTypes.INTEGER,
     rolId: DataTypes.INTEGER,
     membershipId:DataTypes.INTEGER,
+    socialId: DataTypes.INTEGER,
     entry: DataTypes.DATE,
     expires: DataTypes.DATE,
     address: DataTypes.INTEGER,
