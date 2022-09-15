@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
     address: DataTypes.INTEGER,
     city: DataTypes.INTEGER,
     province: DataTypes.INTEGER,
-    social_id: DataTypes.INTEGER
+    social_id: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'User',
