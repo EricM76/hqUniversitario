@@ -96,7 +96,27 @@ module.exports = {
              terms: 1,
          })
          .then((user) => {
-             res.redirect("/usuario/login")
+            db.Referred.findOne({
+              where: {
+                email: user.email
+              }
+            })
+            .then(referred => {
+              if(referred){
+                db.Referred.update({
+                  active: true,
+                }, {
+                  where: {
+                    id: referred.id
+                  }
+                })
+                .then(()=>{
+                  /* Enviar notificacion al usuario que lo refirió */
+                  return res.redirect("/usuario/login")
+                })
+              }
+              return res.redirect("/usuario/login")
+            })
          })
          .catch(error => res.send(error))
      }else{
