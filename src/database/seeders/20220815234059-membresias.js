@@ -19,7 +19,7 @@ const memberships = [
     name: "BASIC",
     image: "defaultMembership.jpg",
     quota: 1,
-    price: 900,
+    price: 500,
     description: "Acceso a todo el contenido completo de 1 materia",
   }
 
@@ -35,10 +35,10 @@ const membershipsWithDateTime = memberships.map(membership => {
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert("Membership", membershipsWithDateTime, {});
+    await queryInterface.bulkInsert("Memberships", membershipsWithDateTime, {});
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete("Membership", null, {});
+    await queryInterface.bulkDelete("Memberships", null, {});
   },
 };
