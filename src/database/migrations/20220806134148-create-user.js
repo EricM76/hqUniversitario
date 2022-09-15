@@ -72,7 +72,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       social_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
