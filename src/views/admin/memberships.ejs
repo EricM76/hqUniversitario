@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<%- include('./partials/head',{
+    title : 'Facultades'
+}) %> 
+<body class="faculties bg-light">
+    <%- include('./partials/header') %> 
+    <main class="container">
+        <section class="row mt-2 mt-md-3 mt-lg-5">
+            <div class="col-12 col-md-10 col-lg-8 mx-auto">
+             
+                <article class="card shadow">
+                    <div class="card-header">
+                      <div class="row g-2">
+                        <div class="col-12">
+                            <nav aria-label="breadcrumb">
+                              <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Membresías</li>
+                              </ol>
+                            </nav>
+                          <hr>
+                        </div>
+                    </div>
+                       
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Precio</th>
+                                    <th scope="col">Materias</th>
+                                    <th scope="col">Suscriptores</th>
+                                    <th scope="col">Acciones</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <% memberships.forEach(({id,name,price,quote,users}) => { %>
+                                    <tr>
+                                      <th class="align-middle" scope="row"><%= id %></th>
+                                      <td class="align-middle"><%= name %></td>
+                                      <td class="align-middle"><%= price %></td>
+                                      <td class="align-middle"><%= quote %></td>
+                                      <td class="align-middle"><%= users %></td>
+                                      <td class="align-middle">
+                                        <div class="d-flex align-items-center gap-2">
+                                          <a href="/memberships/detail/<%= id %>" class="btn btn-sm btn-outline-primary">+info</a>
+                                          <a href="/memberships/edit/<%= id %>" class="btn btn-sm btn-outline-success" >editar</a>
+                                        </div>
+                                      </td>
+                                    </tr>
+                                  <% }) %>
+                                 
+                                </tbody>
+                              </table>
+                        </div>
+                    </div>
+                       
+                    </div>
+                </article>
+               
+            </div>
+        </section>
+
+    </main>
+    <%- include('./partials/scripts') %> 
+</body>
+</html>
