@@ -3,6 +3,8 @@ const router = express.Router();
 
 const {add, store, list, detail, edit, update, remove, search, filter} = require('../controllers/membershipsController');
 
+const {uploadImages} = require('../middlewares/upLoadFiles')
+
 /* /memberships */
 router
   .get('/', list)
@@ -10,7 +12,7 @@ router
   .get('/add',add)
   .post('/add',store)
   .get('/edit/:id',edit)
-  .put('/update/:id',update)
+  .put('/update/:id',uploadImages.single('image'), update)
   .delete('/remove/:id',remove)
   .get('/search',search)
   .get('/filter',filter)

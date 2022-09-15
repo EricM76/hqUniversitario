@@ -1,0 +1,53 @@
+<!-- Modal -->
+<div class="modal fade" id="editMemberShip<%=id%>" tabindex="-1" aria-labelledby="editMemberShip<%=id%>Label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editMemberShip<%=id%>Label">Editar Membresía <%= name %> </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="/memberships/update/<%= id %>?_method=PUT" method="POST" enctype="multipart/form-data" class="row">
+            <div class="col-12 mb-3 d-flex justify-content-center">
+                <img src="/images/<%= image ? image : 'noImage.png' %>" style="width: 200px;" alt="imagen" id="imgPreview<%= id %>">
+              </div>
+                <div class="col-12 col-md-6  mb-3">
+                  <label for="name" class="form-label">Nombre</label>
+                  <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp" value="<%= name %>">
+                </div>
+                <div class="col-12 col-md-6  mb-3 d-flex align-items-end">
+                    <label for="image<%= id %>" class="btn btn-outline-dark w-100" id="btn-image<%= id %>">Imagen</label>
+                    <input type="file" class="form-control" id="image<%= id %>" name="image" aria-describedby="emailHelp" hidden onchange="showPreview('<%=id%>')">
+                  </div>
+                <div class="col-12 col-md-6 mb-3">
+                  <label for="price" class="form-label">Precio</label>
+                  <input type="number" class="form-control" name="price" id="price" value="<%= price %>">
+                </div>
+                <div class="col-12 col-md-6 mb-3">
+                    <label for="quota" class="form-label">Materias</label>
+                    <input type="number" class="form-control" name="quota" id="quota" value="<%= quota %>">
+                </div>
+                <div class="col-12 mb-3">
+                    <label for="quota" class="form-label">Descripción</label>
+                    <textarea style="resize: none;" type="text" class="form-control" name="description" id="quota"><%= description %></textarea>
+                </div>
+                <div class="col-12 mb-3 d-flex justify-content-end">
+                    <button type="submit" class="btn btn-outline-dark">Guardar cambios</button>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const showPreview = (id) => {
+      let reader = new FileReader();
+      reader.readAsDataURL($('image' + id).files[0])
+      reader.onload = () => {
+          $('imgPreview' +id).src = reader.result
+      };
+      $('btn-image' + id).innerHTML = "Cambiar imagen"
+      }
+  </script>

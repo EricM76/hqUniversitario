@@ -1,6 +1,16 @@
 const path = require('path');
 const multer = require('multer');
 
+
+let storageImages = multer.diskStorage({
+    destination: (req, file, callback) => {
+        callback(null, 'public/images')
+    },
+    filename: (req, file, callback) => {
+        callback(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+    }
+})
+
 let storageCourse = multer.diskStorage({
     destination : (req,file,cb) => {
         switch (file.fieldname) {
@@ -30,6 +40,7 @@ let storageLogos = multer.diskStorage({
         callback(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
     }
 });
+
 
 const filters = (req,file, cb) => {
     switch (file.fieldname) {
@@ -82,8 +93,14 @@ const uploadCourse = multer({
 
 })
 
+const uploadImages = multer({
+    storage : storageImages,
+    fileFilter: fileFilterImages,
+})
+
 
 module.exports = {
+    uploadImages,
     uploadLogos,
     uploadCourse
 }

@@ -8,24 +8,47 @@ module.exports = {
 
     },
     list : async (req,res) => {
-        let memberships = await db.Membership.findAll({
-            include : [
-                {
-                    association : 'users',
-                    attributes : ['id']
-                }
-            ]
-        })
-        return res.render('admin/memberships',{memberships})
+        try {
+            let memberships = await db.Membership.findAll({
+                include : [
+                    {
+                        association : 'users',
+                        attributes : ['id']
+                    }
+                ]
+            })
+            return res.render('admin/memberships',{memberships})
+        } catch (error) {
+            console.log(error)
+        }
+       
     },
     detail : (req,res) => {
 
     },
-    edit : (req,res) => {
+    edit : async (req,res) => {
 
     },
-    update : (req,res) => {
-
+    update : async (req,res) => {
+        const {name, description, price, quota} =req.body;
+        try {
+            let {image} = await db.Membership.findByPk(req.params.id)
+            await db.Membership.update(
+                {
+                    name : name.trim(),
+                    price,
+                    quota,
+                    description : description.trim(),
+                    image : req.file ? req.file.filename : image
+                },
+                {
+                    where : {id : req.params.id}
+                }
+            )
+            return res.redirect('/memberships')
+        } catch (error) {
+            console.log(error)
+        }
     },
     remove : (req,res) => {
 

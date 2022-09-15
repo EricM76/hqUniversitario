@@ -9,7 +9,7 @@ const memberships = [
     description: "Acceso a todo el contenido completo de hasta 5 materias",
   },
   {
-    name: "PPREMIUM",
+    name: "PREMIUM",
     image: "defaultMembership.jpg",
     quota: 3,
     price: 750,

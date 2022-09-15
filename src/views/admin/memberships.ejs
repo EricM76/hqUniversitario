@@ -37,17 +37,27 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <% memberships.forEach(({id,name,price,quote,users}) => { %>
+                                  <% memberships.forEach(({id,name,price,quota,users,image,description}) => { %>
                                     <tr>
                                       <th class="align-middle" scope="row"><%= id %></th>
                                       <td class="align-middle"><%= name %></td>
                                       <td class="align-middle"><%= price %></td>
-                                      <td class="align-middle"><%= quote %></td>
-                                      <td class="align-middle"><%= users %></td>
+                                      <td class="align-middle"><%= quota %></td>
+                                      <td class="align-middle"><%= users.length %></td>
                                       <td class="align-middle">
                                         <div class="d-flex align-items-center gap-2">
                                           <a href="/memberships/detail/<%= id %>" class="btn btn-sm btn-outline-primary">+info</a>
-                                          <a href="/memberships/edit/<%= id %>" class="btn btn-sm btn-outline-success" >editar</a>
+                                          <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#editMemberShip<%=id%>">
+                                            editar
+                                          </button>
+                                          <%-include('modals/editMembership',{
+                                            id: id,
+                                            name : name,
+                                            price: price,
+                                            quota : quota,
+                                            image: image,
+                                            description : description
+                                          }) %> 
                                         </div>
                                       </td>
                                     </tr>
