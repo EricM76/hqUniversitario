@@ -1,6 +1,26 @@
+const moment = require('moment');
+const db = require('../database/models');
 module.exports = {
-    list : (req,res) => {
-        return res.render('users')
+    list : async (req,res) => {
+        try {
+            let users = await db.User.findAll({
+                include : [
+                    {
+                        association : 'membership',
+                        attributes : ['name','image']
+                    },
+                    {
+                        association : 'referreds'
+                    }
+                ]
+            })
+            return res.render('admin/users',{
+                users,
+                moment
+            })
+        } catch (error) {
+            console.log(error)
+        }
     },
     register : (req,res) => {
         return res.render('finalUser/userRegister')
