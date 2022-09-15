@@ -28,8 +28,7 @@
                             <table class="table table-striped">
                                 <thead>
                                   <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Nombre</th>
+                                    <th scope="col" colspan="2" class="text-center">Membresía</th>
                                     <th scope="col">Precio</th>
                                     <th scope="col">Materias</th>
                                     <th scope="col">Suscriptores</th>
@@ -39,14 +38,14 @@
                                 <tbody>
                                   <% memberships.forEach(({id,name,price,quota,users,image,description}) => { %>
                                     <tr>
-                                      <th class="align-middle" scope="row"><%= id %></th>
+                                      <td class="align-middle"><img src="/images/<%= image %>" alt="logo" style="width: 50px;"></td>
                                       <td class="align-middle"><%= name %></td>
                                       <td class="align-middle"><%= price %></td>
                                       <td class="align-middle"><%= quota %></td>
                                       <td class="align-middle"><%= users.length %></td>
                                       <td class="align-middle">
                                         <div class="d-flex align-items-center gap-2">
-                                          <a href="/memberships/detail/<%= id %>" class="btn btn-sm btn-outline-primary">+info</a>
+                                         <!--  <a href="/memberships/detail/<%= id %>" class="btn btn-sm btn-outline-primary">+info</a> -->
                                           <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#editMemberShip<%=id%>">
                                             editar
                                           </button>
