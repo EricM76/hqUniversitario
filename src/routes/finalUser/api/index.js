@@ -4,6 +4,6 @@ const { universities, careers, referred } = require("../../../controllers/finalU
 
 router.get("/university", universities)
       .get("/career", careers)
-      .get("/referred/:id", referred)
+      .get("/referred/:email", referred)
 
 module.exports = router;

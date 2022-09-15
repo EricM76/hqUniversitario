@@ -5,7 +5,7 @@ const axios = require("axios");
 
 module.exports = {
   login: (req, res) => {
-    res.render("finalUser/userLogin", {
+    return res.render("finalUser/userLogin", {
       session: req.session
     });
   },
@@ -37,11 +37,11 @@ module.exports = {
 
           res.locals.user = req.session.user;
 
-          res.redirect("/");
+          return  res.redirect("/");
         })
         .catch((error) => console.error(error));
     } else {
-      res.render("finalUser/userLogin", {
+      return res.render("finalUser/userLogin", {
         errors: errors.mapped(),
       });
     }
@@ -58,10 +58,10 @@ module.exports = {
       googleId: user.social_id,
       membershipId: user.membershipId,
     }
-    res.redirect('/')
+    return res.redirect('/')
   },
   register: (req, res) => {
-    res.render("finalUser/userRegister",{session:req.session});
+    return res.render("finalUser/userRegister",{session:req.session});
   },
   referred: (req, res) => {
      let errors = validationResult(req);
@@ -74,11 +74,11 @@ module.exports = {
              active: false,
          })
          .then((user) => {
-             res.redirect("/usuario/perfil")
+          return res.redirect("/usuario/perfil")
          })
          .catch(error => res.send(error))
      }else{
-         res.render('finalUser/userRegister', {
+      return res.render('finalUser/userRegister', {
              errors: errors.mapped(),
              old: req.body
          })
@@ -120,7 +120,7 @@ module.exports = {
          })
          .catch(error => res.send(error))
      }else{
-         res.render('finalUser/userRegister', {
+        return res.render('finalUser/userRegister', {
              errors: errors.mapped(),
              old: req.body
          })
@@ -133,7 +133,7 @@ module.exports = {
         res.cookie('hq', "", { maxAge: -1 })
     }
 
-    res.redirect('/');
+    return res.redirect('/');
   },
   profile: (req, res) => {
     const provincesPromise = axios.get("https://apis.datos.gob.ar/georef/api/provincias");
@@ -141,7 +141,7 @@ module.exports = {
     const membershipsPromise = db.Membership.findAll();
     Promise.all([provincesPromise, userPromise, membershipsPromise])
     .then(([{data}, user, memberships]) => {
-      res.render("finalUser/userProfile", {
+    return res.render("finalUser/userProfile", {
           user,
           provincias: data.provincias,
           session:req.session,
@@ -154,7 +154,7 @@ module.exports = {
     db.User.update({...req.body}, {where: {id: userId,}})
     .then((response) => {
       if(response){
-        res.redirect("/usuario/perfil")
+        return  res.redirect("/usuario/perfil")
       }
     })
   },

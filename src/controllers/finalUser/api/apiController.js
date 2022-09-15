@@ -22,17 +22,23 @@ module.exports = {
     },
     referred: (req, res) => {
         let userEmail = req.params.email
-        db.Users.findOne(
-            {
-                where: {
-                    email: userEmail
-                }
-            }).then((user) => {
-                if(user){
-                    res.status(200).json(true)
-                }else{
-                    res.status(400).json(false)
-                }
-            })
+        const userPromise = db.User.findOne({where: {email: userEmail}})
+        const usersReferredPromise = db.Referred.findAll({where: {userId: req.session.user.id}})
+        Promise.all([userPromise, usersReferredPromise])
+        .then(([userPromise, usersReferredPromise]) => {
+            let userIsRegister = userPromise !== null;
+            let referredUsers = usersReferredPromise.map(item => item.email);
+            let userIsReferred = referredUsers.includes(userEmail);
+
+            switch (true) {
+                case userIsRegister :
+                    return res.json({state: true, message: "Usuario ya registrado"});
+                case userIsReferred :
+                    return res.json({state: true, message: "Usuario ya referido"});
+                default:
+                    return res.json({state: false, message: ""});
+            }
+        })
+        .catch(err => console.log(err))
     }
 }
