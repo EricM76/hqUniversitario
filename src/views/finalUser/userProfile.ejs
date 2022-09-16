@@ -76,11 +76,17 @@
       <!-- Membresías -->
       <section class="tab-pane fade profile__mainContainer" id="membresia-tab-pane" role="tabpanel" aria-labelledby="membresia-tap" tabindex="0">
         <div class="container">
-          <h4>Tu membresía activa es: <%= user.membership.name %> </h4>
-          <p>Vigente hasta: xx/xx/xxxx</p>
+          <% if (user.membership) { %>
+            <h4>Tu membresía activa es: <%= user.membership.name %> </h4>
+            <p>Vigente hasta: <%= user.expires %></p>
+          <% } else { %>
+            <h3 class="text-center p-2">Aún no tienes una membresía activa</h3>
+          <% }  %>
+          <h5>Tus materias: </h5>
           <ol class="list-group list-group-numbered">
             <li class="list-group-item">Física - UBA - CBC</li>
           </ol>
+          
           <div class="row">
             <% memberships.forEach(membership => { %>
               <div class="col-12 col-md-4 p-3">
