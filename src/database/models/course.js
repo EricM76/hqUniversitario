@@ -41,6 +41,11 @@ module.exports = (sequelize, DataTypes) => {
         as : 'videos'
       });
 
+      Course.hasMany(models.Test,{
+        foreignKey : 'courseId',
+        as : 'tests'
+      });
+
       Course.belongsToMany(models.Career,{
         as : 'careers',
         through : 'CourseCareers',

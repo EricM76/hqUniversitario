@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   Answer.init({
     content: DataTypes.STRING,
-    QuestionId: DataTypes.INTEGER,
+    questionId: DataTypes.INTEGER,
     correct: DataTypes.BOOLEAN,
     score: DataTypes.INTEGER
   }, {

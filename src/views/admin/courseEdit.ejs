@@ -46,7 +46,11 @@
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link <%= next === 'tests' && 'active' %>" id="examenes-tab"
                                             data-bs-toggle="tab" data-bs-target="#examenes-tab-pane" type="button"
-                                            role="tab" aria-controls="examenes-tab-pane"
+                                            role="tab" aria-controls="exame
+                                            
+                                            -tab-pane"
+                        
+                        
                                             aria-selected="false">Exámenes</button>
                                     </li>
                                     <li class="nav-item" role="presentation" hidden>
@@ -440,7 +444,40 @@
                                     </div>
                                     <div class="tab-pane fade <%= next === 'tests' && 'show active' %>"
                                         id="examenes-tab-pane" role="tabpanel" aria-labelledby="examenes-tab"
-                                        tabindex="0">...</div>
+                                        tabindex="0">
+                                        <div class="mx-3 mt-2 mt-lg-3">
+
+                                            <%if(course.tests.length){%>
+                                                <ol class="row mb-3">
+                                                    <%for (let i = 0; i < course.tests.length / 2; i++) {%>
+                                                        <li class="col-12 col-md-6 g-3">
+                                                            <a href="/tests/edit/<%=course.tests[i].id%>?course=<%=course.id%>" class="btn btn-sm btn-outline-success">editar</a>
+                                                            <span class="ms-1">
+                                                                <%=course.tests[i].name%>
+                                                            </span>
+                                                        </li>
+                                                    <%}%>
+                                                    <%for (let i = Math.round(course.tests.length / 2); i < course.tests.length; i++) {%>
+                                                        <li class="col-12 col-md-6 g-3">
+                                                            <a href="/tests/edit/<%=course.tests[i].id%>?course=<%=course.id%>" class="btn btn-sm btn-outline-success">editar</a>
+                                                            <span class="ms-1">
+                                                                <%=course.tests[i].name%>
+                                                            </span>
+                                                        </li>
+                                                    <%}%>
+                                                   
+                                                    
+                                                </ul>
+                                            <%}else{%>
+                                                <p class="alert alert-warning">El curso aún no tiene exámenes agregados</p>
+                                               
+                                            <%}%>
+                                            <div class="text-end">
+                                                    <a class="btn btn-outline-primary" href="/tests/add/<%=course.id%>">Agregar exámen</a>
+                                            </div>
+                                        </div>
+
+                                    </div>
                                     <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel"
                                         aria-labelledby="disabled-tab" tabindex="0">...</div>
                                 </div>

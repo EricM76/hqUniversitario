@@ -1,0 +1,95 @@
+<div class="modal fade" id="addQuestion" tabindex="-1" aria-labelledby="addQuestionLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addQuestionLabel">Nueva pregunta</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/tests/questions/add?test=<%= test.id %>" method="POST">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Pregunta:</label>
+                        <input type="text" name="question" id="question" class="form-control new-question"
+                            placeholder="Escriba aquí el texto de la pregunta" />
+                    </div>
+                    <label class="form-label">Respuestas:</label>
+                    <div class="row mb-3">
+                        <div class="col-12 col-lg-7">
+                             <div class="input-group d-flex align-items-center flex-xl-grow-1 gap-1 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" id="check0" type="radio" name="correct" value="0" disabled />
+                            </div>
+                            <input type="text" class="form-control new-question" name="answers" placeholder="Opción 1" onkeyup="enableCheck('check0','label0','file0','image0',event)"/>
+                        </div>
+                        </div>
+                        <div class="col-12 col-lg-5">
+                            <input type="file" class="form-control input-file" name="images" id="file0" disabled/>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12 col-lg-7">
+                             <div class="input-group d-flex align-items-center flex-xl-grow-1 gap-1 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" id="check1" type="radio" name="correct" value="1" disabled />
+                            </div>
+                            <input type="text" class="form-control new-question" name="answers" placeholder="Opción 2" onkeyup="enableCheck('check1','label1','file1','image1',event)"/>
+                        </div>
+                        </div>
+                        <div class="col-12 col-lg-5">
+                            <input type="file" class="form-control input-file" name="images" id="file1" disabled/>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12 col-lg-7">
+                             <div class="input-group d-flex align-items-center flex-xl-grow-1 gap-1 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" id="check2" type="radio" name="correct" value="2" disabled />
+                            </div>
+                            <input type="text" class="form-control new-question" name="answers" placeholder="Opción 3" onkeyup="enableCheck('check2','label2','file2','image2',event)"/>
+                        </div>
+                        </div>
+                        <div class="col-12 col-lg-5">
+                            <input type="file" class="form-control input-file" name="images" id="file2" disabled/>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12 col-lg-7">
+                             <div class="input-group d-flex align-items-center flex-xl-grow-1 gap-1 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" id="check3" type="radio" name="correct" value="3" disabled />
+                            </div>
+                            <input type="text" class="form-control new-question" name="answers" placeholder="Opción 4" onkeyup="enableCheck('check3','label3','file3','image3',event)"/>
+                        </div>
+                        </div>
+                        <div class="col-12 col-lg-5">
+                            <input type="file" class="form-control input-file" name="images" id="file3" disabled/>
+                        </div>
+                    </div>
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i> Se require la pregunta y mínimo dos respuestas indicando la correcta. Opcionalmente puede asociar una imagen por respuesta. 
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-outline-dark">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    const enableCheck = (button,input,file,image,e) => {
+        if(e.target.value.trim()){
+            document.getElementById(button).disabled = false;
+            document.getElementById(file).disabled = false;
+
+        }else{
+            document.getElementById(button).checked = false;
+            document.getElementById(button).disabled = true;
+            document.getElementById(file).disabled = true;
+
+        }
+    } 
+</script>

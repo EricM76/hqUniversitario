@@ -142,6 +142,22 @@ module.exports = {
                         association : 'videos',
                         attributes : ['id','title'],
                     },
+                    {
+                        association : 'tests',
+                        attributes : ['id','name'],
+                        include : [
+                            {
+                                association : 'questions',
+                                attributes : ['content'],
+                                include : [
+                                    {
+                                        association : 'answers',
+                                        attributes : ['content', 'correct','score']
+                                    }
+                                ]
+                            }
+                        ]
+                    },
                 ]
             });
             return res.render('admin/courseEdit', {

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<%- include('./partials/head',{ title : 'Nueva universidad' }) %>
+
+    <body class="universities bg-light">
+        <%- include('./partials/header') %>
+            <main class="container">
+                <section class="row mt-2 mt-md-3 mt-lg-5">
+                    <div class="col-12 col-md-10 col-lg-8 mx-auto">
+                        <article class="card shadow">
+                            <div class="card-header">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                      <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+                                      <li class="breadcrumb-item"><a href="/courses/edit/<%= course.id %>?next=tests"><%= course.name %> | <%= course.faculty.acronym %></a></li>
+                                      <li class="breadcrumb-item active" aria-current="page">Nuevo exámen</li>
+                                    </ol>
+                                  </nav>
+                                <hr>
+                            </div>
+                            <div class="card-body">
+                                <form action="/tests/add?course=<%= course.id %>" method="POST" id="form-add-test" class="needs-validation" novalidate>
+                                    <div class="col-12 mb-3">
+                                        <div class="input-group has-validation mb-3">
+                                            <span class="input-group-text" id="basic-addon1">Exámen:
+                                            </span>
+                                            <input type="text" name="name" class="form-control" placeholder="Escriba aquí el nombre del examen" required>
+                                            <div class="invalid-feedback text-end">
+                                                Para continuar escriba el nombre del exámen
+                                            </div>
+                                        </div>
+                                    </div> 
+                                       
+                                   <div class="col-12 d-flex justify-content-end">
+                                    <button 
+                                    type="submit"
+                                        class="btn btn-outline-dark"
+                                        id="btn-submit">
+                                        Añadir pregunta
+                                    </button>
+                                   
+                                   </div>
+                                </form>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+            </main>
+            <%- include('./partials/scripts') %>
+            <script>
+        
+            </script>
+    </body>
+
+    </html>
