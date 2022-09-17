@@ -587,6 +587,22 @@ a {
       display: flex;
       justify-content: end;
       align-items: center; }
+  .profile__mainContainer .referredContainer {
+    display: flex;
+    align-items: center;
+    position: relative;
+    border-bottom: 1px solid lightgray; }
+    .profile__mainContainer .referredContainer .referredName {
+      font-weight: 700;
+      text-transform: uppercase; }
+    .profile__mainContainer .referredContainer .referredEmail {
+      font-weight: 600;
+      font-style: italic; }
+    .profile__mainContainer .referredContainer .referredActive {
+      position: absolute;
+      right: 10px; }
+      .profile__mainContainer .referredContainer .referredActive i {
+        font-size: 1.5rem; }
 
 .magicCenter, .home .home__content1-data, .home .home__content2--container .home__content2--item, .coursePresentation .coursePresentation__summary-content--buttonContainer {
   display: flex;

@@ -10,16 +10,13 @@
     <nav class="p-4 bg-white">
       <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-          <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#datosPersonales-tab-pane" type="button" role="tab" aria-controls="datosPersonales-tab-pane" aria-selected="true">Datos personales</button>
+          <button class="nav-link" onclick="setHash('data')" id="data-tab" data-bs-toggle="tab" data-bs-target="#datosPersonales-tab-pane" type="button" role="tab" aria-controls="datosPersonales-tab-pane" aria-selected="true">Datos personales</button>
         </li>
         <li class="nav-item" role="presentation">
-          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#membresia-tab-pane" type="button" role="tab" aria-controls="membresia-tab-pane" aria-selected="false">Membresías</button>
+          <button class="nav-link" onclick="setHash('membership')" id="membership-tab" data-bs-toggle="tab" data-bs-target="#membresia-tab-pane" type="button" role="tab" aria-controls="membresia-tab-pane" aria-selected="false">Membresías</button>
         </li>
         <li class="nav-item" role="presentation">
-          <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#referidos-tab-pane" type="button" role="tab" aria-controls="referidos-tab-pane" aria-selected="false">Mis referidos</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#intereses-tab-pane" type="button" role="tab" aria-controls="intereses-tab-pane" aria-selected="false">Mis intereses</button>
+          <button class="nav-link" onclick="setHash('referred')" id="referred-tab" data-bs-toggle="tab" data-bs-target="#referidos-tab-pane" type="button" role="tab" aria-controls="referidos-tab-pane" aria-selected="false">Mis referidos</button>
         </li>
       </ul>
     </nav>
@@ -77,16 +74,17 @@
       <section class="tab-pane fade profile__mainContainer" id="membresia-tab-pane" role="tabpanel" aria-labelledby="membresia-tap" tabindex="0">
         <div class="container">
           <% if (user.membership) { %>
-            <h4>Tu membresía activa es: <%= user.membership.name %> </h4>
+            <h4>Tu membresía activa es: <%= user.membership.name %></h4>
             <p>Vigente hasta: <%= user.expires %></p>
           <% } else { %>
             <h3 class="text-center p-2">Aún no tienes una membresía activa</h3>
+            <h4>Elije la que mejor se adapte a ti</h4>
           <% }  %>
           <h5>Tus materias: </h5>
           <ol class="list-group list-group-numbered">
             <li class="list-group-item">Física - UBA - CBC</li>
           </ol>
-          
+
           <div class="row">
             <% memberships.forEach(membership => { %>
               <div class="col-12 col-md-4 p-3">
@@ -103,7 +101,7 @@
       <!-- Referidos -->
       <section class="tab-pane fade profile__mainContainer" id="referidos-tab-pane" role="tabpanel" aria-labelledby="referidos-tap" tabindex="0">
         <div class="container">
-          <div class="row">
+          <div class="row p-3">
             <div class="col-12 col-md-4 p-2">
               <h3>Referir</h3>
               <form action="/usuario/referir" method="post" id="referredForm">
@@ -129,21 +127,30 @@
                 </div>
               </form>
             </div>
-            <div class="col-12 col-md-4 p-2">
+            <div class="col-12 col-md-8 p-2">
               <h3>Mis Referidos</h3>
-              <ol class="list-group list-group-numbered">
-                <% user.referreds.forEach(referred => { %>
-                  <li class="list-group-item"><%- referred.name %> - <%- referred.email %> - <%- referred.active %></li>
-                <% }) %>
-              </ol>
+              <div class="container">
+                <ol class="list-group list-group-numbered row flex-row">
+                  <% user.referreds.forEach(referred => { %>
+                    <div class="p-2 col-12 col-md-6">
+                      <li class="border-bottom p-2  referredContainer">
+                        <div>
+                          <span class="referredName"><%- referred.name %></span> | <span class="referredEmail"><%- referred.email %></span>
+                        </div>
+                        <span class="referredActive">
+                          <% if (referred.active) { %>
+                            <i class="fa-solid fa-check text-success"></i>
+                          <% } else {%>
+                            <i class="fa-regular fa-clock text-primary"></i> 
+                          <% } %>
+                        </span>  
+                      </li>
+                    </div>
+                  <% }) %>
+                </ol>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-      <!-- Intereses -->
-      <section class="tab-pane fade profile__mainContainer" id="intereses-tab-pane" role="tabpanel" aria-labelledby="intereses-tap" tabindex="0">
-        <div class="container">
-          <h2>Mis intereses</h2>
         </div>
       </section>
     </div>
@@ -151,5 +158,6 @@
   <%- include('./partials/footer') %> 
   <%- include('./partials/scripts') %> 
   <script src="/javascripts/Profile/referred.js"></script>
+  <script src="/javascripts/Profile/navLinks.js"></script>
 </body>
 </html>
