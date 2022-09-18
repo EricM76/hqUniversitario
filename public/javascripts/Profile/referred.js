@@ -20,7 +20,7 @@ inputNameReferred.addEventListener("blur", async (e) => {
     switch (true) {
         case e.target.value === "":
             inputNameReferred.classList.add("is-invalid");
-            nameReferredError.innerText = "Ingresa un email";
+            nameReferredError.innerText = "Ingresa un nombre";
             referredError = true;
             break;
         default:

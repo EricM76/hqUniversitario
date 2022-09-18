@@ -74,11 +74,11 @@ module.exports = {
              active: false,
          })
          .then((user) => {
-          return res.redirect("/usuario/perfil")
+          return res.redirect("/usuario/perfil#referred")
          })
          .catch(error => res.send(error))
      }else{
-      return res.render('finalUser/userRegister', {
+      return res.render('finalUser/userProfile', {
              errors: errors.mapped(),
              old: req.body
          })
@@ -114,8 +114,9 @@ module.exports = {
                   /* Enviar notificacion al usuario que lo refirió */
                   return res.redirect("/usuario/login")
                 })
+              } else {
+                return res.redirect("/usuario/login")
               }
-              return res.redirect("/usuario/login")
             })
          })
          .catch(error => res.send(error))
@@ -141,11 +142,13 @@ module.exports = {
     const membershipsPromise = db.Membership.findAll();
     Promise.all([provincesPromise, userPromise, membershipsPromise])
     .then(([{data}, user, memberships]) => {
+      const activeReferredsQuantity = user.referreds.filter(referred => referred.active).length;
     return res.render("finalUser/userProfile", {
           user,
           provincias: data.provincias,
           session:req.session,
-          memberships
+          memberships,
+          activeReferredsQuantity
       })
     })
   },

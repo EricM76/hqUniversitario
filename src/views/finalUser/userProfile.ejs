@@ -71,7 +71,7 @@
         </div>
       </section>
       <!-- Membresías -->
-      <section class="tab-pane fade profile__mainContainer" id="membresia-tab-pane" role="tabpanel" aria-labelledby="membresia-tap" tabindex="0">
+      <section class="tab-pane fade profile__mainContainer" id="membresia-tab-pane" role="tabpanel" aria-labelledby="membresia-tap" tabindex="1">
         <div class="container">
           <% if (user.membership) { %>
             <h4>Tu membresía activa es: <%= user.membership.name %></h4>
@@ -99,15 +99,21 @@
         </div>
       </section>
       <!-- Referidos -->
-      <section class="tab-pane fade profile__mainContainer" id="referidos-tab-pane" role="tabpanel" aria-labelledby="referidos-tap" tabindex="0">
+      <section class="tab-pane fade profile__mainContainer" id="referidos-tab-pane" role="tabpanel" aria-labelledby="referidos-tap" tabindex="2">
         <div class="container">
           <div class="row p-3">
+            <% if (activeReferredsQuantity === 3) { %>
+              <h3>¡Felicitaciones, 3 de tus referidos se registraron en HQ!</h3> 
+              <p>Gracias a eso, ganaste una membresía básica gratuita. Activala ahora.</p>
+            <% } else { %>
+              <p><%= user.name %>, referí hasta 12 personas, si 3 de tus referidos se registran en nuestra plataforma te regalamos 1 membresía básica.</p>
+            <% } %>
             <div class="col-12 col-md-4 p-2">
               <h3>Referir</h3>
               <form action="/usuario/referir" method="post" id="referredForm">
                 <div class="mb-3">
                   <label for="nameReferred" class="form-label">Nombre*</label>
-                  <input type="text" class="form-control" name="name" id="nameReferred" value="<%= locals.old && old.name %>">
+                  <input type="text" class="form-control" name="name" id="nameReferred" <%= (activeReferredsQuantity === 3) ? "disabled" : "" %> value="<%= locals.old && old.name %>">
                   <small class="text-danger" id="nameReferredError"></small>
                   <% if (locals.errors && errors.name) { %>
                     <small class="text-danger"><%= errors.name.msg %></small>
@@ -115,15 +121,18 @@
                 </div>
                 <div class="col-12 mb-3">
                   <label for="emailReferred" class="form-label">Email*</label>
-                  <input type="text" class="form-control" name="email" id="emailReferred" value="<%= locals.old && old.email %>">
+                  <input type="text" class="form-control" name="email" id="emailReferred" <%= (activeReferredsQuantity === 3) ? "disabled" : "" %> value="<%= locals.old && old.email %>">
                   <small class="text-danger" id="emailReferredError"></small>
                   <% if (locals.errors && errors.email) { %>
                     <small class="text-danger"><%= errors.email.msg %></small>
                   <% } %>
                 </div>
                 <div class="col-12 mb-3 register__buttonContainer">
+                  <% if (locals.errors && errors.custom) { %>
+                    <small class="text-danger"><%= errors.custom.msg %></small>
+                  <% } %>
                   <small class="text-danger" id="submitReferredError"></small>
-                  <button class="button__dark" type="submit">Agregar referido</button>
+                  <button class="button__dark" type="submit" <%= (activeReferredsQuantity === 3) ? "disabled" : "" %>>Agregar referido</button>
                 </div>
               </form>
             </div>
