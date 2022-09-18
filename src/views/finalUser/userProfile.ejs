@@ -33,7 +33,7 @@
               <div class="col-12 col-md-6 p-2">
                 <p>Nombre: <%= user.name %></p>
                 <p>Apellido: <%= user.surname %></p>
-                <p>Fecha de nacimiento: <%= user.birthday ? user.birthday : " - " %></p>
+                <p>Fecha de nacimiento: <%= userBirthDay ? userBirthDay : " - " %></p>
                 <p>Provincia: <%= user.province ? user.province : " - " %></p>
                 <p>Localidad: <%= user.city ? user.city : " - " %></p>
               </div>
@@ -44,8 +44,8 @@
                   <div class="feedback"></div>
                 </div>
                 <div class="col-12 mb-3">
-                  <label for="province" class="form-label">Provicia</label>
-                  <select class="form-select" id="province" name="province" aria-label="Default select example">
+                  <label for="provinceSelect" class="form-label">Provincia</label>
+                  <select class="form-select" id="provinceSelect" name="province">
                     <option selected hidden>Selecciona tu provincia</option>
                     <% provincias.forEach(provincia => { %>
                       <option value="<%- provincia.nombre %>"><%- provincia.nombre %> </option>
@@ -53,9 +53,9 @@
                   </select>
                 </div>
                 <div class="col-12 mb-3">
-                  <label for="cities" class="form-label">Localidad</label>
-                  <select class="form-select" id="cities" name="province" aria-label="Default select example">
-                    <option selected>Open this select menu</option>
+                  <label for="citiesSelect" class="form-label">Localidad</label>
+                  <select class="form-select" id="citiesSelect" name="city">
+                    <option selected>...</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
@@ -168,5 +168,6 @@
   <%- include('./partials/scripts') %> 
   <script src="/javascripts/Profile/referred.js"></script>
   <script src="/javascripts/Profile/navLinks.js"></script>
+  <script src="/javascripts/Profile/personalData.js"></script>
 </body>
 </html>

@@ -2,6 +2,7 @@ const db = require("../../database/models");
 const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
 const axios = require("axios");
+const { format } = require("date-fns")
 
 module.exports = {
   login: (req, res) => {
@@ -145,6 +146,7 @@ module.exports = {
       const activeReferredsQuantity = user.referreds.filter(referred => referred.active).length;
     return res.render("finalUser/userProfile", {
           user,
+          userBirthDay: format(new Date(user.birthday), "dd/MM/yyyy"),
           provincias: data.provincias,
           session:req.session,
           memberships,
@@ -154,7 +156,12 @@ module.exports = {
   },
   profileUpdate: (req, res) => {
     const userId = req.session.user.id;
-    db.User.update({...req.body}, {where: {id: userId,}})
+    const {birthday, province, city} = req.body;
+    db.User.update({
+      birthday: format(new Date(birthday), "MM/dd/yyyy"),
+      province,
+      city
+    }, {where: {id: userId,}})
     .then((response) => {
       if(response){
         return  res.redirect("/usuario/perfil")
