@@ -574,6 +574,10 @@ a {
   justify-content: center;
   align-items: center;
   padding: 0 0 2rem; }
+  .profile__mainContainer .dataItems {
+    font-weight: bolder;
+    color: blueviolet;
+    font-style: italic; }
   .profile__mainContainer .profile__formContainer {
     position: relative;
     max-width: 950px; }
