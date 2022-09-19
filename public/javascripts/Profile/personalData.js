@@ -17,22 +17,3 @@ provinceSelect.addEventListener("change", async (e) => {
      })
      .catch(error => console.error(error))
 })
-/* 
- const data = {
-            name: contactFormName.value,
-            email: contactFormEmail.value,
-            message: contactFormMessage.value,
-        }
-        let headers= new Headers();
-        headers.append('Content-Type', 'application/json');
-
-        const request = new Request('/contact', 
-        {  method: 'POST',  body: JSON.stringify(data) , headers });
-        fetch(request)
-        .then(response => {
-            if (!response.ok) throw Error(response.status);
-            return response.json();
-        })
-        .then(json => alert(JSON.stringify(json)))
-        .catch(error => console.error(error))
-*/

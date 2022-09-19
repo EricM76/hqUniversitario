@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 1rem 0 2rem; }
+  padding: 0 0 2rem; }
   .profile__mainContainer .profile__formContainer {
     position: relative;
     max-width: 950px; }
@@ -17,6 +17,16 @@
       display: flex;
       justify-content: end;
       align-items: center; }
+  .profile__mainContainer .membershipCard {
+    background-color: blueviolet; }
+    .profile__mainContainer .membershipCard .membershipCard__name {
+      color: orange;
+      font-weight: bold; }
+    .profile__mainContainer .membershipCard .membershipCard__description {
+      color: white; }
+    .profile__mainContainer .membershipCard .membershipCard__price {
+      color: white;
+      font-size: 2rem; }
   .profile__mainContainer .referredContainer {
     display: flex;
     align-items: center;

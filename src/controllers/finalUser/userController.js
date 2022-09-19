@@ -2,7 +2,9 @@ const db = require("../../database/models");
 const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
 const axios = require("axios");
-const { format } = require("date-fns")
+const { format } = require("date-fns");
+const process = require("process");
+const BASE_URL_PROVINCES = process.env.BASE_URL_PROVINCES
 
 module.exports = {
   login: (req, res) => {
@@ -138,7 +140,7 @@ module.exports = {
     return res.redirect('/');
   },
   profile: (req, res) => {
-    const provincesPromise = axios.get("https://apis.datos.gob.ar/georef/api/provincias");
+    const provincesPromise = axios.get(BASE_URL_PROVINCES + "/provincias");
     const userPromise = db.User.findOne({where: {id: req.session.user.id},include: ["rol", "membership", "referreds"],});
     const membershipsPromise = db.Membership.findAll();
     Promise.all([provincesPromise, userPromise, membershipsPromise])
@@ -146,7 +148,8 @@ module.exports = {
       const activeReferredsQuantity = user.referreds.filter(referred => referred.active).length;
     return res.render("finalUser/userProfile", {
           user,
-          userBirthDay: format(new Date(user.birthday), "dd/MM/yyyy"),
+          userBirthDay: user.birthday ? format(new Date(user.birthday), "dd/MM/yyyy") : undefined,
+          userBirthDayToInput: user.birthday ? format(new Date(user.birthday), "yyyy-MM-dd") : undefined,
           provincias: data.provincias,
           session:req.session,
           memberships,
