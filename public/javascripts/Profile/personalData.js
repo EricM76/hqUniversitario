@@ -1,5 +1,6 @@
 const provinceSelect = document.querySelector("#provinceSelect");
 const citiesSelect = document.querySelector("#citiesSelect");
+const personalDataForm = document.querySelector("#personalDataForm");
 
 provinceSelect.addEventListener("change", async (e) => {
     const selectedProvince = e.target.value;
@@ -16,4 +17,14 @@ provinceSelect.addEventListener("change", async (e) => {
         })
      })
      .catch(error => console.error(error))
+})
+
+personalDataForm.addEventListener("submit", (e) => {
+   e.preventDefault();
+   const elementsForm = e.target.elements;
+   let emptyFields = 0;
+   for (let index = 0; index < elementsForm.length - 1; index++) {
+      if(elementsForm[index].value === "") emptyFields++;
+   }
+   if((elementsForm.length - 1) > emptyFields) personalDataForm.submit();
 })

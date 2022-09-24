@@ -35,7 +35,7 @@
                 <p class="fs-5"><span class="dataItems">Provincia:</span> <i><%= user.province ? user.province : " - " %></i></p>
                 <p class="fs-5"><span class="dataItems">Localidad: </span> <i><%= user.city ? user.city : " - " %></i></p>
               </div>
-              <form action="/usuario/perfil?_method=PUT" method="POST" class="col-12 col-md-6 p-2">
+              <form id="personalDataForm" action="/usuario/perfil?_method=PUT" method="POST" class="col-12 col-md-6 p-2">
                 <div class="col-12 mb-3">
                   <label for="birthday" class="form-label">Fecha de nacimiento</label>
                   <input type="date" class="form-control" name="birthday" id="birthday" value="<%= userBirthDayToInput %>">
@@ -58,7 +58,6 @@
                     <% } else { %>
                       <option selected hidden value="">...</option>
                     <% } %>
-
                   </select>
                 </div>
                 <div class="col-12 profile__buttonContainer">

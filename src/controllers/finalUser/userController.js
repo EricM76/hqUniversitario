@@ -161,7 +161,7 @@ module.exports = {
     const userId = req.session.user.id;
     const {birthday, province, city} = req.body;
     db.User.update({
-      birthday: format(new Date(birthday), "MM/dd/yyyy"),
+      birthday: format(new Date(`${birthday}T00:00:00`), "MM/dd/yyyy"),
       province,
       city
     }, {where: {id: userId,}})
@@ -170,5 +170,6 @@ module.exports = {
         return  res.redirect("/usuario/perfil")
       }
     })
+    .catch(error => res.send(error))
   },
 };
