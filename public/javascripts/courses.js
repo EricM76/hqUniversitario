@@ -1,3 +1,5 @@
+/* const $ = (element) => document.getElementById(element);
+ */
 const addInput = (event) => {
     const {target} = event;
     let i = +target.getAttribute('data-box');

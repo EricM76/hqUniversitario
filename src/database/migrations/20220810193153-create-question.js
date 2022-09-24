@@ -17,8 +17,9 @@ module.exports = {
           model: {
             tableName: 'Tests'
           },
-          key: 'id'
+          key: 'id',
         },
+        onDelete : 'cascade'
       },
       createdAt: {
         allowNull: false,

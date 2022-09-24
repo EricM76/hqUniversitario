@@ -13,18 +13,19 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Test.hasMany(models.Question,{
         foreignKey : 'testId',
-        as : 'questions'
+        as : 'questions',
+        onDelete : 'cascade'
       })
     }
   };
   Test.init({
     name: DataTypes.STRING,
     score: DataTypes.INTEGER,
-    courseId: DataTypes.INTEGER
+    courseId: DataTypes.INTEGER,
+    time : DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Test',
-    paranoid : true
   });
   return Test;
 };

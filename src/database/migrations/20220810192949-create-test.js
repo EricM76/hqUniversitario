@@ -14,6 +14,9 @@ module.exports = {
       score: {
         type: Sequelize.INTEGER
       },
+      time : {
+        type : Sequelize.INTEGER
+      },
       courseId : {
         type: Sequelize.INTEGER,
         references: {

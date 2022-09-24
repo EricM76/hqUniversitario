@@ -17,11 +17,11 @@ module.exports = (sequelize, DataTypes) => {
     content: DataTypes.STRING,
     questionId: DataTypes.INTEGER,
     correct: DataTypes.BOOLEAN,
-    score: DataTypes.INTEGER
+    score: DataTypes.INTEGER,
+    image : DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Answer',
-    paranoid : true
   });
   return Answer;
 };

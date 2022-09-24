@@ -41,6 +41,15 @@ let storageLogos = multer.diskStorage({
     }
 });
 
+let storageQuestions = multer.diskStorage({
+    destination: (req, file, callback) => {
+        callback(null, 'public/images/questions')
+    },
+    filename: (req, file, callback) => {
+        callback(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+    }
+});
+
 
 const filters = (req,file, cb) => {
     switch (file.fieldname) {
@@ -96,11 +105,17 @@ const uploadCourse = multer({
 const uploadImages = multer({
     storage : storageImages,
     fileFilter: fileFilterImages,
-})
+});
+
+const uploadQuestions = multer({
+    storage : storageQuestions,
+    fileFilter: fileFilterImages,
+});
 
 
 module.exports = {
     uploadImages,
     uploadLogos,
-    uploadCourse
+    uploadCourse,
+    uploadQuestions
 }

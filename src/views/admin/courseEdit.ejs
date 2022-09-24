@@ -445,29 +445,24 @@
                                     <div class="tab-pane fade <%= next === 'tests' && 'show active' %>"
                                         id="examenes-tab-pane" role="tabpanel" aria-labelledby="examenes-tab"
                                         tabindex="0">
-                                        <div class="mx-3 mt-2 mt-lg-3">
+                                        <div class="row mx-3 mt-2 mt-lg-3">
 
                                             <%if(course.tests.length){%>
-                                                <ol class="row mb-3">
+                                                <ol class="list-group col-12 col-lg-6 mb-3 px-lg-1">
                                                     <%for (let i = 0; i < course.tests.length / 2; i++) {%>
-                                                        <li class="col-12 col-md-6 g-3">
-                                                            <a href="/tests/edit/<%=course.tests[i].id%>?course=<%=course.id%>" class="btn btn-sm btn-outline-success">editar</a>
-                                                            <span class="ms-1">
-                                                                <%=course.tests[i].name%>
-                                                            </span>
+                                                        <li class="list-group-item">
+                                                            <a href="/tests/edit/<%=course.tests[i].id%>?course=<%=course.id%>"><%=course.tests[i].name%></a>
                                                         </li>
                                                     <%}%>
+                                                </ol>
+                                                <ol class="list-group col-12 col-lg-6 mb-3 px-md-1">
                                                     <%for (let i = Math.round(course.tests.length / 2); i < course.tests.length; i++) {%>
-                                                        <li class="col-12 col-md-6 g-3">
-                                                            <a href="/tests/edit/<%=course.tests[i].id%>?course=<%=course.id%>" class="btn btn-sm btn-outline-success">editar</a>
-                                                            <span class="ms-1">
-                                                                <%=course.tests[i].name%>
-                                                            </span>
+                                                        <li class="list-group-item">
+                                                            <a href="/tests/edit/<%=course.tests[i].id%>?course=<%=course.id%>"><%=course.tests[i].name%></a>
+
                                                         </li>
-                                                    <%}%>
-                                                   
-                                                    
-                                                </ul>
+                                                    <%}%> 
+                                                </ol>
                                             <%}else{%>
                                                 <p class="alert alert-warning">El curso aún no tiene exámenes agregados</p>
                                                
@@ -497,33 +492,7 @@
             </main>
             <%- include('./partials/scripts') %>
                 <script src="/javascripts/courses.js"></script>
-                <script>
-                    const changeLocked = async (id, {target}) => {
-                        console.log(id, target.value);
-                        document.getElementById('changeLocked-label' + id).innerHTML = target.checked ? `<i class='fas fa-lock'></i>` : `<i class='fas fa-unlock'></i>`;
-                        if(target.checked){
-                            document.getElementById('changeLocked-label' + id).classList.add(`btn-dark`); 
-                            document.getElementById('changeLocked-label' + id).classList.remove(`btn-warning`); 
-
-                        }else {
-                            document.getElementById('changeLocked-label' + id).classList.add(`btn-warning`); 
-                            document.getElementById('changeLocked-label' + id).classList.remove(`btn-dark`); 
-                        }
-                       
-                        try {
-                            let response = await fetch(`/videos/locked?id=${id}`,{
-                                method: 'PUT',
-                                body : JSON.stringify({locked : target.value}),
-                                headers : {
-                                    'Content-type' : 'application/json'
-                                }
-                            });
-                            let result = await response.json()
-                        } catch (error) {
-                            console.log(error)
-                        }
-                    }
-                </script>
+              <script src="/javascripts/courseEdit.js"></script>
     </body>
 
     </html>

@@ -5,7 +5,7 @@
         <%- include('./partials/header') %>
             <main class="container">
                 <section class="row mt-2 mt-md-3 mt-lg-5">
-                    <div class="col-12 col-md-10 col-lg-8 mx-auto">
+                    <div class="col-12 col-lg-10 mx-auto">
                         <article class="card shadow">
                             <div class="card-header">
                                 <nav aria-label="breadcrumb">
@@ -16,33 +16,89 @@
                                     </ol>
                                   </nav>
                                 <hr>
+                                <form action="/tests/update/<%= test.id %>?course=<%= course.id %>&_method=PUT" method="POST" id="form-edit-test">
+
+                                <div class="col-12 d-flex justify-content-end gap-2">
+                                    <button 
+                                        type="button"
+                                        class="btn btn-outline-primary"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#addQuestion"
+                                        id="btn-addQuestion">
+                                        Agregar pregunta
+                                    </button>
+                                <button type="submit" class="btn btn-outline-dark">Guardar cambios</button>
+                               </div>
                             </div>
                             <div class="card-body">
-                                <form action="/tests/update/<%= test.id %>?_method=PUT" method="POST">
-                                    <div class="col-12 mb-3">
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1">Exámen:
-                                            </span>
-                                            <input type="text" name="name" class="form-control" value="<%= test.name %>">
-                                          </div>
+                                    <div class="row">
+                                        <div class="col-12 col-lg-8 mb-3">
+                                            <div class="input-group mb-3 gap-2">
+                                                <button type="button" class="btn btn-outline-danger" onclick="deleteTest('<%=test.id%>','<%=course.id%>')"><i class="fas fa-trash-alt"></i></button>
+                                                <span class="input-group-text" id="basic-addon1">Exámen:
+                                                </span>
+                                                <input type="text" name="name" class="form-control" value="<%= test.name %>">
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-lg-2">
+                                            <div class="input-group mb-3">
+                                                <input type="number" name="score" class="form-control" value="<%= test.score %>">
+                                                <span class="input-group-text">puntos</i></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-lg-2">
+                                            <div class="input-group mb-3">
+                                                <input type="number" name="time" class="form-control" value="<%= test.time %>">
+                                                <span class="input-group-text">minutos</span>
+                                            </div>
+                                        </div>
                                     </div>
+                                   
                                     <div id="questions">
                                         <% if (test.questions.length) { %>
-                                            <% test.question.forEach(question => { %>
+                                            <% test.questions.forEach((question, index) => { %>
                                                 <ul class="list-group mb-3">
                                                     <li class="list-group-item">
-                                                        <div class="input-group mb-3">
-                                                            <span class="input-group-text" id="basic-addon1">1</span>
-                                                            <input type="text" name="question<%= test.id %>" class="form-control" value="<%= question.content %>">
-                                                          </div>
-                                                          <% test.answers.forEach(answer => { %>
+                                                        <div class="input-group d-flex align-items-center gap-2 mb-3">
+                                                                <span class="input-group-text" id="basic-addon1"><%= index + 1 %> </span>
+                                                                <input type="text" name="question_<%= question.id %>" class="form-control" value="<%= question.content %>">
+                                                                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addAnswer<%= question.id %>">Agregar respuesta</button>
+                                                              <button type="button" class="btn btn-outline-danger fs-6" onclick="deleteQuestion('<%=question.id%>')"><i class="fas fa-trash-alt"></i></button>
+                                                        </div>
+                                                        <%- include('modals/addAnswer',{
+                                                            question
+                                                        }) %> 
+
+                                                          <% question.answers.forEach(answer => { %>
                                                             <div class="input-group d-flex align-items-center gap-2 mb-3">
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="answerCorrect<%= answer.id %>" value="<%= answer.correct %>">
+                                                                <div class="form-check mx-2">
+                                                                    <input class="form-check-input" type="radio" name="correct_<%= answer.questionId %>" value="<%= answer.id %>" <%= answer.correct && 'checked' %> >
                                                                 </div>
-                                                                <input type="text" class="form-control" name="answer<%= answer.id %>" value="<%= answer.content %>">
-                                                                <label class="input-group-text fs-4" for="answer<%= answer.id %>" style="cursor: pointer;"><i class="fas fa-image"></i></label>
-                                                                <input type="file" hidden id="answer<%= answer.id %>" name="image<%= answer.id %>">
+                                                               
+                                                                <input type="text" class="form-control" name="answer_<%= answer.id %>" value="<%= answer.content %>">
+                                                                <div class="form-check p-0">
+                                                                    <input type="number" min="1" max="99" name="score_<%= answer.id %>" class="form-control" value="<%= answer.score %>" title="puntaje asignado">
+                                                                </div>
+                                                                <button type="button" class="btn <%= answer.image ? ' btn-outline-success' : ' btn-outline-primary'  %>  fs-6" data-bs-toggle="modal" data-bs-target="#viewImage<%= answer.id %>"><i class="fas fa-image"></i></button>
+                                                                <button type="button" class="btn btn-outline-danger fs-6" onclick="deleteAnswer('<%=answer.id%>')"><i class="fas fa-trash-alt"></i></button>
+                                                            </div>
+                                                            <!-- Modal -->
+                                                            <div class="modal fade" id="viewImage<%= answer.id%>" tabindex="-1" aria-labelledby="viewImage<%= answer.id%>Label" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="clearImage('<%= answer.id%>', '<%= answer.image%>')"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                    <img src="/images/questions/<%= answer.image ? answer.image : 'noImage.jpeg' %>" class="img-fluid" alt="imagen" id="imagePrev<%= answer.id %>">
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <label class="btn btn-outline-primary" id="btnAdd<%= answer.id %>" for="answer<%= answer.id %>"><%= answer.image ? 'Cambiar imagen' : 'Agregar imagen' %></label>
+                                                                        <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal" id="btnSave<%= answer.id %>" hidden onclick="saveImage('<%=answer.id%>')">Guardar cambios</button>
+                                                                        <input type="file" hidden id="answer<%= answer.id %>" name="image" onchange="imagePrev('<%= answer.id %>')">
+                                                                    </div>
+                                                                </div>
+                                                                </div>
                                                             </div>
                                                           <% }) %>
                                                     </li>
@@ -52,28 +108,22 @@
                                         <% }else{%>
                                             <p class="alert alert-warning"><i class="fas fa-exclamation-triangle"></i> El exámen aún no tiene preguntas asignadass</p>
                                         <% }%>
-                                           
+                                        <div class="col-12 d-flex justify-content-end gap-2">
+                                            <button 
+                                                type="button"
+                                                class="btn btn-outline-primary"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#addQuestion"
+                                                id="btn-addQuestion">
+                                                Agregar pregunta
+                                            </button>
+                                        <button type="submit" class="btn btn-outline-dark">Guardar cambios</button>
+                                       </div>
                                     </div>
-                                   
-                                       
-                                   <div class="col-12 d-flex justify-content-between">
-                                        <button 
-                                            type="button"
-                                            class="btn btn-outline-primary"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#addQuestion"
-                                            id="btn-addQuestion">
-                                            Añadir pregunta
-                                        </button>
-                                    <button type="submit" class="btn btn-outline-dark">Guardar exámen</button>
-                                   </div>
-                                   
-                                  
                                 </form>
                                 <%- include('modals/addQuestion',{
                                     test
                                 }) %> 
-
                             </div>
                         </article>
 
@@ -82,30 +132,7 @@
 
             </main>
             <%- include('./partials/scripts') %>
-            <script>
-                window.addEventListener('load', () => {
-                   let query = new URLSearchParams(window.location.search)
-                   if(query.has('new')){
-                    $('btn-addQuestion').click()
-                   }
-                });
-                $('addQuestion').addEventListener('hidden.bs.modal', () => {
-                    $('question').value = null;
-                    const inputAnswers = document.querySelectorAll('.new-question');
-                    for (let i = 0; i < inputAnswers.length; i++) {
-                        inputAnswers[i].value = null  
-                    }
-                   const inputChecks = document.querySelectorAll('.form-check-input');
-                   for (let i = 0; i < inputChecks.length; i++) {
-                        inputChecks[i].checked = false;
-                        inputChecks[i].disabled = true;
-                    }
-                    const inputFiles = document.querySelectorAll('.input-file');
-                    for (let i = 0; i < inputFiles.length; i++) {
-                        inputFiles[i].value = null
-                    }
-                })
-            </script>
+            <script src="/javascripts/testEdit.js"></script>
     </body>
 
     </html>

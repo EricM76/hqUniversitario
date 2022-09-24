@@ -1,0 +1,34 @@
+<div class="modal fade" id="addAnswer<%= question.id %>" tabindex="-1" aria-labelledby="addAnswerLabel" aria-hidden="true" data-bs-backdrop="false">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addAnswerLabel">Nueva respuesta</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col-12 col-lg-7">
+                             <div class="input-group d-flex align-items-center flex-xl-grow-1 flex-wrap gap-1 mb-3">
+                                <input type="text" class="form-control" name="content" placeholder="Escriba el texto de la respuesta" onkeyup="enableCheckNewAnswer('scoreQuestion<%= question.id %>','fileQuestion<%= question.id %>','imageQuestion<%= question.id %>',event)" id="textQuestion<%= question.id %>" onfocus="this.classList.remove('is-invalid')"/>
+                                <div class="form-check" style="width: 90px;">
+                                    <input type="number" min="1" max="99" name="score" disabled id="scoreQuestion<%= question.id %>" onblur="checkValue()" class="form-control score">
+                                </div>
+                        </div>
+                        </div>
+                        <div class="col-12 col-lg-5">
+                            <input type="file" class="form-control input-file" name="image" id="fileQuestion<%= question.id %>" disabled/>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal" onclick="clearInputsNewAnswer('scoreQuestion<%= question.id %>','fileQuestion<%= question.id %>','textQuestion<%= question.id %>')">
+                        Cancelar
+                    </button>
+                    <button type="button" class="btn btn-outline-primary" onclick="sendFormAddAnswer('<%= question.id %>')">Guardar</button>
+                </div>
+        </div>
+    </div>
+</div>
+<script>
+
+</script>

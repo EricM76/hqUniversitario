@@ -19,12 +19,16 @@ module.exports = {
           },
           key: 'id'
         },
+        onDelete : 'cascade'
       },
       correct: {
         type: Sequelize.BOOLEAN
       },
       score: {
         type: Sequelize.INTEGER
+      },
+      image : {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

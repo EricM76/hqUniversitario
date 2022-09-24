@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Question.hasMany(models.Answer, {
         foreignKey : 'questionId',
-        as : 'answers'
+        as : 'answers',
+        onDelete : 'cascade'
       })
     }
   };
@@ -23,7 +24,6 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Question',
-    paranoid : true
   });
   return Question;
 };

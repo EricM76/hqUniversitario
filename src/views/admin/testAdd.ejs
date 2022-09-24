@@ -19,16 +19,28 @@
                             </div>
                             <div class="card-body">
                                 <form action="/tests/add?course=<%= course.id %>" method="POST" id="form-add-test" class="needs-validation" novalidate>
+                                    <div class="row">
                                     <div class="col-12 mb-3">
                                         <div class="input-group has-validation mb-3">
-                                            <span class="input-group-text" id="basic-addon1">Exámen:
-                                            </span>
-                                            <input type="text" name="name" class="form-control" placeholder="Escriba aquí el nombre del examen" required>
+                                            <span class="input-group-text">Exámen:</span>
+                                            <input type="text" name="name" class="form-control " placeholder="Escriba aquí el nombre del examen" required>
                                             <div class="invalid-feedback text-end">
                                                 Para continuar escriba el nombre del exámen
                                             </div>
                                         </div>
-                                    </div> 
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text">Puntaje total:</span>
+                                            <input type="number" min="10" max="100" name="score" class="form-control" value="100" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text">Tiempo (en minutos):</span>
+                                            <input type="number" min="10" max="120" name="time" class="form-control" value="60" required>
+                                        </div>
+                                    </div>
                                        
                                    <div class="col-12 d-flex justify-content-end">
                                     <button 
@@ -37,8 +49,8 @@
                                         id="btn-submit">
                                         Añadir pregunta
                                     </button>
-                                   
                                    </div>
+                                </div>
                                 </form>
                             </div>
                         </article>
@@ -47,9 +59,6 @@
 
             </main>
             <%- include('./partials/scripts') %>
-            <script>
-        
-            </script>
     </body>
 
     </html>

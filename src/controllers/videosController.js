@@ -7,8 +7,6 @@ const {S3Client, PutObjectCommand, GetObjectCommand} = require('@aws-sdk/client-
 const {getSignedUrl} = require('@aws-sdk/s3-request-presigner')
 const {bucketName, bucketRegion, publicKey, secretKey} =require('../config/configAWS');
 
-console.log(bucketName, bucketRegion, publicKey, secretKey);
-
 const client = new S3Client({
   region : bucketRegion,
   credentials : {
