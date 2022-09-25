@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+  <%- include('./partials/head', {
+    title : 'Confirmación de suscripción'
+  }) %> 
+
+  <body class="subscription">
+    <%- include('./partials/header') %> 
+    <main class="container">
+        <section class="row justify-content-center align-items-center">
+            <div class="col-12 col-md-6">
+                <h1>Confirmar suscripción</h1>
+                <p>Membresía: <%- membership.name %> </p>
+                <p>Costo mensual: <%- membership.price %> </p>
+                <p>Cantidad de materias a elección: <%- membership.quota %> </p>
+                <p>Alta de la suscripción: <%- subscription.date_created %> </p>
+                <p>Fin de la suscripción: <%- subscription.date_created %> </p>
+                <a href="<%= subscription.init_point %>" class="btn btn-primary">Confirmar suscripción</a>
+            </div>
+            
+        </section>
+    </main>
+    <%- include('./partials/footer') %> 
+  </body>
+</html>
+
+
