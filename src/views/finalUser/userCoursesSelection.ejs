@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+  <%- include('./partials/head', {
+    title : 'Selección de materias'
+  }) %> 
+
+<body class="coursesSelection">
+  <%- include('./partials/header') %> 
+    <main class="container p-5">
+        <section class="row justify-content-center align-items-center border rounded p-5 bg-white">
+            <div class="col-12">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-4 p-2">
+                            <label for="university">1- Elige universidad</label>
+                            <select class="form-select" name="university" id="university">
+                                <option value="">Elige universidad</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-4 p-2">
+                            <label for="faculty">2- Elige facultad</label>
+                            <select class="form-select" name="faculty" id="faculty">
+                                <option value="">Elige facultad</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-4 p-2">
+                            <label for="career">3- Elige carrera</label>
+                            <select class="form-select" name="career" id="career">
+                                <option value="">Elige carrera</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 p-5 mt-2 border rounded">
+                <div class="container">
+                    <h4>4- Elige tus materias</h4>
+                    <div class="row" id="coursesContainer"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="/javascripts/profile/userCoursesSelection.js"></script>
+  <%- include('./partials/footer') %> 
+  <%- include('./partials/scripts') %> 
+ </body>
+</html>

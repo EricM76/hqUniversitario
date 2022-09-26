@@ -75,10 +75,21 @@
           <% if (user.membership) { %>
             <h4>Tu membresía activa es: <%= user.membership.name %></h4>
             <p>Vigente hasta: <%= user.expires %></p>
-            <h5>Tus materias: </h5>
-            <ol class="list-group list-group-numbered">
-              <li class="list-group-item">Física - UBA - CBC</li>
-            </ol>
+            <% if (user.courses.length > 0) { %>
+              <h5>Tus materias (<%= user.courses.length %> de <%= user.membership.quota %> disponibles según tu membresía): </h5>
+              <ol class="list-group list-group-numbered">
+                <% user.courses.forEach(course => { %>
+                  <li class="list-group-item"><%- course.name %> </li>
+                <% }) %>
+              </ol>
+              <% if (user.courses.length < user.membership.quota) { %>
+                <p>Aún tienes cupos disponibles para elegir materias, te recuerdo que tenés 30 días para hacerlo desde la fecha de alta de la membresía. Una vez realizada la selección de materias no podrás cambiarlas hasta la próxima renovación de tu membresía.</p>
+                <a href="/usuario/materias/seleccion" class="btn btn-primary">Elegir materias</a>
+              <% } %>
+            <% } else { %>
+              <p>Aún no elegiste tus materías, te recuerdo que tenés 30 días para hacerlo desde la fecha de alta de la membresía. Una vez realizada la selección de materias no podrás cambiarlas hasta la próxima renovación de tu membresía.</p>
+              <a href="/usuario/materias/seleccion" class="btn btn-primary">Elegir materias</a>
+            <% } %>
           <% } else { %>
             <h3 class="text-center p-2">Aún no tienes una membresía activa</h3>
             <h4 class="text-center">Elije la que mejor se adapte a ti</h4>
@@ -87,7 +98,7 @@
                 <div class="col-12 col-md-4 p-3 ">
                   <div class="shadow rounded p-2 membershipCard">
                     <h2 class="text-center membershipCard__name"><%- membership.name %> </h2>
-                    <p class="text-center membershipCard__description">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rerum eum perferendis animi!</p>
+                    <p class="text-center membershipCard__description"><%- membership.description %></p>
                     <p class="text-center text-white"><strong class="membershipCard__price">$ <%- membership.price %></strong> final x mes</p>
                     <div class="d-flex justify-content-center align-items-center">
                       <a class="button__dark" href="/subscription/<%- membership.id %>">Elegir</a>

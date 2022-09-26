@@ -141,7 +141,7 @@ module.exports = {
   },
   profile: (req, res) => {
     const provincesPromise = axios.get(BASE_URL_PROVINCES + "/provincias");
-    const userPromise = db.User.findOne({where: {id: req.session.user.id},include: ["rol", "membership", "referreds"],});
+    const userPromise = db.User.findOne({where: {id: req.session.user.id},include: ["rol", "membership", "referreds", "courses"],});
     const membershipsPromise = db.Membership.findAll();
     Promise.all([provincesPromise, userPromise, membershipsPromise])
     .then(([{data}, user, memberships]) => {
@@ -156,6 +156,7 @@ module.exports = {
           activeReferredsQuantity
       })
     })
+    .catch(error => console.log(error));
   },
   profileUpdate: (req, res) => {
     const userId = req.session.user.id;
@@ -172,4 +173,9 @@ module.exports = {
     })
     .catch(error => res.send(error))
   },
+  courseSelection: (req, res) => {
+    res.render("finalUser/userCoursesSelection", {
+      session: req.session
+    })
+  }
 };
