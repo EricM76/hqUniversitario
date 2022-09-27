@@ -144,7 +144,7 @@ module.exports = {
                     },
                     {
                         association : 'tests',
-                        attributes : ['id','name'],
+                        attributes : ['id','name','time'],
                         include : [
                             {
                                 association : 'questions',

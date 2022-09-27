@@ -68,8 +68,7 @@
                                                         <%- include('modals/addAnswer',{
                                                             question
                                                         }) %> 
-
-                                                          <% question.answers.forEach(answer => { %>
+                                                          <% question.answers.forEach((answer,i) => { %> 
                                                             <div class="input-group d-flex align-items-center gap-2 mb-3">
                                                                 <div class="form-check mx-2">
                                                                     <input class="form-check-input" type="radio" name="correct_<%= answer.questionId %>" value="<%= answer.id %>" <%= answer.correct && 'checked' %> >
@@ -106,7 +105,7 @@
                                             <% }) %>
                                            
                                         <% }else{%>
-                                            <p class="alert alert-warning"><i class="fas fa-exclamation-triangle"></i> El exámen aún no tiene preguntas asignadass</p>
+                                            <p class="alert alert-warning"><i class="fas fa-exclamation-triangle"></i> El exámen aún no tiene preguntas</p>
                                         <% }%>
                                         <div class="col-12 d-flex justify-content-end gap-2">
                                             <button 

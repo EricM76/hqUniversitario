@@ -2,36 +2,117 @@ window.addEventListener('load', () => {
     let query = new URLSearchParams(window.location.search)
     if (query.has('new')) {
         $('btn-addQuestion').click()
-    }
+    };
 });
 
 const deleteQuestion = async (id) => {
-    try {
-        let response = await fetch(`/tests/questions/${id}`, {
-            method: 'DELETE'
-        });
-        let result = await response.json()
-        console.log(result);
 
-        window.location.reload()
-
-    } catch (error) {
-        console.log(error)
-    }
+    Swal.fire({
+        title: '¿Está seguro que desea eliminar la pregunta?',
+        text: '¡No se podrán revertir los cambios!',
+        showDenyButton: true,
+        confirmButtonText: 'Eliminar',
+        denyButtonText: `Cancelar`,
+        confirmButtonColor: '#FF0000',
+        denyButtonColor: '#696969',
+    }).then(async (result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            try {
+                let response = await fetch(`/tests/questions/${id}`, {
+                    method: 'DELETE'
+                });
+                let result = await response.json()
+                console.log(result);
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Elimminada con éxito',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                setTimeout(() => {
+                    window.location.reload()
+                }, 1500);
+        
+            } catch (error) {
+                console.log(error)
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Ups, hubo un error',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        }
+    })
+   
 };
 
 const deleteAnswer = async (id) => {
+
     try {
-        let response = await fetch(`/tests/answers/${id}`, {
-            method: 'DELETE'
-        });
+        let response = await fetch(`/tests/questions/count-answers/${id}`);
         let result = await response.json();
-
-        window.location.reload();
-
+        console.log(result)
+        if(result.data > 2){
+            Swal.fire({
+                title: '¿Está seguro que desea eliminar la respuesta?',
+                text: '¡No se podrán revertir los cambios!',
+                showDenyButton: true,
+                confirmButtonText: 'Eliminar',
+                denyButtonText: `Cancelar`,
+                confirmButtonColor: '#FF0000',
+                denyButtonColor: '#696969',
+            }).then(async (result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+        
+                    try {
+                        let response = await fetch(`/tests/answers/${id}`, {
+                            method: 'DELETE'
+                        });
+                        let result = await response.json();
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Elimminada con éxito',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        setTimeout(() => {
+                            window.location.reload()
+                        }, 1500);
+                
+                    } catch (error) {
+                        console.error(error)
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'error',
+                            title: 'Ups, hubo un error',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }
+                }
+            })        
+        }else {
+            Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: 'No puede haber menos de dos respuestas',
+                        showConfirmButton: true,
+                        confirmButtonText: 'Entendido',
+                        confirmButtonColor : "royalblue"
+                    })
+        }
+     
     } catch (error) {
         console.error(error)
     }
+
+
 }
 
 const imagePrev = function (id) {
@@ -128,6 +209,7 @@ const enableCheckNewAnswer = (score, file, image, e) => {
     }
 };
 
+
 const sendFormAddAnswer = async (idQuestion) => {
     let data = new FormData();
     data.append('content', $('textQuestion' + idQuestion).value)
@@ -155,15 +237,47 @@ const sendFormAddAnswer = async (idQuestion) => {
 }
 
 const deleteTest = async (idTest, idCourse) => {
-    try {
-        let response = await fetch('/tests/remove/' + idTest, {
-            method: 'DELETE'
-        })
-        let result = await response.json();
-        console.log(result);
-        window.location.href = `/courses/edit/${idCourse}?next=tests`
 
-    } catch (error) {
-        console.error(error)
-    }
+    Swal.fire({
+        title: '¿Está seguro que desea eliminar el exámen?',
+        text: '¡No se podrán revertir los cambios!',
+        showDenyButton: true,
+        confirmButtonText: 'Eliminar',
+        denyButtonText: `Cancelar`,
+        confirmButtonColor: '#FF0000',
+        denyButtonColor: '#696969',
+    }).then(async (result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            try {
+                let response = await fetch('/tests/remove/' + idTest, {
+                    method: 'DELETE'
+                })
+                let result = await response.json();
+                console.log(result);
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Elimminado con éxito',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                setTimeout(() => {
+                    window.location.href = `/courses/edit/${idCourse}?next=tests`
+                }, 1500);
+
+            } catch (error) {
+                console.error(error)
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Ups, hubo un error',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        }
+    })
+
+
 }

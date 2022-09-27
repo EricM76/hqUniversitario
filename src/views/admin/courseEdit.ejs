@@ -448,21 +448,32 @@
                                         <div class="row mx-3 mt-2 mt-lg-3">
 
                                             <%if(course.tests.length){%>
-                                                <ol class="list-group col-12 col-lg-6 mb-3 px-lg-1">
-                                                    <%for (let i = 0; i < course.tests.length / 2; i++) {%>
-                                                        <li class="list-group-item">
+                                                <div class="col-12 col-lg-6 mb-3 px-lg-1">
+                                                    <ol class="list-group">
+                                                        <%for (let i = 0; i < course.tests.length / 2; i++) {%>
+                                                        <li class="list-group-item d-flex flex-column flex-md-row justify-content-between">
                                                             <a href="/tests/edit/<%=course.tests[i].id%>?course=<%=course.id%>"><%=course.tests[i].name%></a>
+                                                            <div class="text-secondary">
+                                                                <span><b><%=course.tests[i].questions.length%></b> preguntas</span> | <span><b><%=course.tests[i].time%></b> minutos</span>
+                                                            </div> 
                                                         </li>
                                                     <%}%>
-                                                </ol>
-                                                <ol class="list-group col-12 col-lg-6 mb-3 px-md-1">
+                                                    </ol>
+                                                   
+                                                </div>
+                                                <div class="col-12 col-lg-6 mb-3 px-md-1">
+                                                    <ol class="list-group ">
                                                     <%for (let i = Math.round(course.tests.length / 2); i < course.tests.length; i++) {%>
-                                                        <li class="list-group-item">
+                                                        <li class="list-group-item d-flex flex-column flex-md-row justify-content-between">
                                                             <a href="/tests/edit/<%=course.tests[i].id%>?course=<%=course.id%>"><%=course.tests[i].name%></a>
-
+                                                            <div class="text-secondary">
+                                                                <span><b><%=course.tests[i].questions.length%></b> preguntas</span> | <span><b><%=course.tests[i].time%></b> minutos</span>
+                                                            </div> 
                                                         </li>
                                                     <%}%> 
                                                 </ol>
+                                                </div>
+                                                
                                             <%}else{%>
                                                 <p class="alert alert-warning">El curso aún no tiene exámenes agregados</p>
                                                

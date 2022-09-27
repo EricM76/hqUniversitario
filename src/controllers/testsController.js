@@ -343,5 +343,24 @@ module.exports = {
                 msg: 'ups, hubo un error!'
             })
         }
+    },
+    countAnswers : async (req,res) => {
+        try {
+            const {questionId} = await db.Answer.findByPk(req.params.id)
+            const total = await db.Answer.count({
+                where : {
+                    questionId
+                }
+            })
+            return res.status(200).json({
+                ok : true,
+                data : total
+            })
+        } catch (error) {
+            return res.status(500).json({
+                ok : false,
+                msg : 'ups! Hubo un problema'
+            })
+        }    
     }
 }

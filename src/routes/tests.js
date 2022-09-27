@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const {add, store, list, detail, edit, update, remove, search, filter, addQuestion, deleteQuestion, changeImage, deleteAnswer, addAnwer} = require('../controllers/testsController');
+const {add, store, list, detail, edit, update, remove, search, filter, addQuestion, deleteQuestion, changeImage, deleteAnswer, addAnwer,countAnswers} = require('../controllers/testsController');
 const {uploadQuestions} = require('../middlewares/upLoadFiles')
 /* /tests */
 router
@@ -20,6 +20,7 @@ router
   .put('/answers/change-image/:id',uploadQuestions.single('image'),changeImage)
   .delete('/answers/:id',deleteAnswer)
   .post('/answers/:idQuestion',uploadQuestions.single('image'),addAnwer)
+  .get('/questions/count-answers/:id',countAnswers)
 
 
 module.exports = router;
