@@ -2,6 +2,9 @@ const db = require("../../database/models");
 const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
 const axios = require("axios");
+const { format } = require("date-fns");
+const process = require("process");
+const BASE_URL_PROVINCES = process.env.BASE_URL_PROVINCES
 
 module.exports = {
   login: (req, res) => {
@@ -74,11 +77,11 @@ module.exports = {
              active: false,
          })
          .then((user) => {
-          return res.redirect("/usuario/perfil")
+          return res.redirect("/usuario/perfil#referred")
          })
          .catch(error => res.send(error))
      }else{
-      return res.render('finalUser/userRegister', {
+      return res.render('finalUser/userProfile', {
              errors: errors.mapped(),
              old: req.body
          })
@@ -114,8 +117,9 @@ module.exports = {
                   /* Enviar notificacion al usuario que lo refirió */
                   return res.redirect("/usuario/login")
                 })
+              } else {
+                return res.redirect("/usuario/login")
               }
-              return res.redirect("/usuario/login")
             })
          })
          .catch(error => res.send(error))
@@ -136,26 +140,42 @@ module.exports = {
     return res.redirect('/');
   },
   profile: (req, res) => {
-    const provincesPromise = axios.get("https://apis.datos.gob.ar/georef/api/provincias");
-    const userPromise = db.User.findOne({where: {id: req.session.user.id},include: ["rol", "membership", "referreds"],});
+    const provincesPromise = axios.get(BASE_URL_PROVINCES + "/provincias");
+    const userPromise = db.User.findOne({where: {id: req.session.user.id},include: ["rol", "membership", "referreds", "courses"],});
     const membershipsPromise = db.Membership.findAll();
     Promise.all([provincesPromise, userPromise, membershipsPromise])
     .then(([{data}, user, memberships]) => {
+      const activeReferredsQuantity = user.referreds.filter(referred => referred.active).length;
     return res.render("finalUser/userProfile", {
           user,
+          userBirthDay: user.birthday ? format(new Date(user.birthday), "dd/MM/yyyy") : undefined,
+          userBirthDayToInput: user.birthday ? format(new Date(user.birthday), "yyyy-MM-dd") : undefined,
           provincias: data.provincias,
           session:req.session,
-          memberships
+          memberships,
+          activeReferredsQuantity
       })
     })
+    .catch(error => console.log(error));
   },
   profileUpdate: (req, res) => {
     const userId = req.session.user.id;
-    db.User.update({...req.body}, {where: {id: userId,}})
+    const {birthday, province, city} = req.body;
+    db.User.update({
+      birthday: format(new Date(`${birthday}T00:00:00`), "MM/dd/yyyy"),
+      province,
+      city
+    }, {where: {id: userId,}})
     .then((response) => {
       if(response){
         return  res.redirect("/usuario/perfil")
       }
     })
+    .catch(error => res.send(error))
   },
+  courseSelection: (req, res) => {
+    res.render("finalUser/userCoursesSelection", {
+      session: req.session
+    })
+  }
 };

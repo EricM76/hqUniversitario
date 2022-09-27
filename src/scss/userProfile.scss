@@ -3,7 +3,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 1rem 0 2rem;
+    padding: 0 0 2rem;
+    .dataItems {
+        font-weight: bolder;
+        color: blueviolet;
+        font-style: italic;
+    }
     .profile__formContainer {
         position: relative;
         max-width: 950px;
@@ -18,6 +23,41 @@
             display: flex;
             justify-content: end;
             align-items: center;
+        }
+    }
+    .membershipCard {
+        background-color: blueviolet;
+        .membershipCard__name {
+            color: orange;
+            font-weight: bold;
+        }
+        .membershipCard__description {
+            color: white;
+        }
+        .membershipCard__price {
+            color: white;
+            font-size: 2rem;
+        }   
+    }
+    .referredContainer {
+        display: flex;
+        align-items: center;
+        position: relative;
+        border-bottom: 1px solid lightgray;
+        .referredName{
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .referredEmail {
+            font-weight: 600;
+            font-style: italic;
+        }
+        .referredActive {
+            position: absolute;
+            right: 10px;
+            i {
+                font-size: 1.5rem;
+            }
         }
     }
 }

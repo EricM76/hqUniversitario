@@ -56,6 +56,8 @@ app
   .use('/materia', require('./routes/finalUser/course'))
   .use('/examen', require('./routes/finalUser/test'))
   .use('/usuario', require('./routes/finalUser/user'))
+  /* Payment routes */
+  .use('/subscription', require('./routes/mercadoPago'))
 
 
 // catch 404 and forward to error handler

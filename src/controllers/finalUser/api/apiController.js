@@ -20,6 +20,14 @@ module.exports = {
         })
         .catch(error => res.json(error))
     },
+    coursesByCarerr: (req, res) => {
+        const careerId = req.query.careerId;
+        db.CourseCareer.findAll()
+        .then(courses => {
+            res.status(200).json(courses)
+        })
+        .catch(error => res.json(error))
+    },
     referred: (req, res) => {
         let userEmail = req.params.email
         const userPromise = db.User.findOne({where: {email: userEmail}})
@@ -31,6 +39,8 @@ module.exports = {
             let userIsReferred = referredUsers.includes(userEmail);
 
             switch (true) {
+                case referredUsers.length >= 12 :
+                    return res.json({state: true, message: "Llegaste al máximo de referidos"});
                 case userIsRegister :
                     return res.json({state: true, message: "Usuario ya registrado"});
                 case userIsReferred :

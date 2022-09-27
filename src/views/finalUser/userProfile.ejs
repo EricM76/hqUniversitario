@@ -5,63 +5,59 @@
 
 <body class="profile">
   <%- include('./partials/header') %> 
-  <main class="container">
-    <h2 class="mx-4 pt-2">Hola <%= user.name %></h2>
+  <main class="container pb-5">
+    <!-- data-aos-delay="500" data-aos="fade-up" data-aos-duration="2000" -->
+    <h2 class="mx-4 pt-2 text-center" data-aos="fade-right" data-aos-duration="1000">Hola <%= user.name %></h2>
     <nav class="p-4 bg-white">
       <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-          <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#datosPersonales-tab-pane" type="button" role="tab" aria-controls="datosPersonales-tab-pane" aria-selected="true">Datos personales</button>
+        <li class="nav-item" data-aos="fade" data-aos-duration="1000" role="presentation">
+          <button class="nav-link" onclick="setHash('data')" id="data-tab" data-bs-toggle="tab" data-bs-target="#datosPersonales-tab-pane" type="button" role="tab" aria-controls="datosPersonales-tab-pane" aria-selected="true">Datos personales</button>
         </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#membresia-tab-pane" type="button" role="tab" aria-controls="membresia-tab-pane" aria-selected="false">Membresías</button>
+        <li class="nav-item" data-aos="fade" data-aos-duration="1000" role="presentation">
+          <button class="nav-link" onclick="setHash('membership')" id="membership-tab" data-bs-toggle="tab" data-bs-target="#membresia-tab-pane" type="button" role="tab" aria-controls="membresia-tab-pane" aria-selected="false">Membresías</button>
         </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#referidos-tab-pane" type="button" role="tab" aria-controls="referidos-tab-pane" aria-selected="false">Mis referidos</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#intereses-tab-pane" type="button" role="tab" aria-controls="intereses-tab-pane" aria-selected="false">Mis intereses</button>
+        <li class="nav-item" data-aos="fade" data-aos-duration="1000" role="presentation">
+          <button class="nav-link" onclick="setHash('referred')" id="referred-tab" data-bs-toggle="tab" data-bs-target="#referidos-tab-pane" type="button" role="tab" aria-controls="referidos-tab-pane" aria-selected="false">Mis referidos</button>
         </li>
       </ul>
     </nav>
     <div class="tab-content bg-white" id="myTabContent">
       <!-- Datos personales -->
       <section class="tab-pane fade show active profile__mainContainer" id="datosPersonales-tab-pane" role="tabpanel" aria-labelledby="datosPersonales-tap" tabindex="0">
-        <div class="container shadow rounded p-5 profile__formContainer">
-          <div class="profile__logoContainer">
-            <img src="/images/logos/LOGO HQ.png" alt="Logo HQ" class="w-100">
-          </div>
+        <div class="container p-1 profile__formContainer">
           <h3 class="text-center">Modificá tus datos</h3>
           <div class="container">
             <div class="row align-items-center">
               <div class="col-12 col-md-6 p-2">
-                <p>Nombre: <%= user.name %></p>
-                <p>Apellido: <%= user.surname %></p>
-                <p>Fecha de nacimiento: <%= user.birthday ? user.birthday : " - " %></p>
-                <p>Provincia: <%= user.province ? user.province : " - " %></p>
-                <p>Localidad: <%= user.city ? user.city : " - " %></p>
+                <p class="fs-5"><span class="dataItems">Nombre:</span> <i><%= user.name %></i></p>
+                <p class="fs-5"><span class="dataItems">Apellido:</span> <i><%= user.surname %></i></p>
+                <p class="fs-5"><span class="dataItems">Fecha de nacimiento:</span> <i><%= userBirthDay ? userBirthDay : " - " %></i></p>
+                <p class="fs-5"><span class="dataItems">Provincia:</span> <i><%= user.province ? user.province : " - " %></i></p>
+                <p class="fs-5"><span class="dataItems">Localidad: </span> <i><%= user.city ? user.city : " - " %></i></p>
               </div>
-              <form action="/usuario/perfil?_method=PUT" method="POST" class="col-12 col-md-6 p-2">
-                <div class="col-12">
+              <form id="personalDataForm" action="/usuario/perfil?_method=PUT" method="POST" class="col-12 col-md-6 p-2">
+                <div class="col-12 mb-3">
                   <label for="birthday" class="form-label">Fecha de nacimiento</label>
-                  <input type="date" class="form-control" name="birthday" id="birthday" value="">
+                  <input type="date" class="form-control" name="birthday" id="birthday" value="<%= userBirthDayToInput %>">
                   <div class="feedback"></div>
                 </div>
                 <div class="col-12 mb-3">
-                  <label for="province" class="form-label">Provicia</label>
-                  <select class="form-select" id="province" name="province" aria-label="Default select example">
-                    <option selected hidden>Selecciona tu provincia</option>
+                  <label for="provinceSelect" class="form-label">Provincia</label>
+                  <select class="form-select" id="provinceSelect" name="province">
+                    <option selected hidden value="">Selecciona tu provincia</option>
                     <% provincias.forEach(provincia => { %>
-                      <option value="<%- provincia.nombre %>"><%- provincia.nombre %> </option>
+                      <option value="<%- provincia.nombre %>" <%= user.province === provincia.nombre ? "selected" : "" %> ><%- provincia.nombre %> </option>
                     <% }) %>
                   </select>
                 </div>
                 <div class="col-12 mb-3">
-                  <label for="cities" class="form-label">Localidad</label>
-                  <select class="form-select" id="cities" name="province" aria-label="Default select example">
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                  <label for="citiesSelect" class="form-label">Localidad</label>
+                  <select class="form-select" id="citiesSelect" name="city">
+                    <% if (user.city) { %>
+                      <option selected value="<%= user.city %>"><%= user.city %> </option>
+                    <% } else { %>
+                      <option selected hidden value="">...</option>
+                    <% } %>
                   </select>
                 </div>
                 <div class="col-12 profile__buttonContainer">
@@ -74,36 +70,63 @@
         </div>
       </section>
       <!-- Membresías -->
-      <section class="tab-pane fade profile__mainContainer" id="membresia-tab-pane" role="tabpanel" aria-labelledby="membresia-tap" tabindex="0">
+      <section class="tab-pane fade profile__mainContainer" id="membresia-tab-pane" role="tabpanel" aria-labelledby="membresia-tap" tabindex="1">
         <div class="container">
-          <h4>Tu membresía activa es: <%= user.membership.name %> </h4>
-          <p>Vigente hasta: xx/xx/xxxx</p>
-          <ol class="list-group list-group-numbered">
-            <li class="list-group-item">Física - UBA - CBC</li>
-          </ol>
-          <div class="row">
-            <% memberships.forEach(membership => { %>
-              <div class="col-12 col-md-4 p-3">
-                <div class="shadow rounded p-2">
-                  <h2 class="text-center"><%- membership.name %> </h2>
-                  <p class="text-center">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rerum eum perferendis animi!</p>
-                  <p class="text-center"><strong>$ <%- membership.price %></strong> final x mes</p>
+          <% if (user.membership) { %>
+            <h4>Tu membresía activa es: <%= user.membership.name %></h4>
+            <p>Vigente hasta: <%= user.expires %></p>
+            <% if (user.courses.length > 0) { %>
+              <h5>Tus materias (<%= user.courses.length %> de <%= user.membership.quota %> disponibles según tu membresía): </h5>
+              <ol class="list-group list-group-numbered">
+                <% user.courses.forEach(course => { %>
+                  <li class="list-group-item"><%- course.name %> </li>
+                <% }) %>
+              </ol>
+              <% if (user.courses.length < user.membership.quota) { %>
+                <p>Aún tienes cupos disponibles para elegir materias, te recuerdo que tenés 30 días para hacerlo desde la fecha de alta de la membresía. Una vez realizada la selección de materias no podrás cambiarlas hasta la próxima renovación de tu membresía.</p>
+                <a href="/usuario/materias/seleccion" class="btn btn-primary">Elegir materias</a>
+              <% } %>
+            <% } else { %>
+              <p>Aún no elegiste tus materías, te recuerdo que tenés 30 días para hacerlo desde la fecha de alta de la membresía. Una vez realizada la selección de materias no podrás cambiarlas hasta la próxima renovación de tu membresía.</p>
+              <a href="/usuario/materias/seleccion" class="btn btn-primary">Elegir materias</a>
+            <% } %>
+          <% } else { %>
+            <h3 class="text-center p-2">Aún no tienes una membresía activa</h3>
+            <h4 class="text-center">Elije la que mejor se adapte a ti</h4>
+            <div class="row" data-aos="fade-up" data-aos-duration="1000">
+              <% memberships.forEach(membership => { %>
+                <div class="col-12 col-md-4 p-3 ">
+                  <div class="shadow rounded p-2 membershipCard">
+                    <h2 class="text-center membershipCard__name"><%- membership.name %> </h2>
+                    <p class="text-center membershipCard__description"><%- membership.description %></p>
+                    <p class="text-center text-white"><strong class="membershipCard__price">$ <%- membership.price %></strong> final x mes</p>
+                    <div class="d-flex justify-content-center align-items-center">
+                      <a class="button__dark" href="/subscription/<%- membership.id %>">Elegir</a>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            <% }) %>
-          </div>
+              <% }) %>
+            </div>
+          <% }  %>
+         
         </div>
       </section>
       <!-- Referidos -->
-      <section class="tab-pane fade profile__mainContainer" id="referidos-tab-pane" role="tabpanel" aria-labelledby="referidos-tap" tabindex="0">
+      <section class="tab-pane fade profile__mainContainer" id="referidos-tab-pane" role="tabpanel" aria-labelledby="referidos-tap" tabindex="2">
         <div class="container">
-          <div class="row">
+          <div class="row p-3">
+            <% if (activeReferredsQuantity === 3) { %>
+              <h3>¡Felicitaciones, 3 de tus referidos se registraron en HQ!</h3> 
+              <p>Gracias a eso, ganaste una membresía básica gratuita. Activala ahora.</p>
+            <% } else { %>
+              <p>Referí hasta 12 personas, si 3 de tus referidos se registran en nuestra plataforma te regalamos 1 membresía básica.</p>
+            <% } %>
             <div class="col-12 col-md-4 p-2">
-              <h3>Referir</h3>
+              <h3 class="border-bottom">Referir</h3>
               <form action="/usuario/referir" method="post" id="referredForm">
                 <div class="mb-3">
                   <label for="nameReferred" class="form-label">Nombre*</label>
-                  <input type="text" class="form-control" name="name" id="nameReferred" value="<%= locals.old && old.name %>">
+                  <input type="text" class="form-control" name="name" id="nameReferred" <%= (activeReferredsQuantity === 3) ? "disabled" : "" %> value="<%= locals.old && old.name %>">
                   <small class="text-danger" id="nameReferredError"></small>
                   <% if (locals.errors && errors.name) { %>
                     <small class="text-danger"><%= errors.name.msg %></small>
@@ -111,33 +134,49 @@
                 </div>
                 <div class="col-12 mb-3">
                   <label for="emailReferred" class="form-label">Email*</label>
-                  <input type="text" class="form-control" name="email" id="emailReferred" value="<%= locals.old && old.email %>">
+                  <input type="text" class="form-control" name="email" id="emailReferred" <%= (activeReferredsQuantity === 3) ? "disabled" : "" %> value="<%= locals.old && old.email %>">
                   <small class="text-danger" id="emailReferredError"></small>
                   <% if (locals.errors && errors.email) { %>
                     <small class="text-danger"><%= errors.email.msg %></small>
                   <% } %>
                 </div>
                 <div class="col-12 mb-3 register__buttonContainer">
+                  <% if (locals.errors && errors.custom) { %>
+                    <small class="text-danger"><%= errors.custom.msg %></small>
+                  <% } %>
                   <small class="text-danger" id="submitReferredError"></small>
-                  <button class="button__dark" type="submit">Agregar referido</button>
+                  <button class="button__dark" type="submit" <%= (activeReferredsQuantity === 3) ? "disabled" : "" %>>Agregar referido</button>
                 </div>
               </form>
             </div>
-            <div class="col-12 col-md-4 p-2">
-              <h3>Mis Referidos</h3>
-              <ol class="list-group list-group-numbered">
-                <% user.referreds.forEach(referred => { %>
-                  <li class="list-group-item"><%- referred.name %> - <%- referred.email %> - <%- referred.active %></li>
-                <% }) %>
-              </ol>
+            <div class="col-12 col-md-8 p-2">
+              <h3 class="border-bottom">Mis Referidos</h3>
+              <div class="container">
+                <% if (user.referreds.length > 0) { %>
+                  <ol class="list-group list-group-numbered row flex-row">
+                    <% user.referreds.forEach(referred => { %>
+                      <div class="p-2 col-12 col-lg-6 ">
+                        <li class="p-2 shadow-sm referredContainer">
+                          <div>
+                            <span class="referredName"><%- referred.name %></span> | <span class="referredEmail"><%- referred.email %></span>
+                          </div>
+                          <span class="referredActive">
+                            <% if (referred.active) { %>
+                              <i class="fa-solid fa-check text-success"></i>
+                            <% } else {%>
+                              <i class="fa-regular fa-clock text-primary"></i> 
+                            <% } %>
+                          </span>  
+                        </li>
+                      </div>
+                    <% }) %>
+                  </ol>
+                <% } else {%>
+                  <p class="text-primary">Aún no tienes referidos</p>
+                <% } %>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-      <!-- Intereses -->
-      <section class="tab-pane fade profile__mainContainer" id="intereses-tab-pane" role="tabpanel" aria-labelledby="intereses-tap" tabindex="0">
-        <div class="container">
-          <h2>Mis intereses</h2>
         </div>
       </section>
     </div>
@@ -145,5 +184,7 @@
   <%- include('./partials/footer') %> 
   <%- include('./partials/scripts') %> 
   <script src="/javascripts/Profile/referred.js"></script>
+  <script src="/javascripts/Profile/navLinks.js"></script>
+  <script src="/javascripts/Profile/personalData.js"></script>
 </body>
 </html>
