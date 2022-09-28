@@ -27,12 +27,12 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
-                                <form action="/videos/add?course=<%= course.id %>" class="row mx-3 g-3 mt-2 mt-lg-3" method="POST" id="form-updateVideos-course" enctype="multipart/form-data">
+                                <form action="/videos/add?course=<%= course.id %>" class="row mx-3 g-3 mt-2 mt-lg-3 needs-validation" method="POST" id="form-updateVideos-course" enctype="multipart/form-data" novalidate>
                                     <div class="col-12 col-lg-4">
-                                        <div class="mb-3">
+                                        <div class="mb-3 has-validation">
                                             <input type="file" class="form-control" id="resource"
-                                                name="resource" hidden>
-                                            <video id="resourceTag" controls width="100%" onchange="alert('epaaa')">
+                                                name="resource" accept="video/*" hidden>
+                                            <video id="resourceTag" controls width="100%" onchange="console.log('epaaa')">
                                                 <source 
                                                     id="resourcePreview"
                                                     src=""
@@ -41,6 +41,9 @@
                                                 >
                                                 <p class="alert alert-danger">Upss, su navegador no soporta la reproducción de videos</p>
                                             </video>
+                                            <div class="invalid-feedback">
+                                                Debe cargar un video
+                                              </div>
                                         </div>
                                         <div class="mb-3">
                                             <label for="resource" id="resourceLabel"
@@ -53,11 +56,14 @@
                                                     class="d-flex flex-column align-items-md-center flex-md-row mb-3">
                                                     <label for="length"
                                                         class="form-label me-2">Duración:</label>
-                                                    <div class="input-group">
+                                                    <div class="input-group has-validation">
                                                         <input type="number"
-                                                            class="form-control" min="0" name="length" id="length">
+                                                            class="form-control" min="0" name="length" id="length" required>
                                                         <span class="input-group-text"
                                                             for="">min</span>
+                                                            <div class="invalid-feedback">
+                                                                Debe indicar la duración
+                                                              </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -78,33 +84,51 @@
                                     <div class="col-12 col-lg-8">
                                         <div class="row">
                                             <div class="col-12 mb-3">
-                                                <label for="title"
+                                                <div class="has-validation">
+                                                    <label for="title"
                                                     class="form-label">Título</label>
                                                 <input type="text" id="title"
-                                                    class="form-control" name="title">
+                                                    class="form-control" name="title" required>
+                                                    <div class="invalid-feedback">
+                                                        Debe escribir un título
+                                                    </div>
+                                                </div>
+                                               
                                             </div>
                                             <div class="col-12 mb-3">
-                                                <label for="description"
+                                                <div class="has-validation">
+                                                    <label for="description"
                                                     class="form-label">Descripción</label>
                                                 <textarea id="description" class="form-control"
-                                                    rows="3" style="resize: none;" name="description"></textarea>
+                                                    rows="3" style="resize: none;" name="description" required></textarea>
+                                                    <div class="invalid-feedback">
+                                                        Debe agregar una descripción
+                                                    </div>
+                                                </div>
+                                               
                                             </div>
                                             <div class="col-12 col-md-6 mb-3">
-                                                <select class="form-select form-select"
+                                                <div class="has-validation">
+                                                    <select class="form-select form-select"
                                                     id="categoryId"
-                                                    aria-label=".form-select-sm example" name="categoryId">
-                                                    <option value="" selected hidden>Categoría...
-                                                    </option>
+                                                    aria-label=".form-select-sm example" name="categoryId" required>
+                                                    <option value="" selected hidden>Categoría...</option>
                                                     <% course.faculty.categories.sort((a,b)=> a.name>b.name ? 1 : a.name<b.name ? -1 : 0).forEach(category => {%>
                                                         <option value="<%=category.id%>"><%=category.name%></option>
                                                     <%})%>
-                                                </select>
+                                                    </select>
+                                                    <div class="invalid-feedback">
+                                                        Debe indicar la categoría
+                                                    </div>
+                                                </div>
+                                               
                                                 <input type="text" value="<%= course.id %>" id="inputCourse" hidden>
                                             </div>
                                             <div class="col-12 col-md-6 mb-3">
                                                 <select class="form-select form-select"
                                                     id="unitId"
                                                     name="unitId"
+                                                    required
                                                     disabled>
                                                     <option value="" selected hidden>Unidad...</option>
                                                     <% course.units.sort((a,b)=> a.number>b.number ? 1 : a.number<b.number ? -1 : 0).forEach(unit => {%>
@@ -116,6 +140,7 @@
                                                 <select class="form-select form-select"
                                                     id="year"
                                                     name="year"
+                                                    required
                                                     disabled>
                                                     <option value="" selected hidden>Año...</option>
                                                     <% for(let i=2005; i<= new Date().getFullYear(); i++ ) { %>
@@ -128,6 +153,7 @@
                                                 <select class="form-select form-select"
                                                     id="turnId"
                                                     name="turnId"
+                                                    required
                                                     disabled>
                                                     <option value="" selected hidden>Turno...</option>
                                                     <% for(let i=0; i< turns.length; i++ ) { %>
@@ -142,10 +168,14 @@
                                                     <input name="order" class="form-control" type="text" value="<%=countVideos + 1%>" readonly>
                                                 </div>
                                             </div>
-                                            <div class="col-12 col-md-6 mb-3">
-                                                    <button class="btn btn-outline-dark w-100" type="submit">
-                                                        Guardar cambios
-                                                    </button>                                           
+                                            <div class="col-12 col-md-6 mb-3 ">
+                                                <div class="d-flex flex-column flex-md-row justify-content-between gap-2">
+                                                      <a href="" class="btn btn-outline-dark flex-grow-1">Cancelar</a>
+                                                    <button class="btn btn-outline-primary flex-grow-1" type="submit">
+                                                        Guardar
+                                                    </button>     
+                                                </div>
+                                                                                    
                                             </div>
                                     </div>
                                 </div>
