@@ -378,6 +378,7 @@
                                                             <ul class="list-group list-group-flush">
                                                                 <%if(category.videos.length){%>
                                                                     <%category.videos.forEach(video => {%>
+                                                                        <%if(video.courseId === course.id){%>
                                                                         <li class="list-group-item d-flex justify-content-between">
 
                                                                             <div class="d-flex align-items-center gap-2">
@@ -412,6 +413,7 @@
                                                                         <%- include('./modals/editVideo',{
                                                                             video
                                                                         }) %>
+                                                                        <%}%>    
                                                                     <%})%>
                                                                 <%}else{%>
                                                                     <p class="alert alert-warning">No hay videos agregados</p>

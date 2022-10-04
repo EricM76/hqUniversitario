@@ -93,8 +93,74 @@ module.exports = {
             console.log(error);
         }
     },
-    detail: (req, res) => {
-        return res.render('admin/courseDetail')
+    detail: async (req, res) => {
+        try {
+            let course = await db.Course.findByPk(req.params.id,{
+                include : [
+                    {
+                        association : 'university',
+                        attributes : ['id','name','acronym']
+                    },
+                    {
+                        association : 'faculty',
+                        attributes : ['id','name','acronym'],
+                        include :
+                        {
+                            association : 'categories',
+                            attributes : ['id','name'],
+                        }
+                    },
+                    {
+                        association : 'videos',
+                        attributes : ['id','title','categoryId','order','length','locked','resource'],
+                        include :
+                        {
+                            association : 'category',
+                            attributes : ['id','name'],
+                        }
+                    },
+                    {
+                        association : 'notes',
+                    },
+                    {
+                        association : 'tests',
+                        include : [
+                            {
+                                association : 'questions',
+                                attributes : ['id']
+                            }
+                        ]
+                    }
+                ]
+            })
+            let totalVideos = await db.Video.count({
+                where : {
+                    courseId : req.params.id
+                }
+            });
+
+            let totalNotes = await db.Note.count({
+                where : {
+                    courseId : req.params.id
+                }
+            });
+
+            let totalTests = await db.Test.count({
+                where : {
+                    courseId : req.params.id
+                }
+            });
+
+             return res.render('admin/courseDetail',{
+                course,
+                totalVideos,
+                totalNotes,
+                totalTests
+            })
+        } catch (error) {
+            console.log(error)
+        }
+      
     },
     edit: async (req, res) => {
         try {

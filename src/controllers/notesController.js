@@ -3,6 +3,9 @@ const fs = require('fs');
 const path = require('path');
 
 module.exports = {
+    downloads : async (req,res) => {
+        return res.download('./src/assets/downloads/' + req.params.file)
+    },
     /* APIs */
     remove : async (req,res) => {
         try {
