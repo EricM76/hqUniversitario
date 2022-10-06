@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const {add, store,show, list, detail, edit, update, remove, search, filter, changeLocked, getVideoUrl} = require('../controllers/videosController');
+const {add, store,show, list, detail, edit, update, remove, search, filter, changeLocked, getVideoUrl, transfer} = require('../controllers/videosController');
 const { uploadCourse } = require('../middlewares/upLoadFiles');
 
 /* /videos */
@@ -19,6 +19,7 @@ router
   /* apis */
   .put('/locked',changeLocked)
   .get('/geturl',getVideoUrl)
+  .get('/transfer',transfer)
 
 
 module.exports = router;

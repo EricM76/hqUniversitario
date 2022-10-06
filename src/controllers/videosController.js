@@ -25,7 +25,17 @@ async function uploadFile(file) {
   const command = new PutObjectCommand(uploadParams);
   const result = await client.send(command);
   
-  console.log(result)
+  //console.log(result)
+}
+
+async function donwloadFile(filename) {
+  const command = new GetObjectCommand({
+    Bucket : bucketName,
+    Key : filename
+  });
+  const result = await client.send(command);
+  //console.log(result)
+  result.Body.pipe(fs.createWriteStream(`./src/assets/videos/${filename}`))
 }
 
 async function getFileURL(filename){
@@ -115,6 +125,7 @@ module.exports = {
         });
 
         req.file && await uploadFile(req.file);
+        fs.existsSync(`./src/assets/videos/${req.file.filename}`) && fs.unlinkSync(`./src/assets/videos/${req.file.filename}`)
 
         return res.redirect(`/courses/edit/${req.query.course}?next=videos`)
 
@@ -284,5 +295,30 @@ module.exports = {
           msg : 'ups... error'
       })
       }
+    },
+    transfer : async (req,res) => {
+      
+      try {
+        if(!fs.existsSync(path.resolve(__dirname, '..','assets','videos',req.query.resource))){
+          await donwloadFile(req.query.resource);
+          return res.status(200).json({
+            ok : true,
+            msg: 'video transferido!'
+          })        
+        }else {
+          return res.status(200).json({
+            ok : true,
+            msg: 'video en stock!'
+          })    
+        }
+      
+      } catch (error) {
+        console.log(error)
+        return res.status(error.status).json({
+          ok: false,
+          msg: 'ups... error'
+        })
+      }
+      
     }
 }
