@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+  <%- include('./partials/head', {
+    title : 'Estado suscripción'
+  }) %> 
+
+<body class="subscriptionSuccess">
+  <%- include('./partials/header') %> 
+  <main class="container">
+    <section class="row justify-content-center align-items-center p-5">
+        <div class="col-12 col-md-6 bg-white rounded border p-3">
+            <!-- Suscripción exitosa -->
+            <div class="alert alert-success" role="alert">
+                ¡Tu suscripción ha sido exitosa!
+            </div>
+            <p>Ya puedes elegir <b>(x)</b> materia/as que corresponden a tu suscripción <b>(x)</b>. Recordá que a partir de ahora tienes 30 días para acceder al contenido de las materias que elijas.</p>
+            <a href="/usuario/materias/seleccion" class="button__dark">Elegir materias</a>
+        </div> 
+        <!-- Suscripción pendiente -->
+        <div class="col-12 col-md-6 bg-white rounded border p-3">
+            <div class="alert alert-warning" role="alert">
+              Tu suscripción está pendiente
+            </div>
+            <p>Cuando se acredite el pago te informaremos y podrás elegir las materias correspondiente a tu plan.</p>
+            <a href="/usuario/perfil" class="button__dark">Volver a mi perfil</a>
+        </div>
+          <!-- Suscripción rechazada -->
+        <div class="col-12 col-md-6 bg-white rounded border p-3">
+             <div class="alert alert-danger" role="alert">
+              Tu suscripción fué cancelada, ocurrió un error en el proceso de pago
+          </div>
+          <p>Intenta realizar el proceso de suscripción nuevamente, sino comunicate con nosotros.</p>
+          <a href="/usuario/perfil#membership" class="button__dark">Volver a membresías</a>
+        </div>
+    </section>
+  </main>
+  <%- include('./partials/footer') %> 
+  <%- include('./partials/scripts') %> 
+ </body>
+</html>

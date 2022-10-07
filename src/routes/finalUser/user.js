@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { login, processLogin, register, processRegister, profile, logout, googleLogin, referred, profileUpdate, courseSelection } = require("../../controllers/finalUser/userController");
+const { login, processLogin, register, processRegister, profile, logout, googleLogin, referred, profileUpdate, courseSelection, subscriptionStatus } = require("../../controllers/finalUser/userController");
 const userInSessionCheck = require("../../middlewares/userInSessionCheck");
 const userSessionCheck = require("../../middlewares/userSessionCheck");
 const userLoginValidator = require("../../validations/userLoginValidator");
@@ -24,7 +24,9 @@ router
     .post("/referir", userReferredValidator, referred)
     .get("/logout", logout)
     .get("/materias/seleccion", courseSelection)
-    
+    .get("/suscripcion/estado", subscriptionStatus)
+
+/* Google auth */
 router.get('/auth/google',
 passport.authenticate('google', { scope:
     [ 'email', 'profile' ] }

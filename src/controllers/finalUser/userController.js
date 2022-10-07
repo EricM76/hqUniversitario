@@ -177,5 +177,17 @@ module.exports = {
     res.render("finalUser/userCoursesSelection", {
       session: req.session
     })
+  },
+  subscriptionStatus: (req, res) => {
+    const subscriptionPreaprovalId = req.query.preapproval_id;
+    
+    /* Llamar a la API con el id */
+    /* Obtener el status de la suscripción */
+    /* Modificar el status de cliente / suscripción */
+    /* Devolver status a la vista */
+
+    res.render("finalUser/subscriptionStatus", {
+      session: req.session
+    })
   }
 };

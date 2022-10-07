@@ -5,18 +5,17 @@
 
   <body class="subscription">
     <%- include('./partials/header') %> 
-    <main class="container">
+    <main class="container m-5">
         <section class="row justify-content-center align-items-center">
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-6 bg-white rounded border p-3">
                 <h1>Confirmar suscripción</h1>
-                <p>Membresía: <%- membership.name %> </p>
-                <p>Costo mensual: <%- membership.price %> </p>
-                <p>Cantidad de materias a elección: <%- membership.quota %> </p>
-                <p>Alta de la suscripción: <%- subscription.date_created %> </p>
-                <p>Fin de la suscripción: <%- subscription.date_created %> </p>
-                <a href="<%= subscription.init_point %>" class="btn btn-primary">Confirmar suscripción</a>
+                <p class="text-secondary fst-italic">Membresía: <span class="text-info fw-bolder"><%- membership.name %></span> </p>
+                <p class="text-secondary fst-italic">Costo mensual: <span class="text-info fw-bolder">$<%- membership.price %></span> </p>
+                <p class="text-secondary fst-italic">Cantidad de materias a elección: <span class="text-info fw-bolder"><%- membership.quota %></span> </p>
+                <p class="text-secondary fst-italic">Alta de la suscripción: <%- date_created %> </p>
+                <p class="text-secondary fst-italic">Fin de la suscripción: <%- date_end %> </p>
+                <a href="<%= subscription.init_point %>" class="button__dark">Confirmar suscripción</a>
             </div>
-            
         </section>
     </main>
     <%- include('./partials/footer') %> 

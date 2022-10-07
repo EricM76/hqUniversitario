@@ -2,12 +2,13 @@
 
 const memberships = [
   {
-    name: "PRO",
+    name: "BASIC",
     image: "defaultMembership.jpg",
-    quota: 5,
-    price: 900,
-    description: "Acceso a todo el contenido completo de hasta 5 materias",
+    quota: 1,
+    price: 500,
+    description: "Acceso a todo el contenido completo de 1 materia",
   },
+  
   {
     name: "PREMIUM",
     image: "defaultMembership.jpg",
@@ -15,13 +16,14 @@ const memberships = [
     price: 750,
     description: "Acceso a todo el contenido completo de hasta 3 materias",
   },
+
   {
-    name: "BASIC",
+    name: "PRO",
     image: "defaultMembership.jpg",
-    quota: 1,
-    price: 500,
-    description: "Acceso a todo el contenido completo de 1 materia",
-  }
+    quota: 5,
+    price: 900,
+    description: "Acceso a todo el contenido completo de hasta 5 materias",
+  },
 
 ]
 
