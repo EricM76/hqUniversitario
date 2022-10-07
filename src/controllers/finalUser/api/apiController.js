@@ -28,10 +28,13 @@ module.exports = {
         })
         .catch(error => res.json(error))
     },
+    
+    /* Comprobando si el usuario ya está registrado, si el usuario ya está referido y si el usuario ha
+    alcanzado el número máximo de referencias. */
     referred: (req, res) => {
-        let userEmail = req.params.email
-        const userPromise = db.User.findOne({where: {email: userEmail}})
-        const usersReferredPromise = db.Referred.findAll({where: {userId: req.session.user.id}})
+        let userEmail = req.params.email;
+        const userPromise = db.User.findOne({where: {email: userEmail}});
+        const usersReferredPromise = db.Referred.findAll({where: {userId: req.session.user.id}});
         Promise.all([userPromise, usersReferredPromise])
         .then(([userPromise, usersReferredPromise]) => {
             let userIsRegister = userPromise !== null;
