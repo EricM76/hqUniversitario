@@ -10,6 +10,10 @@ header.main-header{
             }
         }
     }
+    form {
+        width: 100%;
+    }
+  
     .header__searchBar-container {
         display: flex;
         justify-content: space-between;
@@ -43,6 +47,7 @@ header.main-header{
             color: white;
             font-size: 2rem;
             font-weight: 600;
+            cursor: pointer;
         }
     }
     .header__buttons-container {
@@ -50,4 +55,13 @@ header.main-header{
         width: 15rem;
         justify-content: space-between;
     }
+}
+
+@media screen and (min-width: 500px) {
+    header.main-header{
+
+        form {
+            width: 40%;
+        }
+    }   
 }

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const {presentation,content, add, store, detail, edit, update,remove, filter, search, list } = require('../controllers/coursesController');
+const {presentation,content, add, store, detail, edit, update,remove, filter, search, list, removeFeature } = require('../controllers/coursesController');
 
 const {uploadCourse} = require('../middlewares/upLoadFiles')
 
@@ -18,5 +18,7 @@ router
   .get('/search',search)
   .get('/presentation', presentation)
   .get('/content', content)
+  /* APIs */
+  .delete('/features/:id', removeFeature)
 
 module.exports = router;

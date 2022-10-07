@@ -8,28 +8,33 @@
     <main class="container">
        <!-- SECCIÓN UNIVERSIDADES -->
        <section class="home__universities container mb-5">
-        <div class="row">
+       <!--  <div class="row">
             <h2 data-aos="fade-up" data-aos-duration="1000">Universidades</h2>
-        </div>
+        </div> -->
         <div class="row" data-aos="fade-up" data-aos-duration="1500">
           <!-- Card Universidad -->
           <% universities.forEach(university => { %>
-            <div class="col-12 col-md-4 p-3">
-              <div class="card border border-0 shadow p-2">
+            <div class="col-12 col-md-4 p-3 mt-5">
+              <div class="card border border-0  p-2 bg-transparent">
                 <div class="home__universities--cardImageContainer">
                   <img src="images/logos/<%- university.image %> " alt="unc_logo">
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title"><%- university.name %></h5>
+                  <h5 class="card-title home__universities--title"><%- university.name %></h5>
                 </div>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item">10 Facultades</li>
-                  <li class="list-group-item">25 Carreras</li>
+                <ul class="list-group list-group-flush fs-5">
+                  <li class="list-group-item bg-transparent text-white">
+                    <span>
+                      <%= university.faculties.length %> <%= university.faculties.length > 1 ? 'facultades' : 'facultad' %>
+                    </span>
+                  </li>
+                  <li class="list-group-item bg-transparent text-white"><%= university.careers.length %>  <%= university.careers.length > 1 ? 'carreras' : 'carrera' %></li>
+                  <li class="list-group-item bg-transparent text-white"><%= university.courses.length %>  <%= university.courses.length > 1 ? 'materias' : 'materia' %></li> 
                 </ul>
                 <div class="card-body">
                   <a href="/universidad/<%- university.id %>/facultades">
-                    <div class="button__dark">
-                        <span>Ver facultades</span>
+                    <div class="btn btn-outline-light w-100 py-3">
+                        <span>Ver más</span>
                     </div>
                 </a>
                 </div>

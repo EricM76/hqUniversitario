@@ -118,13 +118,14 @@ $('add-feature').addEventListener('keyup', function(e) {
 });
 
 $('add-feature').addEventListener('focus', () => {
-    $('form-add-course').addEventListener('submit', (e) => e.preventDefault());
+    $('form-add-course') && $('form-add-course').addEventListener('submit', (e) => e.preventDefault());
+    $('form-addInfo-course') && $('form-addInfo-course').addEventListener('submit', (e) => e.preventDefault());
 })
 
 $('features').addEventListener('click', (e) => {
     if (e.target.childNodes.length > 0) {
         e.target.parentElement.removeChild(e.target);
-        $('add-feature').focus()
+        $('add-feature') &&  $('add-feature').focus()
     }
 });
 

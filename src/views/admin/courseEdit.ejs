@@ -65,14 +65,23 @@
                                         id="info-tab-pane" role="tabpanel" aria-labelledby="info-tab" tabindex="0">
                                         <form action="/courses/update/<%= course.id %>?_method=PUT&section=info"
                                             class="row g-3 position-relative" enctype="multipart/form-data"
-                                            method="POST" id="form-add-course">
+                                            method="POST" id="form-addInfo-course">
                                             <div class="col-12 col-lg-6">
                                                 <div class="row">
 
-                                                    <div class=" col-12 mb-3">
-                                                        <label for="name" class="form-label">Nombre:</label>
-                                                        <input type="text" class="form-control" id="name" name="name"
-                                                            value="<%= course.name %>">
+                                                    <div class=" col-12 mb-3 d-flex flex-wrap justify-content-between">
+                                                        <div class="w-75">
+                                                            <label for="name" class="form-label">Nombre:</label>
+                                                            <input type="text" class="form-control" id="name" name="name"
+                                                                value="<%= course.name %>">
+                                                        </div>
+                                                        <div class="align-self-center me-3">
+                                                            <div class="form-check form-switch">
+                                                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"  <%= course.visible && 'checked' %> name="visible">
+                                                                <label class="form-check-label" for="flexSwitchCheckDefault">Visible</label>
+                                                              </div>
+                                                        </div>
+                                                        
                                                     </div>
                                                     <div class=" col-12 mb-3">
                                                         <label for="review" class="form-label">Descripción
@@ -101,7 +110,7 @@
                                                         <select name="features" id="features" multiple
                                                             style="height: 200px;" class="form-control">
                                                             <% course.features.forEach(feature=> { %>
-                                                                <option value="<%= feature.content %>">
+                                                                <option onclick="removeFeature('<%=feature.id%>')" value="<%= feature.content %>">
                                                                     <%= feature.content %>
                                                                 </option>
                                                                 <% }) %>
@@ -114,13 +123,13 @@
                                                 <div class="row ">
                                                     <div
                                                         class=" col-12 col-md-4 mb-3 d-flex align-items-center justify-content-center">
-                                                        <video id="videoSource" src="/videos?video=<%= course.video %>"
+                                                        <video id="videoSource" src="/videos?video=<%= course.video  %>"
                                                             type="video/mp4" width="100%" controls>
                                                     </div>
                                                     <div class="col-12 col-md-8 mb-3">
                                                         <div style="height: 120px; overflow: hidden;">
                                                             <img id="imagePreview"
-                                                                src="/images/courses/<%= course.image %>"
+                                                                src="/images/courses/<%= course.image ? course.image : 'exampleBanner.jpeg' %>"
                                                                 alt="imagen de portada"
                                                                 style="object-fit:cover; object-position: center center;"
                                                                 height="100%" width="100%">
@@ -504,8 +513,7 @@
 
             </main>
             <%- include('./partials/scripts') %>
-                <script src="/javascripts/courses.js"></script>
-              <script src="/javascripts/courseEdit.js"></script>
+               <script src="/javascripts/courseEdit.js"></script>
     </body>
 
     </html>

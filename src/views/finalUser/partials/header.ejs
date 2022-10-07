@@ -8,13 +8,8 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <form role="search">
-                <div class="header__searchBar-container">
-                    <input class="header__searchBar-input" type="search" placeholder="Buscar" aria-label="Search">
-                    <button class="header__searchBar-button" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-                </div>
-            </form>
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-md-center justify-content-md-evenly w-100">
+          
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-md-center">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/university" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Universidades
@@ -23,13 +18,19 @@
                         
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="/#contacto">
-                        Contacto
-                    </a>
-                </li>
-               
+             
+              
+            </ul>
+                <form role="search" >
+                    <div class="header__searchBar-container">
+                        <input class="header__searchBar-input" type="search" placeholder="Buscar" aria-label="Search">
+                        <button class="header__searchBar-button" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
+                </form>
+              
                 <% if (typeof locals.session.user === "undefined") { %>
+
+            <ul class="navbar-nav ms-auto mt-2 mt-md-0 mb-lg-0 align-items-md-center justify-content-md-end">
                     <div class="header__buttons-container">
                         <a href="/usuario/login" >
                             <div class="button__light">
@@ -42,28 +43,42 @@
                             </div>
                         </a>
                     </div>
+            </ul>
                 <% } else {%> 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Mis materias
-                        </a>
-                        <ul class="dropdown-menu shadow-sm border-0">
-                            <li><a class="dropdown-item" href="#">Materia</a></li>
+                    <ul class="navbar-nav ms-auto mt-2 mt-md-0 mb-lg-0 align-items-md-center gap-2 gap-lg-5">
+
+                        <div class="btn-group" >
+                            <btn class="btn border-0"    data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                                Mis materias
+                            </btn>                      
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+                            <li><a class="dropdown-item" href="#">Materias</a></li>
                         </ul>
-                    </li>
-                    <li class="nav-item dropdown">
+                      </div>
+                    <div class="btn-group">
+                            <btn class="header__avatar"  data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                                <span><%= session.user.name.slice(0,1) %></span>
+                            </btn>                      
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+                            <li><a class="dropdown-item" href="/usuario/perfil">Mi perfil</a></li>
+                            <li><a class="dropdown-item" href="/usuario/logout">Cerrar sesión <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
+                        </ul>
+                      </div>
+                  <!--   <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="header__avatar">
                                 <span><%= session.user.name.slice(0,1) %></span>
                             </div>
                         </a>
-                        <ul class="dropdown-menu shadow-sm border-0">
+                        <ul class="dropdown-menu dropstart shadow-sm border-0">
                             <li><a class="dropdown-item" href="/usuario/perfil">Mi perfil</a></li>
                             <li><a class="dropdown-item" href="/usuario/logout">Cerrar sesión <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
                         </ul>
-                    </li>
+                    </li> -->
+                </ul>
+
                 <% } %> 
-            </ul>
+         
           </div>
         </div>
     </nav>

@@ -15,6 +15,14 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey : 'universityId',
         as : 'faculties'
       });
+      University.hasMany(models.Course,{
+        foreignKey : 'universityId',
+        as : 'courses'
+      });
+      University.hasMany(models.Career,{
+        foreignKey : 'universityId',
+        as : 'careers'
+      });
     }
   };
   University.init({

@@ -11,7 +11,9 @@ module.exports = {
         /*  const getMostPopularCourses = db.Course.findAll({
             
          }) */
-        const getUniversities = db.University.findAll();
+        const getUniversities = db.University.findAll({
+            include : ['faculties','careers','courses']
+        });
         const getLastestCourses = db.Course.findAll({
             where: {
                 visible: true,

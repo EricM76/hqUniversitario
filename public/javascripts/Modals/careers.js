@@ -14,9 +14,9 @@ const showCareerContent = (id) => {
         return response.json();
     })
     .then((career) => {
+        console.log(career)
         modalTitle.innerText = `${career.name}`;
         modalSubtitle.innerText = `${career.university.acronym} - ${career.faculty.acronym}`
-        career.courses.push({id: 1, name: "Matematicas" })
         ul.innerHTML = ""
         career.courses.forEach(course => {
             ul.innerHTML += `

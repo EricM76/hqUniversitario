@@ -1,6 +1,9 @@
 @import "utils";
 
 .home {
+    background: #F0F2F0;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #000C40, #F0F2F0);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #000C40, #F0F2F0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     .home__universities {
         padding: 2rem 0;
         .home__universities--cardImageContainer {
@@ -11,6 +14,12 @@
                 height: 100%;
                 object-fit: contain;
             }
+        }
+        .home__universities--title {
+            font-family: 'Raleway', sans-serif;
+            font-size: 20px;
+            text-align: center;
+            color: whitesmoke;
         }
     }
     .carousel-item--container{
@@ -98,6 +107,11 @@
     .home {
         .home__universities {
             padding: 1rem 0;
+            .home__universities--title {
+                font-family: 'Raleway', sans-serif;
+                font-size: 24px;
+                text-align: center;
+            }
         }
         .home__last-paragraph {
             width: 70%;
@@ -118,5 +132,18 @@
                 padding: 4rem 2rem;
             }
         }
+    }   
+}
+
+@media screen and (min-width: 1024px) {
+    .home {
+        .home__universities {
+            .home__universities--title {
+                font-family: 'Raleway', sans-serif;
+                font-size: 28px;
+                text-align: center;
+            }
+        }
+      
     }   
 }
