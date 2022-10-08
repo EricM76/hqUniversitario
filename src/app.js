@@ -56,6 +56,7 @@ app
   .use('/materia', require('./routes/finalUser/course'))
   .use('/examen', require('./routes/finalUser/test'))
   .use('/usuario', require('./routes/finalUser/user'))
+  .use('/referidos', require('./routes/finalUser/referred'))
   /* Payment routes */
   .use('/subscription', require('./routes/mercadoPago'))
 

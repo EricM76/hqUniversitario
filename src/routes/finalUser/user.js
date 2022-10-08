@@ -6,7 +6,6 @@ const userSessionCheck = require("../../middlewares/userSessionCheck");
 const userLoginValidator = require("../../validations/userLoginValidator");
 const userRegisterValidator = require("../../validations/userRegisterValidator");
 const passport = require("passport");
-const userReferredValidator = require("../../validations/userReferredValidator");
 require("../../middlewares/passportConfig")(passport);
 passport.serializeUser(function(user, done) {
     done(null, user);
@@ -21,7 +20,6 @@ router
     .post("/registro", userRegisterValidator, processRegister)    
     .get("/perfil", userSessionCheck, profile)  
     .put("/perfil", profileUpdate)  
-    .post("/referir", userReferredValidator, referred)
     .get("/logout", logout)
     .get("/materias/seleccion", courseSelection)
     .get("/suscripcion/estado", subscriptionStatus)

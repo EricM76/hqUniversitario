@@ -1,4 +1,5 @@
 const axios = require("axios");
+const process = require("process");
 
 const paymentService = {
 /*   createPayment: async () => {
@@ -33,7 +34,7 @@ const paymentService = {
     return payment.data;
   }, */
   createSubscription: async ({payer_email, reason, transaction_amount}) => {
-    const url = "https://api.mercadopago.com/preapproval";
+    const url = `${process.env.API_MP}/preapproval`;
 
     const body = {
       reason,

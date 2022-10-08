@@ -25,6 +25,14 @@ const memberships = [
     description: "Acceso a todo el contenido completo de hasta 5 materias",
   },
 
+  {
+    name: "FREE",
+    image: "defaultMembership.jpg",
+    quota: 1,
+    price: 000,
+    description: "Acceso a todo el contenido completo de 1 materia",
+  },
+
 ]
 
 const membershipsWithDateTime = memberships.map(membership => {

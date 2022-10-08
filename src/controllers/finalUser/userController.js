@@ -4,6 +4,8 @@ const { validationResult } = require("express-validator");
 const axios = require("axios");
 const { format } = require("date-fns");
 const process = require("process");
+const { getTotalOfActiveReferredUsers } = require("../../services/referredService");
+const { Op } = require("sequelize");
 const BASE_URL_PROVINCES = process.env.BASE_URL_PROVINCES
 
 module.exports = {
@@ -66,27 +68,6 @@ module.exports = {
   register: (req, res) => {
     return res.render("finalUser/userRegister",{session:req.session});
   },
-  referred: (req, res) => {
-     let errors = validationResult(req);
-      
-     if(errors.isEmpty()){
-         db.Referred.create({
-             name: req.body.name,
-             email: req.body.email,
-             userId: req.session.user.id,
-             active: false,
-         })
-         .then((user) => {
-          return res.redirect("/usuario/perfil#referred")
-         })
-         .catch(error => res.send(error))
-     }else{
-      return res.render('finalUser/userProfile', {
-             errors: errors.mapped(),
-             old: req.body
-         })
-     }
-  },
   processRegister: (req, res) => {
      let errors = validationResult(req);
       
@@ -106,6 +87,7 @@ module.exports = {
             })
             .then(referred => {
               if(referred){
+
                 db.Referred.update({
                   active: true,
                 }, {
@@ -113,8 +95,11 @@ module.exports = {
                     id: referred.id
                   }
                 })
-                .then(()=>{
+                .then( async () => {
                   /* Enviar notificacion al usuario que lo refirió */
+                  // obtener total de referidos activos
+                  // si tiene 3, enviar mail y poner activa la membresía
+                  const activesTotal = await getTotalOfActiveReferredUsers
                   return res.redirect("/usuario/login")
                 })
               } else {
@@ -142,7 +127,13 @@ module.exports = {
   profile: (req, res) => {
     const provincesPromise = axios.get(BASE_URL_PROVINCES + "/provincias");
     const userPromise = db.User.findOne({where: {id: req.session.user.id},include: ["rol", "membership", "referreds", "courses"],});
-    const membershipsPromise = db.Membership.findAll();
+    const membershipsPromise = db.Membership.findAll({
+      where: {
+        name: {
+          [Op.notLike]: '%FREE%',
+        }
+      }
+    });
     Promise.all([provincesPromise, userPromise, membershipsPromise])
     .then(([{data}, user, memberships]) => {
       const activeReferredsQuantity = user.referreds.filter(referred => referred.active).length;

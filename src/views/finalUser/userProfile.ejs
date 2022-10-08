@@ -123,7 +123,7 @@
             <% } %>
             <div class="col-12 col-md-4 p-2">
               <h3 class="border-bottom">Referir</h3>
-              <form action="/usuario/referir" method="post" id="referredForm">
+              <form action="/referidos" method="post" id="referredForm">
                 <div class="mb-3">
                   <label for="nameReferred" class="form-label">Nombre*</label>
                   <input type="text" class="form-control" name="name" id="nameReferred" <%= (activeReferredsQuantity === 3) ? "disabled" : "" %> value="<%= locals.old && old.name %>">
