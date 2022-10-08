@@ -4,7 +4,7 @@ const { validationResult } = require("express-validator");
 const axios = require("axios");
 const { format } = require("date-fns");
 const process = require("process");
-const { getTotalOfActiveReferredUsers } = require("../../services/referredService");
+const { getTotalOfActiveReferredUsers, setFreeMembershipToWinnerUser } = require("../../services/referredService");
 const { Op } = require("sequelize");
 const BASE_URL_PROVINCES = process.env.BASE_URL_PROVINCES
 
@@ -95,11 +95,15 @@ module.exports = {
                     id: referred.id
                   }
                 })
-                .then( async () => {
+                .then(() => {
                   /* Enviar notificacion al usuario que lo refirió */
                   // obtener total de referidos activos
-                  // si tiene 3, enviar mail y poner activa la membresía
-                  const activesTotal = await getTotalOfActiveReferredUsers
+                  // si tiene 3, enviar mail y poner activa la membresía al usuario que lo refirió
+                  const totalActiveReferred = getTotalOfActiveReferredUsers(referred.userId);
+                  console.log(totalActiveReferred)
+                  if(totalActiveReferred === 3) {
+                    setFreeMembershipToWinnerUser(referred.userId)
+                  }
                   return res.redirect("/usuario/login")
                 })
               } else {

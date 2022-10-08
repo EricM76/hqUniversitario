@@ -11,5 +11,14 @@ module.exports = {
         } catch (error) {
             return error;
         }
+    },
+    setFreeMembershipToWinnerUser: async (userId) => {
+        try {
+            const response = await axios.get(`${BASE_URL}/referidos/${userId}/membresia-gratis`);
+            
+            return response;
+        } catch (error) {
+            return error;
+        }
     }
 }

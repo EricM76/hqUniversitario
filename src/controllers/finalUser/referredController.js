@@ -8,7 +8,7 @@ module.exports = {
          
         if(errors.isEmpty()){
             try {
-                const newReferred = await db.Referred.create({
+                await db.Referred.create({
                     name: req.body.name,
                     email: req.body.email,
                     userId: req.session.user.id,
@@ -66,6 +66,29 @@ module.exports = {
                 total: activesReferreds.length,
                 data: activesReferreds
             })
+        } catch (error) {
+            return res.status(400).json({
+                message: error
+            });
+        }
+    },
+    setActiveFreeMembership: async (req, res) => {
+        try {
+            const userId = Number(req.params.userId.trim());
+
+            if(!userId) throw "Id inválido";
+        
+            const winnerUser = await db.User.update({
+                membershipId: 7, //Refactorizar esto (ID de membresía free)
+                entry: format(new Date(), "dd/MM/yyyy"),
+                expires: format(add(new Date(), {days: 30}), "dd/MM/yyyy"),
+            }, {
+              where: { id: userId } 
+            })
+
+            if(winnerUser){
+                return req.status(200).json({ message: `Membresía gratuita activada al usuario ${userId}`})   
+            }
         } catch (error) {
             return res.status(400).json({
                 message: error
