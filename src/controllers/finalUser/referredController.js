@@ -1,3 +1,4 @@
+const { format, add } = require("date-fns");
 const { validationResult } = require("express-validator");
 const { Op } = require("sequelize");
 const db = require("../../database/models");
@@ -87,9 +88,10 @@ module.exports = {
             })
 
             if(winnerUser){
-                return req.status(200).json({ message: `Membresía gratuita activada al usuario ${userId}`})   
+                return res.status(200).json({ message: `Membresía gratuita activada al usuario ${userId}`})   
             }
         } catch (error) {
+            console.log(error)
             return res.status(400).json({
                 message: error
             });

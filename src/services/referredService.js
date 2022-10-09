@@ -7,16 +7,14 @@ module.exports = {
         try {
             const response = await axios.get(`${BASE_URL}/referidos/${userId}/activos`);
             
-            return response.total;
+            return response;
         } catch (error) {
             return error;
         }
     },
     setFreeMembershipToWinnerUser: async (userId) => {
         try {
-            const response = await axios.get(`${BASE_URL}/referidos/${userId}/membresia-gratis`);
-            
-            return response;
+            return await axios.put(`${BASE_URL}/referidos/${userId}/membresia-gratis`);
         } catch (error) {
             return error;
         }

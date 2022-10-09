@@ -74,7 +74,7 @@
         <div class="container">
           <% if (user.membership) { %>
             <h4>Tu membresía activa es: <%= user.membership.name %></h4>
-            <p>Vigente hasta: <%= user.expires %></p>
+            <p>Vigente hasta: <%= userMembershipExpiresDate %></p>
             <% if (user.courses.length > 0) { %>
               <h5>Tus materias (<%= user.courses.length %> de <%= user.membership.quota %> disponibles según tu membresía): </h5>
               <ol class="list-group list-group-numbered">
