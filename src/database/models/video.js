@@ -27,6 +27,12 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey : 'turnId',
         as : 'turn'
       });
+      Video.belongsToMany(models.User,{
+        as : 'users',
+        through : 'UserVideos',
+        foreignKey : 'videoId',
+        otherKey : 'userId'
+      });
     }
   };
   Video.init({

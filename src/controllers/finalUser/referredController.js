@@ -80,9 +80,9 @@ module.exports = {
             if(!userId) throw "Id inválido";
         
             const winnerUser = await db.User.update({
-                membershipId: 7, //Refactorizar esto (ID de membresía free)
-                entry: format(new Date(), "dd/MM/yyyy"),
-                expires: format(add(new Date(), {days: 30}), "dd/MM/yyyy"),
+                membershipId: 4, //Refactorizar esto (ID de membresía free)
+                entry: new Date(),
+                expires: add(new Date(), {days: 30}),
             }, {
               where: { id: userId } 
             })

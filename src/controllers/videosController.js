@@ -320,5 +320,29 @@ module.exports = {
         })
       }
       
+    },
+    seenByUser : async (req,res) => {
+      try {
+        await db.UserVideos.findOrCreate({
+          where : {
+            userId : req.query.userId,
+            videoId : req.query.videoId
+          },
+          defaults : {
+            userId : req.query.userId,
+            videoId : req.query.videoId
+          }
+        });
+        return res.status(200).json({
+          ok : true,
+          msg: 'seen by User'
+        })    
+      } catch (error) {
+        console.log(error)
+        return res.status(error.status).json({
+          ok: false,
+          msg: 'ups... error'
+        })
+      }
     }
 }
