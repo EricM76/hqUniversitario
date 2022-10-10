@@ -186,11 +186,6 @@ module.exports = {
       })
       .catch((error) => res.send(error));
   },
-  courseSelection: (req, res) => {
-    res.render("finalUser/userCoursesSelection", {
-      session: req.session,
-    });
-  },
   subscriptionStatus: (req, res) => {
     const subscriptionPreaprovalId = req.query.preapproval_id;
 

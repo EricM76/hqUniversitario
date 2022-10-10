@@ -5,10 +5,12 @@
 
 <body class="coursesSelection">
   <%- include('./partials/header') %> 
-    <main class="container p-5">
-        <section class="row justify-content-center align-items-center border rounded p-5 bg-white">
+    <main class="container p-1 p-md-3">
+        <section class="row justify-content-center align-items-center border rounded p-1 p-md-3 bg-white">
             <div class="col-12">
                 <div class="container">
+                    <h5>Con tu membresía <strong><%- userMembership.name %></strong> puedes seleccionar <%= userMembership.quota %> materia/s</h5>
+                    <p>Al realizar y confirmar la selección, no podrás modificarla hasta el <%= userMembershipExpires %> cuando renueves tu membresía. ¡Elegí bien!</p>
                     <div class="row">
                         <div class="col-12 col-md-4 p-2">
                             <label for="university">1- Elige universidad</label>
@@ -31,12 +33,24 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 p-5 mt-2 border rounded">
-                <div class="container">
-                    <h4>4- Elige tus materias</h4>
-                    <div class="row" id="coursesContainer"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-9 p-3 p-md-3 mt-2" id="coursesWrapper">
+                        <div class="container border rounded p-1 p-md-3 h-100">
+                            <h4 class="border-bottom pb-1">4- Elige tus materias</h4>
+                            <div class="row" id="coursesContainer"></div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-3 p-3 p-md-3 mt-2">
+                        <div class="container border rounded p-1 p-md-3">
+                            <h5 class="border-bottom pb-1">Materias elegidas</h5>
+                            <div class="row" id="coursesContainer"></div>
+                            <button class="btn btn-outline-secondary">Confirmar</button>
+                        </div>
+                    </div>
                 </div>
             </div>
+            
         </section>
     </main>
     <script src="/javascripts/profile/userCoursesSelection.js"></script>

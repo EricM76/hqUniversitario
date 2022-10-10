@@ -21,8 +21,7 @@ router
     .get("/perfil", userSessionCheck, profile)  
     .put("/perfil", profileUpdate)  
     .get("/logout", logout)
-    .get("/materias/seleccion", courseSelection)
-    .get("/suscripcion/estado", subscriptionStatus)
+    .get("/suscripcion/estado", userInSessionCheck, subscriptionStatus)
 
 /* Google auth */
 router.get('/auth/google',

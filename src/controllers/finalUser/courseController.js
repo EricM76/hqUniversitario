@@ -1,3 +1,4 @@
+const { format } = require("date-fns");
 const db = require("../../database/models");
 
 module.exports = {
@@ -21,5 +22,17 @@ module.exports = {
     },
     content: (req, res) => {
         res.render("finalUser/courseContent");
-    }
+    },
+    courseSelection: async (req, res) => {
+        const user = await db.User.findByPk(req.session.user.id, {include: [{association: "membership"}]});
+        const userMembership = user.membership;
+        const userMembershipExpires = format(new Date(user.expires), "MM/dd/yyyy")
+
+        res.render("finalUser/userCoursesSelection", {
+          session: req.session,
+          user,
+          userMembership,
+          userMembershipExpires
+        });
+    },
 }

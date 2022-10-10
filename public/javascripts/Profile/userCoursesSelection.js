@@ -4,11 +4,10 @@ const careerSelect = document.querySelector("#career");
 const coursesContainer = document.querySelector("#coursesContainer");
 
 const courseItemGenerator = (course) => {
-    return `<div class="col-12 col-md-6 p-2">
-        <div class="d-flex justify-content-evenly align-items-center">
-            <input type="checkbox" name="course" value="${course.id}" id="${course.name}">
-            <label for="${course.name}">${course.name}</label>
-            <a href="/materia/presentacion/${course.id}" class="btn btn-outline-secondary" target="_blank">Ver presentación</a>
+    return `<div class="col-12 col-lg-6 p-2">
+        <div class="d-flex justify-content-between align-items-center border rounded p-1">
+            <a href="/materia/presentacion/${course.id}" target="_blank">${course.name}</a>
+            <button id="${course.id}" class="btn btn-outline-success">Agregar</button>
         </div>
     </div>`
 }
@@ -43,6 +42,7 @@ universitySelect.addEventListener("change", async (event) => {
         faculties.data.forEach(faculty => {
             facultySelect.innerHTML += `<option value="${faculty.id}">${faculty.name}</option>` 
         })
+        universitySelect.disabled = true;
     } catch (error) {
         console.error(error);
     }
@@ -56,6 +56,7 @@ facultySelect.addEventListener("change", async (event) => {
         careers.data.forEach(career => {
             careerSelect.innerHTML += `<option value="${career.id}">${career.name}</option>` 
         })
+        facultySelect.disabled = true;
     } catch (error) {
         console.error(error);
     }
@@ -66,10 +67,13 @@ careerSelect.addEventListener("change", async (event) => {
     coursesContainer.innerHTML = "";
     try {
         const career = await doFetch(`http://localhost:3000/api/career?career=${selectedCareerId}`);
-
-        career.courses.forEach(course => {
-            coursesContainer.innerHTML += courseItemGenerator(course);
-        })
+        if (career.courses.length > 0) {
+            coursesWrapper.classList.remove("d-none")
+            career.courses.forEach(course => {
+                coursesContainer.innerHTML += courseItemGenerator(course);
+            })
+        }
+        careerSelect.disabled = true;
     } catch (error) {
         console.error(error);
     }
