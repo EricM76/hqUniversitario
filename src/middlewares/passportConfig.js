@@ -1,36 +1,73 @@
-const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
+const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const db = require("../database/models");
 const process = require("process");
+const {
+  getTotalOfActiveReferredUsers,
+  setFreeMembershipToWinnerUser,
+} = require("../services/referredService");
 
-module.exports = (passport) => 
-{
-    passport.use(new GoogleStrategy({
+module.exports = (passport) => {
+  passport.use(
+    new GoogleStrategy(
+      {
         clientID: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
         callbackURL: "http://localhost:3000/usuario/auth/google/callback",
-        passReqToCallback   : true
+        passReqToCallback: true,
       },
-      function(request, accessToken, refreshToken, profile, done) {
-        db.User.findOrCreate({
+      async (request, accessToken, refreshToken, profile, done) => {
+        try {
+          const user = await db.User.findOne({
             where: {
-                social_id: profile.id
+              social_id: profile.id,
             },
-            defaults:{
-                name: profile.name.givenName,
-                surname: profile.name.familyName,
-                email: profile.emails[0].value,
-                passport: null,
-                social_id: profile.id,
-                rol: 2,
-                terms: 1,
-            },
-        })
-        .then(user => {
-            
-            return done(null, user);
-        })
-        .catch(error => {
-            console.log(error)
-        })
-      }));
-}
+          });
+
+          if (!user) {
+            const newUser = await db.User.create({
+              name: profile.name.givenName,
+              surname: profile.name.familyName,
+              email: profile.emails[0].value,
+              passport: null,
+              social_id: profile.id,
+              rolId: 2,
+              terms: 1,
+            });
+            const referred = await db.Referred.findOne({
+              where: {
+                email: newUser.email,
+              },
+            });
+            if (referred) {
+              const updateReferred = await db.Referred.update(
+                {
+                  active: true,
+                },
+                {
+                  where: {
+                    id: referred.id,
+                  },
+                }
+              );
+              /* Enviar notificacion al usuario que lo refirió */
+              // obtener total de referidos activos
+              // si tiene 3, enviar mail y poner activa la membresía al usuario que lo refirió
+              const referringUser = await db.User.findByPk(referred.userId);
+              const REFERREDS_TO_WIN_QUANTITY = 3;
+              const { data } = await getTotalOfActiveReferredUsers(
+                referred.userId
+              );
+              if (data.total === REFERREDS_TO_WIN_QUANTITY && !referringUser.membershipId) {
+                await setFreeMembershipToWinnerUser(referred.userId);
+              }
+            }
+            return done(null, newUser);
+          }
+          return done(null, user);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    )
+  );
+};

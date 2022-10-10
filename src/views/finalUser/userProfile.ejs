@@ -74,7 +74,7 @@
         <div class="container">
           <% if (user.membership) { %>
             <h4>Tu membresía activa es: <%= user.membership.name %></h4>
-            <p>Vigente hasta: <%= user.expires %></p>
+            <p>Vigente hasta: <%= userMembershipExpiresDate %></p>
             <% if (user.courses.length > 0) { %>
               <h5>Tus materias (<%= user.courses.length %> de <%= user.membership.quota %> disponibles según tu membresía): </h5>
               <ol class="list-group list-group-numbered">
@@ -84,11 +84,11 @@
               </ol>
               <% if (user.courses.length < user.membership.quota) { %>
                 <p>Aún tienes cupos disponibles para elegir materias, te recuerdo que tenés 30 días para hacerlo desde la fecha de alta de la membresía. Una vez realizada la selección de materias no podrás cambiarlas hasta la próxima renovación de tu membresía.</p>
-                <a href="/usuario/materias/seleccion" class="btn btn-primary">Elegir materias</a>
+                <a href="/materia/seleccion" class="btn btn-primary">Elegir materias</a>
               <% } %>
             <% } else { %>
               <p>Aún no elegiste tus materías, te recuerdo que tenés 30 días para hacerlo desde la fecha de alta de la membresía. Una vez realizada la selección de materias no podrás cambiarlas hasta la próxima renovación de tu membresía.</p>
-              <a href="/usuario/materias/seleccion" class="btn btn-primary">Elegir materias</a>
+            <a href="/materia/seleccion" class="btn btn-primary">Elegir materias</a>
             <% } %>
           <% } else { %>
             <h3 class="text-center p-2">Aún no tienes una membresía activa</h3>
