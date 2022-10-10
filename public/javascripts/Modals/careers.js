@@ -21,7 +21,7 @@ const showCareerContent = (id) => {
         career.courses.forEach(course => {
             ul.innerHTML += `
             <li class="list-group-item university__school-itemContainer">
-                <a href="/materia/presentacion/${course.id}">${course.name}</a>
+            <i class="fas fa-check me-2"></i> <a class="text-dark" href="/materia/presentacion/${course.id}">${course.name}</a>
             </li>
             `
         });

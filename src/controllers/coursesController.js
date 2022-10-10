@@ -1,4 +1,5 @@
 const db = require('../database/models');
+const fs = require('fs');
 
 module.exports = {
     add: async (req, res) => {
@@ -95,6 +96,7 @@ module.exports = {
     },
     detail: async (req, res) => {
         try {
+          
             let course = await db.Course.findByPk(req.params.id, {
                 include: [
                     {
@@ -151,11 +153,59 @@ module.exports = {
                 }
             });
 
+            let theoreticalVideos = await db.Video.count({
+                where : {
+                    categoryId : 1,
+                    courseId : req.params.id
+                }
+            });
+
+            let videoPracticalWork = await db.Video.count({
+                where : {
+                    categoryId : 2,
+                    courseId : req.params.id
+                }
+            });
+    
+            let integrativeVideoExams= await db.Video.count({
+                where : {
+                    categoryId : 3,
+                    courseId : req.params.id
+                }
+            });
+            let levelingCycleVideos = await db.Video.count({
+                where : {
+                    categoryId : 4,
+                    courseId : req.params.id
+                }
+            });
+
+            let integrativeExerciseVideos = await db.Video.count({
+                where : {
+                    categoryId : 5,
+                    courseId : req.params.id
+                }
+            });
+
+            let previusExamVideos = await db.Video.count({
+                where : {
+                    categoryId : 6,
+                    courseId : req.params.id
+                }
+            });
+          
+
             return res.render('admin/courseDetail', {
                 course,
                 totalVideos,
                 totalNotes,
-                totalTests
+                totalTests,
+                theoreticalVideos,
+                videoPracticalWork,
+                integrativeVideoExams,
+                levelingCycleVideos,
+                integrativeExerciseVideos,
+                previusExamVideos
             })
         } catch (error) {
             console.log(error)
@@ -246,11 +296,12 @@ module.exports = {
             case 'info':
                 const { name, review, description, universityId, facultyId, teacherId, careers, features, visible } = req.body;
                 try {
+                    let course = await db.Course.findByPk(req.params.id)
                     await db.Course.update(
                         {
                             name: name.trim(),
-                            image: req.files.image ? req.files.image[0].filename : null,
-                            video: req.files.video ? req.files.video[0].filename : null,
+                            image: req.files.image ? req.files.image[0].filename : course.image,
+                            video: req.files.video ? req.files.video[0].filename : course.video,
                             description: description.trim(),
                             review: review.trim(),
                             teacherId,
@@ -264,6 +315,11 @@ module.exports = {
                             }
                         }
                     );
+
+                    req.files.image && fs.existsSync('./public/images/courses/' + course.image) ? fs.unlinkSync('./public/images/courses/' + course.image) : null;
+
+                    req.files.video && fs.existsSync('./public/videos/' + course.video) ? fs.unlinkSync('./public/videos/' + course.video) : null
+
 
                     /* guardo características */
                     if (features) {
@@ -398,6 +454,36 @@ module.exports = {
             }
             
             let error = new Error('Feature not deleted')
+            error.status = 401
+
+            throw error
+         
+            
+        } catch (error) {
+            console.log(error)
+            return res.status(error.status || 500).json({
+                ok : false,
+                msg : error.message || 'Upss, error!!!'
+            })
+        }
+    },
+    removeCareer : async (req,res) => {
+        try {
+
+            let result = await db.CourseCareer.destroy({
+                where : {
+                    careerId : req.params.careerId,
+                    courseId : req.params.courseId,
+                }
+            })
+            if(result){
+                return res.status(201).json({
+                    ok : true,
+                    msg: 'Career removed success!'
+                })
+            }
+            
+            let error = new Error('Career not removed')
             error.status = 401
 
             throw error

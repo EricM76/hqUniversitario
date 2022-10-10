@@ -113,7 +113,7 @@
                                                     id="categoryId"
                                                     aria-label=".form-select-sm example" name="categoryId" required>
                                                     <option value="" selected hidden>Categoría...</option>
-                                                    <% course.faculty.categories.sort((a,b)=> a.name>b.name ? 1 : a.name<b.name ? -1 : 0).forEach(category => {%>
+                                                    <% course.faculty.categories.sort((a,b)=> a.name>b.id ? 1 : a.id<b.id ? -1 : 0).forEach(category => {%>
                                                         <option value="<%=category.id%>"><%=category.name%></option>
                                                     <%})%>
                                                     </select>

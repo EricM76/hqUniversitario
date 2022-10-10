@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const {presentation,content, add, store, detail, edit, update,remove, filter, search, list, removeFeature } = require('../controllers/coursesController');
+const {presentation,content, add, store, detail, edit, update,remove, filter, search, list, removeFeature, removeCareer } = require('../controllers/coursesController');
 
 const {uploadCourse} = require('../middlewares/upLoadFiles')
 
@@ -20,5 +20,6 @@ router
   .get('/content', content)
   /* APIs */
   .delete('/features/:id', removeFeature)
+  .delete('/careers/:careerId/:courseId',removeCareer)
 
 module.exports = router;

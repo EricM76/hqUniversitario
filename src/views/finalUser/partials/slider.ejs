@@ -1,29 +1,28 @@
 <div class="slide-container swiper">
     <div class="slide-content">
-      <div class="card-wrapper swiper-wrapper">
+      <div class="card-wrapper swiper-wrapper" >
         <% sliderArray.forEach(element => { %>
           <div class="slider__cardWrapper swiper-slide">
             <div class="card border border-0 shadow">
               <div class="slider__cardImageWrapper">
-                  <img src="/images/<%- element.image %>" class="card-img-top" alt="Imagen <%- element.image %>">
+                  <img src="/images/courses/<%- element.image %>" class="card-img-top" alt="Imagen <%- element.image %>" style="object-fit:fill; height: 150px;">
               </div>
-              <div class="card-body">
+              <div class="card-body d-flex flex-column justify-content-between" style="height: 27vh;">
                 <h5 class="card-title"><%- element.name %> </h5>
-                <p class="card-text"><%- element.description ? element.description : "Una breve descripción" %> </p>
-                <div class="card-body">
+                <p class="card-text"><%- element.review ? element.review : "Una breve descripción" %> </p>
+                
                   <a href="/materia/presentacion/<%- element.id %>">
                     <div class="button__dark">
                         <span>Ver materia</span>
                     </div>
                   </a>
                 </div>
-              </div>
             </div>
           </div>  
         <% }) %>
       </div>
     </div>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-pagination"></div>
+    <div class="swiper-button-next text-dark opacity-25"></div>
+    <div class="swiper-button-prev text-dark opacity-25"></div>
+    <div class="swiper-pagination text-dark opacity-25"></div>
 </div>

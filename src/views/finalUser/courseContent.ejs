@@ -9,11 +9,31 @@
     <header class="courseContent__header container p-3">
       <div class="row align-items-center">
         <div class="col-12 col-md-6 p-3">
-          <h1>MATERIA - UNIVERSIDAD</h1>
-          <ul>
-            <li>20 Videos</li>
-            <li>6 ejercitaciones</li> 
-            <li>2 evaluaciones</li>
+          <h1><%= course.name %></h1>
+          <h3 class="text-muted"><%= course.university.acronym %> | <%= course.faculty.acronym %></h3>
+          <ul class="list-group list-group-flush">
+            <% course.faculty.categories.forEach(category => { %>
+              <% if (category.id == 1) { %>
+                <li class="list-group-item"><%= theoreticalHours %> <%= theoreticalHours > 1 ?'minutos' : 'minuto' %>  de teoría</li>
+              <% } %>
+              <% if (category.id == 2) { %>
+                <li class="list-group-item"><%= videoPracticalWork %> <%= videoPracticalWork > 1 ?'videos' : 'video' %> con trabajos prácticos</li>              
+              <% } %>
+              <% if (category.id == 3) { %>
+                <li class="list-group-item"><%= integrativeVideoExams%> <%= integrativeVideoExams > 1 ? 'videos' : 'video' %> con exámenes integradores ¡resueltos!</li>              
+              <% } %>
+              <% if (category.id == 4) { %>
+                <li class="list-group-item"><%= levelingCycleVideos%> <%= levelingCycleVideos > 1 ? 'videos' : 'video' %> del ciclo de nivelación</li>              
+              <% } %>
+              <% if (category.id == 5) { %>
+                <li class="list-group-item"><%= integrativeExerciseVideos%> <%= integrativeExerciseVideos > 1 ? 'videos' : 'video' %> con ejercicios integradores</li>              
+              <% } %>
+              <% if (category.id == 6) { %>
+                <li class="list-group-item"><%= previusExamVideos%> <%= previusExamVideos > 1 ? 'videos' : 'video' %> de exámenes anteriores</li>              
+              <% } %>
+            <% }) %>
+            <li class="list-group-item"><%= course.notes.length %>  <%= course.notes.length > 1 ? 'apuntes' : 'apunte' %> para repasar lo aprendido.</li>
+            <li class="list-group-item"><%= course.tests.length %>  <%= course.tests.length > 1 ? 'simulacros' : 'simulacro' %> de exámen</li>
           </ul>          
         </div>
         <div class="col-12 col-md-6 p-3">
@@ -24,20 +44,20 @@
         </div>
       </div>
     </header>
-    <h2 class="text-center">Contenido de la Materia</h2>
+    <h2 class="text-center mb-5 bg-dark py-3 text-light">Contenido de la Materia</h2>
     <!-- SECCIÓN VIDEOS -->
     <section class="courseContent__videos container">
-      <h4 class="border-bottom pb-1 mb-3">Videos</h4>
+      <h4 class="border-bottom pb-1 mb-3"><i class="fas fa-video    "></i> Videos</h4>
       <div class="row">
-        <!-- Content card -->
-        <div class="col-12 col-md-4 col-lg-3 p-1 mb-2">
+        
+       <!--  <div class="col-12 col-md-4 col-lg-3 p-1 mb-2">
           <div class="courseContent__videos--card shadow rounded p-2">
             <div class="courseContent__videos--card-iconsContainer">
-              <!-- Candado bloqueado -->
+      
               <i class="fa-solid fa-lock"></i>
-              <!-- Candado abierto -->
+      
               <i class="fa-solid fa-lock-open"></i>
-              <!-- Ojo -->
+      
               <i class="fa-solid fa-eye"></i>
             </div>
             <p class="courseContent__videos--card-title">GEOMETRÍA MOLECULAR Y FUERZAS INTERMOLECULARES</p>
@@ -54,136 +74,82 @@
           </div>
         </div>
         <li class="list-group-item university__school-itemContainer">
-          </li>
-        <!-- END Content card -->
-        <!-- Content card -->
-        <div class="col-12 col-md-4 col-lg-3 p-1 mb-2">
-          <div class="courseContent__videos--card shadow rounded p-2">
-            <div class="courseContent__videos--card-iconsContainer">
-              <!-- Candado bloqueado -->
-              <i class="fa-solid fa-lock"></i>
-              <!-- Candado abierto -->
-              <i class="fa-solid fa-lock-open"></i>
-              <!-- Ojo -->
-              <i class="fa-solid fa-eye"></i>
-            </div>
-            <p class="courseContent__videos--card-title">GEOMETRÍA MOLECULAR Y FUERZAS INTERMOLECULARES</p>
-            <div class="courseContent__videos--card-data">
-              <ul>
-                <li>1 archivo adjunto</li>
-              </ul>
-              <a href="/usuarios/login" >
-                <div class="button__light">
-                  <span><a href="" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver video</a></span>
-                </div>
-            </a>
-            </div>
-          </div>
+          </li> -->
+        <div class="col-12 col-md-6 col-lg-8">
+          <video src="" controls width="100%" id="showVideo" controlslist="nodownload"></video>
         </div>
-        <!-- END Content card -->
-        <!-- Content card -->
-        <div class="col-12 col-md-4 col-lg-3 p-1 mb-2">
-          <div class="courseContent__videos--card shadow rounded p-2">
-            <div class="courseContent__videos--card-iconsContainer">
-              <!-- Candado bloqueado -->
-              <i class="fa-solid fa-lock"></i>
-              <!-- Candado abierto -->
-              <i class="fa-solid fa-lock-open"></i>
-              <!-- Ojo -->
-              <i class="fa-solid fa-eye"></i>
-            </div>
-            <p class="courseContent__videos--card-title">GEOMETRÍA MOLECULAR Y FUERZAS INTERMOLECULARES</p>
-            <div class="courseContent__videos--card-data">
-              <ul>
-                <li>1 archivo adjunto</li>
-              </ul>
-              <a href="/usuarios/login" >
-                <div class="button__light">
-                    <span>Ver video</span>
+        <div class="col-12 col-md-6 col-lg-4">
+          <% if (course.videos.length> 0) { %>
+            <div class="accordion w-100" id="accordionPanelsStayOpenExample">
+
+            <%course.faculty.categories.forEach((category,index) => {%>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="panelsStayOpen-heading<%=category.id%>">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse<%=category.id%>" aria-expanded="true" aria-controls="panelsStayOpen-collapse<%=category.id%>">
+                        <%= category.name %> 
+                    </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapse<%=category.id%>" class="accordion-collapse collapse <%= index == 0 && 'show' %>" aria-labelledby="panelsStayOpen-heading<%=category.id%>" data-bs-parent="#accordionPanelsStayOpenExample">
+                    <div class="accordion-body">
+                      <ol class="list-group list-group-numbered list-group-flush">
+                        <%course.videos.forEach(video => {%>
+                            <%if(video.categoryId === category.id){%>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto">
+                                    <div class="fw-bold">
+                                      <a class="text-dark" href="" onclick="showVideo(event,'<%=video.resource%>','<%=video.id%>')"><%=video.title%></a>
+                                    </div>
+                                    <p class="text-muted"><i class="fas fa-clock    "></i> <%=video.length%> min</p>
+                                  </div>
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="videoCheck<%= video.id %>">
+                                  </div>                                
+                                </li>
+                            <%}%>    
+                        <%})%>
+                      </ol>
+                    </div>
+                    </div>
                 </div>
-            </a>
+            <%})%>
             </div>
-          </div>
+           
+        <% }else{ %>
+            <p class="alert alert-warning">El curso aún no tiene videos agregados</p>
+            <% } %>
         </div>
-        <!-- END Content card -->
-        <!-- Content card -->
-        <div class="col-12 col-md-4 col-lg-3 p-1 mb-2">
-          <div class="courseContent__videos--card shadow rounded p-2">
-            <div class="courseContent__videos--card-iconsContainer">
-              <!-- Candado bloqueado -->
-              <i class="fa-solid fa-lock"></i>
-              <!-- Candado abierto -->
-              <i class="fa-solid fa-lock-open"></i>
-              <!-- Ojo -->
-              <i class="fa-solid fa-eye"></i>
-            </div>
-            <p class="courseContent__videos--card-title">GEOMETRÍA MOLECULAR Y FUERZAS INTERMOLECULARES</p>
-            <div class="courseContent__videos--card-data">
-              <ul>
-                <li>1 archivo adjunto</li>
-              </ul>
-              <a href="/usuarios/login" >
-                <div class="button__light">
-                    <span>Ver video</span>
-                </div>
-            </a>
-            </div>
-          </div>
-        </div>
-        <!-- END Content card -->
+
         
       </div>
     </section>
     <!-- FIN VIDEOS -->
     <!-- SECCIÓN ADJUNTOS -->
     <section class="courseContent__download">
-      <h4 class="border-bottom pb-1 mb-3">Material adjunto</h4>
+      <h4 class="border-bottom pb-1 mb-3"><i class="fa fa-file" aria-hidden="true"></i> Apuntes</h4>
       <div class="container">
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nulla quisquam sapiente non sit sunt cupiditate perspiciatis velit quasi dicta perferendis ut labore officiis architecto eos, quos earum minima eaque corrupti.</p>
         <div class="row">
-          <!-- Download card -->
-          <div class="col-12 col-md-4 p-2 mb-2">
-            <div class="courseContent__download--card shadow rounded p-2">
-              <p>Apunte Misterioso</p>
-              <span>Pdf</span>
-              <a href="http://">
-                <i class="fa-solid fa-download"></i>
-              </a>
-            </div>
-          </div>
-          <!-- END Download card -->
-          <!-- Download card -->
-          <div class="col-12 col-md-4 p-2 mb-2">
-            <div class="courseContent__download--card shadow rounded p-2">
-              <p>Apunte Misterioso</p>
-              <span>Pdf</span>
-              <a href="http://">
-                <i class="fa-solid fa-download"></i>
-              </a>
-            </div>
-          </div>
-          <!-- END Download card -->
-          <!-- Download card -->
-          <div class="col-12 col-md-4 p-2 mb-2">
-            <div class="courseContent__download--card shadow rounded p-2">
-              <p>Apunte Misterioso</p>
-              <span>Pdf</span>
-              <a href="http://">
-                <i class="fa-solid fa-download"></i>
-              </a>
-            </div>
-          </div>
-          <!-- END Download card -->
-          <!-- Download card -->
-          <div class="col-12 col-md-4 p-2 mb-2">
-            <div class="courseContent__download--card shadow rounded p-2">
-              <p>Apunte Misterioso</p>
-              <span>Pdf</span>
-              <a href="http://">
-                <i class="fa-solid fa-download"></i>
-              </a>
-            </div>
-          </div>
-          <!-- END Download card -->
+          <% if (course.notes.length) { %>
+            <% course.notes.forEach(note => { %>
+              <!-- Download card -->
+              <div class="col-12 col-md-4 p-2 mb-2">
+                <div class="card shadow">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-content-center">
+                      <p><span class="text-danger fs-3 me-2"><i class="fa fa-file-pdf" aria-hidden="true"></i></span><%= note.title %></p>
+                      <a href="/notes/downloads/<%= note.file %>" class="text-primary fs-5" title="Descargar apunte">
+                        <i class="fa-solid fa-download"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- END Download card -->
+              <% }) %>
+          <% }else{ %>
+            <p class="alert alert-warning">El curso aún no tiene apuntes agregados</p>
+          <% } %>
         </div>
       </div>
 
@@ -191,20 +157,33 @@
     <!-- FIN ADJUNTOS -->
     <!-- SECCIÓN EXÁMENES -->
     <section class="courseContent__test">
-      <h4 class="border-bottom pb-1 mb-3">Exámenes</h4>
+      <h4 class="border-bottom pb-1 mb-3"><i class="fa fa-book" aria-hidden="true"></i> Simulacros de exámen.</h4>
       <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nulla quisquam sapiente non sit sunt cupiditate perspiciatis velit quasi dicta perferendis ut labore officiis architecto eos, quos earum minima eaque corrupti.</p>
       <div class="container">
         <div class="row">
-          <div class="col-12 col-md-4 p-2 mb-2">
-            <div class="courseContent__test--card shadow rounded p-2">
-              <p>Examen</p>
-              <span>Acceder</span>
-              <a href="http://">
-                <i class="fa-solid fa-book"></i>
-              </a>
-            </div>
-          </div>         
-        </div>
+          <% if (course.tests.length) { %>
+            <% course.tests.forEach(test => { %>
+              <!-- Download card -->
+              <div class="col-12 col-md-4 p-2 mb-2">
+                <div class="card shadow">
+                  <div class="card-body">
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                          <div class="ms-2 me-auto">
+                            <div class="fw-bold">
+                              <p class="text-dark me-2"><%= test.name %></p>
+                            </div>
+                            <p class="text-muted d-flex justify-content-around"><span><i class="fas fa-question-circle"></i> <%=test.questions.length%> preguntas</span> <span><i class="fas fa-clock"></i> <%=test.time%> min</span></p>
+                          </div>
+                          <a class="fs-5" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>                              
+                        </li>
+                  </div>
+                </div>
+              </div>
+              <!-- END Download card -->
+              <% }) %>
+          <% }else{ %>
+            <p class="alert alert-warning">El curso aún no tiene simulacros de exámen agregados</p>
+          <% } %>
       </div>
     </section>
     <!-- FIN EXÁMENES -->
@@ -213,6 +192,15 @@
   </main>
   <%- include('./partials/modal/modal') %> 
   <%- include('./partials/footer') %> 
-  <%- include('./partials/scripts') %> 
+  <%- include('./partials/scripts') %>
+  <script>
+    const showVideo = (event,resource,id) => {
+      event.preventDefault();
+      document.getElementById('showVideo').src = 'https://d1ttls5s7uue53.cloudfront.net/' + resource;
+      document.getElementById('showVideo').play();
+
+      document.getElementById('videoCheck' + id).checked = true;
+    }
+  </script>
 </body>
 </html>

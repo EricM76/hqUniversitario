@@ -69,7 +69,7 @@ $('check-all') && $('check-all').addEventListener('click', ({target}) => {
             careersSelected[i] =  $('careers').options[i].selected;
         }
     }
-})
+});
 
 
 $('careers') && $('careers').addEventListener('change', ({ target }) => {
@@ -85,4 +85,4 @@ $('careers') && $('careers').addEventListener('change', ({ target }) => {
         careersSelected[i] = target.options[i].selected;
     }
 
-})
+});

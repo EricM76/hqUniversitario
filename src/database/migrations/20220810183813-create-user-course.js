@@ -35,6 +35,9 @@ module.exports = {
       comment : {
         type : Sequelize.TEXT
       },
+      progress : {
+        type : Sequelize.INTEGER
+      },
       validated : {
         type : Sequelize.BOOLEAN
       },

@@ -48,6 +48,7 @@ module.exports = {
     } else {
       return res.render("finalUser/userLogin", {
         errors: errors.mapped(),
+        session: req.session
       });
     }
   },

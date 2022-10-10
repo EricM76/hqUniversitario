@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     active: DataTypes.BOOLEAN,
     assessment : DataTypes.INTEGER,
     comment : DataTypes.TEXT,
+    progress : DataTypes.INTEGER,
     validated : DataTypes.BOOLEAN,
   }, {
     sequelize,

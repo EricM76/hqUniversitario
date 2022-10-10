@@ -29,7 +29,7 @@ const memberships = [
     name: "FREE",
     image: "defaultMembership.jpg",
     quota: 1,
-    price: 000,
+    price: 0,
     description: "Acceso a todo el contenido completo de 1 materia",
   },
 

@@ -110,7 +110,7 @@
                                                         <select name="features" id="features" multiple
                                                             style="height: 200px;" class="form-control">
                                                             <% course.features.forEach(feature=> { %>
-                                                                <option onclick="removeFeature('<%=feature.id%>')" value="<%= feature.content %>">
+                                                                <option onclick="removeFeature('<%=feature.id%>')" value="<%= feature.content %>" selected style="cursor: pointer;" title="Haga click para eliminar">
                                                                     <%= feature.content %>
                                                                 </option>
                                                                 <% }) %>
@@ -175,7 +175,7 @@
                                                         <select class="form-select" name="careers" id="careers" multiple
                                                             style="height: 180px;">
                                                             <% course.careers.forEach(career=> { %>
-                                                                <option value="<%= career.id %>" selected>
+                                                                <option value="<%= career.id %>" selected onclick="removeCareer('<%=career.id%>','<%=course.id%>')" style="cursor: pointer;" title="Haga click para eliminar">
                                                                     <%= career.name %>
                                                                 </option>
                                                                 <% }) %>
@@ -448,7 +448,7 @@
                                                         Agregar video
                                                     </button>
                                                 -->
-                                                    <a class="btn btn-outline-primary" href="/videos/add/<%=course.id%>">Agregar video</a>
+                                                    <a class="btn btn-outline-primary mt-3" href="/videos/add/<%=course.id%>">Agregar video</a>
                                                 </div>
                                             <%- include('./modals/addVideo') %>
                                         </div>    
