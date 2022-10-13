@@ -282,11 +282,11 @@ module.exports = {
     },
     getVideoUrl : async (req,res) => {
       try {
-        let url = await getFileURL(req.query.video);
+        let {resource} = await db.Video.findByPk(req.params.id);
 
         return res.status(200).json({
           ok : true,
-          url
+          url : 'https://d1ttls5s7uue53.cloudfront.net/' + resource
       })
       } catch (error) {
         console.log(error);
@@ -322,20 +322,41 @@ module.exports = {
       
     },
     seenByUser : async (req,res) => {
+      console.log('>>>>>>>>>>>',req.params)
       try {
         await db.UserVideos.findOrCreate({
           where : {
-            userId : req.query.userId,
-            videoId : req.query.videoId
+            userId : req.params.userId,
+            videoId : req.params.videoId
           },
           defaults : {
-            userId : req.query.userId,
-            videoId : req.query.videoId
+            userId : req.params.userId,
+            videoId : req.params.videoId
           }
         });
         return res.status(200).json({
           ok : true,
           msg: 'seen by User'
+        })    
+      } catch (error) {
+        console.log(error)
+        return res.status(error.status).json({
+          ok: false,
+          msg: 'ups... error'
+        })
+      }
+    },
+    notSeenByUser : async (req,res) => {
+      try {
+        await db.UserVideos.destroy({
+          where : {
+            userId : req.params.userId,
+            videoId : req.params.videoId
+          }
+        });
+        return res.status(200).json({
+          ok : true,
+          msg: 'deleted seen by User'
         })    
       } catch (error) {
         console.log(error)

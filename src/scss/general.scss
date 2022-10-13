@@ -77,6 +77,19 @@ a{
         color: $hq-secondary;
     }
 }
+
+.button__dark--extended {
+    @extend .button-base;
+    color: white;
+    background-color: $hq-secondary;
+    border: 1px solid $hq-secondary;
+    height: auto;
+    padding: 1rem;
+    &:hover {
+        background-color: white;
+        color: $hq-secondary;
+    }
+}
 .button__newsletter {
     @extend .button-base;
     color: white;

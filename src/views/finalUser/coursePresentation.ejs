@@ -10,8 +10,12 @@
     <section class="coursePresentation__banner container-fluid mb-5" style="background-image: url('/images/courses/<%=course.image%>');background-size: cover;">
       <div class="row align-items-center">
         <div class="coursePresentation__banner--description col-12 col-md-6 p-3">
-          <h1 class="text-light" style="background-color: rgba(0,0,0,0.4); padding:10px"><%= course.name %> </h1>
-          <p><%= course.description %> </p>
+          <div class="text-light p-3 mb-3" style="background-color: rgba(0,0,0,0.4);">
+          
+            <h1><%= course.name %> </h1>
+            <h3><%= course.university.acronym %> | <%= course.faculty.acronym %> </h3>
+          </div>
+         
           <div class="coursePresentation__banner--buttonContainer" >
             <a href="/usuarios/registro">
               <div class="button__dark">
@@ -66,7 +70,7 @@
           <div class="col-12 col-md-2 p-2">
             <div class="shadow-sm p-2">
               <h4 class="text-center">Apuntes</h4>
-              <p class="coursePresentation__summary-content-number text-center"><%= course.tests.length %></p>
+              <p class="coursePresentation__summary-content-number text-center"><%= course.notes.length %></p>
             </div>
           </div>
           <div class="col-12 col-md-2 p-2">
@@ -77,16 +81,14 @@
           </div>
           <div class="col-12 col-md-2 p-2">
             <div class="shadow-sm p-2">
-              <h4 class="text-center">Ejercicios</h4>
+              <h4 class="text-center">Exámenes</h4>
               <p class="coursePresentation__summary-content-number text-center"><%= course.tests.length %></p>
             </div>
           </div>
-          <div class="col-12 col-md-6 p-2">
+          <div class="col-12 col-md-6 p-2 d-flex justify-content-center">
             <div class="coursePresentation__summary-content--buttonContainer">
-              <a href="/materia/contenido/<%= course.id %>">
-                <div class="button__dark">
-                    <span>VER TODO EL CONTENIDO</span>
-                </div>
+              <a onclick="verifyCourse(event,'<%= course.id %>')" href="" class="button__dark" >
+                  VER EL CONTENIDO DE LA MATERIA
               </a>
             </div>
           </div>
@@ -147,6 +149,18 @@
   <%- include('./partials/footer') %> 
   <%- include('./partials/scripts') %> 
     <script src="/javascripts/slider.js"></script>
+    <script>
+      const verifyCourse = async (e,courseId) => {
+        e.preventDefault()
+        try {
+          let response = await fetch('/users/verifycourse/' + courseId);
+          let result = await response.json();
+          window.location.href = result.ok && result.url;
 
+        } catch (error) {
+          console.error
+        }
+      }
+    </script>
 </body>
 </html>

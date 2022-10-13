@@ -345,7 +345,7 @@ a {
       color: white;
       font-size: 2rem; }
 
-.button-base, .button__light, .button__dark, .button__newsletter {
+.button-base, .button__light, .button__dark, .button__dark--extended, .button__newsletter {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -366,6 +366,16 @@ a {
   background-color: black;
   border: 1px solid black; }
   .button__dark:hover {
+    background-color: white;
+    color: black; }
+
+.button__dark--extended {
+  color: white;
+  background-color: black;
+  border: 1px solid black;
+  height: auto;
+  padding: 1rem; }
+  .button__dark--extended:hover {
     background-color: white;
     color: black; }
 

@@ -13,6 +13,14 @@ const BASE_URL_PROVINCES = process.env.BASE_URL_PROVINCES;
 
 module.exports = {
   login: (req, res) => {
+    const baseUrl =`${req.protocol}://${req.headers.host}`;
+    const TIME_IN_MILISECONDS = 60000;
+    res.cookie('backurl',req.headers.referer.split(baseUrl)[1],{
+      expires: new Date(Date.now() + TIME_IN_MILISECONDS),
+      httpOnly: true,
+      secure: true,
+    })
+
     return res.render("finalUser/userLogin", {
       session: req.session,
     });
@@ -44,7 +52,6 @@ module.exports = {
           }
 
           res.locals.user = req.session.user;
-
           return res.redirect("/");
         })
         .catch((error) => console.error(error));
@@ -56,6 +63,7 @@ module.exports = {
     }
   },
   googleLogin: (req, res) => {
+
     let user = req.session.passport.user;
 
     req.session.user = {
@@ -67,7 +75,8 @@ module.exports = {
       googleId: user.social_id,
       membershipId: user.membershipId,
     };
-    return res.redirect("/");
+
+    return res.redirect(req.cookies.backurl ? req.cookies.backurl : '/');
   },
   register: (req, res) => {
     return res.render("finalUser/userRegister", { session: req.session });

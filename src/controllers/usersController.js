@@ -48,5 +48,39 @@ module.exports = {
     },
     filter : (req,res) => {
         
+    },
+    /* APIs */
+    verifyCourse : async (req,res) => {
+        try {
+           
+            let result = await db.UserCourse.findOne({
+                where : {
+                    userId : req.session.user?.id || 0,
+                    courseId : req.params.id,
+                    active : true
+                }
+            });
+            if(result){
+                return res.status(200).json({
+                    ok : true,
+                    msg: 'user suscribed',
+                    url : `/materia/contenido/${req.params.id}?suscribe=true`
+                  })  
+            }else {
+                return res.status(200).json({
+                    ok : true,
+                    msg: 'user not suscribed',
+                    url : `/materia/contenido/${req.params.id}?suscribe=false`
+                  })  
+            }
+            
+        } catch (error) {
+            console.log(error)
+            return res.status(error.status).json({
+              ok: false,
+              msg: error.message ? error.message : 'ups... error'
+            })
+        }
+      
     }
 }
