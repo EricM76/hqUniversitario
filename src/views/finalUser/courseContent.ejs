@@ -258,44 +258,7 @@
           </div>
         </section>
       <!-- FIN RESUMEN DE CONTENIDO -->
-            <!-- SECCIÓN DESCRIPCIÓN-->
-
-                <section class="coursePresentation__description container">
-        <div class="row justify-content-between px-3 gap-3 mb-3">
-          <div class="col-12 p-3 border">
-            <h2 class="mb-2">Aprenderás</h2>
-            <div class="container p-3">
-              <div class="row">
-                <% if (course.features.length) { %>
-                  <% course.features.forEach(feature => { %>
-                    <div class="col-12 col-md-6 d-flex mb-2">
-                      <div class="me-3"><i class="fa-solid fa-check"></i></div>
-                      <span class=><%= feature.content %></span>
-                    </div>
-                  <% }) %>
-                <% }else{ %>
-                  <div class="col-12 d-flex mb-2">
-                    <div class="me-3"><i class="fa-solid fa-check"></i></div>
-                    <span class=>Item que describe características del curso.</span>
-                  </div>
-                  <div class="col-12 col-md-6 d-flex mb-2">
-                    <div class="me-3"><i class="fa-solid fa-check"></i></div>
-                    <span class=>Item que describe características del curso.</span>
-                  </div>
-                <% } %>
-              
-              </div>
-            </div>
-          </div>
-          <div class="col-12  p-3 border">
-            <h2>Descripción</h2>
-            <p><%= course.description ? course.description : "Descripción de la materia" %> </p>
-          </div>
-        </div>
-      </section>
-      <!-- FIN DESCRIPCIÓN -->
-     
-
+          
         </div>
         <div class="col-12 col-lg-4">
   <!-- SECCIÓN LISTADOVIDEOS -->
@@ -310,20 +273,25 @@
                   <h4><%= category.name %></h4>  
               </button>
               </h2>
-              <div id="panelsStayOpen-collapse<%=category.id%>" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-heading<%=category.id%>" data-bs-parent="#accordionPanelsStayOpenExample">
+              <div id="panelsStayOpen-collapse<%=category.id%>" class="accordion-collapse collapse <%= index === 0 && 'show' %> " aria-labelledby="panelsStayOpen-heading<%=category.id%>" data-bs-parent="#accordionPanelsStayOpenExample">
               <div class="accordion-body">
                 <ul class="list-group list-group-flush">
                   <%course.videos.forEach(video => {%>
                       <%if(video.categoryId === category.id){%>
 
-                          <li class="list-group-item d-flex flex-column justify-content-start flex-md-row justify-content-md-between align-items-center">
+                          <li class="list-group-item d-flex flex-column justify-content-start flex-md-row justify-content-md-between ">
                               <div class="fw-bold">
                                 <a class="text-dark" href=""><i class="fa fa-video-camera" aria-hidden="true"></i> <%=video.title%></a>
                                
                               </div>
                               <div class="d-flex gap-3">
                                 <% if (!video.locked) { %>
-                                  <a href="">ver video</a>
+                                  <p type="button" class="border-0 bg-transparent p-0 text-primary m-0" data-bs-toggle="modal" data-bs-target="#modalShowVideo<%=video.id%>">
+                                    ver video
+                                </p>
+                                <%- include('./partials/modal/showVideo',{
+                                    video
+                                })%>
                                  <% } %>
                                  <p class="text-muted"><i class="fas fa-clock"></i> <%=video.length%> min</p>   
                               </div>
@@ -403,77 +371,7 @@
   <%- include('./partials/footer') %> 
   <%- include('./partials/scripts') %>
   <script src="/javascripts/slider.js"></script>
+  <script src="/javascripts/courseContent.js"></script>
 
-  <script>
-
-    const modifyProgress = async (courseId) => {
-      try {
-          let response = await fetch(`/videos/getviewedbyuser/${courseId}`);
-          let result = await response.json();
-          
-          const {data} = result;
-          let percentage = Math.floor(data.videosViewed.length * 100 / data.total)
-
-          document.getElementById('showProgress').style.width = `${percentage}%`
-          document.getElementById('showProgress').innerHTML = `${percentage}%`
-      } catch (error) {
-        console.error
-      }
-    }
-
-    const showVideo = async (event,videoId,userId, courseId) => {
-      event.preventDefault();
-      try {
-        let response = await fetch('/videos/geturl/' + videoId, {
-          method : 'POST'
-        });
-        let result = await response.json();
-        if(result.ok){
-          document.getElementById('showVideo').src = result.url;
-          document.getElementById('showVideo').play();
-          document.getElementById('videoCheck' + videoId).checked = true;
-          
-          response = await fetch(`/videos/seenbyuser/${userId}/${videoId}`,{
-            method : 'POST'
-          });
-          result = await response.json();
-          console.log(result);
-
-          modifyProgress(courseId)
-
-        }
-       
-      } catch (error) {
-        console.error
-      }
-     
-    }
-
-    const seedByUser = async ({target},userId,videoId,courseId) => {
-      try {
-        if(!target.checked){
-          let response = await fetch(`/videos/notseenbyuser/${userId}/${videoId}`, {
-            method : 'DELETE',
-          })
-          let result = await response.json();
-          console.log(result)
-          modifyProgress(courseId)
-
-        }else {
-          let response = await fetch(`/videos/seenbyuser/${userId}/${videoId}`, {
-            method : 'POST',
-          })
-          let result = await response.json();
-          console.log(result)
-          modifyProgress(courseId)
-
-        }
-      } catch (error) {
-        console.error
-      }
-    }
-
-
-  </script>
 </body>
 </html>
