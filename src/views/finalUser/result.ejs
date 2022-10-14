@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+  <%- include('./partials/head', {
+    title : 'Home'
+  }) %> 
+
+  <body class="">
+    <%- include('./partials/header') %> 
+    <main class="container">
+        <div class="row my-4" >
+            <h3 class="text-dark my-3">Resultado de la busqueda:</h3>
+            <hr>
+            <% courses.forEach(element => { %>
+              <div class="col-12 col-md-4 col-lg-3 mb-4">
+                <div class="card border border-0 shadow">
+                  <div class="slider__cardImageWrapper">
+                      <img src="/images/courses/<%- element.image %>" class="card-img-top" alt="Imagen <%- element.image %>" style="object-fit:fill; height: 150px;">
+                  </div>
+                  <div class="card-body d-flex flex-column justify-content-between" style="height: 27vh;">
+                    <h5 class="card-title"><%- element.name %> </h5>
+                    <h6 class="text-muted"><%= element.university.acronym%> | <%=element.faculty.acronym%> </h6>
+                    <p class="card-text"><%- element.review ? element.review : "Una breve descripción" %> </p>
+                    
+                      <a href="/materia/presentacion/<%- element.id %>">
+                        <div class="button__dark">
+                            <span>Más información</span>
+                        </div>
+                      </a>
+                    </div>
+                </div>
+              </div>  
+            <% }) %>
+          </div>
+    </main>
+     
+    <%- include('./partials/wappbtn') %> 
+    <%- include('./partials/footer') %> 
+    <%- include('./partials/scripts') %> 
+  </body>
+</html>

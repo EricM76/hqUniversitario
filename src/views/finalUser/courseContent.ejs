@@ -9,20 +9,22 @@
     <main class="container">
       <header class="courseContent__header container p-3">
         <div class="row align-items-center">
+          <h1><%= course.name %></h1>
+          <h3><%= course.university.acronym %> | <%= course.faculty.acronym %></h3>
+          <hr>
           <div class="col-12 col-md-6 p-3">
-            <h1><%= course.name %></h1>
-            <h3 class="text-muted"><%= course.university.acronym %> | <%= course.faculty.acronym %></h3>
+             
             <ul class="list-group list-group-flush">
               <% course.faculty.categories.forEach(category => { %>
                 <% if (category.id == 1) { %>
                   <li class="list-group-item"><strong>Teoría:</strong> <%= theoreticalCount%> <%= theoreticalCount> 1 ?'clases en video' : 'clase en video' %> - <span class="text-muted"><%= theoreticalHours %> <%= theoreticalHours > 1 ?'minutos' : 'minuto' %> de clases teóricas.</span></li>
                 <% } %>
                 <% if (category.id == 2) { %>
-                  <li class="list-group-item"><strong>Práctica:</strong> <%= videoPracticalWork%> <%= videoPracticalWork> 1 ?'clases en video' : 'clase en video' %> - <span class="text-muted"><%= videoPracticalWorkHours %> <%= videoPracticalWorkHours > 1 ?'minutos' : 'minuto' %> de resolución de trabajos prácticos.</span></li>              
+                  <li class="list-group-item"><strong>Práctica:</strong> <%= videoPracticalWork%> <%= videoPracticalWork> 1 ?'clases en video' : 'clase en video' %> - <span class="text-muted"><%= videoPracticalWorkHours %> <%= videoPracticalWorkHours > 1 ?'minutos' : 'minuto' %> realizando trabajos prácticos.</span></li>              
                 <% } %>
                 <% if (category.id == 3) { %>
                   <li class="list-group-item">
-                    <strong>Exámenes:</strong> <%= integrativeVideoExams%> <%= integrativeVideoExams> 1 ?'videos' : 'video' %> - <span class="text-muted"><%= videoPracticalWorkHours %> <%= integrativeVideoExamsHours > 1 ?'minutos' : 'minuto' %> con exámenes resueltos.</span>
+                    <strong>Exámenes:</strong> <%= integrativeVideoExams%> <%= integrativeVideoExams> 1 ?'videos' : 'video' %> - <span class="text-muted"><%= videoPracticalWorkHours %> <%= integrativeVideoExamsHours > 1 ?'minutos' : 'minuto' %> resolviendo exámenes.</span>
                    </li>              
                 <% } %>
                 <% if (category.id == 4) { %>
@@ -32,28 +34,38 @@
                 <% } %>
                 <% if (category.id == 5) { %>
                   <li class="list-group-item">
-                    <strong>Ejercicios:</strong> <%= integrativeExerciseVideos%> <%= integrativeExerciseVideos> 1 ?'videos' : 'video' %> - <span class="text-muted"><%= integrativeExerciseVideosHours %> <%= integrativeExerciseVideosHours > 1 ?'minutos' : 'minuto' %> con ejercicios integradores.</span>
+                    <strong>Ejercicios:</strong> <%= integrativeExerciseVideos%> <%= integrativeExerciseVideos> 1 ?'videos' : 'video' %> - <span class="text-muted"><%= integrativeExerciseVideosHours %> <%= integrativeExerciseVideosHours > 1 ?'minutos' : 'minuto' %> realizando ejercicios integradores.</span>
                     </li>                
                 <% } %>
                 <% if (category.id == 6) { %>
                   <li class="list-group-item">
-                    <strong>Exámenes:</strong> <%= previusExamVideos%> <%= previusExamVideos> 1 ?'videos' : 'video' %> - <span class="text-muted"><%= previusExamVideosHours %> <%= previusExamVideosHours > 1 ?'minutos' : 'minuto' %> de exámenes anteriores.</span>
+                    <strong>Exámenes:</strong> <%= previusExamVideos%> <%= previusExamVideos> 1 ?'videos' : 'video' %> - <span class="text-muted"><%= previusExamVideosHours %> <%= previusExamVideosHours > 1 ?'minutos' : 'minuto' %> resolviendo exámenes anteriores.</span>
                     </li>              
                 <% } %>
               <% }) %>
               <li class="list-group-item"><strong>Material adjunto: </strong>
                 <% if (course.notes.length) { %>
                   <%= course.notes.length %>  <%= course.notes.length > 1 ? 'apuntes' : 'apunte' %> para repasar lo aprendido.
-                <% } %>
-                  <span class="text-muted">No hay apuntes agregados</span>
+                  <% }else{ %>
+                    <span class="text-muted">No hay apuntes agregados.</span>
+                  <% } %>
+
               </li>
-              <li class="list-group-item"><strong>Para practicar: </strong><%= course.tests.length %>  <%= course.tests.length > 1 ? 'simulacros' : 'simulacro' %> de exámen</li>
+              <li class="list-group-item"><strong>Para practicar: </strong>
+                <% if (course.tests.length) { %>
+                  <%= course.tests.length %>  <%= course.tests.length > 1 ? 'simulacros' : 'simulacro' %> de exámen
+                <% }else{ %>
+                  <span class="text-muted">No hay simulacros de exámenes agregados.</span>
+
+                  <% } %>
+
+              </li>
             </ul>          
           </div>
-            <div class="col-12 col-md-6 p-3">
+            <div class="col-12 col-md-6 p-3 d-flex  flex-column">
               <h2>Progreso</h2>       
               <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-label="Example with label" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Viste el <%=  %> % del contenido</div>
+                <div class="progress-bar progress-bar-striped bg-dark" role="progressbar" id="showProgress" style="width: <%= Math.floor(videosViewed.length * 100 / course.videos.length) %>%"><%= Math.floor(videosViewed.length* 100 / course.videos.length) %> %</div>
               </div> 
           </div>       
         </div>
@@ -87,12 +99,12 @@
                                   <li class="list-group-item d-flex justify-content-between align-items-start">
                                     <div class="ms-2 me-auto">
                                       <div class="fw-bold">
-                                        <a class="text-dark" href="" onclick="showVideo(event,'<%=video.id%>','<%=session.user%>')"><%=video.title%></a>
+                                        <a class="text-dark" href="" onclick="showVideo(event,'<%=video.id%>','<%=session.user.id%>','<%=course.id%>')"><%=video.title%></a>
                                       </div>
-                                      <p class="text-muted"><i class="fas fa-clock    "></i> <%=video.length%> min</p>
+                                      <p class="text-muted"><i class="fas fa-clock"></i> <%=video.length%> min</p>
                                     </div>
                                     <div class="form-check">
-                                      <input class="form-check-input" type="checkbox" value="" id="videoCheck<%= video.id %>">
+                                      <input class="form-check-input" type="checkbox" id="videoCheck<%= video.id %>" <%= videosViewed.includes(video.id) && 'checked' %> onclick="seedByUser(event,<%=session.user.id%>,<%=video.id%>,<%=course.id%>)">
                                     </div>                                
                                   </li>
                               <%}%>    
@@ -184,8 +196,10 @@
       <section class="coursePresentation__banner container-fluid mb-5" style="background-image: url('/images/courses/<%=course.image%>');background-size: cover;">
         <div class="row align-items-center">
           <div class="coursePresentation__banner--description col-12 col-md-6 p-3">
-            <h1 class="text-light" style="background-color: rgba(0,0,0,0.4); padding:10px"><%= course.name %> </h1>
-            <p><%= course.description %> </p>
+            <div class="text-light p-3 mb-3" style="background-color: rgba(0,0,0,0.4);">
+              <h1><%= course.name %></h1>
+              <h3><%= course.university.acronym %> | <%= course.faculty.acronym %></h3>
+            </div>
             <div class="coursePresentation__banner--buttonContainer" >
               <a href="/usuarios/registro">
                 <div class="button__dark">
@@ -391,25 +405,41 @@
   <script src="/javascripts/slider.js"></script>
 
   <script>
-    const showVideo = async (event,id,user) => {
+
+    const modifyProgress = async (courseId) => {
+      try {
+          let response = await fetch(`/videos/getviewedbyuser/${courseId}`);
+          let result = await response.json();
+          
+          const {data} = result;
+          let percentage = Math.floor(data.videosViewed.length * 100 / data.total)
+
+          document.getElementById('showProgress').style.width = `${percentage}%`
+          document.getElementById('showProgress').innerHTML = `${percentage}%`
+      } catch (error) {
+        console.error
+      }
+    }
+
+    const showVideo = async (event,videoId,userId, courseId) => {
       event.preventDefault();
       try {
-        let response = await fetch('/videos/geturl/' + id, {
+        let response = await fetch('/videos/geturl/' + videoId, {
           method : 'POST'
         });
         let result = await response.json();
         if(result.ok){
           document.getElementById('showVideo').src = result.url;
           document.getElementById('showVideo').play();
-          document.getElementById('videoCheck' + id).checked = true;
+          document.getElementById('videoCheck' + videoId).checked = true;
           
-          response = await fetch(`/videos/seenbyuser/${user.id}/${id}`,{
+          response = await fetch(`/videos/seenbyuser/${userId}/${videoId}`,{
             method : 'POST'
           });
           result = await response.json();
+          console.log(result);
 
-          console.log(result)
-
+          modifyProgress(courseId)
 
         }
        
@@ -418,6 +448,32 @@
       }
      
     }
+
+    const seedByUser = async ({target},userId,videoId,courseId) => {
+      try {
+        if(!target.checked){
+          let response = await fetch(`/videos/notseenbyuser/${userId}/${videoId}`, {
+            method : 'DELETE',
+          })
+          let result = await response.json();
+          console.log(result)
+          modifyProgress(courseId)
+
+        }else {
+          let response = await fetch(`/videos/seenbyuser/${userId}/${videoId}`, {
+            method : 'POST',
+          })
+          let result = await response.json();
+          console.log(result)
+          modifyProgress(courseId)
+
+        }
+      } catch (error) {
+        console.error
+      }
+    }
+
+
   </script>
 </body>
 </html>

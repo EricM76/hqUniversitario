@@ -1,5 +1,6 @@
 const { format } = require("date-fns");
 const db = require("../../database/models");
+const {Op} = require('sequelize');
 
 module.exports = {
     presentation: (req, res) => {
@@ -164,12 +165,25 @@ module.exports = {
                 }
             });
 
+            let user = db.User.findByPk(req.session.user.id,{
+                attributes : ['id'],
+                include : [
+                    {
+                        association : 'videos',
+                        attributes : ['id']
+                    }
+                ]
+            });
+
             Promise.all([
-                course, theoreticalHours, videoPracticalWork, integrativeVideoExams, levelingCycleVideos, integrativeExerciseVideos, previusExamVideos, theoreticalCount, videoPracticalWorkHours, integrativeVideoExamsHours, levelingCycleVideosHours, integrativeExerciseVideosHours, previusExamVideosHours
+                course, theoreticalHours, videoPracticalWork, integrativeVideoExams, levelingCycleVideos, integrativeExerciseVideos, previusExamVideos, theoreticalCount, videoPracticalWorkHours, integrativeVideoExamsHours, levelingCycleVideosHours, integrativeExerciseVideosHours, previusExamVideosHours,user
             ])
                 .then(([
-                    course, theoreticalHours, videoPracticalWork, integrativeVideoExams, levelingCycleVideos, integrativeExerciseVideos, previusExamVideos, theoreticalCount, videoPracticalWorkHours, integrativeVideoExamsHours, levelingCycleVideosHours, integrativeExerciseVideosHours, previusExamVideosHours
+                    course, theoreticalHours, videoPracticalWork, integrativeVideoExams, levelingCycleVideos, integrativeExerciseVideos, previusExamVideos, theoreticalCount, videoPracticalWorkHours, integrativeVideoExamsHours, levelingCycleVideosHours, integrativeExerciseVideosHours, previusExamVideosHours,user
                 ]) => {
+
+                    let videosViewed = user.videos.map(video => video.id);
+        
                     return res.render("finalUser/courseContent", {
                         session: req.session,
                         course,
@@ -185,7 +199,8 @@ module.exports = {
                         levelingCycleVideosHours, 
                         integrativeExerciseVideosHours, 
                         previusExamVideosHours,
-                        suscribed: true
+                        suscribed: true,
+                        videosViewed
                     });
                 })
                 .catch(error => console.log(error))
@@ -212,9 +227,11 @@ module.exports = {
                             association: 'faculty',
                             include: ['categories']
                         },
+                        {
+                            association : 'university'
+                        }
                     ]
                 })
-                console.log(course)
                 let relatedCourses = await db.Course.findAll({
                     where: {
                         facultyId: course.facultyId,
@@ -246,4 +263,25 @@ module.exports = {
             userMembershipExpires
         });
     },
+    search : async (req,res) => {
+        try {
+
+            let courses = await db.Course.findAll({
+                where : {
+                    name : {
+                        [Op.substring] : req.query.keyword
+                    } 
+                },
+                include : ['university','faculty']
+            });
+
+            return res.render('finalUser/result', {
+                courses,
+                session : req.session
+            })
+            
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }

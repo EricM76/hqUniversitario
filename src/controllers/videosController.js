@@ -322,7 +322,6 @@ module.exports = {
       
     },
     seenByUser : async (req,res) => {
-      console.log('>>>>>>>>>>>',req.params)
       try {
         await db.UserVideos.findOrCreate({
           where : {
@@ -347,6 +346,7 @@ module.exports = {
       }
     },
     notSeenByUser : async (req,res) => {
+      console.log('>>>>>>>>>>>',req.params)
       try {
         await db.UserVideos.destroy({
           where : {
@@ -358,6 +358,43 @@ module.exports = {
           ok : true,
           msg: 'deleted seen by User'
         })    
+      } catch (error) {
+        console.log(error)
+        return res.status(error.status).json({
+          ok: false,
+          msg: 'ups... error'
+        })
+      }
+    },
+    getViewedByUser : async (req,res) => {
+      try {
+        let user = await db.User.findByPk(req.session.user.id,{
+          attributes : ['id'],
+          include : [
+              {
+                  association : 'videos',
+                  attributes : ['id']
+              }
+          ]
+        });
+        let {videos} = await db.Course.findByPk(req.params.courseId,{
+          include : [
+            {
+              association : 'videos',
+              attributes : ['id']
+            }
+          ]
+        })
+        let videosViewed = user.videos.map(video => video.id);
+
+        return res.status(200).json({
+          ok : true,
+          data: {
+            total : videos.length,
+            videosViewed
+          }
+        })    
+
       } catch (error) {
         console.log(error)
         return res.status(error.status).json({

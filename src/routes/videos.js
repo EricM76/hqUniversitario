@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const {add, store,show, list, detail, edit, update, remove, search, filter, changeLocked, getVideoUrl, transfer, seenByUser, notSeenByUser} = require('../controllers/videosController');
+const {add, store,show, list, detail, edit, update, remove, search, filter, changeLocked, getVideoUrl, transfer, seenByUser, notSeenByUser,getViewedByUser} = require('../controllers/videosController');
 const { uploadCourse } = require('../middlewares/upLoadFiles');
 
 /* /videos */
@@ -22,6 +22,7 @@ router
   .get('/transfer',transfer)
   .post('/seenbyuser/:userId/:videoId',seenByUser)
   .delete('/notseenbyuser/:userId/:videoId',notSeenByUser)
+  .get('/getviewedbyuser/:courseId',getViewedByUser)
 
 
 module.exports = router;
