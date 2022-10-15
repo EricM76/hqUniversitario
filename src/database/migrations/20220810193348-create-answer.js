@@ -24,9 +24,6 @@ module.exports = {
       correct: {
         type: Sequelize.BOOLEAN
       },
-      score: {
-        type: Sequelize.INTEGER
-      },
       image : {
         type: Sequelize.STRING
       },

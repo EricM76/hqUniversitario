@@ -71,14 +71,18 @@ module.exports = {
         const answers = [];
         const corrects = [];
         const {name, score, time} = req.body;
+        console.log('>>>>>>', req.body)
+
 
         for (const key in req.body) {
             if (key.includes('question')) {
                 let position = key.indexOf('_')
                 let id = key.slice(position + 1)
+
                 questions.push({
                     id,
-                    content: req.body[key]
+                    content: req.body[key],
+                    score: req.body['score_' + id]
                 })
             }
             if (key.includes('answer')) {
@@ -87,7 +91,6 @@ module.exports = {
                 answers.push({
                     id,
                     content: req.body[key],
-                    score: req.body['score_' + id]
                 })
             }
         
@@ -126,7 +129,6 @@ module.exports = {
                 await db.Answer.update(
                     {
                         content : answer.content,
-                        score : answer.score,
                         correct : answer.correct
                     },
                     {
@@ -134,11 +136,12 @@ module.exports = {
                     }
                 )
             });
-    
+            console.log('>>>>>>>>>>>>',questions)
             questions.forEach(async (question) => {
                 await db.Question.update(
                     {
-                        content : question.content
+                        content : question.content,
+                        score : question.score,
                     },
                     {
                         where : {id : question.id}
@@ -161,7 +164,6 @@ module.exports = {
     },
     /* questions */
     addQuestion: async (req, res) => {
-
         console.log(req.files)
         const { answers, correct, scores } = req.body;
         const { test, course } = req.query;
@@ -178,7 +180,6 @@ module.exports = {
                 return {
                     content: answer,
                     correct: index == correct ? true : false,
-                    score: scores[index],
                     image: image ? image : null
                 }
             }
@@ -188,6 +189,7 @@ module.exports = {
         try {
             let question = await db.Question.create({
                 content: req.body.question,
+                score : req.body.score,
                 testId: test
             });
 

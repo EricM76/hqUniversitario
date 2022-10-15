@@ -22,14 +22,21 @@
                 <div class="card-body">
                   <h5 class="card-title home__universities--title"><%- university.name %></h5>
                 </div>
-                <ul class="list-group list-group-flush fs-5">
-                  <li class="list-group-item bg-transparent text-white">
+                <ul class="list-group list-group-flush fs-5 px-4">
+                  <li class="list-group-item bg-transparent text-white d-flex justify-content-between" >
+                    <span><i class="fa-solid fa-building-columns me-3"></i>Facultades:</span>
                     <span>
-                      <%= university.faculties.length %> <%= university.faculties.length > 1 ? 'facultades' : 'facultad' %>
+                      <%= university.faculties.length %> %>
                     </span>
+
                   </li>
-                  <li class="list-group-item bg-transparent text-white"><%= university.careers.length %>  <%= university.careers.length > 1 ? 'carreras' : 'carrera' %></li>
-                  <li class="list-group-item bg-transparent text-white"><%= university.courses.length %>  <%= university.courses.length > 1 ? 'materias' : 'materia' %></li> 
+                  <li class="list-group-item bg-transparent text-white  d-flex justify-content-between">
+                    <span><i class="fa-solid fa-graduation-cap me-3"></i>Carreras:</span>
+                    <span><%= university.careers.length %></span>
+
+                  <li class="list-group-item bg-transparent text-white d-flex justify-content-between">
+                    <span><i class="fa-solid fa-book me-3"></i>Materias:</span>
+                    <span><%= university.courses.length %></span>
                 </ul>
                 <div class="card-body">
                   <a href="/universidad/<%- university.id %>/facultades">
