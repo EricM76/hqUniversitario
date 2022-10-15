@@ -113,12 +113,11 @@ module.exports = {
           // obtener total de referidos activos
           // si tiene 3, enviar mail y poner activa la membresía al usuario que lo refirió
           const referringUser = await db.User.findByPk(referred.userId);
-          const REFERREDS_TO_WIN_QUANTITY = 3;
           const { data } = await getTotalOfActiveReferredUsers(
             referred.userId
           );
-          if (data.total === REFERREDS_TO_WIN_QUANTITY && !referringUser.membershipId) {
-            await setFreeMembershipToWinnerUser(referred.userId);
+          if ((data.total === 2 || data.total === 3 || data.total === 4) && !referringUser.membershipId) {
+            await setFreeMembershipToWinnerUser(referred.userId, data.total);
           }
           return res.redirect("/usuario/login");
         } else {
@@ -173,7 +172,7 @@ module.exports = {
           provincias: data.provincias,
           session: req.session,
           memberships,
-          activeReferredsQuantity,
+        activeReferredsQuantity,
         });
       })
       .catch((error) => console.log(error));

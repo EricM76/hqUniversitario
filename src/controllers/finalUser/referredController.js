@@ -76,13 +76,43 @@ module.exports = {
     setActiveFreeMembership: async (req, res) => {
         try {
             const userId = Number(req.params.userId.trim());
-
             if(!userId) throw "Id inválido";
-        
+            
+            const { totalActivesReferreds } = req.body;
+            if(!totalActivesReferreds) throw "Total de referidos activos no enviado";
+            
+            const MEMBERSHIP_1 = process.env.MEMBERSHIP_1; 
+            const MEMBERSHIP_2 = process.env.MEMBERSHIP_2; 
+            const MEMBERSHIP_3 = process.env.MEMBERSHIP_3;
+             
+            let freeMembershipObtained;
+
+            switch (totalActivesReferreds) {
+                case 2:
+                    freeMembershipObtained = MEMBERSHIP_1;
+                    break;
+                case 3:
+                    freeMembershipObtained = MEMBERSHIP_2;
+                    break;
+                case 4:
+                    freeMembershipObtained = MEMBERSHIP_3;
+                    break;
+                default:
+                    break;
+            }
+
+            const membershipObtained = await db.Membership.findOne({
+                where: {
+                    name: {
+                        [Op.like]: freeMembershipObtained
+                    }
+                }
+            })        
             const winnerUser = await db.User.update({
-                membershipId: 4, //Refactorizar esto (ID de membresía free)
+                membershipId: membershipObtained.id,
                 entry: new Date(),
                 expires: add(new Date(), {days: 30}),
+                freeMembership: true,
             }, {
               where: { id: userId } 
             })

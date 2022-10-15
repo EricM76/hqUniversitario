@@ -12,9 +12,11 @@ module.exports = {
             return error;
         }
     },
-    setFreeMembershipToWinnerUser: async (userId) => {
+    setFreeMembershipToWinnerUser: async (userId, totalActivesReferreds) => {
         try {
-            return await axios.put(`${BASE_URL}/referidos/${userId}/membresia-gratis`);
+            return await axios.put(`${BASE_URL}/referidos/${userId}/membresia-gratis`,  {
+                totalActivesReferreds
+            });
         } catch (error) {
             return error;
         }

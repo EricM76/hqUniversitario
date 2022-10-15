@@ -13,7 +13,7 @@ module.exports = [
     const userId = req.session.user.id;
     try {
       const users = await db.Referred.findAll({where: {userId: userId}});
-      return users.length >= 12; 
+      return users.length >= 4; 
     } catch (error) {
       console.log(error)
     }
