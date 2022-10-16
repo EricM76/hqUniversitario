@@ -17,8 +17,9 @@ const showCareerContent = (id) => {
         console.log(career)
         modalTitle.innerText = `${career.name}`;
         modalSubtitle.innerText = `${career.university.acronym} - ${career.faculty.acronym}`
-        ul.innerHTML = ""
-        career.courses.forEach(course => {
+        ul.innerHTML = "";
+        let courses = career.courses.sort((a,b) => a.name > b.name ? 1 : a.name < b.name ? -1  : 0)
+        courses.forEach(course => {
             ul.innerHTML += `
             <li class="list-group-item university__school-itemContainer">
             <i class="fas fa-check me-2"></i> <a class="text-dark" href="/materia/presentacion/${course.id}">${course.name}</a>

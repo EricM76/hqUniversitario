@@ -264,11 +264,11 @@ module.exports = {
                         include: [
                             {
                                 association: 'questions',
-                                attributes: ['content'],
+                                attributes: ['content','score'],
                                 include: [
                                     {
                                         association: 'answers',
-                                        attributes: ['content', 'correct', 'score']
+                                        attributes: ['content', 'correct']
                                     }
                                 ]
                             }

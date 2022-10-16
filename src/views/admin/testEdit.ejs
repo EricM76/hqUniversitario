@@ -5,7 +5,7 @@
         <%- include('./partials/header') %>
             <main class="container">
                 <section class="row mt-2 mt-md-3 mt-lg-5">
-                    <div class="col-12 col-lg-10 mx-auto">
+                    <div class="col-12 col-md-12 col-lg-10 mx-auto">
                         <article class="card shadow">
                             <div class="card-header">
                                 <nav aria-label="breadcrumb">
@@ -59,9 +59,14 @@
                                             <% test.questions.forEach((question, index) => { %>
                                                 <ul class="list-group mb-3">
                                                     <li class="list-group-item">
-                                                        <div class="input-group d-flex align-items-center gap-2 mb-3">
+                                                        <div class="input-group d-flex align-items-center gap-3 mb-3">
                                                                 <span class="input-group-text" id="basic-addon1"><%= index + 1 %> </span>
                                                                 <input type="text" name="question_<%= question.id %>" class="form-control" value="<%= question.content %>">
+                                                                <div class="input-group" style="width: 140px;">
+                                                                    <input type="number" name="score_<%= question.id %>" min="1" max="99" class="form-control" value="<%= question.score %>">
+                                                                    <span class="input-group-text">puntos</i></span>
+                                                                </div>
+                                                                
                                                                 <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addAnswer<%= question.id %>">Agregar respuesta</button>
                                                               <button type="button" class="btn btn-outline-danger fs-6" onclick="deleteQuestion('<%=question.id%>')"><i class="fas fa-trash-alt"></i></button>
                                                         </div>
@@ -75,9 +80,7 @@
                                                                 </div>
                                                                
                                                                 <input type="text" class="form-control" name="answer_<%= answer.id %>" value="<%= answer.content %>">
-                                                                <div class="form-check p-0">
-                                                                    <input type="number" min="1" max="99" name="score_<%= answer.id %>" class="form-control" value="<%= answer.score %>" title="puntaje asignado">
-                                                                </div>
+                                                              
                                                                 <button type="button" class="btn <%= answer.image ? ' btn-outline-success' : ' btn-outline-primary'  %>  fs-6" data-bs-toggle="modal" data-bs-target="#viewImage<%= answer.id %>"><i class="fas fa-image"></i></button>
                                                                 <button type="button" class="btn btn-outline-danger fs-6" onclick="deleteAnswer('<%=answer.id%>')"><i class="fas fa-trash-alt"></i></button>
                                                             </div>

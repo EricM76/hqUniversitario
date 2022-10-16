@@ -11,6 +11,9 @@ module.exports = {
       content: {
         type: Sequelize.STRING
       },
+      score: {
+        type: Sequelize.INTEGER
+      },
       testId: {
         type: Sequelize.INTEGER,
         references: {

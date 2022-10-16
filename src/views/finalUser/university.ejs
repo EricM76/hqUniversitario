@@ -31,7 +31,7 @@
                                   </h2>
                                   <div id="flush-collapse<%- index %>" class="accordion-collapse collapse" aria-labelledby="flush-heading<%- index %>" data-bs-parent="#accordionFlushExample">
                                     <ul class="list-group list-group-flush">
-                                        <% faculty.careers.forEach(career => { %>
+                                        <% faculty.careers.sort((a,b) => a.name > b.name ? 1 : a.name < b.name  ? -1 : 0).forEach(career => { %>
                                             <li class="list-group-item university__school-itemContainer">
                                                 <span><a href="" title="ver materias" class="text-dark" onclick=<%-`showCareerContent(${career.id})`%> data-bs-toggle="modal" data-bs-target="#exampleModal"><%- career.name %></a></span>
                                             </li>

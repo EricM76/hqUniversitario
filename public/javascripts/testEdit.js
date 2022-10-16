@@ -1,3 +1,5 @@
+const $ = (id) => document.getElementById(id);
+
 window.addEventListener('load', () => {
     let query = new URLSearchParams(window.location.search)
     if (query.has('new')) {
@@ -177,22 +179,20 @@ $('addQuestion').addEventListener('hidden.bs.modal', () => {
         inputFiles[i].disabled = false;
 
     }
-    const inputScores = document.querySelectorAll('.score');
+   /*  const inputScores = document.querySelectorAll('.score');
     for (let i = 0; i < inputScores.length; i++) {
         inputScores[i].value = null;
         inputScores[i].disabled = true;
 
-    }
+    } */
 });
 
 /* limpia los campos del formulario addAnswer */
 const clearInputsNewAnswer = (score, file, text) => {
-    document.getElementById(score).value = null;
     document.getElementById(file).value = null;
     document.getElementById(text).value = null;
     document.getElementById(text).classList.remove('is-invalid');
 
-    document.getElementById(score).disabled = true;
     document.getElementById(file).disabled = true;
 
 };
@@ -200,12 +200,9 @@ const clearInputsNewAnswer = (score, file, text) => {
 const enableCheckNewAnswer = (score, file, image, e) => {
     if (e.target.value.trim()) {
         document.getElementById(file).disabled = false;
-        document.getElementById(score).disabled = false;
-        document.getElementById(score).value = 5;
 
     } else {
         document.getElementById(file).disabled = true;
-        document.getElementById(score).disabled = true;
     }
 };
 
@@ -213,9 +210,7 @@ const enableCheckNewAnswer = (score, file, image, e) => {
 const sendFormAddAnswer = async (idQuestion) => {
     let data = new FormData();
     data.append('content', $('textQuestion' + idQuestion).value)
-    data.append('score', $('scoreQuestion' + idQuestion).value)
     data.append('image', $('fileQuestion' + idQuestion).files[0]);
-    console.log(data.get('score'))
     try {
         if (data.get('content').length) {
             let response = await fetch('/tests/answers/' + idQuestion, {
