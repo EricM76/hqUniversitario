@@ -112,7 +112,7 @@ module.exports = {
                 membershipId: membershipObtained.id,
                 entry: new Date(),
                 expires: add(new Date(), {days: 30}),
-                //freeMembership: true,
+                freeMembership: true,
             }, {
               where: { id: userId } 
             })

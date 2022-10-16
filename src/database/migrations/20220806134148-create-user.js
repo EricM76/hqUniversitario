@@ -84,6 +84,9 @@ module.exports = {
       },
       deletedAt: {
         type: Sequelize.DATE
+      },
+      freeMembership: {
+        type: Sequelize.BOOLEAN
       }
     });
   },
