@@ -116,7 +116,12 @@ module.exports = {
           const { data } = await getTotalOfActiveReferredUsers(
             referred.userId
           );
-          if ((data.total === 2 || data.total === 3 || data.total === 4) && !referringUser.membershipId) {
+          const totalStatus = (data.total === 2 || data.total === 3 || data.total === 4);
+          const haveActiveMembership = referringUser.membershipId !== null;
+          const haveFreeMembership = referringUser.freeMembership;
+          if ( totalStatus && !haveActiveMembership) {
+            await setFreeMembershipToWinnerUser(referred.userId, data.total);
+          } else if ( totalStatus && haveActiveMembership && haveFreeMembership) {
             await setFreeMembershipToWinnerUser(referred.userId, data.total);
           }
           return res.redirect("/usuario/login");
@@ -130,6 +135,7 @@ module.exports = {
       return res.render("finalUser/userRegister", {
         errors: errors.mapped(),
         old: req.body,
+        session: req.session
       });
     }
   },

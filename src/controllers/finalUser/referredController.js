@@ -107,7 +107,8 @@ module.exports = {
                         [Op.like]: freeMembershipObtained
                     }
                 }
-            })        
+            })    
+                
             const winnerUser = await db.User.update({
                 membershipId: membershipObtained.id,
                 entry: new Date(),
