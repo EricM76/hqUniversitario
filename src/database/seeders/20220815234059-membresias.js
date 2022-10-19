@@ -10,7 +10,7 @@ const memberships = [
   },
   
   {
-    name: "PREMIUM",
+    name: "PRO",
     image: "defaultMembership.jpg",
     quota: 3,
     price: 750,
@@ -18,7 +18,7 @@ const memberships = [
   },
 
   {
-    name: "PRO",
+    name: "PREMIUM",
     image: "defaultMembership.jpg",
     quota: 5,
     price: 900,
