@@ -1,6 +1,7 @@
 const { format } = require("date-fns");
 const db = require("../../database/models");
 const {Op} = require('sequelize');
+const {shuffle} = require('../../helpers')
 
 module.exports = {
     presentation: (req, res) => {
@@ -74,7 +75,12 @@ module.exports = {
                     },
                     {
                         association: 'tests',
-                        include: ['questions']
+                        include: [
+                            {
+                                association : 'questions',
+                                include: ['answers']
+                            }
+                        ]
                     },
                     {
                         association: 'notes',
@@ -200,7 +206,8 @@ module.exports = {
                         integrativeExerciseVideosHours, 
                         previusExamVideosHours,
                         suscribed: true,
-                        videosViewed
+                        videosViewed,
+                        shuffle
                     });
                 })
                 .catch(error => console.log(error))

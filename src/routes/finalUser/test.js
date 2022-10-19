@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const { index } = require("../../controllers/finalUser/testController");
+const { feedback,result } = require("../../controllers/finalUser/testController");
 
 router
-    .get("/", index)    
+    .post("/feedback/:id", feedback)
+    .post('/result/:id',result)
+
 module.exports = router;

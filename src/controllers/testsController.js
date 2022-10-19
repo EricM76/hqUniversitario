@@ -359,9 +359,9 @@ module.exports = {
                 data : total
             })
         } catch (error) {
-            return res.status(500).json({
+            return res.status(error.status || 500).json({
                 ok : false,
-                msg : 'ups! Hubo un problema'
+                msg : error.message || 'ups! Hubo un problema'
             })
         }    
     }

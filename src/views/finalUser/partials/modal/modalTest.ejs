@@ -1,0 +1,101 @@
+<!-- Modal -->
+<div class="modal fade" id="viewTest<%= test.id %>" tabindex="-1" aria-labelledby="viewTest<%= test.id %>Label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+            <div>
+                <h4 class="modal-title" id="modalTitle"><%= test.name %></h4>
+            </div>
+          <i class="fa-solid fa-circle-xmark modal__close" data-bs-dismiss="modal" aria-label="Close"></i>
+        </div>
+        <div class="modal-body">
+            <form id="formTest<%= test.id %>" action="/examen/feedback/<%= test.id %>" method="POST">
+                <div class="d-flex flex-column flex-lg-row justify-content-end  gap-3">
+                  <h2 class="text-end align-items-center"><i class="far fa-clock"></i> <span id="showTime<%= test.id %>"></span></h2> 
+                  <input type="text" hidden name="timeHour" id="inputTimeHour<%= test.id %>">
+                  <input type="text" hidden name="timeMinute" id="inputTimeMinute<%= test.id %>">
+                  <input type="text" hidden name="timeSecond" id="inputTimeSecond<%= test.id %>">
+                </div>
+          <hr>
+          <div class="row">
+                <% test.questions.forEach(question => { %>
+                    <div class="col-12 ">
+                          <div class="card mb-3">
+                            <div class="card-body">
+                                <h5><%= question.content %> </h5>
+                                <ul class="list-group list-group-flush">
+                                    <% question.answers.forEach(answer => { %>
+                                        <li class="list-group-item">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="question_<%= question.id %>" id="answer<%= answer.id %>" value="<%= answer.id %>">
+                                                <label class="form-check-label" for="answer<%= answer.id %>">
+                                                    <%= answer.content %>
+                                                </label>
+                                              </div>
+                                        </li>
+                                    <% }) %>
+                                </ul>
+                            </div>
+                    </div>
+                    </div>
+                  
+                <% }) %>
+                <div class="d-flex flex-column flex-md-row justify-content-end gap-2">
+                  <button type="button" data-bs-dismiss="modal" class="btn btn-outline-secondary">Cancelar simulacro</button>
+                  <button type="submit" class="btn btn-outline-primary">Enviar respuestas</button>
+              </div>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+  <script>
+    var showTime;
+    
+    document.getElementById('viewTest<%= test.id %>').addEventListener('show.bs.modal', event => {
+        for (let index = 2; index < document.getElementById('formTest<%= test.id %>').elements.length; index++) {
+          document.getElementById('formTest<%= test.id %>').elements[index].checked = false
+        };
+        
+    let showTimer = (time) => {            
+            let timeHour = Math.floor(time / 60);
+            let timerHour = timeHour > 0 ? timeHour : 0;
+            let timerMinute = timeHour > 0 ? time % 60 : time;
+
+            const DATE_INITIAL = moment();
+            const DATE_FINAL = moment().add(timeHour, 'h').add(timerMinute, 'm');
+
+            //console.log(DATE_INITIAL, DATE_FINAL)
+
+            showTime = setInterval(()=> {
+              var duration = moment.duration((DATE_FINAL).diff(moment()));
+
+              var hour = duration.get('hour')
+              var minute = duration.get('minute') > 9 ? duration.get('minute') :'0' + duration.get('minute');
+              var second = duration.get('second') > 9 ? duration.get('second') :'0' + duration.get('second');
+              
+              document.getElementById('showTime<%= test.id %>').innerHTML = `${hour}:${minute}:${second}`
+              document.getElementById('inputTimeHour<%= test.id %>').value = duration.get('hour');
+              document.getElementById('inputTimeMinute<%= test.id %>').value = duration.get('minute');
+              document.getElementById('inputTimeSecond<%= test.id %>').value = duration.get('second');
+            }, 1000);
+      }
+
+    showTimer('<%=test.time%>')
+       
+    });
+
+    document.getElementById('viewTest<%= test.id %>').addEventListener('hidden.bs.modal', event => {
+      console.log('cerrando timer');
+
+      clearInterval(showTime)
+      document.getElementById('showTime<%= test.id %>').innerHTML = null;
+
+
+    });
+
+      
+  </script>
+    
