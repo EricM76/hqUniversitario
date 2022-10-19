@@ -57,7 +57,7 @@
                       </div>
                     <div class="btn-group">
                             <btn class="header__avatar"  data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                                <span><%= session.user.name.slice(0,1) %></span>
+                                <span><%= locals.session.user && session.user.name.slice(0,1) %></span>
                             </btn>                      
                         <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
                             <li><a class="dropdown-item" href="/usuario/perfil">Mi perfil</a></li>
@@ -67,7 +67,7 @@
                   <!--   <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="header__avatar">
-                                <span><%= session.user.name.slice(0,1) %></span>
+                                <span><%= locals.session.user && session.user.name.slice(0,1) %></span>
                             </div>
                         </a>
                         <ul class="dropdown-menu dropstart shadow-sm border-0">

@@ -52,7 +52,7 @@ module.exports = {
           }
 
           res.locals.user = req.session.user;
-          return res.redirect("/");
+          return res.redirect(req.session.user.rol == 1 ? "/admin" : "/");
         })
         .catch((error) => console.error(error));
     } else {
@@ -124,12 +124,13 @@ module.exports = {
           return res.redirect("/usuario/login");
         }
       } catch (error) {
-        res.send(error);
+        console.log(error);
       }
     } else {
       return res.render("finalUser/userRegister", {
         errors: errors.mapped(),
         old: req.body,
+        session : req.session
       });
     }
   },

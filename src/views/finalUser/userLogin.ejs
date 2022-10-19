@@ -10,7 +10,17 @@
       <div class="login__logoContainer">
         <img src="/images/logos/LOGO HQ.png" alt="Logo HQ" class="w-100">
       </div>
-      <h2 class="text-center">Login</h2>
+      <h3 class="text-center mt-4">Inicio de sesión</h3>
+      <hr>
+      <div id="gSignInWrapper" >
+        <a href="/usuario/auth/google" class="googleSigninButton" >
+          <div id="customBtn" class="p-0 border-1 bg-primary shadow-none">
+              <span class=" rounded-1 icon"></span>
+            <span class="text-bg-primary me-auto ms-2">Ingresá con Google</span>
+          </div>
+        </a>
+        </div>
+      <h6 class="text-center my-3">ó con tus credenciales</h6>
       <form action="/usuario/login" method="POST" class="row">
         <div class="col-12">
           <label for="email" class="form-label">Email*</label>
@@ -43,14 +53,9 @@
           </div>
         </div>
         <div class="col-12 mb-3 login__buttonContainer">
-          <button class="button__dark" type="submit">Registrarme</button>
+          <button class="button__dark w-100" type="submit">Iniciar sesión</button>
         </div>
-        <div class="googleSigninButton" id="gSignInWrapper">
-          <div id="customBtn" class="customGPlusSignIn">
-            <span class="icon"></span>
-            <span class="buttonText"><a href="/usuario/auth/google">Ingresá con Google</a></span>
-          </div>
-        </div>
+      
       </form>
       <p class="text-center mt-4">
         <a href="/usuario/registro">Aún no tengo cuenta</a>

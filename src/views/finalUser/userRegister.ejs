@@ -10,9 +10,20 @@
       <div class="register__logoContainer">
         <img src="/images/logos/LOGO HQ.png" alt="Logo HQ" class="w-100">
       </div>
-      <h2 class="text-center">Registro</h2>
+      <h3 class="text-center mt-4">Registro</h3>
+      <hr>
+       <div id="gSignInWrapper" >
+        <a href="/usuario/auth/google" class="googleSigninButton" >
+          <div id="customBtn" class="p-0 border-1 bg-primary shadow-none">
+              <span class=" rounded-1 icon"></span>
+            <span class="text-bg-primary me-auto ms-2">Registrate con Google</span>
+          </div>
+        </a>
+        </div>
+        <h6 class="text-center my-3">ó escribí tus datos</h6>
+
       <form action="/usuario/registro" method="POST" class="row">
-        <div class="col-12">
+        <div class="col-12 mb-3">
           <label for="name" class="form-label">Nombre*</label>
           <input type="text" class="form-control" name="name" id="name" value="<%= locals.old && old.name %>">
           <small class="feedback text-danger"></small>
@@ -20,7 +31,7 @@
             <small class="text-danger"><%= errors.name.msg %></small>
           <% } %>
         </div>
-        <div class="col-12">
+        <div class="col-12 mb-3">
           <label for="surname" class="form-label">Apellido*</label>
           <input type="text" class="form-control" name="surname" id="surname" value="<%= locals.old && old.surname %>">
           <small class="feedback text-danger"></small>
@@ -28,7 +39,7 @@
             <small class="text-danger"><%= errors.surname.msg %></small>
           <% } %>
         </div>
-        <div class="col-12">
+        <div class="col-12 mb-3">
           <label for="email" class="form-label">Email*</label>
           <input type="email" class="form-control" name="email" id="email" value="<%= locals.old && old.email %>">
           <small class="feedback text-danger"></small>
@@ -36,7 +47,7 @@
             <small class="text-danger"><%= errors.email.msg %></small>
           <% } %>
         </div>
-        <div class="col-12">
+        <div class="col-12 mb-3">
           <label for="password" class="form-label">Contraseña*</label>
           <input type="password" class="form-control" name="password" id="password">
           <small class="feedback text-danger"></small>
@@ -67,14 +78,9 @@
           </div>
         </div>
         <div class="col-12 mb-3 register__buttonContainer">
-          <button class="button__dark" type="submit">Registrarme</button>
+          <button class="button__dark w-100" type="submit">Registrarme</button>
         </div>
-        <div class="googleSigninButton" id="gSignInWrapper">
-          <div id="customBtn" class="customGPlusSignIn">
-            <span class="icon"></span>
-            <span class="buttonText"><a href="/usuario/auth/google">Registrate con Google</a></span>
-          </div>
-        </div>
+       
       </form>
       <p class="text-center mt-4">
         <a href="/usuario/login">Ya tengo cuenta</a>
