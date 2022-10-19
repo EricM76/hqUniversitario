@@ -53,7 +53,7 @@ module.exports = {
 
         let suscribed = await db.UserCourse.findOne({
             where: {
-                userId: req.session.user?.id || 0,
+                userId: req.session.user && req.session.user.id || 0,
                 courseId: req.params.id,
                 active: true
             }
