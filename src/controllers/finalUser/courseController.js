@@ -248,7 +248,8 @@ module.exports = {
                     course,
                     relatedCourses,
                     session: req.session,
-                    suscribed: false
+                    suscribed: false,
+                    urlCloudfont : process.env.CLOUDFONT_URL
                 });
             } catch (error) {
                 console.log(error)
