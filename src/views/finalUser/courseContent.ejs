@@ -237,31 +237,30 @@
       </section>
       <!-- FIN BANNER -->
       <div class="row px-3">
-        <div class="col-12 col-lg-8">
+        <div class="col-12 col-lg-4">
            <!-- SECCIÓN RESUMEN DE CONTENIDO -->
       <section class="coursePresentation__summary-content container py-5 ">
-        <h2>Resumen del contenido</h2>
         <div class="container">
           <div class="row">
-            <div class="col-12 col-md-2 p-2">
+            <div class="col-12 col-md-4 p-2">
               <div class="shadow-sm p-2">
                 <h4 class="text-center">Apuntes</h4>
-                <p class="coursePresentation__summary-content-number text-center"><%= course.tests.length %></p>
+                <p class="coursePresentation__summary-content-number text-center"><%= course.notes.length %></p>
               </div>
             </div>
-            <div class="col-12 col-md-2 p-2">
+            <div class="col-12 col-md-4 p-2">
               <div class="shadow-sm p-2">
                 <h4 class="text-center">Videos</h4>
                 <p class="coursePresentation__summary-content-number text-center"><%= course.videos.length %> </p>
               </div>
             </div>
-            <div class="col-12 col-md-2 p-2">
+            <div class="col-12 col-md-4 p-2">
               <div class="shadow-sm p-2">
                 <h4 class="text-center">Exámenes</h4>
                 <p class="coursePresentation__summary-content-number text-center"><%= course.tests.length %></p>
               </div>
             </div>
-            <div class="col-12 col-md-6">
+            <div class="col-12">
               <div class="coursePresentation__summary-content--buttonContainer p-4 text-center">
                 <% if (!session.user) { %>
                   <a  href="/usuario/registro"  class="button__dark--extended" >
@@ -280,7 +279,7 @@
       <!-- FIN RESUMEN DE CONTENIDO -->
           
         </div>
-        <div class="col-12 col-lg-4">
+        <div class="col-12 col-lg-8">
   <!-- SECCIÓN LISTADOVIDEOS -->
   <section class="container mt-3 mt-lg-5 mb-5">
     <% if (course.videos.length> 0) { %>
