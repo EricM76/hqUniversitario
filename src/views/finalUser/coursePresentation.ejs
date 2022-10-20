@@ -17,10 +17,16 @@
           </div>
          
           <div class="coursePresentation__banner--buttonContainer" >
-            <a href="/usuarios/registro">
-              <div class="button__dark">
-                  <span>Registrate</span>
-              </div>
+            <a href="/usuario/registro">
+              <% if (!session.user) { %>
+                <a  href="" class="button__dark--extended" >
+                  REGISTRATE
+              </a>
+              <% }else{ %>
+                <a  href="" class="button__dark--extended" >
+                  SUSCRIBITE
+              </a>
+                <% }%>
             </a>
           </div>
         </div>

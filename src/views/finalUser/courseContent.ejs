@@ -218,11 +218,15 @@
               <h3><%= course.university.acronym %> | <%= course.faculty.acronym %></h3>
             </div>
             <div class="coursePresentation__banner--buttonContainer" >
-              <a href="/usuarios/registro">
-                <div class="button__dark">
-                    <span>Registrate</span>
-                </div>
+              <% if (!session.user) { %>
+                <a  href="/usuario/registro"  class="button__dark--extended" >
+                  REGISTRATE
               </a>
+              <% }else{ %>
+                <a  href="" class="button__dark--extended" >
+                  SUSCRIBITE
+              </a>
+                <% }%>
             </div>
           </div>
           <div class="coursePresentation__banner--video col-12 col-md-6 p-3">
@@ -260,7 +264,7 @@
             <div class="col-12 col-md-6">
               <div class="coursePresentation__summary-content--buttonContainer p-4 text-center">
                 <% if (!session.user) { %>
-                  <a  href="" class="button__dark--extended" >
+                  <a  href="/usuario/registro"  class="button__dark--extended" >
                     REGISTRATE Y OBTENÉ TU MEMBRESÍA
                 </a>
                 <% }else{ %>
@@ -268,7 +272,6 @@
                     SUSCRIBITE A ESTA MATERIA
                 </a>
                   <% }%>
-               
               </div>
             </div>
             </div>
