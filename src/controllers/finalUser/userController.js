@@ -52,7 +52,7 @@ module.exports = {
           }
 
           res.locals.user = req.session.user;
-          return res.redirect(req.session.user.rol == 1 ? "/admin" : "/");
+          return res.redirect(req.session.user.rol == 1 ? "/admin" : req.cookies.backurl ? req.cookies.backurl : '/');
         })
         .catch((error) => console.error(error));
     } else {
