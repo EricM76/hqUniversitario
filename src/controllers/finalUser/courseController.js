@@ -36,7 +36,8 @@ module.exports = {
                 db.Course.findAll({
                     where: {
                         facultyId: course.facultyId,
-                    }
+                    },
+                    include : ['university', 'faculty']
                 })
                     .then((relatedCourses) => {
                         res.render("finalUser/coursePresentation", {
@@ -242,7 +243,8 @@ module.exports = {
                 let relatedCourses = await db.Course.findAll({
                     where: {
                         facultyId: course.facultyId,
-                    }
+                    },
+                    include : ['university', 'faculty']
                 })
                 return res.render("finalUser/courseContent", {
                     course,

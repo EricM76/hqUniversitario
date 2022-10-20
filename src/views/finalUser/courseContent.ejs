@@ -300,12 +300,13 @@
 
                           <li class="list-group-item d-flex flex-column justify-content-start flex-md-row justify-content-md-between ">
                               <div class="fw-bold">
-                                <a class="text-dark" href=""><i class="fa fa-video-camera" aria-hidden="true"></i> <%=video.title%></a>
+                                <div class="d-flex">
+                                <p class="text-dark"><i class="fa fa-video-camera" aria-hidden="true"></i> <%=video.title%></p>
                                
-                              </div>
-                              <div class="d-flex gap-3">
+                             
+                              
                                 <% if (!video.locked) { %>
-                                  <p type="button" class="border-0 bg-transparent p-0 text-primary m-0" data-bs-toggle="modal" data-bs-target="#modalShowVideo<%=video.id%>">
+                                  <p type="button" class="ms-3 border-0 bg-transparent p-0 text-primary m-0" data-bs-toggle="modal" data-bs-target="#modalShowVideo<%=video.id%>">
                                     ver video
                                 </p>
                                 <%- include('./partials/modal/showVideo',{
@@ -313,6 +314,10 @@
                                     urlCloudfont
                                 })%>
                                  <% } %>
+                                </div>
+
+                                </div>
+                                 <div class="d-flex gap-3">
                                  <p class="text-muted"><i class="fas fa-clock"></i> <%=video.length%> min</p>   
                               </div>
                                                        

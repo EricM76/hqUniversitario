@@ -20,6 +20,7 @@ module.exports = {
             },
             order: [["id", "DESC"]],
             limit: 10,
+            include : ['university','faculty']
         });
         Promise.all([getUniversities, getLastestCourses])
         .then(([universities, lastestCourses]) => {
