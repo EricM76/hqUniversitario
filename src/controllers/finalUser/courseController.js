@@ -284,7 +284,8 @@ module.exports = {
 
             return res.render('finalUser/result', {
                 courses,
-                session : req.session
+                session : req.session,
+                keyword : req.query.keyword
             })
             
         } catch (error) {
