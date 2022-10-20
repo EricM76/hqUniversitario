@@ -398,7 +398,8 @@
                                                                                     <i class="fas fa-play"></i>
                                                                                 </button>
                                                                                 <%- include('./modals/showVideo',{
-                                                                                    video
+                                                                                    video,
+                                                                                    urlCloudfont
                                                                                 })%>
                                                                                 <label class="btn <%=video.locked ? 'btn-sm btn-dark' : 'btn-sm btn-warning'%>" for="changeLocked<%= video.id %>" id="changeLocked-label<%= video.id %>">
                                                                                     <% if(video.locked) {%>
