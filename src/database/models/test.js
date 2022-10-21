@@ -15,7 +15,14 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey : 'testId',
         as : 'questions',
         onDelete : 'cascade'
-      })
+      });
+
+      Test.belongsToMany(models.User,{
+        as : 'users',
+        through : 'UserTests',
+        foreignKey : 'testId',
+        otherKey : 'userId'
+      });
     }
   };
   Test.init({

@@ -10,7 +10,6 @@ const contactFormValidator = require('../validations/contactFormValidator');
 router
   .get('/', home)
   .post('/contact', contactFormValidator, contact)
-  .get('/admin', admin)
   .get('/admin', userSessionCheck, adminCheck, admin)
 
 module.exports = router;

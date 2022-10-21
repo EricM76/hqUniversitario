@@ -2,10 +2,10 @@
 
 const rols = [
   {
-    name: "USER",
+    name: "ADMIN",
   },
   {
-    name: "ADMIN",
+    name: "USER",
   },
 ]
 

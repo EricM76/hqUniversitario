@@ -39,6 +39,13 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey : 'userId',
         otherKey : 'videoId'
       });
+
+      User.belongsToMany(models.Test,{
+        as : 'tests',
+        through : 'UserTests',
+        foreignKey : 'userId',
+        otherKey : 'testId'
+      });
     }
   };
   User.init({

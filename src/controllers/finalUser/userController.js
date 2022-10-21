@@ -15,11 +15,14 @@ module.exports = {
   login: (req, res) => {
     const baseUrl =`${req.protocol}://${req.headers.host}`;
     const TIME_IN_MILISECONDS = 60000;
-    res.cookie('backurl',req.headers.referer.split(baseUrl)[1],{
-      expires: new Date(Date.now() + TIME_IN_MILISECONDS),
-      httpOnly: true,
-      secure: true,
-    })
+    if(req.headers.referer){
+      res.cookie('backurl',req.headers.referer.split(baseUrl)[1],{
+        expires: new Date(Date.now() + TIME_IN_MILISECONDS),
+        httpOnly: true,
+        secure: true,
+      })
+    }
+   
 
     return res.render("finalUser/userLogin", {
       session: req.session,
@@ -53,7 +56,8 @@ module.exports = {
           }
 
           res.locals.user = req.session.user;
-          return res.redirect("/");
+         
+            return res.redirect(req.session.user.rol == 1? '/admin' : req.cookies.backurl ? req.cookies.backurl : '/');
         })
         .catch((error) => console.error(error));
     } else {
@@ -130,13 +134,13 @@ module.exports = {
           return res.redirect("/usuario/login");
         }
       } catch (error) {
-        res.send(error);
+        console.log(error);
       }
     } else {
       return res.render("finalUser/userRegister", {
         errors: errors.mapped(),
         old: req.body,
-        session: req.session
+        session : req.session
       });
     }
   },

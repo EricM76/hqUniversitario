@@ -17,33 +17,33 @@
             <ul class="list-group list-group-flush">
               <% course.faculty.categories.forEach(category => { %>
                 <% if (category.id == 1) { %>
-                  <li class="list-group-item"><strong>Teoría:</strong> <%= theoreticalCount%> <%= theoreticalCount> 1 ?'clases en video' : 'clase en video' %> - <span class="text-muted"><%= theoreticalHours %> <%= theoreticalHours > 1 ?'minutos' : 'minuto' %> de clases teóricas.</span></li>
+                  <li class="list-group-item"><strong><i class="fa-solid fa-book"></i> Teoría:</strong> <%= theoreticalCount%> <%= theoreticalCount> 1 ?'clases en video' : 'clase en video' %> - <span class="text-muted"><%= theoreticalHours %> <%= theoreticalHours > 1 ?'minutos' : 'minuto' %> de clases teóricas.</span></li>
                 <% } %>
                 <% if (category.id == 2) { %>
-                  <li class="list-group-item"><strong>Práctica:</strong> <%= videoPracticalWork%> <%= videoPracticalWork> 1 ?'clases en video' : 'clase en video' %> - <span class="text-muted"><%= videoPracticalWorkHours %> <%= videoPracticalWorkHours > 1 ?'minutos' : 'minuto' %> realizando trabajos prácticos.</span></li>              
+                  <li class="list-group-item"><strong><i class="fa-solid fa-file-pen"></i> Práctica:</strong> <%= videoPracticalWork%> <%= videoPracticalWork> 1 ?'clases en video' : 'clase en video' %> - <span class="text-muted"><%= videoPracticalWorkHours %> <%= videoPracticalWorkHours > 1 ?'minutos' : 'minuto' %> realizando trabajos prácticos.</span></li>              
                 <% } %>
                 <% if (category.id == 3) { %>
                   <li class="list-group-item">
-                    <strong>Exámenes:</strong> <%= integrativeVideoExams%> <%= integrativeVideoExams> 1 ?'videos' : 'video' %> - <span class="text-muted"><%= videoPracticalWorkHours %> <%= integrativeVideoExamsHours > 1 ?'minutos' : 'minuto' %> resolviendo exámenes.</span>
+                    <strong><i class="fa-solid fa-building-columns"></i> Exámenes:</strong> <%= integrativeVideoExams%> <%= integrativeVideoExams> 1 ?'videos' : 'video' %> - <span class="text-muted"><%= videoPracticalWorkHours %> <%= integrativeVideoExamsHours > 1 ?'minutos' : 'minuto' %> resolviendo exámenes.</span>
                    </li>              
                 <% } %>
                 <% if (category.id == 4) { %>
                   <li class="list-group-item">
-                  <strong>Clases de nivelación:</strong> <%= levelingCycleVideos%> <%= levelingCycleVideos> 1 ?'videos' : 'video' %> - <span class="text-muted"><%= levelingCycleVideosHours %> <%= levelingCycleVideosHours > 1 ?'minutos' : 'minuto' %> de duración en total.</span>
+                  <strong><i class="fa-solid fa-screen-users"></i> Clases de nivelación:</strong> <%= levelingCycleVideos%> <%= levelingCycleVideos> 1 ?'videos' : 'video' %> - <span class="text-muted"><%= levelingCycleVideosHours %> <%= levelingCycleVideosHours > 1 ?'minutos' : 'minuto' %> de duración en total.</span>
                   </li>              
                 <% } %>
                 <% if (category.id == 5) { %>
                   <li class="list-group-item">
-                    <strong>Ejercicios:</strong> <%= integrativeExerciseVideos%> <%= integrativeExerciseVideos> 1 ?'videos' : 'video' %> - <span class="text-muted"><%= integrativeExerciseVideosHours %> <%= integrativeExerciseVideosHours > 1 ?'minutos' : 'minuto' %> realizando ejercicios integradores.</span>
+                    <strong><i class="fa-solid fa-file-pen"></i> Ejercicios:</strong> <%= integrativeExerciseVideos%> <%= integrativeExerciseVideos> 1 ?'videos' : 'video' %> - <span class="text-muted"><%= integrativeExerciseVideosHours %> <%= integrativeExerciseVideosHours > 1 ?'minutos' : 'minuto' %> realizando ejercicios integradores.</span>
                     </li>                
                 <% } %>
                 <% if (category.id == 6) { %>
                   <li class="list-group-item">
-                    <strong>Exámenes:</strong> <%= previusExamVideos%> <%= previusExamVideos> 1 ?'videos' : 'video' %> - <span class="text-muted"><%= previusExamVideosHours %> <%= previusExamVideosHours > 1 ?'minutos' : 'minuto' %> resolviendo exámenes anteriores.</span>
+                    <strong><i class="fa-solid fa-building-columns"></i> Exámenes:</strong> <%= previusExamVideos%> <%= previusExamVideos> 1 ?'videos' : 'video' %> - <span class="text-muted"><%= previusExamVideosHours %> <%= previusExamVideosHours > 1 ?'minutos' : 'minuto' %> resolviendo exámenes anteriores.</span>
                     </li>              
                 <% } %>
               <% }) %>
-              <li class="list-group-item"><strong>Material adjunto: </strong>
+              <li class="list-group-item"><strong><i class="fa-solid fa-file"></i> Material adjunto: </strong>
                 <% if (course.notes.length) { %>
                   <%= course.notes.length %>  <%= course.notes.length > 1 ? 'apuntes' : 'apunte' %> para repasar lo aprendido.
                   <% }else{ %>
@@ -51,7 +51,7 @@
                   <% } %>
 
               </li>
-              <li class="list-group-item"><strong>Para practicar: </strong>
+              <li class="list-group-item"><strong><i class="fa-solid fa-user-clock"></i> Para practicar: </strong>
                 <% if (course.tests.length) { %>
                   <%= course.tests.length %>  <%= course.tests.length > 1 ? 'simulacros' : 'simulacro' %> de exámen
                 <% }else{ %>
@@ -65,7 +65,7 @@
             <div class="col-12 col-md-6 p-3 d-flex  flex-column">
               <h2>Progreso</h2>       
               <div class="progress">
-                <div class="progress-bar progress-bar-striped bg-dark" role="progressbar" id="showProgress" style="width: <%= Math.floor(videosViewed.length * 100 / course.videos.length) %>%"><%= Math.floor(videosViewed.length* 100 / course.videos.length) %> %</div>
+                <div class="progress-bar progress-bar-striped bg-dark" role="progressbar" id="showProgress" style="width: <%= videosViewed.length ? Math.floor(videosViewed.length * 100 / course.videos.length) : 0 %>%"><%= videosViewed.length ? Math.floor(videosViewed.length * 100 / course.videos.length) : 0 %> %</div>
               </div> 
           </div>       
         </div>
@@ -167,16 +167,33 @@
                 <!-- Download card -->
                 <div class="col-12 col-md-4 p-2 mb-2">
                   <div class="card shadow">
+                    <div class="card-header">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="card-title"><i class="fas fa-user-clock"></i> <%= test.name %></h5>
+                      </div>
+                    </div>
                     <div class="card-body">
-                          <li class="list-group-item d-flex justify-content-between align-items-start">
-                            <div class="ms-2 me-auto">
-                              <div class="fw-bold">
-                                <p class="text-dark me-2"><%= test.name %></p>
-                              </div>
-                              <p class="text-muted d-flex justify-content-around"><span><i class="fas fa-question-circle"></i> <%=test.questions.length%> preguntas</span> <span><i class="fas fa-clock"></i> <%=test.time%> min</span></p>
-                            </div>
-                            <a class="fs-5" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>                              
-                          </li>
+                     
+                           
+                              <ul class="list-group list-group-flush text-bg-dark">
+                                <li class="list-group-item d-flex justify-content-between">
+                                  <span><i class="fas fa-question-circle"></i> Preguntas:</span>
+                                  <span><%=test.questions.length%></span> 
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                  <span><i class="fas fa-clock"></i> Tiempo:</span><span><%=test.time%> min</span>
+                                </li>
+                              
+                            </ul>
+                           
+                            <%- include('./partials/modal/modalTest',{
+                              test
+                            }) %> 
+                    </div>
+                    <div class="card-footer text-end">
+                      <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#viewTest<%= test.id %>">
+                        Iniciar simulacro                            
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -201,11 +218,15 @@
               <h3><%= course.university.acronym %> | <%= course.faculty.acronym %></h3>
             </div>
             <div class="coursePresentation__banner--buttonContainer" >
-              <a href="/usuarios/registro">
-                <div class="button__dark">
-                    <span>Registrate</span>
-                </div>
+              <% if (!session.user) { %>
+                <a  href="/usuario/registro"  class="button__dark--extended" >
+                  REGISTRATE
               </a>
+              <% }else{ %>
+                <a  href="" class="button__dark--extended" >
+                  SUSCRIBITE
+              </a>
+                <% }%>
             </div>
           </div>
           <div class="coursePresentation__banner--video col-12 col-md-6 p-3">
@@ -216,34 +237,33 @@
       </section>
       <!-- FIN BANNER -->
       <div class="row px-3">
-        <div class="col-12 col-lg-8">
+        <div class="col-12 col-lg-4">
            <!-- SECCIÓN RESUMEN DE CONTENIDO -->
       <section class="coursePresentation__summary-content container py-5 ">
-        <h2>Resumen del contenido</h2>
         <div class="container">
           <div class="row">
-            <div class="col-12 col-md-2 p-2">
+            <div class="col-12 col-md-4 p-2">
               <div class="shadow-sm p-2">
                 <h4 class="text-center">Apuntes</h4>
-                <p class="coursePresentation__summary-content-number text-center"><%= course.tests.length %></p>
+                <p class="coursePresentation__summary-content-number text-center"><%= course.notes.length %></p>
               </div>
             </div>
-            <div class="col-12 col-md-2 p-2">
+            <div class="col-12 col-md-4 p-2">
               <div class="shadow-sm p-2">
                 <h4 class="text-center">Videos</h4>
                 <p class="coursePresentation__summary-content-number text-center"><%= course.videos.length %> </p>
               </div>
             </div>
-            <div class="col-12 col-md-2 p-2">
+            <div class="col-12 col-md-4 p-2">
               <div class="shadow-sm p-2">
                 <h4 class="text-center">Exámenes</h4>
                 <p class="coursePresentation__summary-content-number text-center"><%= course.tests.length %></p>
               </div>
             </div>
-            <div class="col-12 col-md-6">
+            <div class="col-12">
               <div class="coursePresentation__summary-content--buttonContainer p-4 text-center">
                 <% if (!session.user) { %>
-                  <a  href="" class="button__dark--extended" >
+                  <a  href="/usuario/registro"  class="button__dark--extended" >
                     REGISTRATE Y OBTENÉ TU MEMBRESÍA
                 </a>
                 <% }else{ %>
@@ -251,7 +271,6 @@
                     SUSCRIBITE A ESTA MATERIA
                 </a>
                   <% }%>
-               
               </div>
             </div>
             </div>
@@ -260,7 +279,7 @@
       <!-- FIN RESUMEN DE CONTENIDO -->
           
         </div>
-        <div class="col-12 col-lg-4">
+        <div class="col-12 col-lg-8">
   <!-- SECCIÓN LISTADOVIDEOS -->
   <section class="container mt-3 mt-lg-5 mb-5">
     <% if (course.videos.length> 0) { %>
@@ -281,18 +300,24 @@
 
                           <li class="list-group-item d-flex flex-column justify-content-start flex-md-row justify-content-md-between ">
                               <div class="fw-bold">
-                                <a class="text-dark" href=""><i class="fa fa-video-camera" aria-hidden="true"></i> <%=video.title%></a>
+                                <div class="d-flex">
+                                <p class="text-dark"><i class="fa fa-video-camera" aria-hidden="true"></i> <%=video.title%></p>
                                
-                              </div>
-                              <div class="d-flex gap-3">
+                             
+                              
                                 <% if (!video.locked) { %>
-                                  <p type="button" class="border-0 bg-transparent p-0 text-primary m-0" data-bs-toggle="modal" data-bs-target="#modalShowVideo<%=video.id%>">
+                                  <p type="button" class="ms-3 border-0 bg-transparent p-0 text-primary m-0" data-bs-toggle="modal" data-bs-target="#modalShowVideo<%=video.id%>">
                                     ver video
                                 </p>
                                 <%- include('./partials/modal/showVideo',{
-                                    video
+                                    video,
+                                    urlCloudfont
                                 })%>
                                  <% } %>
+                                </div>
+
+                                </div>
+                                 <div class="d-flex gap-3">
                                  <p class="text-muted"><i class="fas fa-clock"></i> <%=video.length%> min</p>   
                               </div>
                                                        

@@ -1,6 +1,7 @@
 const { format } = require("date-fns");
 const db = require("../../database/models");
 const {Op} = require('sequelize');
+const {shuffle} = require('../../helpers')
 
 module.exports = {
     presentation: (req, res) => {
@@ -35,7 +36,8 @@ module.exports = {
                 db.Course.findAll({
                     where: {
                         facultyId: course.facultyId,
-                    }
+                    },
+                    include : ['university', 'faculty']
                 })
                     .then((relatedCourses) => {
                         res.render("finalUser/coursePresentation", {
@@ -52,7 +54,7 @@ module.exports = {
 
         let suscribed = await db.UserCourse.findOne({
             where: {
-                userId: req.session.user?.id || 0,
+                userId: req.session.user && req.session.user.id || 0,
                 courseId: req.params.id,
                 active: true
             }
@@ -74,7 +76,12 @@ module.exports = {
                     },
                     {
                         association: 'tests',
-                        include: ['questions']
+                        include: [
+                            {
+                                association : 'questions',
+                                include: ['answers']
+                            }
+                        ]
                     },
                     {
                         association: 'notes',
@@ -200,7 +207,8 @@ module.exports = {
                         integrativeExerciseVideosHours, 
                         previusExamVideosHours,
                         suscribed: true,
-                        videosViewed
+                        videosViewed,
+                        shuffle
                     });
                 })
                 .catch(error => console.log(error))
@@ -235,13 +243,15 @@ module.exports = {
                 let relatedCourses = await db.Course.findAll({
                     where: {
                         facultyId: course.facultyId,
-                    }
+                    },
+                    include : ['university', 'faculty']
                 })
                 return res.render("finalUser/courseContent", {
                     course,
                     relatedCourses,
                     session: req.session,
-                    suscribed: false
+                    suscribed: false,
+                    urlCloudfont : process.env.CLOUDFONT_URL
                 });
             } catch (error) {
                 console.log(error)
@@ -277,7 +287,8 @@ module.exports = {
 
             return res.render('finalUser/result', {
                 courses,
-                session : req.session
+                session : req.session,
+                keyword : req.query.keyword
             })
             
         } catch (error) {

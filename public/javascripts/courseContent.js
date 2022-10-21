@@ -64,3 +64,23 @@ const seedByUser = async ({target},userId,videoId,courseId) => {
     console.error
   }
 }
+
+window.addEventListener('load', async () => {
+
+  const query = new URLSearchParams(location.search);
+
+  if(query.has('result')){
+    try {
+      let response = await fetch(`/examen/result/${query.get('test')}`,{
+        method : 'POST'
+      });
+      let result = await response.json();
+      console.log(result)
+      
+    } catch (error) {
+      console.error
+    }
+  }
+
+
+})

@@ -285,6 +285,7 @@ module.exports = {
                 next: req.query.next ? req.query.next : 'info',
                 turns,
                 countVideos,
+                urlCloudfont : process.env.CLOUDFONT_URL
             })
         } catch (error) {
             console.log(error)

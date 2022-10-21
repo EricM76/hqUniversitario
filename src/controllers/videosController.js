@@ -286,7 +286,7 @@ module.exports = {
 
         return res.status(200).json({
           ok : true,
-          url : 'https://d1ttls5s7uue53.cloudfront.net/' + resource
+          url : process.env.CLOUDFONT_URL + resource
       })
       } catch (error) {
         console.log(error);
