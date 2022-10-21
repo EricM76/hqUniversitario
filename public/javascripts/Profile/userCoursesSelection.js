@@ -4,28 +4,44 @@ const careerSelect = document.querySelector("#career");
 const coursesContainer = document.querySelector("#coursesContainer");
 const selectedCoursesContainer = document.querySelector("#selectedCoursesContainer");
 const btnClear = document.querySelector("#btn-clear");
-
-let careerCourses;
-
+const userMembershipQuota = document.querySelector("#userMembershipQuota");
 const addCourse = (courseId) => {
     const selectedCourse = careerCourses.find(course => Number(course.id) === Number(courseId))
-    let coursesInStorage = localStorage.getItem("selectedCourses") ? localStorage.getItem("selectedCourses") : [];
-    if(coursesInStorage) {
-        coursesInStorage = JSON.parse(coursesInStorage);
+    let coursesInStorage = localStorage.getItem("selectedCourses") ? JSON.parse(localStorage.getItem("selectedCourses")) : [];
+    console.log(coursesInStorage.length)
+    console.log(Number(userMembershipQuota.innerText))
+    console.log(coursesInStorage.length > 0 && coursesInStorage.length <= Number(userMembershipQuota.innerText))
+    if(coursesInStorage.length > 0 && coursesInStorage.length <= Number(userMembershipQuota.innerText)) {
         coursesInStorage.push(selectedCourse);
+        selectedCoursesContainer.innerHTML = ""
         coursesInStorage.forEach((course) => {
             selectedCoursesContainer.innerHTML += selectedCourseItemGenerator(course)
         })
         coursesInStorage = JSON.stringify(coursesInStorage);
         localStorage.removeItem("selectedCourses");
         localStorage.setItem("selectedCourses", coursesInStorage);
-    } else {
+    } else if (coursesInStorage.length == 0){
         localStorage.setItem("selectedCourses", JSON.stringify([selectedCourse]));
+        coursesInStorage = JSON.parse(localStorage.getItem("selectedCourses"))
+        selectedCoursesContainer.innerHTML = ""
         coursesInStorage.forEach((course) => {
             selectedCoursesContainer.innerHTML += selectedCourseItemGenerator(course)
         })
-    }
+    } else {
+        alert("Alcanzaste el cupo máximo de materias de tu membresía")
+    } 
 }
+
+const removeSelectedCourse = (courseId) => {
+    const coursesInStorage = JSON.parse(localStorage.getItem("selectedCourses"));
+    const listWithoutRemovedCourse = coursesInStorage.filter(course => course.id !== Number(courseId))
+    localStorage.setItem("selectedCourses", JSON.stringify(listWithoutRemovedCourse));
+
+    selectedCoursesContainer.innerHTML = ""
+    listWithoutRemovedCourse.forEach((course) => {
+        selectedCoursesContainer.innerHTML += selectedCourseItemGenerator(course)
+    })
+} 
 
 const courseItemGenerator = (course) => {
     return `<div class="col-12 col-lg-6 p-2">
@@ -35,11 +51,12 @@ const courseItemGenerator = (course) => {
         </div>
     </div>`
 }
+
 const selectedCourseItemGenerator = (course) => {
     return `<div class="col-12 col-lg-6 p-2">
         <div class="d-flex justify-content-between align-items-center border rounded p-1">
             <span>${course.name}</span>
-            <button id="${course.id}" class="btn btn-outline-danger">Quitar</button>
+            <button id="${course.id}" onclick="removeSelectedCourse(${String(course.id)})" class="btn btn-outline-danger">Quitar</button>
         </div>
     </div>`
 }
@@ -53,8 +70,20 @@ const doFetch = async (url) => {
         throw new Error(error)
     }
 }
+/* 
+const getUserMembershipQuota = async () => {
+    
+} */
 
 window.addEventListener("load", async() => {
+    let coursesInStorage = localStorage.getItem("selectedCourses");
+    if(coursesInStorage !== null) {
+        coursesInStorage = JSON.parse(coursesInStorage);
+        selectedCoursesContainer.innerHTML = ""
+        coursesInStorage.forEach((course) => {
+            selectedCoursesContainer.innerHTML += selectedCourseItemGenerator(course)
+        })
+    }
     try {
         const universities = await doFetch("http://localhost:3000/api/university");
         universitySelect.innerHTML = "<option value=''>Elige universidad</option>";

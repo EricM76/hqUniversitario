@@ -41,6 +41,7 @@ module.exports = {
             email: user.email,
             rol: user.rolId,
             membershipId: user.membershipId,
+            userMembershipExpiresDate: user.expires
           };
           if (req.body.sessionCheck) {
             const TIME_IN_MILISECONDS = 60000;
