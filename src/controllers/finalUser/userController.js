@@ -218,4 +218,64 @@ module.exports = {
       session: req.session,
     });
   },
+  addCourse: async (req, res) => {
+    let errors = validationResult(req);
+
+    if(errors.isEmpty()) {
+      try {
+        //Obtener usuario
+        const user = await db.User.findByPk(req.session.user.id);
+        //Obtener membresia de usuario
+        const userMembership = await db.Membership.findByPk(user.membershipId);
+        //Obtener cupo de materias
+        const membershipQuota = userMembership.quota;
+        //Obtener materias activas del usuario
+        const userCourses = await db.UserCourse.findAll({where: {userId: user.id}});
+        const activeUserCourses = userCourses.filter(course => course.active);
+        //Si no tiene membresia devuelve error
+        if ( !user.status ) return res.status(400).json({message: "No tiene una membresia activa"});
+        //Si no tiene cupo devuelve error
+        if ( activeUserCourses.length >= membershipQuota ) return res.status(400).json({message: "No tiene cupos disponibles"});
+
+        const selectedCourses = req.body.selectedCourses;
+
+        if (selectedCourses.length === 0) return res.status(400).json({message: "No tiene cupos disponibles"});
+        
+        if (selectedCourses.length > 1) {
+          let coursesToAdd = selectedCourses.map(course => {
+            return {
+              userId: user.id,
+              courseId: course.id,
+              active: true,
+            }
+          })
+          try {
+            const courses = await db.UserCourse.bulkCreate(coursesToAdd);
+            
+            return res.status(201).json({message: "Cursos agregados correctamente", data: courses});
+          } catch (error) {
+            return res.status(500).json(error);
+          }
+        }else{
+          try {
+            const courseToAdd = {
+              userId: user.id,
+              courseId: selectedCourses[0].id,
+              active: true,
+            }
+            const course = await db.UserCourse.create(courseToAdd);
+
+            return res.status(201).json({message: "Curso agregado correctamente", data: course});
+          } catch (error) {
+            return res.status(500).json(error);
+          }
+        }
+
+      } catch (error) {
+        console.log(error)
+      }
+    }else{
+      res.json(errors.mapped())
+    }
+  } 
 };

@@ -112,6 +112,7 @@ module.exports = {
             const winnerUser = await db.User.update({
                 membershipId: membershipObtained.id,
                 entry: new Date(),
+                status: true,
                 expires: add(new Date(), {days: 30}),
                 freeMembership: true,
             }, {

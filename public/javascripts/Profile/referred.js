@@ -12,7 +12,9 @@ const validateReferredUser = async (email) => {
 const RegExEmail = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
 const inputNameReferred = document.querySelector("#nameReferred");
 const inputEmailReferred = document.querySelector("#emailReferred");
-const referredForm = document.querySelector("#referredForm")
+const referredForm = document.querySelector("#referredForm");
+const referredSubmitButton = document.querySelector("#referredButton");
+referredSubmitButton.disabled = true;
 
 let referredError = false;
 
@@ -28,6 +30,7 @@ inputNameReferred.addEventListener("blur", async (e) => {
             inputNameReferred.classList.add("is-valid");
             nameReferredError.innerText = "";
             referredError = false;
+            referredSubmitButton
             break;
     }
 })
@@ -55,6 +58,7 @@ inputEmailReferred.addEventListener("blur", async (e) => {
             inputEmailReferred.classList.add("is-valid");
             emailReferredError.innerText = "";
             referredError = false;
+            referredSubmitButton.disabled = false;
             break;
     }
 })

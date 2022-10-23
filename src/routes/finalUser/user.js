@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const { login, processLogin, register, processRegister, profile, logout, googleLogin, referred, profileUpdate, courseSelection, subscriptionStatus } = require("../../controllers/finalUser/userController");
+const { login, processLogin, register, processRegister, profile, logout, googleLogin, profileUpdate, subscriptionStatus, addCourse } = require("../../controllers/finalUser/userController");
 const userInSessionCheck = require("../../middlewares/userInSessionCheck");
 const userSessionCheck = require("../../middlewares/userSessionCheck");
 const userLoginValidator = require("../../validations/userLoginValidator");
 const userRegisterValidator = require("../../validations/userRegisterValidator");
+const userCoursesValidator = require("../../validations/userCoursesValidator");
 const passport = require("passport");
 require("../../middlewares/passportConfig")(passport);
 passport.serializeUser(function(user, done) {
@@ -22,6 +23,7 @@ router
     .put("/perfil", profileUpdate)  
     .get("/logout", logout)
     .get("/suscripcion/estado", userInSessionCheck, subscriptionStatus)
+    .post("/materia/agregar", userCoursesValidator, addCourse)
 
 /* Google auth */
 router.get('/auth/google',

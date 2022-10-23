@@ -258,13 +258,11 @@ module.exports = {
             }
 
         }
-
-
     },
     courseSelection: async (req, res) => {
         const user = await db.User.findByPk(req.session.user.id, { include: [{ association: "membership" }] });
         const userMembership = user.membership;
-        const userMembershipExpires = format(new Date(user.expires), "dd/MM/yyyy")
+        const userMembershipExpires = format(new Date(user.expires), "dd/MM/yyyy");
 
         res.render("finalUser/userCoursesSelection", {
             session: req.session,

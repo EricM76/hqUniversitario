@@ -145,7 +145,7 @@
                     <small class="text-danger"><%= errors.custom.msg %></small>
                   <% } %>
                   <small class="text-danger" id="submitReferredError"></small>
-                  <button class="button__dark" type="submit" <%= (activeReferredsQuantity === 3) ? "disabled" : "" %>>Agregar referido</button>
+                  <button class="button__dark" type="submit" id="referredButton" <%= (activeReferredsQuantity === 5) ? "disabled" : "" %>>Agregar referido</button>
                 </div>
               </form>
             </div>

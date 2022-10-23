@@ -4,14 +4,21 @@ const careerSelect = document.querySelector("#career");
 const coursesContainer = document.querySelector("#coursesContainer");
 const selectedCoursesContainer = document.querySelector("#selectedCoursesContainer");
 const btnClear = document.querySelector("#btn-clear");
-const userMembershipQuota = document.querySelector("#userMembershipQuota");
+const btnCoursesConfirm = document.querySelector("#btnCoursesConfirm");
+const userMembershipQuota = Number(document.querySelector("#userMembershipQuota").innerText);
+
 const addCourse = (courseId) => {
     const selectedCourse = careerCourses.find(course => Number(course.id) === Number(courseId))
     let coursesInStorage = localStorage.getItem("selectedCourses") ? JSON.parse(localStorage.getItem("selectedCourses")) : [];
-    console.log(coursesInStorage.length)
-    console.log(Number(userMembershipQuota.innerText))
-    console.log(coursesInStorage.length > 0 && coursesInStorage.length <= Number(userMembershipQuota.innerText))
-    if(coursesInStorage.length > 0 && coursesInStorage.length <= Number(userMembershipQuota.innerText)) {
+    
+    if (coursesInStorage.length == userMembershipQuota) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'No puedes elegir más materias',
+          })
+    } 
+    if(coursesInStorage.length > 0 && coursesInStorage.length < userMembershipQuota) {
         coursesInStorage.push(selectedCourse);
         selectedCoursesContainer.innerHTML = ""
         coursesInStorage.forEach((course) => {
@@ -20,15 +27,15 @@ const addCourse = (courseId) => {
         coursesInStorage = JSON.stringify(coursesInStorage);
         localStorage.removeItem("selectedCourses");
         localStorage.setItem("selectedCourses", coursesInStorage);
-    } else if (coursesInStorage.length == 0){
+    }
+
+    if (coursesInStorage.length == 0){
         localStorage.setItem("selectedCourses", JSON.stringify([selectedCourse]));
         coursesInStorage = JSON.parse(localStorage.getItem("selectedCourses"))
         selectedCoursesContainer.innerHTML = ""
         coursesInStorage.forEach((course) => {
             selectedCoursesContainer.innerHTML += selectedCourseItemGenerator(course)
         })
-    } else {
-        alert("Alcanzaste el cupo máximo de materias de tu membresía")
     } 
 }
 
@@ -53,12 +60,31 @@ const courseItemGenerator = (course) => {
 }
 
 const selectedCourseItemGenerator = (course) => {
-    return `<div class="col-12 col-lg-6 p-2">
+    return `<div class="col-12 p-2">
         <div class="d-flex justify-content-between align-items-center border rounded p-1">
             <span>${course.name}</span>
             <button id="${course.id}" onclick="removeSelectedCourse(${String(course.id)})" class="btn btn-outline-danger">Quitar</button>
         </div>
     </div>`
+}
+
+const confirmSelectedCourses = async (data) => {
+    try {
+        const response = await fetch("/usuario/materia/agregar", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+              },
+        });
+
+        const result = await response.json();
+        return result;
+        
+    } catch (error) {
+        return error;
+    }
+
 }
 
 const doFetch = async (url) => {
@@ -70,10 +96,7 @@ const doFetch = async (url) => {
         throw new Error(error)
     }
 }
-/* 
-const getUserMembershipQuota = async () => {
-    
-} */
+
 
 window.addEventListener("load", async() => {
     let coursesInStorage = localStorage.getItem("selectedCourses");
@@ -158,4 +181,43 @@ btnClear.addEventListener("click", async () => {
     careerSelect.disabled = false;
     careerSelect.innerHTML = "<option value=''>Elige facultad</option>";
     coursesContainer.innerHTML = "";
+})
+
+btnCoursesConfirm.addEventListener("click", async () => {
+    const selectedCourses = JSON.parse(localStorage.getItem("selectedCourses"));
+    const data = {
+        selectedCourses
+    }
+
+    Swal.fire({
+        title: 'Confirmar materias',
+        text: "Una vez confirmadas no podras cambiarlas hasta la próxima renovación",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Confirmar'
+      }).then( async (result) => {
+        if (result.isConfirmed) {
+            try {
+                const response = await confirmSelectedCourses(data);
+                console.log(response)
+                if(response.ok) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Felicitaciones',
+                        text: response.message,
+                      })
+                }
+            } catch (error) {
+                console.log(error)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops',
+                    text: error.message,
+                  })
+            }
+        }
+    })
+
 })
