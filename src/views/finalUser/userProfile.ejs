@@ -75,11 +75,11 @@
           <% if (user.membership) { %>
             <h4>Tu membresía activa es: <%= user.membership.name %></h4>
             <p>Vigente hasta: <%= userMembershipExpiresDate %></p>
-            <% if (user.courses.length > 0) { %>
-              <h5>Tus materias (<%= user.courses.length %> de <%= user.membership.quota %> disponibles según tu membresía): </h5>
+            <% if (userActiveCourses.length > 0) { %>
+              <h5 class="border-bottom">Tus materias</h5>
               <ol class="list-group list-group-numbered">
-                <% user.courses.forEach(course => { %>
-                  <li class="list-group-item"><%- course.name %> </li>
+                <% userActiveCourses.forEach(course => { %>
+                  <li class="list-group-item"><a href="/materia/contenido/<%- course.id %>"><%- course.name %></a></li>
                 <% }) %>
               </ol>
               <% if (user.courses.length < user.membership.quota) { %>
@@ -126,7 +126,7 @@
               <form action="/referidos" method="post" id="referredForm">
                 <div class="mb-3">
                   <label for="nameReferred" class="form-label">Nombre*</label>
-                  <input type="text" class="form-control" name="name" id="nameReferred" <%= (activeReferredsQuantity === 3) ? "disabled" : "" %> value="<%= locals.old && old.name %>">
+                  <input type="text" class="form-control" name="name" id="nameReferred" <%= (activeReferredsQuantity === 5) ? "disabled" : "" %> value="<%= locals.old && old.name %>">
                   <small class="text-danger" id="nameReferredError"></small>
                   <% if (locals.errors && errors.name) { %>
                     <small class="text-danger"><%= errors.name.msg %></small>
@@ -134,7 +134,7 @@
                 </div>
                 <div class="col-12 mb-3">
                   <label for="emailReferred" class="form-label">Email*</label>
-                  <input type="text" class="form-control" name="email" id="emailReferred" <%= (activeReferredsQuantity === 3) ? "disabled" : "" %> value="<%= locals.old && old.email %>">
+                  <input type="text" class="form-control" name="email" id="emailReferred" <%= (activeReferredsQuantity === 5) ? "disabled" : "" %> value="<%= locals.old && old.email %>">
                   <small class="text-danger" id="emailReferredError"></small>
                   <% if (locals.errors && errors.email) { %>
                     <small class="text-danger"><%= errors.email.msg %></small>

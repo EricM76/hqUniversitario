@@ -35,8 +35,11 @@ module.exports = {
         where: {
           email: req.body.email,
         },
+      include: ["rol", "membership", "referreds", "courses"],
       })
         .then((user) => {
+
+          let userActiveCourses = user.courses.filter(course => course.UserCourse.active)
           req.session.user = {
             id: user.id,
             name: user.name,
@@ -44,7 +47,8 @@ module.exports = {
             email: user.email,
             rol: user.rolId,
             membershipId: user.membershipId,
-            userMembershipExpiresDate: user.expires
+            userMembershipExpiresDate: user.expires,
+            userActiveCourses
           };
           if (req.body.sessionCheck) {
             const TIME_IN_MILISECONDS = 60000;
@@ -166,11 +170,14 @@ module.exports = {
         },
       },
     });
+    
     Promise.all([provincesPromise, userPromise, membershipsPromise])
-      .then(([{ data }, user, memberships]) => {
+      .then(([{ data }, user, memberships, userCourses]) => {
         const activeReferredsQuantity = user.referreds.filter(
           (referred) => referred.active
         ).length;
+        const userActiveCourses = user.courses.filter((course) => course.UserCourse.active)
+        
         return res.render("finalUser/userProfile", {
           user,
           userMembershipExpiresDate: format(new Date(user.expires), "dd-MM-yyyy"),
@@ -183,7 +190,8 @@ module.exports = {
           provincias: data.provincias,
           session: req.session,
           memberships,
-        activeReferredsQuantity,
+          activeReferredsQuantity,
+          userActiveCourses
         });
       })
       .catch((error) => console.log(error));

@@ -27,6 +27,7 @@ const addCourse = (courseId) => {
         coursesInStorage = JSON.stringify(coursesInStorage);
         localStorage.removeItem("selectedCourses");
         localStorage.setItem("selectedCourses", coursesInStorage);
+        btnCoursesConfirm.disabled = false;
     }
 
     if (coursesInStorage.length == 0){
@@ -36,6 +37,7 @@ const addCourse = (courseId) => {
         coursesInStorage.forEach((course) => {
             selectedCoursesContainer.innerHTML += selectedCourseItemGenerator(course)
         })
+        btnCoursesConfirm.disabled = false;
     } 
 }
 
@@ -99,14 +101,15 @@ const doFetch = async (url) => {
 
 
 window.addEventListener("load", async() => {
-    let coursesInStorage = localStorage.getItem("selectedCourses");
+    btnCoursesConfirm.disabled = true;
+    /* let coursesInStorage = localStorage.getItem("selectedCourses");
     if(coursesInStorage !== null) {
         coursesInStorage = JSON.parse(coursesInStorage);
         selectedCoursesContainer.innerHTML = ""
         coursesInStorage.forEach((course) => {
             selectedCoursesContainer.innerHTML += selectedCourseItemGenerator(course)
         })
-    }
+    } */
     try {
         const universities = await doFetch("http://localhost:3000/api/university");
         universitySelect.innerHTML = "<option value=''>Elige universidad</option>";
@@ -184,6 +187,13 @@ btnClear.addEventListener("click", async () => {
 })
 
 btnCoursesConfirm.addEventListener("click", async () => {
+    if (localStorage.getItem("selectedCourses") === null) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops',
+            text: "No elegiste materias",
+          })
+    }
     const selectedCourses = JSON.parse(localStorage.getItem("selectedCourses"));
     const data = {
         selectedCourses
@@ -202,19 +212,23 @@ btnCoursesConfirm.addEventListener("click", async () => {
             try {
                 const response = await confirmSelectedCourses(data);
                 console.log(response)
-                if(response.ok) {
+                if(response) {
+                    localStorage.clear()
                     Swal.fire({
                         icon: 'success',
                         title: 'Felicitaciones',
                         text: response.message,
                       })
+                      /* setTimeout(() => {
+                          window.location.href = "/usuario/perfil#membership"
+                      }, 2000) */
                 }
             } catch (error) {
                 console.log(error)
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops',
-                    text: error.message,
+                    text: error.msg,
                   })
             }
         }
