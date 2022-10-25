@@ -22,7 +22,7 @@ module.exports = {
                 include: ["membership"]
             });
 
-            const activesUserCourses = await getActivesUserCourses(userId);
+            const {data} = await getActivesUserCourses(userId);
 
             const response = {
                 membershipId: user.membershipId,
@@ -31,15 +31,15 @@ module.exports = {
                 membershipName: user.membership.name,
                 freeMembership: user.freeMembership,
                 membershipQuota: user.membership.quota,
-                activesUserCourses: activesUserCourses.total,
-                quotasAvailable: user.membership.quota - activesUserCourses.length,
+                activesUserCourses: data.total,
+                quotasAvailable: user.membership.quota - data.total,
             }
 
             return res.status(200).json({ 
                 response
             });
         } catch (error) {
-            res.json(error)
+            res.json({error})
         }
     },
 }
