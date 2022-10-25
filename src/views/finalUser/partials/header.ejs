@@ -52,9 +52,13 @@
                                 Mis materias
                             </btn>                      
                         <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
-                            <% session.user.userActiveCourses.forEach(course => { %>
-                                <li><a class="dropdown-item" href="/materia/contenido/<%- course.id %> "><%- course.name %> </a></li>
-                            <% }) %>
+                            <% if (session.user.userActiveCourse.lenght > 0) { %>
+                                <% session.user.userActiveCourses.forEach(course => { %>
+                                    <li><a class="dropdown-item" href="/materia/contenido/<%- course.id %>"><%- course.name %></a></li>
+                                <% }) %>
+                            <% } else {%>
+                                    <li><a class="dropdown-item" href="/usuario/perfil#membership">Obtener membresía</a></li>
+                            <% } %>
                         </ul>
                       </div>
                     <div class="btn-group">

@@ -1,4 +1,5 @@
 const db = require("../../database/models");
+const { getActivesUserCourses } = require("../../services/userCoursesService");
 
 module.exports = {
     getById: async (req, res) => {
@@ -14,9 +15,29 @@ module.exports = {
     getByUserId: async (req, res) => {
         const userId = req.params.userId;
         try {
-            const user = await db.User.findByPk(userId);
+            const user = await db.User.findOne({
+                where: {
+                    id: userId
+                },
+                include: ["membership"]
+            });
 
-            return res.status(200).json(user);
+            const activesUserCourses = await getActivesUserCourses(userId);
+
+            const response = {
+                membershipId: user.membershipId,
+                expires: user.expires,
+                status: user.status,
+                membershipName: user.membership.name,
+                freeMembership: user.freeMembership,
+                membershipQuota: user.membership.quota,
+                activesUserCourses: activesUserCourses.total,
+                quotasAvailable: user.membership.quota - activesUserCourses.length,
+            }
+
+            return res.status(200).json({ 
+                response
+            });
         } catch (error) {
             res.json(error)
         }

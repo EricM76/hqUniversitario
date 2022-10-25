@@ -5,7 +5,20 @@ const coursesContainer = document.querySelector("#coursesContainer");
 const selectedCoursesContainer = document.querySelector("#selectedCoursesContainer");
 const btnClear = document.querySelector("#btn-clear");
 const btnCoursesConfirm = document.querySelector("#btnCoursesConfirm");
+const params = new URLSearchParams(document.location.search);
+const userId = params.get("userId");
 const userMembershipQuota = Number(document.querySelector("#userMembershipQuota").innerText);
+
+const doFetch = async (url) => {
+    try {
+        const request = await fetch(url);
+        const response = await request.json();
+        return response;
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
 
 const addCourse = (courseId) => {
     const selectedCourse = careerCourses.find(course => Number(course.id) === Number(courseId))
@@ -89,15 +102,6 @@ const confirmSelectedCourses = async (data) => {
 
 }
 
-const doFetch = async (url) => {
-    try {
-        const request = await fetch(url);
-        const response = await request.json();
-        return response;
-    } catch (error) {
-        throw new Error(error)
-    }
-}
 
 
 window.addEventListener("load", async() => {

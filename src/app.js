@@ -58,6 +58,7 @@ app
   .use('/usuario', require('./routes/finalUser/user'))
   .use('/referidos', require('./routes/finalUser/referred'))
   .use('/membresias', require('./routes/finalUser/membership'))
+  .use('/userCourses', require('./routes/finalUser/userCourses'))
   /* Payment routes */
   .use('/subscription', require('./routes/mercadoPago'))
 

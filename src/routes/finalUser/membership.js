@@ -3,7 +3,7 @@ const router = express.Router();
 const { getById, getByUserId } = require("../../controllers/finalUser/membershipController");
 
 router
-    .get("/:userId", getByUserId)     
+    .get("/usuario/:userId", getByUserId)     
     .get("/:membershipId", getById)     
 
 module.exports = router;
