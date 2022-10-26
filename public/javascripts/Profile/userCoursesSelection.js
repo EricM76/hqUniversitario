@@ -7,7 +7,9 @@ const btnClear = document.querySelector("#btn-clear");
 const btnCoursesConfirm = document.querySelector("#btnCoursesConfirm");
 const params = new URLSearchParams(document.location.search);
 const userId = params.get("userId");
-const userMembershipQuota = Number(document.querySelector("#userMembershipQuota").innerText);
+const BASE_URL = window.location.origin;
+let userMembershipQuota;
+let userQuotasAvailable;
 
 const doFetch = async (url) => {
     try {
@@ -20,18 +22,57 @@ const doFetch = async (url) => {
 }
 
 
+window.addEventListener("load", async() => {
+    btnCoursesConfirm.disabled = true;
+    localStorage.clear();
+    /* let coursesInStorage = localStorage.getItem("selectedCourses");
+    if(coursesInStorage !== null) {
+        coursesInStorage = JSON.parse(coursesInStorage);
+        selectedCoursesContainer.innerHTML = ""
+        coursesInStorage.forEach((course) => {
+            selectedCoursesContainer.innerHTML += selectedCourseItemGenerator(course)
+        })
+    } */
+
+    /* Obtener universidades y listarlas en el select */
+    try {
+        const universities = await doFetch(`${BASE_URL}/api/university`);
+        universitySelect.innerHTML = "<option value=''>Elige universidad</option>";
+        universities.forEach(university => {
+            universitySelect.innerHTML += `<option value="${university.id}">${university.name}</option>` 
+        });
+
+        facultySelect.disabled = true;
+        careerSelect.disabled = true;
+    } catch (error) {
+        console.error(error);
+    }
+
+    /* Obtener los cupos disponibles del usuario en sesion */
+    try {
+        const { quotasAvailable, membershipQuota } = await doFetch(`${BASE_URL}/membresias/usuario/${userId}`);
+        userMembershipQuota = membershipQuota;
+        userQuotasAvailable = quotasAvailable;
+    } catch (error) {
+        console.error(error);
+    }
+})
+
+
+
 const addCourse = (courseId) => {
     const selectedCourse = careerCourses.find(course => Number(course.id) === Number(courseId))
     let coursesInStorage = localStorage.getItem("selectedCourses") ? JSON.parse(localStorage.getItem("selectedCourses")) : [];
     
-    if (coursesInStorage.length == userMembershipQuota) {
+    if (coursesInStorage.length == userQuotasAvailable) {
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: 'No puedes elegir más materias',
           })
     } 
-    if(coursesInStorage.length > 0 && coursesInStorage.length < userMembershipQuota) {
+
+    if(coursesInStorage.length > 0 && coursesInStorage.length < userQuotasAvailable) {
         coursesInStorage.push(selectedCourse);
         selectedCoursesContainer.innerHTML = ""
         coursesInStorage.forEach((course) => {
@@ -104,29 +145,6 @@ const confirmSelectedCourses = async (data) => {
 
 
 
-window.addEventListener("load", async() => {
-    btnCoursesConfirm.disabled = true;
-    /* let coursesInStorage = localStorage.getItem("selectedCourses");
-    if(coursesInStorage !== null) {
-        coursesInStorage = JSON.parse(coursesInStorage);
-        selectedCoursesContainer.innerHTML = ""
-        coursesInStorage.forEach((course) => {
-            selectedCoursesContainer.innerHTML += selectedCourseItemGenerator(course)
-        })
-    } */
-    try {
-        const universities = await doFetch("http://localhost:3000/api/university");
-        universitySelect.innerHTML = "<option value=''>Elige universidad</option>";
-        universities.forEach(university => {
-            universitySelect.innerHTML += `<option value="${university.id}">${university.name}</option>` 
-        });
-
-        facultySelect.disabled = true;
-        careerSelect.disabled = true;
-    } catch (error) {
-        console.error(error);
-    }
-})
 
 universitySelect.addEventListener("change", async (event) => {
     const selectedUniversityId = event.target.value;
@@ -215,17 +233,23 @@ btnCoursesConfirm.addEventListener("click", async () => {
         if (result.isConfirmed) {
             try {
                 const response = await confirmSelectedCourses(data);
-                console.log(response)
-                if(response) {
-                    localStorage.clear()
+                if(response.status !== 400) {
                     Swal.fire({
                         icon: 'success',
                         title: 'Felicitaciones',
                         text: response.message,
-                      })
-                      /* setTimeout(() => {
-                          window.location.href = "/usuario/perfil#membership"
-                      }, 2000) */
+                    })
+                    
+                    localStorage.clear()
+                    setTimeout(() => {
+                        window.location.reload()
+                    }, 1000);
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops',
+                        text: response.message,
+                      });
                 }
             } catch (error) {
                 console.log(error)
@@ -233,7 +257,7 @@ btnCoursesConfirm.addEventListener("click", async () => {
                     icon: 'error',
                     title: 'Oops',
                     text: error.msg,
-                  })
+                  });
             }
         }
     })
