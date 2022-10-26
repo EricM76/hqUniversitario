@@ -85,7 +85,7 @@
                 <a href="/materia/seleccion?userId=<%= session.user.id %>" class="button__dark float-end">Elegir materias</a>
               <% } %>
             <% } else { %>
-              <p>Aún no elegiste tus materías, te recuerdo que tenés 30 días para hacerlo desde la fecha de alta de la membresía. Una vez realizada la selección de materias no podrás cambiarlas hasta la próxima renovación de tu membresía.</p>
+              <p class="alert alert-warning mt-4">Aún no elegiste tus materías, te recuerdo que tenés 30 días para hacerlo desde la fecha de alta de la membresía. Una vez realizada la selección de materias no podrás cambiarlas hasta la próxima renovación de tu membresía.</p>
             <a href="/materia/seleccion?userId=<%= session.user.id %>" class="button__dark float-end">Elegir materias</a>
             <% } %>
           <% } else { %>

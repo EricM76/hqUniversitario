@@ -74,10 +74,13 @@ module.exports = {
       });
     }
   },
-  googleLogin: (req, res) => {
+  googleLogin: async (req, res) => {
 
     let user = req.session.passport.user;
+    const { data } = await getActivesUserCourses(user.id);
+    const { expires } = data;
 
+    
     req.session.user = {
       id: user.id,
       name: user.name,
@@ -86,6 +89,8 @@ module.exports = {
       rol: user.rolId,
       googleId: user.social_id,
       membershipId: user.membershipId,
+      userMembershipExpiresDate: expires,
+      userActiveCourses: data.activeUserCourses
     };
 
     return res.redirect(req.cookies.backurl ? req.cookies.backurl : '/');
