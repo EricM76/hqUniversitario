@@ -46,7 +46,7 @@ const faculties = [
   {
     id: 4,
     name: "Facultad de Ciencias Médicas (UNC)",
-    categories : [4,1,2,5]
+    categories : [4,1,2,5,3]
   },
   {
     id: 5,

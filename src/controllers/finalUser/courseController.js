@@ -65,7 +65,8 @@ module.exports = {
                 include: [
                     {
                         association: 'videos',
-                        include: ['category']
+                        include: ['category'],
+                        order : [['order']]
                     },
                     {
                         association: 'faculty',
@@ -221,7 +222,7 @@ module.exports = {
                         },
                         {
                             association: 'videos',
-                            attributes: ['id', 'resource', 'title', 'locked', 'length', 'categoryId']
+                            include : ['unit','turn']
                         },
                         {
                             association: 'notes',
@@ -233,10 +234,19 @@ module.exports = {
                         },
                         {
                             association: 'faculty',
-                            include: ['categories']
+                            include: {
+                                association : 'categories',
+                                include : {
+                                    association : 'videos',
+                                    attributes : ['courseId']
+                                }
+                            }
                         },
                         {
                             association : 'university'
+                        },
+                        {
+                            association : 'units'
                         }
                     ]
                 })
@@ -246,9 +256,20 @@ module.exports = {
                     },
                     include : ['university', 'faculty']
                 })
+
+                let theoreticalVideos = course.videos.filter(video => video.categoryId === 1);
+                let practicalVideos = course.videos.filter(video => video.categoryId === 2);
+                let integrativeVideoExams = course.videos.filter(video => video.categoryId === 3);
+                let levelingCycleVideos = course.videos.filter(video => video.categoryId === 4);
+                let integrativeExerciseVideos = course.videos.filter(video => video.categoryId === 5);
                 return res.render("finalUser/courseContent", {
                     course,
                     relatedCourses,
+                    theoreticalVideos,
+                    practicalVideos,
+                    integrativeVideoExams,
+                    levelingCycleVideos,
+                    integrativeExerciseVideos,
                     session: req.session,
                     suscribed: false,
                     urlCloudfont : process.env.CLOUDFONT_URL

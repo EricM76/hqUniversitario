@@ -376,6 +376,7 @@
                                                 <div class="accordion" id="accordionPanelsStayOpenExample">
 
                                                 <%course.faculty.categories.forEach((category,index) => {%>
+                                                    <%if(category.videos.filter(video => video.courseId === course.id).length){%>
                                                     <div class="accordion-item">
                                                         <h2 class="accordion-header" id="panelsStayOpen-heading<%=category.id%>">
                                                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse<%=category.id%>" aria-expanded="true" aria-controls="panelsStayOpen-collapse<%=category.id%>">
@@ -386,7 +387,7 @@
                                                         <div class="accordion-body">
                                                             <ul class="list-group list-group-flush">
                                                                 <%if(category.videos.length){%>
-                                                                    <%category.videos.forEach(video => {%>
+                                                                    <%category.videos.sort((a,b)=> a.order > b.order ? 1 : a.order < b.order ? -1 : 0).forEach(video => {%>
                                                                         <%if(video.courseId === course.id){%>
                                                                         <li class="list-group-item d-flex justify-content-between">
 
@@ -425,13 +426,14 @@
                                                                         }) %>
                                                                         <%}%>    
                                                                     <%})%>
-                                                                <%}else{%>
-                                                                    <p class="alert alert-warning">No hay videos agregados</p>
-                                                                <%}%>
+                                                               
                                                             </ul>
                                                         </div>
                                                         </div>
                                                     </div>
+                                                    <%}%>
+                                                    
+                                                                <%}%>
                                                 <%})%>
                                                 </div>
                                                
