@@ -1,7 +1,9 @@
 const { format } = require("date-fns");
 const db = require("../../database/models");
 const {Op} = require('sequelize');
-const {shuffle} = require('../../helpers')
+const {shuffle} = require('../../helpers');
+const { getUserMembershipData } = require("../../services/membershipService");
+const { getActivesUserCourses } = require("../../services/userCoursesService");
 
 module.exports = {
     presentation: (req, res) => {
@@ -260,7 +262,9 @@ module.exports = {
         }
     },
     courseSelection: async (req, res) => {
-        const user = await db.User.findByPk(req.session.user.id, { include: [{ association: "membership" }] });
+        const user = await db.User.findByPk(req.session.user.id, { include: [ "membership" ] });
+        const userMembershipInfo = await getUserMembershipData(req.session.user.id)
+        const activeCourses = await getActivesUserCourses(req.session.user.id)
         const userMembership = user.membership;
         const userMembershipExpires = format(new Date(user.expires), "dd/MM/yyyy");
 
@@ -268,7 +272,9 @@ module.exports = {
             session: req.session,
             user,
             userMembership,
-            userMembershipExpires
+            userMembershipExpires,
+            userMembershipInfo: userMembershipInfo.data,
+            activeUserCourses: activeCourses.data.activeUserCourses
         });
     },
     search : async (req,res) => {

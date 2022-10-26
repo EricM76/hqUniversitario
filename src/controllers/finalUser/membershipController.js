@@ -35,9 +35,7 @@ module.exports = {
                 quotasAvailable: user.membership.quota - data.total,
             }
 
-            return res.status(200).json({ 
-                response
-            });
+            return res.status(200).json(response);
         } catch (error) {
             res.json({error})
         }

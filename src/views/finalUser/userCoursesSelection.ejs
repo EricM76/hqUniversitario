@@ -3,15 +3,27 @@
     title : 'Selección de materias'
   }) %> 
 
-<body class="coursesSelection">
+<body class="coursesSelection bg-secondary bg-gradient">
   <%- include('./partials/header') %> 
     <main class="container p-1 p-md-3">
-        <section class="row justify-content-center align-items-center border rounded p-1 p-md-3 bg-white">
+        <section class="row justify-content-center align-items-center p-md-3 bg-white">
             <div class="col-12">
                 <div class="container">
-                    <h5>Con tu membresía <strong><%- userMembership.name %></strong> puedes seleccionar <span id="userMembershipQuota"><%= userMembership.quota %></span> materia/s</h5>
-                    <p>Al realizar y confirmar la selección, no podrás modificarla hasta el <%= userMembershipExpires %> cuando renueves tu membresía. ¡Elegí bien!</p>
-                    <div class="row">
+                    <div class="row border rounded p-3">
+                        <div class="col-md-6">
+                            <h5>Con tu membresía <strong><%- userMembership.name %></strong> puedes seleccionar hasta <span id="userMembershipQuota"><%= userMembership.quota %></span> materia/s</h5>
+                            <p class="alert alert-warning">Al realizar y confirmar la selección, no podrás modificarla hasta el <strong><%= userMembershipExpires %></strong> cuando renueves tu membresía. ¡Elegí bien!</p>
+                        </div>
+                        <div class="col-md-6 border-start">
+                            <h5 class="border-bottom p-2 mb-2">Tus materias activas <span><%= userMembershipInfo.activesUserCourses %> de un total de <%= userMembershipInfo.membershipQuota %>  </span></h5>
+                            <% activeUserCourses.forEach(course => { %>
+                                <a href="/materia/contenido/<%- course.id %>"><span class="badge rounded-pill text-bg-success fs-4"><%- course.name %></span></a>
+                            <% }) %>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="row border rounded p-3 mt-3">
                         <div class="col-12 col-md-4 p-2">
                             <label for="university">1- Elige universidad</label>
                             <select class="form-select" name="university" id="university">
@@ -30,9 +42,9 @@
                                 <option value="">Elige carrera</option>
                             </select>
                         </div>
-                    </div>
-                    <div class="row justify-content-end">
-                        <button class="btn btn-outline-warning" id="btn-clear">Limpiar búsqueda</button>
+                        <div>
+                            <button class="btn btn-outline-warning float-end" id="btn-clear">Limpiar búsqueda</button>
+                        </div>
                     </div>
                 </div>
             </div>

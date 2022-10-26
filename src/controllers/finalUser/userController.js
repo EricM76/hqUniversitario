@@ -9,6 +9,7 @@ const {
   setFreeMembershipToWinnerUser,
 } = require("../../services/referredService");
 const { Op } = require("sequelize");
+const { getUserMembershipData } = require("../../services/membershipService");
 const BASE_URL_PROVINCES = process.env.BASE_URL_PROVINCES;
 
 module.exports = {
@@ -170,14 +171,15 @@ module.exports = {
         },
       },
     });
+    const userMembershipInfoPromise = getUserMembershipData(req.session.user.id)
     
-    Promise.all([provincesPromise, userPromise, membershipsPromise])
-      .then(([{ data }, user, memberships, userCourses]) => {
+    Promise.all([provincesPromise, userPromise, membershipsPromise, userMembershipInfoPromise])
+      .then(([{ data }, user, memberships, userMembershipInfo]) => {
         const activeReferredsQuantity = user.referreds.filter(
           (referred) => referred.active
         ).length;
         const userActiveCourses = user.courses.filter((course) => course.UserCourse.active)
-        
+        console.log(userMembershipInfo.data)
         return res.render("finalUser/userProfile", {
           user,
           userMembershipExpiresDate: format(new Date(user.expires), "dd-MM-yyyy"),
@@ -191,7 +193,8 @@ module.exports = {
           session: req.session,
           memberships,
           activeReferredsQuantity,
-          userActiveCourses
+          userActiveCourses,
+          userMembershipInfo: userMembershipInfo.data
         });
       })
       .catch((error) => console.log(error));
@@ -243,7 +246,7 @@ module.exports = {
         //Si no tiene membresia devuelve error
         if ( !user.status ) return res.status(400).json({message: "No tiene una membresia activa"});
         //Si no tiene cupo devuelve error
-        if ( activeUserCourses.length >= membershipQuota ) return res.status(400).json({message: "No tiene cupos disponibles"});
+        if ( activeUserCourses.length > membershipQuota ) return res.status(400).json({message: "No tiene cupos disponibles"});
 
         const selectedCourses = req.body.selectedCourses;
 

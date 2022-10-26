@@ -3,9 +3,9 @@ const process = require("process");
 const BASE_URL = process.env.BASE_URL;
 
 module.exports = {
-    getActivesUserCourses: async (userId) => {
+    getUserMembershipData: async (userId) => {
         try {
-            const response = await axios.get(`${BASE_URL}/userCourses/${userId}/actives`);
+            const response = await axios.get(`${BASE_URL}/membresias/usuario/${userId}`);
             
             return response;
         } catch (error) {

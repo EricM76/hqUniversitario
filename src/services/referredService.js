@@ -1,6 +1,6 @@
 const axios = require("axios");
 const process = require("process");
-const BASE_URL = "http://localhost:3000"
+const BASE_URL = process.env.BASE_URL;
 
 module.exports = {
     getTotalOfActiveReferredUsers: async (userId) => {
