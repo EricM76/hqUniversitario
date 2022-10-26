@@ -233,18 +233,23 @@ btnCoursesConfirm.addEventListener("click", async () => {
         if (result.isConfirmed) {
             try {
                 const response = await confirmSelectedCourses(data);
-                console.log(response)
-                if(response) {
-                    localStorage.clear()
+                if(response.status !== 400) {
                     Swal.fire({
                         icon: 'success',
                         title: 'Felicitaciones',
                         text: response.message,
-                      })
-                        
-                    /* setTimeout(() => {
+                    })
+                    
+                    localStorage.clear()
+                    setTimeout(() => {
                         window.location.reload()
-                    }, 1000) */
+                    }, 1000);
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops',
+                        text: response.message,
+                      });
                 }
             } catch (error) {
                 console.log(error)
@@ -252,7 +257,7 @@ btnCoursesConfirm.addEventListener("click", async () => {
                     icon: 'error',
                     title: 'Oops',
                     text: error.msg,
-                  })
+                  });
             }
         }
     })

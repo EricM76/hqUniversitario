@@ -10,6 +10,8 @@ const {
 } = require("../../services/referredService");
 const { Op } = require("sequelize");
 const { getUserMembershipData } = require("../../services/membershipService");
+const { getActivesUserCourses } = require("../../services/userCoursesService");
+const isActiveCourses = require("../../helpers/userCourses.helper");
 const BASE_URL_PROVINCES = process.env.BASE_URL_PROVINCES;
 
 module.exports = {
@@ -237,20 +239,40 @@ module.exports = {
         //Obtener usuario
         const user = await db.User.findByPk(req.session.user.id);
         //Obtener membresia de usuario
-        const userMembership = await db.Membership.findByPk(user.membershipId);
+        //const userMembership = await db.Membership.findByPk(user.membershipId);
         //Obtener cupo de materias
-        const membershipQuota = userMembership.quota;
+        //const membershipQuota = userMembership.quota;
         //Obtener materias activas del usuario
-        const userCourses = await db.UserCourse.findAll({where: {userId: user.id}});
-        const activeUserCourses = userCourses.filter(course => course.active);
+        const { data } = await getUserMembershipData(user.id);
+        const { membershipQuota, activesUserCourses, quotasAvailable} = data;
+        const { data: activeCourses } = await getActivesUserCourses(user.id);
+        /* {
+    "membershipId": 2,
+    "expires": "2022-11-23T11:13:53.000Z",
+    "status": true,
+    "membershipName": "PREMIUM",
+    "freeMembership": true,
+    "membershipQuota": 3,
+    "activesUserCourses": 2,
+    "quotasAvailable": 1
+} */
         //Si no tiene membresia devuelve error
-        if ( !user.status ) return res.status(400).json({message: "No tiene una membresia activa"});
+        if ( !user.status ) return res.status(400).json({status: 400, message: "No tiene una membresia activa"});
         //Si no tiene cupo devuelve error
-        if ( activeUserCourses.length > membershipQuota ) return res.status(400).json({message: "No tiene cupos disponibles"});
+        if ( quotasAvailable === 0 ) return res.status(400).json({status: 400, message: "No tiene cupos disponibles"});
 
         const selectedCourses = req.body.selectedCourses;
 
-        if (selectedCourses.length === 0) return res.status(400).json({message: "No tiene cupos disponibles"});
+        //Verificar si el curso ya lo tiene activo
+
+        const { isActive, coursesFound} = isActiveCourses(activeCourses.activeUserCourses, selectedCourses);
+        if (isActive) {
+          const activeNameCoursesList = coursesFound.map((course) => course.name);
+          const activeNameCoursesListString = activeNameCoursesList.join();
+          const errorMessage = `Los siguientes cursos están activos: ${activeNameCoursesListString}`
+          return res.status(400).json({status: 400, message: errorMessage});
+        }
+        if (selectedCourses.length === 0) return res.status(400).json({status: 400, message: "No seleccionaste cursos"});
         
         if (selectedCourses.length > 1) {
           let coursesToAdd = selectedCourses.map(course => {
