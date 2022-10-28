@@ -373,7 +373,7 @@ module.exports = {
           include : [
               {
                   association : 'videos',
-                  attributes : ['id']
+                  attributes : ['id','courseId']
               }
           ]
         });
@@ -381,17 +381,20 @@ module.exports = {
           include : [
             {
               association : 'videos',
-              attributes : ['id']
+              attributes : ['id'],
+              include : ['course']
             }
           ]
         })
-        let videosViewed = user.videos.map(video => video.id);
+        let videosViewedFilter = user.videos.filter(video => video.courseId == req.params.courseId);
+
+        let videosViewed = videosViewedFilter.map(video => video.id)
 
         return res.status(200).json({
           ok : true,
           data: {
             total : videos.length,
-            videosViewed
+            videosViewed,
           }
         })    
 

@@ -16,28 +16,28 @@
              
             <ul class="list-group list-group-flush">
               <% course.faculty.categories.forEach(category => { %>
-                <% if (category.id == 1) { %>
+                <% if (category.id == 1 && theoreticalCount) { %>
                   <li class="list-group-item"><strong><i class="fa-solid fa-book"></i> Teoría:</strong> <%= theoreticalCount%> <%= theoreticalCount> 1 ?'clases en video' : 'clase en video' %> - <span class="text-muted"><%= theoreticalHours %> <%= theoreticalHours > 1 ?'minutos' : 'minuto' %> de clases teóricas.</span></li>
                 <% } %>
-                <% if (category.id == 2) { %>
+                <% if (category.id == 2 && videoPracticalWorkCount) { %>
                   <li class="list-group-item"><strong><i class="fa-solid fa-file-pen"></i> Práctica:</strong> <%= videoPracticalWorkCount%> <%= videoPracticalWorkCount> 1 ?'clases en video' : 'clase en video' %> - <span class="text-muted"><%= videoPracticalWorkHours %> <%= videoPracticalWorkHours > 1 ?'minutos' : 'minuto' %> realizando trabajos prácticos.</span></li>              
                 <% } %>
-                <% if (category.id == 3) { %>
+                <% if (category.id == 3 && integrativeVideoExamsCount) { %>
                   <li class="list-group-item">
                     <strong><i class="fa-solid fa-building-columns"></i> Exámenes:</strong> <%= integrativeVideoExamsCount%> <%= integrativeVideoExamsCount> 1 ?'videos' : 'video' %> - <span class="text-muted"><%= videoPracticalWorkHours %> <%= integrativeVideoExamsHours > 1 ?'minutos' : 'minuto' %> resolviendo exámenes.</span>
                    </li>              
                 <% } %>
-                <% if (category.id == 4) { %>
+                <% if (category.id == 4 && levelingCycleVideosCount) { %>
                   <li class="list-group-item">
-                  <strong><i class="fa-solid fa-screen-users"></i> Clases de nivelación:</strong> <%= levelingCycleVideosCount%> <%= levelingCycleVideosCount> 1 ?'videos' : 'video' %> - <span class="text-muted"><%= levelingCycleVideosHours %> <%= levelingCycleVideosHours > 1 ?'minutos' : 'minuto' %> de duración en total.</span>
+                  <strong><i class="fas fa-balance-scale"></i> Clases de nivelación:</strong> <%= levelingCycleVideosCount%> <%= levelingCycleVideosCount> 1 ?'videos' : 'video' %> - <span class="text-muted"><%= levelingCycleVideosHours %> <%= levelingCycleVideosHours > 1 ?'minutos' : 'minuto' %> de duración en total.</span>
                   </li>              
                 <% } %>
-                <% if (category.id == 5) { %>
+                <% if (category.id == 5 && integrativeExerciseVideosCount) { %>
                   <li class="list-group-item">
                     <strong><i class="fa-solid fa-file-pen"></i> Ejercicios:</strong> <%= integrativeExerciseVideosCount%> <%= integrativeExerciseVideosCount> 1 ?'videos' : 'video' %> - <span class="text-muted"><%= integrativeExerciseVideosHours %> <%= integrativeExerciseVideosHours > 1 ?'minutos' : 'minuto' %> realizando ejercicios integradores.</span>
                     </li>                
                 <% } %>
-                <% if (category.id == 6) { %>
+                <% if (category.id == 6 && previusExamVideosCount) { %>
                   <li class="list-group-item">
                     <strong><i class="fa-solid fa-building-columns"></i> Exámenes:</strong> <%= previusExamVideosCount%> <%= previusExamVideosCount> 1 ?'videos' : 'video' %> - <span class="text-muted"><%= previusExamVideosHours %> <%= previusExamVideosHours > 1 ?'minutos' : 'minuto' %> resolviendo exámenes anteriores.</span>
                     </li>              
@@ -84,7 +84,8 @@
               <div class="accordion w-100" id="accordionPanelsStayOpenExample">
   
               <%course.faculty.categories.forEach((category,index) => {%>
-                  <div class="accordion-item">
+                <% if (category.videos.length && (category.videos.filter(video => video.courseId == course.id)).length) { %>
+                    <div class="accordion-item">
                       <h2 class="accordion-header" id="panelsStayOpen-heading<%=category.id%>">
                       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse<%=category.id%>" aria-expanded="true" aria-controls="panelsStayOpen-collapse<%=category.id%>">
                           <%= category.name %> 
@@ -243,6 +244,7 @@
                       </div>
                       </div>
                   </div>
+                  <% } %>
               <%})%>
               </div>
              

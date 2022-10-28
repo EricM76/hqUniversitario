@@ -59,20 +59,39 @@
                                             <% test.questions.forEach((question, index) => { %>
                                                 <ul class="list-group mb-3">
                                                     <li class="list-group-item">
-                                                        <div class="input-group d-flex align-items-center gap-3 mb-3">
-                                                                <span class="input-group-text" id="basic-addon1"><%= index + 1 %> </span>
+                                                        <div class="row gap-3 gap-lg-0 mb-3">
+                                                            <div class="col-12 col-lg-8">
+                                                                <div class="input-group gap-3">
+                                                                      <span class="input-group-text" id="basic-addon1"><%= index + 1 %> </span>
                                                                 <input type="text" name="question_<%= question.id %>" class="form-control" value="<%= question.content %>">
-                                                                <div class="input-group" style="width: 140px;">
-                                                                    <input type="number" name="score_<%= question.id %>" min="1" max="99" class="form-control" value="<%= question.score %>">
-                                                                    <span class="input-group-text">puntos</i></span>
                                                                 </div>
-                                                                
-                                                                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addAnswer<%= question.id %>">Agregar respuesta</button>
+                                                               
+                                                            </div>
+                                                            <div class="col-12 col-lg-4 ">
+                                                                <div class="d-flex input-group gap-2">
+                                                                        <input type="number" name="score_<%= question.id %>" min="1" max="99" class="form-control" value="<%= question.score %>" >
+                                                                        <span class="input-group-text">puntos</i></span>
+                                                                   
+                                                                   
+                                                               
+                                                                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addAnswer<%= question.id %>"><i class="fas fa-clipboard-list    "></i></button>
+                                                                <button type="button" class="btn <%= question.image ? ' btn-outline-success' : ' btn-outline-primary'  %>  fs-6" data-bs-toggle="modal" data-bs-target="#viewQuestionImage<%= question.id %>"><i class="fas fa-image"></i></button>
                                                               <button type="button" class="btn btn-outline-danger fs-6" onclick="deleteQuestion('<%=question.id%>')"><i class="fas fa-trash-alt"></i></button>
+                                                                </div>
+                                                                  
+                                                          
+                                                            </div>
+                                                               
+                                                              
                                                         </div>
+                                                      
                                                         <%- include('modals/addAnswer',{
                                                             question
                                                         }) %> 
+                                                        <%- include('modals/viewQuestionImage',{
+                                                            question
+                                                        }) %> 
+
                                                           <% question.answers.forEach((answer,i) => { %> 
                                                             <div class="input-group d-flex align-items-center gap-2 mb-3">
                                                                 <div class="form-check mx-2">

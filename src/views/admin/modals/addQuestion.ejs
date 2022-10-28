@@ -9,16 +9,21 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label class="form-label">Pregunta:</label>
-                        <div class="d-flex gap-3">
-                            <input type="text" name="question" id="question" class="form-control new-question"
-                            placeholder="Escriba aquí el texto de la pregunta" onfocus="this.classList.remove('is-invalid')"/>
-                            <!-- <div class="form-check" style="width: 90px;">
-                                <input type="number" min="1" max="99" name="scores" id="score" class="form-control score">
-                            </div> -->
-                            <div class="input-group" style="width: 200px;">
-                                <span class="input-group-text" id="basic-addon1">Puntaje</span>
-                                <input type="text" class="form-control" name="score"  onfocus="this.classList.remove('is-invalid')">
-                              </div>
+                        <div class="row gap-3">
+                            <div class="col-12 col-lg-7 d-flex gap-3">
+                                <input type="text" name="question" id="question" class="form-control new-question"
+                                placeholder="Escriba aquí el texto de la pregunta" onfocus="this.classList.remove('is-invalid')"/>
+                                <div class="input-group" style="width: 200px;">
+                                    <span class="input-group-text" id="basic-addon1">Puntaje</span>
+                                    <input type="text" class="form-control" name="score"  onfocus="this.classList.remove('is-invalid')">
+                                  </div>
+                            </div>
+                            <div class="col-12 col-lg-5">
+                                <input type="file" class="form-control" name="image" id="image"/>
+
+                            </div>
+
+                           
                         </div>
                     
                     </div>

@@ -194,14 +194,15 @@ module.exports = {
                 include: [
                     {
                         association: 'videos',
-                        attributes: ['id']
+                        attributes: ['id','courseId']
                     }
                 ]
             });
 
-         
+            let videosViewedFilter = user.videos.filter(video => video.courseId == req.params.id);
 
-                    let videosViewed = user.videos.map(video => video.id);
+            let videosViewed = videosViewedFilter.map(video => video.id)
+
 
 
                     return res.render("finalUser/courseContent", {

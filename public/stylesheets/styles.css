@@ -345,7 +345,7 @@ a {
       color: white;
       font-size: 2rem; }
 
-.button-base, .button__light, .button__dark, .button__dark--extended, .button__newsletter {
+.button-base, .button__light, .button__dark, .button__blue, .button__dark--extended, .button__newsletter {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -368,6 +368,14 @@ a {
   .button__dark:hover {
     background-color: white;
     color: black; }
+
+.button__blue {
+  color: white;
+  background-color: #042c5c;
+  border: 1px solid #042c5c; }
+  .button__blue:hover {
+    background-color: white;
+    color: #042c5c; }
 
 .button__dark--extended {
   color: white;
@@ -407,7 +415,6 @@ a {
   .home .home__universities {
     padding: 2rem 0; }
     .home .home__universities .home__universities--cardImageContainer {
-      width: 100%;
       height: 250px; }
       .home .home__universities .home__universities--cardImageContainer img {
         width: 100%;
@@ -415,7 +422,7 @@ a {
         object-fit: contain; }
     .home .home__universities .home__universities--title {
       font-family: 'Raleway', sans-serif;
-      font-size: 20px;
+      font-size: 1.8rem;
       text-align: center;
       color: whitesmoke; }
   .home .carousel-item--container {
@@ -439,15 +446,14 @@ a {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin: 5rem;
+    margin: 5rem 0;
     padding: 3rem; }
     .home .home__content2--container .home__content2--item {
       flex-direction: column;
       text-align: center;
       margin-bottom: 2rem; }
       .home .home__content2--container .home__content2--item i {
-        font-size: 3rem;
-        color: #E72426;
+        color: #c9d9e1;
         margin-bottom: 0.7rem; }
   .home .home__contact-container {
     padding: 4rem 1rem; }
@@ -474,17 +480,16 @@ a {
     padding: 1rem 0; }
     .home .home__universities .home__universities--title {
       font-family: 'Raleway', sans-serif;
-      font-size: 24px;
       text-align: center; }
   .home .home__last-paragraph {
     width: 70%; }
   .home .home__content2--container {
-    justify-content: space-evenly;
+    justify-content: space-between;
     flex-direction: row; }
     .home .home__content2--container .home__content2--item {
       margin-bottom: 0; }
       .home .home__content2--container .home__content2--item i {
-        font-size: 5rem; }
+        font-size: 10rem; }
   .home .home__contact-container {
     padding: 5rem 1rem; }
     .home .home__contact-container .home__contact-formWrapper {
@@ -493,7 +498,6 @@ a {
 @media screen and (min-width: 1024px) {
   .home .home__universities .home__universities--title {
     font-family: 'Raleway', sans-serif;
-    font-size: 28px;
     text-align: center; } }
 
 .register {

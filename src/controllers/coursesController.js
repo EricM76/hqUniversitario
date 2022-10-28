@@ -83,7 +83,7 @@ module.exports = {
     list: async (req, res) => {
         try {
             let courses = await db.Course.findAll({
-                include: ['university', 'faculty'],
+                include: ['university', 'faculty', 'videos'],
                 order: ['id']
             });
             return res.render('admin/courses', {
@@ -205,7 +205,8 @@ module.exports = {
                 integrativeVideoExams,
                 levelingCycleVideos,
                 integrativeExerciseVideos,
-                previusExamVideos
+                previusExamVideos,
+                urlCloudfont : process.env.CLOUDFONT_URL
             })
         } catch (error) {
             console.log(error)
