@@ -297,7 +297,7 @@
             <% if (course.tests.length) { %>
               <% course.tests.forEach(test => { %>
                 <!-- Download card -->
-                <div class="col-12 col-md-4 p-2 mb-2">
+                <div class="col-12 col-md-6 col-xl-4 p-2 mb-2">
                   <div class="card shadow">
                     <div class="card-header">
                       <div class="d-flex justify-content-between align-items-center">
@@ -316,7 +316,12 @@
                                   <span><i class="fas fa-clock"></i> Tiempo:</span><span><%=test.time%> min</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between">
-                                  <span><i class="fas fa-clock"></i> Último puntaje:</span><span><%= results.find(result => result.testId == test.id).score %>/<%= results.find(result => result.testId == test.id).totalScore%> en <%= results.find(result => result.testId == test.id).time %> min</span>
+                                  <% if (results.find(result => result.testId == test.id)) { %>
+                                    <span><i class="fa fa-check-circle" aria-hidden="true"></i> Último puntaje:</span><span><%= results.find(result => result.testId == test.id).score %>/<%= results.find(result => result.testId == test.id).totalScore%> en <%= results.find(result => result.testId == test.id).time %> min</span>
+                                  <% }else{ %>
+                                    <span><i class="fa fa-info-circle" aria-hidden="true"></i> Aún no has hecho este simulacro</span>
+                                    
+                                  <% } %>
                                 </li>
                               
                             </ul>
