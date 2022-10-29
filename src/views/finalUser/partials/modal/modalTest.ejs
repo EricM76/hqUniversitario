@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade" id="viewTest<%= test.id %>" tabindex="-1" aria-labelledby="viewTest<%= test.id %>Label" aria-hidden="true">
+<div class="modal fade" id="viewTest<%= test.id %>" tabindex="-1" aria-labelledby="viewTest<%= test.id %>Label" aria-hidden="true" data-bs-backdrop="static" >
     <div class="modal-dialog modal-dialog-centered modal-xl">
       <div class="modal-content">
         <div class="modal-header">
@@ -82,15 +82,15 @@
             let timeHour = Math.floor(time / 60);
             let timerHour = timeHour > 0 ? timeHour : 0;
             let timerMinute = timeHour > 0 ? time % 60 : time;
-
+            let restTime;
             const DATE_INITIAL = moment();
             const DATE_FINAL = moment().add(timeHour, 'h').add(timerMinute, 'm');
 
             //console.log(DATE_INITIAL, DATE_FINAL)
 
+
             showTime = setInterval(()=> {
               var duration = moment.duration((DATE_FINAL).diff(moment()));
-
               var hour = duration.get('hour')
               var minute = duration.get('minute') > 9 ? duration.get('minute') :'0' + duration.get('minute');
               var second = duration.get('second') > 9 ? duration.get('second') :'0' + duration.get('second');
@@ -99,12 +99,22 @@
               document.getElementById('inputTimeHour<%= test.id %>').value = duration.get('hour');
               document.getElementById('inputTimeMinute<%= test.id %>').value = duration.get('minute');
               document.getElementById('inputTimeSecond<%= test.id %>').value = duration.get('second');
+              
+              restTime = hour + minute + second;
+              console.log(+restTime)
+              if(+restTime === 0){
+                clearInterval(showTime);
+                document.getElementById('formTest<%= test.id %>').submit()
+              }
+
             }, 1000);
       }
 
-    showTimer('<%=test.time%>')
+    showTimer('<%=test.time%>');
+
        
     });
+
 
     document.getElementById('viewTest<%= test.id %>').addEventListener('hidden.bs.modal', event => {
       console.log('cerrando timer');
