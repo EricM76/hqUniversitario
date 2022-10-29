@@ -21,7 +21,6 @@ const doFetch = async (url) => {
     }
 }
 
-
 window.addEventListener("load", async() => {
     btnCoursesConfirm.disabled = true;
     localStorage.clear();
@@ -58,18 +57,28 @@ window.addEventListener("load", async() => {
     }
 })
 
-
-
 const addCourse = (courseId) => {
     const selectedCourse = careerCourses.find(course => Number(course.id) === Number(courseId))
     let coursesInStorage = localStorage.getItem("selectedCourses") ? JSON.parse(localStorage.getItem("selectedCourses")) : [];
-    
+    let courseIsInStorage = (course, coursesInStorage) => {
+        let findCourse = coursesInStorage.find((item) => item.id === course.id);
+        return typeof findCourse !== "undefined";
+    }
     if (coursesInStorage.length == userQuotasAvailable) {
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: 'No puedes elegir más materias',
           })
+    } 
+
+    if (courseIsInStorage(selectedCourse, coursesInStorage)) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Materia ya seleccionada',
+          })
+          return;
     } 
 
     if(coursesInStorage.length > 0 && coursesInStorage.length < userQuotasAvailable) {
