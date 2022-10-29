@@ -156,7 +156,7 @@ universitySelect.addEventListener("change", async (event) => {
     const selectedUniversityId = event.target.value;
     facultySelect.innerHTML = "<option value=''>Elige facultad</option>";
     try {
-        const faculties = await doFetch(`http://localhost:3000/faculties/get-by-university?universityId=${selectedUniversityId}`);
+        const faculties = await doFetch(`${BASE_URL}/faculties/get-by-university?universityId=${selectedUniversityId}`);
         faculties.data.forEach(faculty => {
             facultySelect.innerHTML += `<option value="${faculty.id}">${faculty.name}</option>` 
         })
@@ -171,7 +171,7 @@ facultySelect.addEventListener("change", async (event) => {
     const selectedFacultyId = event.target.value;
     careerSelect.innerHTML = "<option value=''>Elige facultad</option>";
     try {
-        const careers = await doFetch(`http://localhost:3000/careers/get-by-faculty?facultyId=${selectedFacultyId}`);
+        const careers = await doFetch(`${BASE_URL}/careers/get-by-faculty?facultyId=${selectedFacultyId}`);
         careers.data.forEach(career => {
             careerSelect.innerHTML += `<option value="${career.id}">${career.name}</option>` 
         })
@@ -186,7 +186,7 @@ careerSelect.addEventListener("change", async (event) => {
     const selectedCareerId = event.target.value;
     coursesContainer.innerHTML = "";
     try {
-        const career = await doFetch(`http://localhost:3000/api/career?career=${selectedCareerId}`);
+        const career = await doFetch(`${BASE_URL}/api/career?career=${selectedCareerId}`);
         if (career.courses.length > 0) {
             coursesWrapper.classList.remove("d-none")
             careerCourses = career.courses;
@@ -202,7 +202,7 @@ careerSelect.addEventListener("change", async (event) => {
 
 btnClear.addEventListener("click", async () => {
     universitySelect.disabled = false;
-    const universities = await doFetch("http://localhost:3000/api/university");
+    const universities = await doFetch(`${BASE_URL}/api/university`);
     universitySelect.innerHTML = "<option value=''>Elige universidad</option>";
     universities.forEach(university => {
         universitySelect.innerHTML += `<option value="${university.id}">${university.name}</option>` 

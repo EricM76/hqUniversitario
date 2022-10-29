@@ -26,7 +26,15 @@
         }
     }
     .membershipCard {
-        background-color: rgb(43, 86, 226);
+        &.BASIC {
+            background-color: rgb(43, 86, 226);
+        }
+        &.PRO {
+            background-color: rgb(50, 85, 202);
+        }
+        &.PREMIUM {
+            background-color: rgb(11, 63, 236);
+        }
         .membershipCard__name {
             color: rgb(255, 8, 0);
             font-weight: bold;

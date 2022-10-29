@@ -94,7 +94,7 @@
             <div class="row" data-aos="fade-up" data-aos-duration="1000">
               <% memberships.forEach(membership => { %>
                 <div class="col-12 col-md-4 p-3 ">
-                  <div class="shadow rounded p-2 membershipCard">
+                  <div class="shadow rounded p-2 membershipCard <%- membership.name %>">
                     <h2 class="text-center membershipCard__name border-bottom"><%- membership.name %> </h2>
                     <p class="text-center membershipCard__description"><%- membership.description %></p>
                     <p class="text-center text-white"><strong class="membershipCard__price">$ <%- membership.price %></strong> final x mes</p>

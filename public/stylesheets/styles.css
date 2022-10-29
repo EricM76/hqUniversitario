@@ -641,22 +641,26 @@ a {
       display: flex;
       justify-content: end;
       align-items: center; }
-  .profile__mainContainer .membershipCard {
+  .profile__mainContainer .membershipCard.BASIC {
     background-color: #2b56e2; }
-    .profile__mainContainer .membershipCard .membershipCard__name {
-      color: #ff0800;
-      font-weight: bold;
-      font-size: 2rem;
-      padding: 2rem; }
-    .profile__mainContainer .membershipCard .membershipCard__description {
-      color: white;
-      padding: 2rem;
-      font-size: 1.5rem; }
-    .profile__mainContainer .membershipCard .membershipCard__price {
-      color: white;
-      font-size: 4rem; }
-    .profile__mainContainer .membershipCard .button__membership {
-      width: 150px; }
+  .profile__mainContainer .membershipCard.PRO {
+    background-color: #3255ca; }
+  .profile__mainContainer .membershipCard.PREMIUM {
+    background-color: #0b3fec; }
+  .profile__mainContainer .membershipCard .membershipCard__name {
+    color: #ff0800;
+    font-weight: bold;
+    font-size: 2rem;
+    padding: 2rem; }
+  .profile__mainContainer .membershipCard .membershipCard__description {
+    color: white;
+    padding: 2rem;
+    font-size: 1.5rem; }
+  .profile__mainContainer .membershipCard .membershipCard__price {
+    color: white;
+    font-size: 4rem; }
+  .profile__mainContainer .membershipCard .button__membership {
+    width: 150px; }
   .profile__mainContainer .referredContainer {
     display: flex;
     align-items: center;
