@@ -65,9 +65,8 @@ module.exports = {
 
         if (suscribed) {
 
-            try {
                 
-            let course = await db.Course.findByPk(req.params.id, {
+            let course =  db.Course.findByPk(req.params.id, {
                 include: [
                     {
                         association: 'videos',
@@ -104,42 +103,42 @@ module.exports = {
                     },
                 ]
             });
-            const theoreticalHours = await db.Video.sum('length', {
+            const theoreticalHours =  db.Video.sum('length', {
                 where: {
                     categoryId: 1,
                     courseId: req.params.id
                 }
             });
 
-            const { count : theoreticalCount, rows : theoreticalVideos } = await db.Video.findAndCountAll({
+            const { count : theoreticalCount, rows : theoreticalVideos } = await  db.Video.findAndCountAll({
                 where: {
                     categoryId: 1,
                     courseId: req.params.id
                 }
             });
 
-            const videoPracticalWorkHours = await db.Video.sum('length', {
+            const videoPracticalWorkHours =  db.Video.sum('length', {
                 where: {
                     categoryId: 2,
                     courseId: req.params.id
                 }
             });
 
-            const { count: videoPracticalWorkCount, rows: practicalVideos } = await db.Video.findAndCountAll({
+            const { count: videoPracticalWorkCount, rows: practicalVideos } = await  db.Video.findAndCountAll({
                 where: {
                     categoryId: 2,
                     courseId: req.params.id
                 }
             });
 
-            const integrativeVideoExamsHours = await db.Video.sum('length', {
+            const integrativeVideoExamsHours =  db.Video.sum('length', {
                 where: {
                     categoryId: 3,
                     courseId: req.params.id
                 }
             });
 
-            const { count: integrativeVideoExamsCount, rows: integrativeVideoExams } = await db.Video.findAndCountAll({
+            const { count: integrativeVideoExamsCount, rows: integrativeVideoExams } = await  db.Video.findAndCountAll({
                 where: {
                     categoryId: 3,
                     courseId: req.params.id
@@ -147,21 +146,21 @@ module.exports = {
                 include : ['turn']
             });
 
-            const levelingCycleVideosHours = await db.Video.sum('length', {
+            const levelingCycleVideosHours =  db.Video.sum('length', {
                 where: {
                     categoryId: 4,
                     courseId: req.params.id
                 }
             });
 
-            const { count: levelingCycleVideosCount, rows: levelingCycleVideos } = await db.Video.findAndCountAll({
+            const { count: levelingCycleVideosCount, rows: levelingCycleVideos } =  await db.Video.findAndCountAll({
                 where: {
                     categoryId: 4,
                     courseId: req.params.id
                 }
             });
 
-            const integrativeExerciseVideosHours = await db.Video.sum('length', {
+            const integrativeExerciseVideosHours =  db.Video.sum('length', {
                 where: {
                     categoryId: 5,
                     courseId: req.params.id
@@ -175,66 +174,123 @@ module.exports = {
                 }
             });
 
-            const previusExamVideosHours = await db.Video.sum('length', {
+            const previusExamVideosHours =  db.Video.sum('length', {
                 where: {
                     categoryId: 6,
                     courseId: req.params.id
                 }
             });
 
-            const { count: previusExamVideosCount, rows: previusExamVideos } = await db.Video.findAndCountAll({
+            const { count: previusExamVideosCount, rows: previusExamVideos } = await  db.Video.findAndCountAll({
                 where: {
                     categoryId: 6,
                     courseId: req.params.id
                 }
             });
 
-            let user = await db.User.findByPk(req.session.user.id, {
+            let user =  db.User.findByPk(req.session.user.id, {
                 attributes: ['id'],
                 include: [
                     {
                         association: 'videos',
                         attributes: ['id','courseId']
+                    },
+                    {
+                        association : 'tests',
                     }
                 ]
             });
-
-            let videosViewedFilter = user.videos.filter(video => video.courseId == req.params.id);
-
-            let videosViewed = videosViewedFilter.map(video => video.id)
-
-
-
-                    return res.render("finalUser/courseContent", {
-                        session: req.session,
-                        course,
-                        theoreticalVideos,
-                        theoreticalCount,
-                        theoreticalHours,
-                        practicalVideos,
-                        videoPracticalWorkCount,
-                        videoPracticalWorkHours,
-                        integrativeVideoExams,
-                        integrativeVideoExamsCount,
-                        integrativeVideoExamsHours,
-                        levelingCycleVideos,
-                        levelingCycleVideosCount,
-                        levelingCycleVideosHours,
-                        integrativeExerciseVideos,
-                        integrativeExerciseVideosHours,
-                        integrativeExerciseVideosCount,
-                        previusExamVideos,
-                        previusExamVideosCount,
-                        previusExamVideosHours,
-                        user,
-                        suscribed: true,
-                        videosViewed,
-                        urlCloudfont: process.env.CLOUDFONT_URL,
-                        shuffle
-                    });
-                } catch (error) {
-                    console.log(error)
+            
+            let results = db.UserTest.findAll({
+                where : {
+                    userId : req.session.user.id,
+                    courseId : req.params.id
                 }
+            })
+
+            Promise.all([
+                course,
+                theoreticalVideos,
+                theoreticalCount,
+                theoreticalHours,
+                practicalVideos,
+                videoPracticalWorkCount,
+                videoPracticalWorkHours,
+                integrativeVideoExams,
+                integrativeVideoExamsCount,
+                integrativeVideoExamsHours,
+                levelingCycleVideos,
+                levelingCycleVideosCount,
+                levelingCycleVideosHours,
+                integrativeExerciseVideos,
+                integrativeExerciseVideosHours,
+                integrativeExerciseVideosCount,
+                previusExamVideos,
+                previusExamVideosCount,
+                previusExamVideosHours,
+                user,
+                results,
+            ]).then(([
+                course,
+                theoreticalVideos,
+                theoreticalCount,
+                theoreticalHours,
+                practicalVideos,
+                videoPracticalWorkCount,
+                videoPracticalWorkHours,
+                integrativeVideoExams,
+                integrativeVideoExamsCount,
+                integrativeVideoExamsHours,
+                levelingCycleVideos,
+                levelingCycleVideosCount,
+                levelingCycleVideosHours,
+                integrativeExerciseVideos,
+                integrativeExerciseVideosHours,
+                integrativeExerciseVideosCount,
+                previusExamVideos,
+                previusExamVideosCount,
+                previusExamVideosHours,
+                user,
+                results,
+            ]) => {
+
+                let videosViewedFilter = user.videos.filter(video => video.courseId == req.params.id);
+
+                let videosViewed = videosViewedFilter.map(video => video.id)
+    
+    
+    
+                        return res.render("finalUser/courseContent", {
+                            session: req.session,
+                            course,
+                            theoreticalVideos,
+                            theoreticalCount,
+                            theoreticalHours,
+                            practicalVideos,
+                            videoPracticalWorkCount,
+                            videoPracticalWorkHours,
+                            integrativeVideoExams,
+                            integrativeVideoExamsCount,
+                            integrativeVideoExamsHours,
+                            levelingCycleVideos,
+                            levelingCycleVideosCount,
+                            levelingCycleVideosHours,
+                            integrativeExerciseVideos,
+                            integrativeExerciseVideosHours,
+                            integrativeExerciseVideosCount,
+                            previusExamVideos,
+                            previusExamVideosCount,
+                            previusExamVideosHours,
+                            user,
+                            suscribed: true,
+                            videosViewed,
+                            urlCloudfont: process.env.CLOUDFONT_URL,
+                            results,
+                            shuffle
+                        });
+            }).catch (error =>  {
+                    console.log(error)
+                })
         } else {
             try {
                 let course = await db.Course.findByPk(req.params.id, {

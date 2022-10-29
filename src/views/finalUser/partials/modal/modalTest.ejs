@@ -22,16 +22,35 @@
                     <div class="col-12 ">
                           <div class="card mb-3">
                             <div class="card-body">
-                                <h5><%= question.content %> </h5>
+                              <div id="box-question<%= question.id %>" class="d-flex flex-column flex-lg-row gap-2">
+                                <% if (question.image) { %>
+                                  <button id="btn-show-image<%= question.id %>" type="button" class="btn btn-sm btn-outline-primary" onclick="showImage('<%=question.id%>')"><i class="fas fa-image"></i></button>
+                                  <div id="box-image<%= question.id %>" class="position-relative text-center" hidden>
+                                    <i class="fa-solid fa-circle-xmark modal__close position-absolute" onclick="hiddenImage('<%=question.id%>')" style="right: -5px; top:-5px"></i>
+                                    <img src="/images/questions/<%= question.image %>" alt="question image" class="img-fluid">
+                                  </div>
+                                <% } %>
+                                <h5 id="title<%= question.id %>"><%= question.content %> </h5>
+                               
+                              </div>
                                 <ul class="list-group list-group-flush">
                                     <% question.answers.forEach(answer => { %>
-                                        <li class="list-group-item">
+                                        <li id="box-answer<%= answer.id %>" class="list-group-item d-flex justify-content-between">
                                             <div class="form-check">
+                                            
                                                 <input class="form-check-input" type="radio" name="question_<%= question.id %>" id="answer<%= answer.id %>" value="<%= answer.id %>">
+                                              
                                                 <label class="form-check-label" for="answer<%= answer.id %>">
                                                     <%= answer.content %>
                                                 </label>
                                               </div>
+                                              <% if (answer.image) { %>
+                                                <button id="btn-show-image-answer<%= answer.id %>" type="button" class="btn btn-sm btn-outline-primary" onclick="showImageAnswer('<%=answer.id%>')"><i class="fas fa-image"></i></button>
+                                                <div id="box-image-answer<%= answer.id %>" class="position-relative text-center" hidden>
+                                                  <i class="fa-solid fa-circle-xmark modal__close position-absolute" onclick="hiddenImageAnswer('<%=answer.id%>')" style="right: -5px; top:-5px"></i>
+                                                  <img src="/images/questions/<%= answer.image %>" alt="answer image" class="img-fluid">
+                                                </div>
+                                              <% } %>
                                         </li>
                                     <% }) %>
                                 </ul>
@@ -95,6 +114,38 @@
 
 
     });
+
+    const showImage = (id) => {
+      document.getElementById('box-question' + id).classList.add('justify-content-center');
+      document.getElementById('title' + id).hidden = true;
+      document.getElementById('box-image' + id).hidden = false;
+      document.getElementById('btn-show-image' + id).hidden = true;
+      
+    };
+
+     const hiddenImage= (id) => {
+      document.getElementById('box-question' + id).classList.remove('justify-content-center');
+      document.getElementById('title' + id).hidden = false;
+      document.getElementById('box-image' + id).hidden = true;
+      document.getElementById('btn-show-image' + id).hidden = false;
+
+    }
+
+    const showImageAnswer = (id) => {
+      document.getElementById('box-answer' + id).classList.remove('d-flex');
+      //document.getElementById('title-answer' + id).hidden = true;
+      document.getElementById('box-image-answer' + id).hidden = false;
+      document.getElementById('btn-show-image-answer' + id).hidden = true;
+      
+    };
+
+     const hiddenImageAnswer= (id) => {
+      document.getElementById('box-answer' + id).classList.add('d-flex');
+      //document.getElementById('title-answer' + id).hidden = false;
+      document.getElementById('box-image-answer' + id).hidden = true;
+      document.getElementById('btn-show-image-answer' + id).hidden = false;
+
+    }
 
       
   </script>

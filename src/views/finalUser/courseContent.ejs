@@ -315,6 +315,9 @@
                                 <li class="list-group-item d-flex justify-content-between">
                                   <span><i class="fas fa-clock"></i> Tiempo:</span><span><%=test.time%> min</span>
                                 </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                  <span><i class="fas fa-clock"></i> Último puntaje:</span><span><%= results.find(result => result.testId == test.id).score %>/<%= results.find(result => result.testId == test.id).totalScore%> en <%= results.find(result => result.testId == test.id).time %> min</span>
+                                </li>
                               
                             </ul>
                            
