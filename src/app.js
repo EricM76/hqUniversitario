@@ -6,6 +6,19 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cookieSession = require('./middlewares/cookieSession');
 
+const cors = require('cors');
+
+const allowlist = ['http://localhost:3000', 'http://hquniversitario.com','https://hquniversitario.com']
+let corsOptionsDelegate = function (req, callback) {
+  let corsOptions;
+  if (allowlist.indexOf(req.header('Origin')) !== -1) {
+    corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
+  } else {
+    corsOptions = { origin: false } // disable CORS for this request
+  }
+  callback(null, corsOptions) // callback expects two parameters: error and options
+}
+
 var app = express();
 
 const methoOverride = require('method-override');
@@ -35,7 +48,7 @@ app.use(passport.session());
 
 /* ROUTES */
 app
-  .use('/', require('./routes/main'))
+  .use('/',cors(corsOptionsDelegate), require('./routes/main'))
   .use('/faculties', require('./routes/faculties'))
   .use('/careers', require('./routes/careers'))
   .use('/categories', require('./routes/categories'))
