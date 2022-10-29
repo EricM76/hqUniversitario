@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<%- include('./partials/head', { title : 'Materia | Resultado Simulacro' }) %>
+
+    <body class="courseContent">
+        <%- include('./partials/header') %>
+            <main class="container">
+                <header class="courseContent__header container p-3">
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <h1>
+                                <%= course.name %>
+                            </h1>
+                            <h3>
+                                <%= course.university.acronym %> | <%= course.faculty.acronym %>
+                            </h3>
+                        </div>
+                        <div class="col-12 col-md-6 d-flex justify-content-end align-items-center gap-2">
+                            <a href="/materia/contenido/<%= course.id %>?test=<%= test.id %>" class="btn btn-outline-primary">Reintentarlo</a>
+                            <a href="/materia/contenido/<%= course.id %>" class="btn btn-outline-dark">Volver al contenido</a>
+                        </div>
+                        <hr>
+                    </div>
+                </header>
+                <h2 class="text-center mb-5 bg-dark py-3 text-light">Resultado del Simulacro: <%= test.name %> </h2>
+                <section>
+                    <div class="d-flex flex-column flex-lg-row justify-content-between">
+                        <h3>Puntaje obtenido: <span class="fs-2"><%= result.score %>/<%= result.total %></span></h3> 
+                        <h2><i class="fas fa-stopwatch"></i> <%= result.time %>'</h2>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <% test.questions.forEach(question=> { %>
+                            <div class="col-12">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <div class="d-flex flex-column flex-lg-row justify-content-between">
+                                                <h5>
+                                                    <% if (!correctIds.includes(question.id)) { %>
+                                                        <span class="text-danger"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
+                                                    <% }else{ %>
+                                                        <span class="text-success"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
+                                                    <% } %>
+                                            
+                                                     <%= question.content %>
+                                                </h5>
+                                                <% if (question.image) { %>
+                                                    <!-- button modal question -->
+                                                    <button type="button" class="border-0 bg-transparent" data-bs-toggle="modal" data-bs-target="#showImageQuestion<%= question.id %>">
+                                                        <img src="/images/questions/<%= question.image %>"
+                                                        alt="question image" height="50px">
+                                                      </button>
+                                                      <!-- modal question -->
+                                                      <div class="modal fade" id="showImageQuestion<%= question.id %>" tabindex="-1" aria-labelledby="showImageQuestion<%= question.id %>Label" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered">
+                                                          <div class="modal-content">
+                                                            <div class="modal-header">
+                                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <img src="/images/questions/<%= question.image %>"
+                                                                alt="question image" class="img-fluid">
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                <% } %>
+                                            </div>
+                                        </div>
+                                        <ul class="list-group list-group-flush">
+                                            <% question.answers.forEach(answer=> { %>
+                                                <li id="box-answer<%= answer.id %>"
+                                                    class="list-group-item d-flex justify-content-between">
+                                                    <div class="form-check">
+
+                                                        <input class="form-check-input <%= !correctIds.includes(question.id) && !answer.correct ? 'is-invalid' : null %> " type="radio"
+                                                            id="answer<%= answer.id %>" value="<%= answer.id %>"
+                                                            <%= answers.includes(answer.id) && 'checked'  %> 
+                                                            >
+                                                        <label class="form-check-label" for="answer<%= answer.id %>">
+                                                            <%= answer.content %>
+                                                        </label>
+                                                    </div>
+                                                    <% if (answer.image) { %>
+                                                         <!-- button modal question -->
+                                                        <button type="button" class="border-0 bg-transparent" data-bs-toggle="modal" data-bs-target="#showImageQuestion<%= answer.id %>">
+                                                            <img src="/images/questions/<%= answer.image %>"
+                                                            alt="question image" height="50px">
+                                                        </button>
+                                                        <!-- modal question -->
+                                                        <div class="modal fade" id="showImageQuestion<%= answer.id %>" tabindex="-1" aria-labelledby="showImageQuestion<%= answer.id %>Label" aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <img src="/images/questions/<%= answer.image %>"
+                                                                    alt="question image" class="img-fluid">
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </div>
+                                                        <% } %>
+                                                </li>
+                                                <% }) %>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <% }) %>
+                    </div>
+                    </div>
+            </main>
+
+            <%- include('./partials/footer') %>
+                <%- include('./partials/scripts') %>
+
+    </body>
+
+    </html>

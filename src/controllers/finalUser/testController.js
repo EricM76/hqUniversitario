@@ -12,6 +12,10 @@ module.exports = {
                 ]
             });
 
+            let course = await db.Course.findByPk(test.courseId,{
+                include : ['university','faculty']
+            })
+
             let results = test.questions.map(question => {
                 let answer = question.answers.find(answer => answer.correct)
                 return {
@@ -23,27 +27,29 @@ module.exports = {
 
             let corrects = 0;
             let score = 0;
+            let correctIds = [];
+            let answersCorrect = [];
+            let answers = [];
 
             for (const key in req.body) {
                 if(key.includes('question')){
                     let position = key.indexOf('_');
                     let id = key.slice(position + 1);
-    
+                    answers.push(+req.body[key])
                     results.forEach(result => {
                         if(result.question == id){
                             let check = result.answer == req.body[key];
+                            
                             if(check){
                                 corrects++;
-                                score = score + +result.score
+                                score = score + +result.score;
+                                correctIds.push(result.question);
+                                answersCorrect.push(result.answer);
                             }
                         }
                     });
                 }
             };
-
-            console.log('====================================');
-            console.log(corrects,score,+score * 100 / +test.score);
-            console.log('====================================');
 
 
            /*  console.log('horas',+timeHour * 60);
@@ -59,11 +65,12 @@ module.exports = {
                   defaults : {
                     userId : req.session.user.id,
                     testId : req.params.id,
+                    courseId : +course.id,
                     totalScore : test.score,
                     score: score,
                     corrects: corrects,
                     effectiveness: +score * 100 / +test.score,
-                    time: timeRest
+                    time: test.time - timeRest
                   }
             });
 
@@ -74,7 +81,8 @@ module.exports = {
                         score : score,
                         corrects : corrects,
                         effectiveness: +score * 100 / +test.score,
-                        time: timeRest
+                        time: test.time - timeRest,
+                        courseId : +course.id,
                     },
                     {
                         where : {
@@ -83,9 +91,25 @@ module.exports = {
                           },
                     }
                 )
-            }
+            };
 
-            return res.redirect(`/materia/contenido/1?suscribe=true&result=true}&test=${req.params.id}`)
+            console.log('====================================');
+            console.log(answers);
+            console.log('====================================');
+
+            return res.render('finalUser/testResult',{
+                session : req.session,
+                course,
+                test,
+                correctIds,
+                answersCorrect,
+                answers,
+                result : {
+                    time: test.time - timeRest,
+                    total : test.score,
+                    score,
+                }
+            })
 
 
         } catch (error) {

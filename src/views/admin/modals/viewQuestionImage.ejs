@@ -1,0 +1,17 @@
+<div class="modal fade" id="viewQuestionImage<%= question.id%>" tabindex="-1" aria-labelledby="viewQuestionImage<%= question.id%>Label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="clearImage('<%= question.id%>', '<%= question.image%>')"></button>
+        </div>
+        <div class="modal-body">
+        <img src="/images/questions/<%= question.image ? question.image : 'noImage.jpeg' %>" class="img-fluid" alt="imagen" id="questionImagePrev<%= question.id %>">
+        </div>
+        <div class="modal-footer">
+            <label class="btn btn-outline-primary" id="btnAddQuestion<%= question.id %>" for="question<%= question.id %>"><%= question.image ? 'Cambiar imagen' : 'Agregar imagen' %></label>
+            <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal" id="btnSaveQuestion<%= question.id %>" hidden onclick="saveQuestionImage('<%=question.id%>')">Guardar cambios</button>
+            <input type="file" hidden id="question<%= question.id %>" name="image" onchange="questionImagePrev('<%= question.id %>')">
+        </div>
+    </div>
+    </div>
+</div>

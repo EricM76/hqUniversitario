@@ -71,8 +71,6 @@ module.exports = {
         const answers = [];
         const corrects = [];
         const {name, score, time} = req.body;
-        console.log('>>>>>>', req.body)
-
 
         for (const key in req.body) {
             if (key.includes('question')) {
@@ -136,7 +134,6 @@ module.exports = {
                     }
                 )
             });
-            console.log('>>>>>>>>>>>>',questions)
             questions.forEach(async (question) => {
                 await db.Question.update(
                     {
@@ -165,7 +162,7 @@ module.exports = {
     /* questions */
     addQuestion: async (req, res) => {
         console.log(req.files)
-        const { answers, correct, scores } = req.body;
+        const { answers, correct, score } = req.body;
         const { test, course } = req.query;
         const mappedAnswers = answers.map((answer, index) => {
             let image;
@@ -190,7 +187,8 @@ module.exports = {
             let question = await db.Question.create({
                 content: req.body.question,
                 score : req.body.score,
-                testId: test
+                testId: test,
+                image : req.files.image ? req.files.image[0].filename : null
             });
 
             filteredAnswers.forEach(async answer => {
@@ -264,6 +262,36 @@ module.exports = {
                 msg: 'ups, un error!!'
             })
         }
+    },
+    changeQuestionImage: async (req, res) => {
+
+        try {
+            const question = await db.Question.findByPk(req.params.id);
+            if (question.image) {
+                fs.unlinkSync(path.join(__dirname, '../../public/images/questions/' + question.image))
+            }
+            await db.Question.update(
+                {
+                    image: req.file.filename
+                },
+                {
+                    where: {
+                        id: req.params.id
+                    }
+                }
+            )
+            return res.status(200).json({
+                ok: true,
+                msg: 'Imagen actualizada!!'
+            })
+        } catch (error) {
+            console.log(error)
+            return res.status(500).json({
+                ok: false,
+                msg: 'ups, hubo un error'
+            })
+        }
+
     },
     /* answers APIs */
     changeImage: async (req, res) => {

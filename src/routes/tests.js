@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const {add, store, list, detail, edit, update, remove, search, filter, addQuestion, deleteQuestion, changeImage, deleteAnswer, addAnwer,countAnswers} = require('../controllers/testsController');
+const {add, store, list, detail, edit, update, remove, search, filter, addQuestion, deleteQuestion,changeQuestionImage, changeImage, deleteAnswer, addAnwer,countAnswers} = require('../controllers/testsController');
 const {uploadQuestions} = require('../middlewares/upLoadFiles')
 /* /tests */
 router
@@ -14,9 +14,10 @@ router
   .delete('/remove/:id',remove)
   .get('/search',search)
   .get('/filter',filter)
-  .post('/questions',uploadQuestions.fields([ {name:'image0'}, {name:'image1'}, {name:'image2'},{name:'image3'}]),addQuestion)
+  .post('/questions',uploadQuestions.fields([{name:'image'}, {name:'image0'}, {name:'image1'}, {name:'image2'},{name:'image3'}]),addQuestion)
   /* apis */
   .delete('/questions/:id',deleteQuestion)
+  .put('/questions/change-image/:id',uploadQuestions.single('image'),changeQuestionImage)
   .put('/answers/change-image/:id',uploadQuestions.single('image'),changeImage)
   .delete('/answers/:id',deleteAnswer)
   .post('/answers/:idQuestion',uploadQuestions.single('image'),addAnwer)

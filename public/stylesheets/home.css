@@ -3,43 +3,102 @@
   justify-content: center;
   align-items: center; }
 
-.responsiveImage, .home .carousel-item--container .carousel-item__imageContainer img, .home .home__content1-imageContainer img {
+.responsiveImage, .home .carousel-item--container .carousel-item__imageContainer img, .home .home__content1-imageContainer img, .home .home__contact-container .home__contact-imgWrapper img {
   width: 100%;
   height: 100%;
   object-fit: cover; }
 
-.home .carousel-item--container {
-  display: flex;
-  align-items: center;
-  background-color: lightblue;
-  padding: 2rem; }
-  .home .carousel-item--container .carousel-item__imageContainer {
-    width: 70%;
-    height: 70%; }
-  .home .carousel-item--container .carousel-item__dataContainer {
-    width: 30%;
-    padding: 2rem; }
-
-.home .home__content1-data {
-  flex-direction: column; }
-  .home .home__content1-data .home__content1-buttonContainer {
+.home {
+  background: #F0F2F0;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #06355b, #06628f);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #06355b, #06628f);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ }
+  .home .home__universities {
+    padding: 2rem 0; }
+    .home .home__universities .home__universities--cardImageContainer {
+      height: 250px; }
+      .home .home__universities .home__universities--cardImageContainer img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain; }
+    .home .home__universities .home__universities--title {
+      font-family: 'Raleway', sans-serif;
+      font-size: 1.8rem;
+      text-align: center;
+      color: whitesmoke; }
+  .home .carousel-item--container {
     display: flex;
-    justify-content: end;
-    align-items: center; }
-
-.home .home__content2--container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin: 3rem;
-  padding: 3rem; }
-  .home .home__content2--container .home__content2--item {
+    align-items: center;
+    padding: 2rem; }
+    .home .carousel-item--container .carousel-item__imageContainer {
+      width: 70%;
+      height: 70%; }
+    .home .carousel-item--container .carousel-item__dataContainer {
+      width: 30%;
+      padding: 2rem; }
+  .home .home__content1-data {
+    flex-direction: column; }
+    .home .home__content1-data .home__content1-buttonContainer {
+      display: flex;
+      justify-content: end;
+      align-items: center; }
+  .home .home__content2--container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
-    text-align: center; }
-    .home .home__content2--container .home__content2--item i {
-      font-size: 3rem; }
+    margin: 5rem 0;
+    padding: 3rem; }
+    .home .home__content2--container .home__content2--item {
+      flex-direction: column;
+      text-align: center;
+      margin-bottom: 2rem; }
+      .home .home__content2--container .home__content2--item i {
+        color: #c9d9e1;
+        margin-bottom: 0.7rem; }
+  .home .home__contact-container {
+    padding: 4rem 1rem; }
+    .home .home__contact-container .home__contact-formWrapper {
+      padding: 2rem 0;
+      display: flex;
+      justify-content: center;
+      align-items: center; }
+      .home .home__contact-container .home__contact-formWrapper form {
+        width: 100%;
+        max-width: 450px; }
+        .home .home__contact-container .home__contact-formWrapper form .form-control {
+          border-radius: 0 !important;
+          height: 3rem; }
+        .home .home__contact-container .home__contact-formWrapper form textarea {
+          resize: none !important;
+          min-height: 10rem; }
+        .home .home__contact-container .home__contact-formWrapper form .home__contact-form-buttonContainer {
+          display: flex;
+          justify-content: end; }
 
 @media screen and (min-width: 500px) {
+  .home .home__universities {
+    padding: 1rem 0; }
+    .home .home__universities .home__universities--title {
+      font-family: 'Raleway', sans-serif;
+      text-align: center; }
   .home .home__last-paragraph {
-    width: 70%; } }
+    width: 70%; }
+  .home .home__content2--container {
+    justify-content: space-between;
+    flex-direction: row; }
+    .home .home__content2--container .home__content2--item {
+      margin-bottom: 0; }
+      .home .home__content2--container .home__content2--item i {
+        font-size: 10rem; }
+  .home .home__contact-container {
+    padding: 5rem 1rem; }
+    .home .home__contact-container .home__contact-formWrapper {
+      padding: 4rem 2rem; } }
+
+@media screen and (min-width: 1024px) {
+  .home .home__universities .home__universities--title {
+    font-family: 'Raleway', sans-serif;
+    text-align: center; } }

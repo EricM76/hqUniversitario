@@ -24,12 +24,13 @@
     document.getElementById('form-add-question').addEventListener('submit',(e) => {
         e.preventDefault();
         let error = false;
-        const elements = e.target.elements
+        const elements = e.target.elements;
+        console.log(elements)
         const inputQuestion = elements[0];
         const inputScore = elements[1];
-        const inputAnswer1 = elements[3];
-        const inputAnswer2 = elements[6];
-        const checkCorrects = [elements[2].checked,elements[5].checked,elements[8].checked,elements[11].checked,elements[14].checked,elements[17].checked]
+        const inputAnswer1 = elements[4];
+        const inputAnswer2 = elements[7];
+        const checkCorrects = [elements[3].checked,elements[6].checked,elements[9].checked,elements[12].checked,elements[15].checked,elements[18].checked]
          !inputQuestion.value.trim() && inputQuestion.classList.add('is-invalid');
          !inputScore.value.trim() && inputScore.classList.add('is-invalid');
          !inputAnswer1.value.trim() && inputAnswer1.classList.add('is-invalid');

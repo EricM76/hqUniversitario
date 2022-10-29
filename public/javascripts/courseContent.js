@@ -69,18 +69,41 @@ window.addEventListener('load', async () => {
 
   const query = new URLSearchParams(location.search);
 
-  if(query.has('result')){
-    try {
-      let response = await fetch(`/examen/result/${query.get('test')}`,{
-        method : 'POST'
-      });
-      let result = await response.json();
-      console.log(result)
-      
-    } catch (error) {
-      console.error
-    }
+  if(query.has('test')){
+    document.getElementById('btn-test' + query.get('test')).click();
   }
 
 
 })
+
+const showImage = (id) => {
+  document.getElementById('box-question' + id).classList.add('justify-content-center');
+  document.getElementById('title' + id).hidden = true;
+  document.getElementById('box-image' + id).hidden = false;
+  document.getElementById('btn-show-image' + id).hidden = true;
+  
+};
+
+ const hiddenImage= (id) => {
+  document.getElementById('box-question' + id).classList.remove('justify-content-center');
+  document.getElementById('title' + id).hidden = false;
+  document.getElementById('box-image' + id).hidden = true;
+  document.getElementById('btn-show-image' + id).hidden = false;
+
+}
+
+const showImageAnswer = (id) => {
+  document.getElementById('box-answer' + id).classList.remove('d-flex');
+  //document.getElementById('title-answer' + id).hidden = true;
+  document.getElementById('box-image-answer' + id).hidden = false;
+  document.getElementById('btn-show-image-answer' + id).hidden = true;
+  
+};
+
+ const hiddenImageAnswer= (id) => {
+  document.getElementById('box-answer' + id).classList.add('d-flex');
+  //document.getElementById('title-answer' + id).hidden = false;
+  document.getElementById('box-image-answer' + id).hidden = true;
+  document.getElementById('btn-show-image-answer' + id).hidden = false;
+
+}

@@ -54,16 +54,18 @@
                                   <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Materia</th>
+                                    <th scope="col">Videos</th>
                                     <th scope="col">Facultad</th>
                                     <th scope="col">Universidad</th>
                                     <th scope="col">Acciones</th>
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <% courses.forEach(({id,name,faculty,university}) => { %>
+                                  <% courses.forEach(({id,name,faculty,university,videos}) => { %>
                                     <tr>
                                       <th class="align-middle" scope="row"><%= id %></th>
                                       <td class="align-middle"><%= name %></td>
+                                      <td class="align-middle"><%= videos.length %></td>
                                       <td class="align-middle"><%= faculty.acronym %></td>
                                       <td class="align-middle"><%= university.acronym %></td>
                                       <td class="align-middle">

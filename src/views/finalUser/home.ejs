@@ -11,10 +11,10 @@
        <!--  <div class="row">
             <h2 data-aos="fade-up" data-aos-duration="1000">Universidades</h2>
         </div> -->
-        <div class="row" data-aos="fade-up" data-aos-duration="1500" style="height: 80vh;">
+        <div class="row" data-aos="fade-up" data-aos-duration="1500" >
           <!-- Card Universidad -->
           <% universities.forEach(university => { %>
-            <div class="col-12 col-md-4 p-3 mt-5">
+            <div class="col-12 col-md-4 my-3">
               <div class="card border border-0  p-2 bg-transparent">
                 <div class="home__universities--cardImageContainer">
                   <img src="images/logos/<%- university.image %> " alt="unc_logo">
@@ -53,7 +53,7 @@
       <!-- FINAL UNIVERSIDADES -->
       <!-- SECCIÓN CONTENIDO 1 -->
       <section class="container p-3 p-md-4 p-lg-5 mb-5">
-        <div class="row p-4" style="background-color: rgba(255,255,255,0.1);">
+        <div class="row p-4">
           <div data-aos="fade" data-aos-duration="1500" class="col-12 col-md-6 home__content1-imageContainer">
             <img src="images/home/home1_img.png" alt="Ilustración">
           </div>
@@ -136,9 +136,9 @@
       </div> -->
       <!-- FINAL CAROUSEL -->
       <!-- SECCIÓN CONTENIDO 2 -->
-      <section class="home__content2--container mb-0">
+    <!--   <section class="home__content2--container mb-0">
         <div data-aos="fade-up" data-aos-duration="750" class="home__content2--item">
-          <i class="fa-solid fa-award"></i>
+          <p style="font-size: 5rem;"><i class="fa-solid fa-award"></i></p>
           <p>Contenido de calidad</p>
         </div>
         <div data-aos="fade-up" data-aos-duration="1250" class="home__content2--item">
@@ -149,7 +149,7 @@
           <i class="fa-solid fa-person-chalkboard"></i>
           <p>Los mejores docentes</p>
         </div>
-      </section>
+      </section> -->
       <!-- FINAL CONTENIDO 2 -->
       <!-- SECCIÓN MATERIAS -->
    <!--    <section class="container shadow p-3 bg-white rounded" data-aos="fade-up" data-aos-duration="1500">
@@ -182,10 +182,12 @@
       <!-- FINAL MATERIAS -->
       <!-- SECCIÓN CONTACTO -->
       <section class="container home__contact-container" id="contacto">
-        <div class="row">
-          <div class="col-md-6" data-aos="fade" data-aos-duration="1500" >
-            <h1>CONTACTANOS</h1>
-            <p>Envianos un mensaje con tu consulta y en breve te responderemos</p>
+        <div class="row" data-aos="fade" data-aos-duration="1500">
+          <h1 class="text-light">CONTACTANOS</h1>
+          <p class="text-light fs-4">Envianos un mensaje con tu consulta y en breve te responderemos</p>
+          <hr class="text-light">
+          <div class="col-md-6"  >
+           
             <div class="home__contact-imgWrapper">
               <img src="images/home/home2_img-contacto.png" alt="Ilustración de contacto">
             </div>
@@ -209,6 +211,8 @@
               </div>
             </form>
           </div>
+          <hr class="text-light">
+
         </div>
       </section>
       <!-- FINAL CONTACTO -->

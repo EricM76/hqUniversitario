@@ -78,6 +78,17 @@ a{
     }
 }
 
+.button__blue {
+    @extend .button-base;
+    color: white;
+    background-color: #042c5c;
+    border: 1px solid #042c5c;
+    &:hover {
+        background-color: white;
+        color: #042c5c;
+    }
+}
+
 .button__dark--extended {
     @extend .button-base;
     color: white;

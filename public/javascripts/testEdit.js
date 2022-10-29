@@ -129,6 +129,18 @@ const imagePrev = function (id) {
 
 };
 
+const questionImagePrev = function (id) {
+    let reader = new FileReader();
+    reader.readAsDataURL(this.event.target.files[0])
+    reader.onload = () => {
+        $('btnAddQuestion' + id).innerText = 'Cambiar imagen';
+        $('btnSaveQuestion' + id).hidden = false;
+        $('questionImagePrev' + id).src = reader.result;
+        $('btnSaveQuestion' + id).focus();
+    }
+
+};
+
 const clearImage = (id, image) => {
     setTimeout(() => {
         $('btnSave' + id).hidden = true;
@@ -145,6 +157,31 @@ const saveImage = async (id) => {
 
     try {
         let response = await fetch(`/tests/answers/change-image/${id}`, {
+            method: 'PUT',
+            body: data,
+            'Content-Type': 'multipart/form-data'
+        })
+
+        let result = await response.json();
+
+        console.log(result);
+        if (result.ok) {
+            window.location.reload()
+        }
+
+    } catch (error) {
+        console.error(error)
+    }
+};
+
+const saveQuestionImage = async (id) => {
+    let data = new FormData();
+    data.append('image', $('question' + id).files[0]);
+
+    console.log(data)
+
+    try {
+        let response = await fetch(`/tests/questions/change-image/${id}`, {
             method: 'PUT',
             body: data,
             'Content-Type': 'multipart/form-data'
