@@ -63,8 +63,8 @@ module.exports = {
           }
 
           res.locals.user = req.session.user;
-         
-            return res.redirect(req.session.user.rol == 1? '/admin' : req.cookies.backurl ? req.cookies.backurl : '/');
+            console.log(req.cookies.backurl)
+            return res.redirect(req.session.user.rol == 1? '/admin' : req.cookies.backurl ?`${req.cookies.backurl}?userId=${req.session.user.id}` : '/?userId=' + req.session.user.id);
         })
         .catch((error) => console.error(error));
     } else {
@@ -93,7 +93,7 @@ module.exports = {
       userActiveCourses: data.activeUserCourses
     };
 
-    return res.redirect(req.cookies.backurl ? req.cookies.backurl : '/');
+    return res.redirect(req.cookies.backurl ? req.cookies.backurl + '?userId=' + req.session.user.id : '/?userId=' + req.session.user.id);
   },
   register: (req, res) => {
     return res.render("finalUser/userRegister", { session: req.session });
