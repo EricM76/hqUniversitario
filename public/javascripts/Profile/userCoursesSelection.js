@@ -152,9 +152,6 @@ const confirmSelectedCourses = async (data) => {
 
 }
 
-
-
-
 universitySelect.addEventListener("change", async (event) => {
     const selectedUniversityId = event.target.value;
     facultySelect.innerHTML = "<option value=''>Elige facultad</option>";

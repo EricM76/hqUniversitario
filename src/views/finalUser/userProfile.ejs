@@ -7,7 +7,7 @@
   <%- include('./partials/header') %> 
   <main class="container pb-5">
     <!-- data-aos-delay="500" data-aos="fade-up" data-aos-duration="2000" -->
-    <h2 class="mx-4 pt-2 text-center" data-aos="fade-right" data-aos-duration="1000">Hola <%= user.name %></h2>
+    <h2 class="mx-4 p-5 fs-3 text-center" data-aos="fade-right" data-aos-duration="1000">Hola <%= user.name %></h2>
     <nav class="p-4 bg-white">
       <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" data-aos="fade" data-aos-duration="1000" role="presentation">
@@ -95,11 +95,11 @@
               <% memberships.forEach(membership => { %>
                 <div class="col-12 col-md-4 p-3 ">
                   <div class="shadow rounded p-2 membershipCard">
-                    <h2 class="text-center membershipCard__name"><%- membership.name %> </h2>
+                    <h2 class="text-center membershipCard__name border-bottom"><%- membership.name %> </h2>
                     <p class="text-center membershipCard__description"><%- membership.description %></p>
                     <p class="text-center text-white"><strong class="membershipCard__price">$ <%- membership.price %></strong> final x mes</p>
-                    <div class="d-flex justify-content-center align-items-center">
-                      <a class="button__dark" href="/subscription/<%- membership.id %>">Elegir</a>
+                    <div class="d-flex justify-content-center align-items-center p-2">
+                      <a class="button__dark button__membership" href="/subscription/<%- membership.id %>">Elegir</a>
                     </div>
                   </div>
                 </div>

@@ -26,18 +26,25 @@
         }
     }
     .membershipCard {
-        background-color: blueviolet;
+        background-color: rgb(43, 86, 226);
         .membershipCard__name {
-            color: orange;
+            color: rgb(255, 8, 0);
             font-weight: bold;
+            font-size: 2rem;
+            padding: 2rem;
         }
         .membershipCard__description {
             color: white;
+            padding: 2rem;
+            font-size: 1.5rem;
         }
         .membershipCard__price {
             color: white;
-            font-size: 2rem;
+            font-size: 4rem;
         }   
+        .button__membership {
+            width: 150px;
+        }
     }
     .referredContainer {
         display: flex;

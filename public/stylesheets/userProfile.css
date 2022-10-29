@@ -22,15 +22,21 @@
       justify-content: end;
       align-items: center; }
   .profile__mainContainer .membershipCard {
-    background-color: blueviolet; }
+    background-color: #2b56e2; }
     .profile__mainContainer .membershipCard .membershipCard__name {
-      color: orange;
-      font-weight: bold; }
+      color: #ff0800;
+      font-weight: bold;
+      font-size: 2rem;
+      padding: 2rem; }
     .profile__mainContainer .membershipCard .membershipCard__description {
-      color: white; }
+      color: white;
+      padding: 2rem;
+      font-size: 1.5rem; }
     .profile__mainContainer .membershipCard .membershipCard__price {
       color: white;
-      font-size: 2rem; }
+      font-size: 4rem; }
+    .profile__mainContainer .membershipCard .button__membership {
+      width: 150px; }
   .profile__mainContainer .referredContainer {
     display: flex;
     align-items: center;
