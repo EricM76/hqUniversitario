@@ -9243,6 +9243,10 @@ header.main-header {
     display: flex;
     width: 15rem;
     justify-content: space-between; }
+  header.main-header .alertContainer {
+    position: absolute;
+    right: 1rem;
+    top: 6rem; }
 
 @media screen and (min-width: 500px) {
   header.main-header form {

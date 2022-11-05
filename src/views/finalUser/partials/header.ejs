@@ -4,23 +4,21 @@
             <div class="header__logo-container">
                 <a class="navbar-brand" href="/"><img src="/images/logos/logoBlue.jpeg" alt="Logo HQ"></a>
             </div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
           
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-md-center">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="/university" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Universidades
-                    </a>
-                    <ul class="dropdown-menu shadow-sm border-0" id="universitiesMenu">
-                        
-                    </ul>
-                </li>
-             
-              
-            </ul>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-md-center">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="/university" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Universidades
+                        </a>
+                        <ul class="dropdown-menu shadow-sm border-0" id="universitiesMenu">
+                            
+                        </ul>
+                    </li>
+                </ul>
                 <form role="search" action="/materia/buscar" >
                     <div class="header__searchBar-container">
                         <input class="header__searchBar-input w-100" type="search" placeholder="Buscar" aria-label="Search" name="keyword">
@@ -30,62 +28,71 @@
               
                 <% if (typeof locals.session.user === "undefined") { %>
 
-            <ul class="navbar-nav ms-auto mt-2 mt-md-0 mb-lg-0 align-items-md-center justify-content-md-end">
-                    <div class="header__buttons-container">
-                        <a href="/usuario/login" >
-                            <div class="button__light">
-                                <span>Iniciar sesión</span>
+                    <ul class="navbar-nav ms-auto mt-2 mt-md-0 mb-lg-0 align-items-md-center justify-content-md-end">
+                            <div class="header__buttons-container">
+                                <a href="/usuario/login" >
+                                    <div class="button__light">
+                                        <span>Iniciar sesión</span>
+                                    </div>
+                                </a>
+                                <a href="/usuario/registro">
+                                    <div class="button__dark">
+                                        <span>Registrate</span>
+                                    </div>
+                                </a>
                             </div>
-                        </a>
-                        <a href="/usuario/registro">
-                            <div class="button__dark">
-                                <span>Registrate</span>
-                            </div>
-                        </a>
-                    </div>
-            </ul>
+                    </ul>
+
                 <% } else {%> 
                     <ul class="navbar-nav ms-auto mt-2 mt-md-0 mb-lg-0 align-items-md-center gap-2 gap-lg-5">
 
                         <div class="btn-group" >
-                            <btn class="btn border-0"    data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                            <button class="btn border-0" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
                                 Mis materias
-                            </btn>                      
-                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
-                            <% if (session.user.userActiveCourses.length > 0) { %>
-                                <% session.user.userActiveCourses.forEach(course => { %>
-                                    <li><a class="dropdown-item" href="/materia/contenido/<%- course.id %>"><%- course.name %></a></li>
-                                <% }) %>
-                            <% } else {%>
+                            </button>                      
+                            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+                                <% if (session.user.userActiveCourses.length > 0) { %>
+                                    <% session.user.userActiveCourses.forEach(course => { %>
+                                        <li><a class="dropdown-item" href="/materia/contenido/<%- course.id %>"><%- course.name %></a></li>
+                                    <% }) %>
+                                <% } else {%>
                                     <li><a class="dropdown-item" href="/usuario/perfil#membership">Obtener membresía</a></li>
-                            <% } %>
-                        </ul>
-                      </div>
-                    <div class="btn-group">
-                            <btn class="header__avatar"  data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                                <% } %>
+                            </ul>
+                        </div>
+                        <div class="btn-group">
+                            <button class="header__avatar"  data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
                                 <span><%= locals.session.user && session.user.name.slice(0,1) %></span>
-                            </btn>                      
-                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
-                            <li><a class="dropdown-item" href="/usuario/perfil">Mi perfil</a></li>
-                            <li><a class="dropdown-item" href="/usuario/logout">Cerrar sesión <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
-                        </ul>
-                      </div>
-                  <!--   <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <div class="header__avatar">
-                                <span><%= locals.session.user && session.user.name.slice(0,1) %></span>
-                            </div>
-                        </a>
-                        <ul class="dropdown-menu dropstart shadow-sm border-0">
-                            <li><a class="dropdown-item" href="/usuario/perfil">Mi perfil</a></li>
-                            <li><a class="dropdown-item" href="/usuario/logout">Cerrar sesión <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
-                        </ul>
-                    </li> -->
-                </ul>
-
+                            </button>                      
+                            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+                                <li><a class="dropdown-item" href="/usuario/perfil">Mi perfil</a></li>
+                                <li><a class="dropdown-item" href="/usuario/logout">Cerrar sesión <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
+                            </ul>
+                        </div>
+                    <!--   <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <div class="header__avatar">
+                                    <span><%= locals.session.user && session.user.name.slice(0,1) %></span>
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu dropstart shadow-sm border-0">
+                                <li><a class="dropdown-item" href="/usuario/perfil">Mi perfil</a></li>
+                                <li><a class="dropdown-item" href="/usuario/logout">Cerrar sesión <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
+                            </ul>
+                        </li> -->
+                    </ul>
                 <% } %> 
-         
-          </div>
+            </div>
         </div>
     </nav>
+    <% if (typeof locals.session.user !== "undefined") { %>
+        <% if (session.user.daysToExpires < 4) { %>
+            <div class="alertContainer">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Hola <%= locals.session.user.name  %> !</strong> Tu membresía vence en <%= locals.session.user.daysToExpires %> días.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        <% } %>
+    <% } %>
 </header>
