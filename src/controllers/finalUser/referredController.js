@@ -2,6 +2,7 @@ const { format, add } = require("date-fns");
 const { validationResult } = require("express-validator");
 const { Op } = require("sequelize");
 const db = require("../../database/models");
+const { getUserMembershipData } = require("../../services/membershipService");
 
 module.exports = {
     addReferred: async (req, res) => {
@@ -107,13 +108,17 @@ module.exports = {
                         [Op.like]: freeMembershipObtained
                     }
                 }
-            })    
+            }) 
+
+            /* Verifica membresia activa */
+            const currentUserMembership = await getUserMembershipData(userId);
+            const { expires } = currentUserMembership.data;
                 
             const winnerUser = await db.User.update({
                 membershipId: membershipObtained.id,
                 entry: new Date(),
                 status: true,
-                expires: add(new Date(), {days: 30}),
+                expires: expires !== undefined ? expires : add(new Date(), {days: 30}),
                 freeMembership: true,
             }, {
               where: { id: userId } 
