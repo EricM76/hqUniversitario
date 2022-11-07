@@ -1,8 +1,8 @@
 window.addEventListener("load", async () => {
-    const BASE_URL = window.location.origin;
-    const params = new URLSearchParams(document.location.search);
-    const userId = params.get("userId");
-if (userId) {
+  const BASE_URL = window.location.origin;
+  const params = new URLSearchParams(document.location.search);
+  const userId = params.get("userId");
+  if (userId) {
     try {
         let response = await fetch(`${BASE_URL}/membresias/usuario/${userId}`)
         if (response.ok) {
@@ -10,7 +10,7 @@ if (userId) {
             if(json.quotasAvailable > 0) {
                 Swal.fire({
                     title: `Tenés ${json.quotasAvailable} materias disponibles`,
-                    text: "Elije tus materias antes de que expire tu membresía",
+                    text: "Elegí tus materias antes de que expire tu membresía",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#000',
@@ -23,16 +23,14 @@ if (userId) {
                       window.location.href = "/usuario/perfil#membership"
                     }
                   })
-            }
-            
         }
+      }
     } catch (error) {
-        console.error(error)
+      console.error(error);
     }
-}
+  }
 
-// Validar
-   
+  // Validar
 
-      // warning de vencimiento de membresia
-})
+  // warning de vencimiento de membresia
+});
