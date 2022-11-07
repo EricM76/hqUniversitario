@@ -3,10 +3,10 @@
     title : 'Selección de materias'
   }) %> 
 
-<body class="coursesSelection bg-secondary bg-gradient">
+<body class="coursesSelection">
   <%- include('./partials/header') %> 
     <main class="container p-1 p-md-3">
-        <section class="row justify-content-center align-items-center p-md-3 bg-white">
+        <section class="row justify-content-center align-items-center py-4 px-3  my-5 bg-white">
             <% if (userMembershipInfo.quotasAvailable === 0) { %>
                 <div class="container p-5">
                     <div class="row p-5">
@@ -28,56 +28,78 @@
                     <div class="container">
                         <div class="row border rounded p-3">
                             <div class="col-md-6">
-                                <h5>Con tu membresía <strong><%- userMembership.name %></strong> puedes seleccionar hasta <span id="userMembershipQuota"><%= userMembership.quota %></span> materia/s</h5>
+                                <h5>Con tu membresía <span class="badge bg-<%= userMembership.name.toLowerCase() %>"><%- userMembership.name %></span> puedes seleccionar hasta <span id="userMembershipQuota"><%= userMembership.quota %></span> materia/s</h5>
                                 <p class="alert alert-warning">Al realizar y confirmar la selección, no podrás modificarla hasta el <strong><%= userMembershipExpires %></strong> cuando renueves tu membresía. ¡Elegí bien!</p>
                             </div>
                             <div class="col-md-6 border-start">
                                 <h5 class="border-bottom p-2 mb-2">Tus materias activas <span><%= userMembershipInfo.activesUserCourses %> de un total de <%= userMembershipInfo.membershipQuota %>  </span></h5>
-                                <% activeUserCourses.forEach(course => { %>
-                                    <a href="/materia/contenido/<%- course.id %>"><span class="badge rounded-pill text-bg-success fs-4"><%- course.name %></span></a>
-                                <% }) %>
+                                <div class="d-flex gap-3 flex-wrap">
+                                    <% activeUserCourses.forEach(course => { %>
+                                        <a href="/materia/contenido/<%- course.id %>" class="badge rounded-pill text-bg-success %>  fs-4"><%- course.name %></a>
+                                    <% }) %>
+                                </div>
+                               
                             </div>
                         </div>
                         
                         
                         <div class="row border rounded p-3 mt-3">
-                            <div class="col-12 col-md-4 p-2">
-                                <label for="university">1- Elige universidad</label>
-                                <select class="form-select" name="university" id="university">
-                                    <option value="">Elige universidad</option>
-                                </select>
+                            <div class="col-12 col-md-6 col-lg-4 p-2">
+                                <div class="d-flex gap-2 align-items-center">
+                                    <h2 class="fs-2 py-3 badge rounded-pill text-bg-dark" id="step01">01</h2>
+                                        <!-- <label class="university">Elige universidad</label> -->
+                                        <select class="form-select" name="university" id="university">
+                                            <option value="" hidden selected>Elige universidad</option>
+                                        </select>
+                                </div>
+                               
                             </div>
-                            <div class="col-12 col-md-4 p-2">
-                                <label for="faculty">2- Elige facultad</label>
-                                <select class="form-select" name="faculty" id="faculty">
-                                    <option value="">Elige facultad</option>
-                                </select>
+                            <div class="col-12 col-md-6 col-lg-4 p-2">
+                                <div class="d-flex gap-2 align-items-center">
+                                    <h2 class="fs-2 py-3 badge rounded-pill text-bg-secondary" id="step02">02</h2>
+                                        <!-- <label class="university">Elige universidad</label> -->
+                                        <select class="form-select" name="faculty" id="faculty">
+                                            <option value="" hidden selected>Elige facultad</option>
+                                        </select>
+                                </div>
+                               
                             </div>
-                            <div class="col-12 col-md-4 p-2">
-                                <label for="career">3- Elige carrera</label>
-                                <select class="form-select" name="career" id="career">
-                                    <option value="">Elige carrera</option>
-                                </select>
+                            <div class="col-12 col-md-6 col-lg-4 p-2">
+                                <div class="d-flex gap-2 align-items-center">
+                                    <h2 class="fs-2 py-3 badge rounded-pill text-bg-secondary" id="step03">03</h2>
+                                        <!-- <label class="university">Elige universidad</label> -->
+                                        <select class="form-select" name="career" id="career">
+                                            <option hidden selected value="">Elige carrera</option>
+                                        </select>
+                                </div>
                             </div>
-                            <div>
-                                <button class="btn btn-outline-warning float-end" id="btn-clear">Limpiar búsqueda</button>
+                            <div class="col-12 col-md-6 col-lg-12 p-2 d-flex justify-content-end align-items-center">
+                                <button class="btn btn-outline-dark float-end" id="btn-clear">Limpiar búsqueda</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="container">
                     <div class="row">
-                        <div class="col-12 col-md-9 p-3 p-md-3 mt-2" id="coursesWrapper">
-                            <div class="container border rounded p-1 p-md-3 h-100">
-                                <h4 class="border-bottom pb-1">4- Elige tus materias</h4>
+                        <div class="col-12 col-md-7 col-lg-8 p-3 p-md-3 mt-2" id="coursesWrapper">
+                            <div class="container border rounded p-4 p-md-3 h-100">
+                                <div class="d-flex gap-2 align-items-center">
+                                    <h2 class="fs-2 py-3 badge rounded-pill text-bg-secondary" id="step04">04</h2>
+                                    <h6>Elige tus materias</h6> 
+                                </div>
+                                                           
                                 <div class="row" id="coursesContainer"></div>
                             </div>
                         </div>
-                        <div class="col-12 col-md-3 p-3 p-md-3 mt-2">
+                        <div class="col-12 col-md-5 col-lg-4 p-3 p-md-3 mt-2">
                             <div class="container border rounded p-1 p-md-3">
                                 <h5 class="border-bottom pb-1">Materias elegidas</h5>
                                 <div class="row" id="selectedCoursesContainer"></div>
-                                <button class="btn btn-outline-secondary" id="btnCoursesConfirm">Confirmar</button>
+                                <div class="d-flex justify-content-end p-2 gap-2">
+                                    <a href="/usuario/perfil#membership" class="btn btn btn-outline-dark">Cancelar</a>
+                                    <button class="btn btn-outline-dark" id="btnCoursesConfirm">Confirmar</button>
+
+                                </div>
                             </div>
                         </div>
                     </div>

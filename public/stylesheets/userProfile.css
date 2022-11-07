@@ -1,3 +1,6 @@
+.profile {
+  background-color: profile; }
+
 .profile__mainContainer {
   display: flex;
   flex-direction: column;

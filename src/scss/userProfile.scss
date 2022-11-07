@@ -1,3 +1,6 @@
+.profile  {
+    background-color: $color-azul-mate;
+}
 .profile__mainContainer {
     display: flex;
     flex-direction: column;
@@ -27,19 +30,19 @@
     }
     .membershipCard {
         &.BASIC {
-            background-color: rgb(43, 86, 226);
+            background-color: $color-celeste-mate;
         }
         &.PRO {
-            background-color: rgb(50, 85, 202);
+            background-color: $color-celeste-oscuro;
         }
         &.PREMIUM {
-            background-color: rgb(11, 63, 236);
+            background-color: $color-azul-oscuro;
         }
         .membershipCard__name {
-            color: rgb(255, 8, 0);
+            color: white;
             font-weight: bold;
-            font-size: 2rem;
-            padding: 2rem;
+            font-size: 2.5rem;
+            padding: 2rem 0;
         }
         .membershipCard__description {
             color: white;
@@ -74,5 +77,15 @@
                 font-size: 1.5rem;
             }
         }
+    }
+}
+@media screen and (min-width:  500px) {
+    .profile__mainContainer {
+
+    .membershipCard {
+        .membershipCard__name {
+            font-size: 3rem;
+        }
+}
     }
 }

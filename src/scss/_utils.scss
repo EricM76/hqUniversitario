@@ -9,3 +9,18 @@
     height: 100%;
     object-fit: cover;
 }
+
+.bg-basic {
+    background-color: $color-celeste-mate;
+    color: white;
+}
+
+.bg-pro {
+    background-color: $color-celeste-oscuro;
+    color: white;
+}
+
+.bg-premium {
+    background-color: $color-azul-oscuro;
+    color: white;
+}

@@ -169,7 +169,10 @@ module.exports = {
     const provincesPromise = axios.get(BASE_URL_PROVINCES + "/provincias");
     const userPromise = db.User.findOne({
       where: { id: req.session.user.id },
-      include: ["rol", "membership", "referreds", "courses"],
+      include: ["rol", "membership", "referreds", {
+        association : "courses",
+        include : ['faculty', 'university']
+      }],
     });
     const membershipsPromise = db.Membership.findAll({
       where: {

@@ -5,10 +5,14 @@
 
 <body class="profile">
   <%- include('./partials/header') %> 
-  <main class="container pb-5">
+  <main class="container py-5">
+    <div class="row">
+      <div class="col-12 col-md-11 mx-auto ">
+        <div class="card shadow">
+          <div class="card-body">
     <!-- data-aos-delay="500" data-aos="fade-up" data-aos-duration="2000" -->
-    <h2 class="mx-4 p-5 fs-3 text-center" data-aos="fade-right" data-aos-duration="1000">Hola <%= user.name %></h2>
-    <nav class="p-4 bg-white">
+    <h2 class="mx-auto p-2 fs-3 text-center" data-aos="fade-right" data-aos-duration="1000">¡Hola <%= user.name %>!</h2>
+    <nav class="">
       <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" data-aos="fade" data-aos-duration="1000" role="presentation">
           <button class="nav-link" onclick="setHash('data')" id="data-tab" data-bs-toggle="tab" data-bs-target="#datosPersonales-tab-pane" type="button" role="tab" aria-controls="datosPersonales-tab-pane" aria-selected="true">Datos personales</button>
@@ -21,9 +25,9 @@
         </li>
       </ul>
     </nav>
-    <div class="tab-content bg-white" id="myTabContent">
+    <div class="tab-content bg-white py-5 px-1 " id="myTabContent">
       <!-- Datos personales -->
-      <section class="tab-pane fade show active profile__mainContainer" id="datosPersonales-tab-pane" role="tabpanel" aria-labelledby="datosPersonales-tap" tabindex="0">
+      <section class="tab-pane fade show active profile__mainContainer " id="datosPersonales-tab-pane" role="tabpanel" aria-labelledby="datosPersonales-tap" tabindex="0">
         <div class="container p-1 profile__formContainer">
           <h3 class="text-center">Modificá tus datos</h3>
           <div class="container">
@@ -45,7 +49,7 @@
                   <label for="provinceSelect" class="form-label">Provincia</label>
                   <select class="form-select" id="provinceSelect" name="province">
                     <option selected hidden value="">Selecciona tu provincia</option>
-                    <% provincias.forEach(provincia => { %>
+                    <% provincias.sort((a,b) => a.nombre > b.nombre ? 1 : a.nombre <  b.nombre ? -1 : 0).forEach(provincia => { %>
                       <option value="<%- provincia.nombre %>" <%= user.province === provincia.nombre ? "selected" : "" %> ><%- provincia.nombre %> </option>
                     <% }) %>
                   </select>
@@ -73,33 +77,48 @@
       <section class="tab-pane fade profile__mainContainer" id="membresia-tab-pane" role="tabpanel" aria-labelledby="membresia-tap" tabindex="1">
         <div class="container">
           <% if (user.membership) { %>
-            <h4>Tu membresía activa es: <span class="badge bg-secondary"><%= user.membership.name %></span></h4>
-            <p>Vigente hasta: <%= userMembershipExpiresDate %></p>
+            <div class="d-flex flex-column flex-lg-row justify-content-between">
+            <h4>Tu membresía activa es: <span class="badge <%= user.membership.id === 1 ? 'bg-basic' : user.membership.id === 2 ? 'bg-pro' : 'bg-premium' %> "><%= user.membership.name %></span></h4>
+            <p class="text-danger">Vigente hasta: <%= userMembershipExpiresDate %></p>
+          </div>
+          <hr>
             <% if (userActiveCourses.length > 0) { %>
-              <h5 class="border-bottom p-2 mb-2">Tus materias activas <span><%= userMembershipInfo.activesUserCourses %> de un total de <%= userMembershipInfo.membershipQuota %>  </span></h5>
-              <% userActiveCourses.forEach(course => { %>
-                <a href="/materia/contenido/<%- course.id %>"><span class="badge rounded-pill text-bg-success fs-4"><%- course.name %></span></a>
-              <% }) %>
+              <h5 class="border-bottom alert alert-info">Tenés <span><%= userMembershipInfo.activesUserCourses %> materias activas de un total de <%= userMembershipInfo.membershipQuota %>  </span></h5>
+              <div class="d-flex flex-column flex-md-row flex-wrap justify-content-center">
+                <% userActiveCourses.forEach(course => { %>
+                  <!--  <a href="/materia/contenido/<%- course.id %>"><span class="badge rounded-pill text-bg-success fs-4"><%- course.name %></span></a> -->
+                  <%- include('./partials/cardCourse',{
+                     course
+                  }) %> 
+                 <% }) %>
+              </div>
+            
               <% if (userMembershipInfo.quotasAvailable !== 0) { %>
-                <p class="alert alert-warning mt-4">Aún tienes <strong class="fs-5"><%= userMembershipInfo.quotasAvailable %> cupos disponibles</strong>  para elegir materias, te recuerdo que tenés 30 días para hacerlo desde la fecha de alta de la membresía. Una vez realizada la selección de materias no podrás cambiarlas hasta la próxima renovación de tu membresía.</p>
+                <p class="alert alert-warning mt-4">Aún tienes <strong class="fs-5"><%= userMembershipInfo.quotasAvailable %> materias disponibles</strong>. Acordate que tenés 30 días para hacerlo desde la fecha de alta de tu membresía. Una vez realizada la selección de materias no podrás cambiarlas hasta la próxima renovación.</p>
                 <a href="/materia/seleccion?userId=<%= session.user.id %>" class="button__dark float-end">Elegir materias</a>
               <% } %>
             <% } else { %>
-              <p class="alert alert-warning mt-4">Aún no elegiste tus materías, te recuerdo que tenés 30 días para hacerlo desde la fecha de alta de la membresía. Una vez realizada la selección de materias no podrás cambiarlas hasta la próxima renovación de tu membresía.</p>
+              <p class="alert alert-warning mt-4">Aún no elegiste tus materías. Acordate que tenés 30 días para hacerlo desde la fecha de alta de tu membresía. Una vez realizada la selección de materias no podrás cambiarlas hasta la próxima renovación.</p>
             <a href="/materia/seleccion?userId=<%= session.user.id %>" class="button__dark float-end">Elegir materias</a>
             <% } %>
           <% } else { %>
             <h3 class="text-center p-2">Aún no tienes una membresía activa</h3>
             <h4 class="text-center">Elije la que mejor se adapte a ti</h4>
-            <div class="row" data-aos="fade-up" data-aos-duration="1000">
+            <div class="d-flex flex-column flex-lg-row justify-content-between align-items-center gap-3" data-aos="fade-up" data-aos-duration="1000">
               <% memberships.forEach(membership => { %>
-                <div class="col-12 col-md-4 p-3 ">
-                  <div class="shadow rounded p-2 membershipCard <%- membership.name %>">
-                    <h2 class="text-center membershipCard__name border-bottom"><%- membership.name %> </h2>
-                    <p class="text-center membershipCard__description"><%- membership.description %></p>
-                    <p class="text-center text-white"><strong class="membershipCard__price">$ <%- membership.price %></strong> final x mes</p>
-                    <div class="d-flex justify-content-center align-items-center p-2">
-                      <a class="button__dark button__membership" href="/subscription/<%- membership.id %>">Elegir</a>
+                <div class="w-100 mt-4">
+                  <div class="d-flex flex-column flex-md-row flex-lg-column  shadow rounded p-2 membershipCard <%- membership.name %> px-3 pb-4">
+                    <div class="row mx-2">
+                      <h2 class="text-center membershipCard__name border-bottom"><%- membership.name %> </h2>
+                      <p class="text-center membershipCard__description"><%- membership.description %></p>
+                    </div>
+                  
+                    <div class="d-flex flex-column justify-content-center">
+                      <p class="text-center text-white"><strong class="membershipCard__price">$ <%- membership.price %></strong> final x mes</p>
+                      <div class="d-flex justify-content-center align-items-center p-2">
+                        <a class="button__dark button__membership" href="/subscription/<%- membership.id %>">Elegir</a>
+                    </div>
+                  
                     </div>
                   </div>
                 </div>
@@ -178,6 +197,10 @@
         </div>
       </section>
     </div>
+  </div>
+</div>
+  </div>
+</div>
   </main>
   <%- include('./partials/footer') %> 
   <%- include('./partials/scripts') %> 
