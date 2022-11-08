@@ -1,4 +1,4 @@
-const { differenceInDays, format } = require("date-fns");
+const { format } = require("date-fns");
 const db = require("../../database/models");
 const { getActivesUserCourses } = require("../../services/userCoursesService");
 
@@ -35,11 +35,11 @@ module.exports = {
                 expires: user.expires,
                 daysToExpires: Math.abs(Difference_In_Days),
                 status: user.status,
-                membershipName: user.membership.name,
+                membershipName: user.membership?.name,
                 freeMembership: user.freeMembership,
-                membershipQuota: user.membership.quota,
-                activesUserCourses: data.total,
-                quotasAvailable: user.membership.quota - data.total,
+                membershipQuota: user.membership?.quota,
+                activesUserCourses: data?.total,
+                quotasAvailable: user.membership?.quota - data?.total,
             }
 
             return res.status(200).json(response);
