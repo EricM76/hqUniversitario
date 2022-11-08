@@ -33,6 +33,13 @@ inputNameReferred.addEventListener("blur", async (e) => {
             referredSubmitButton
             break;
     }
+});
+
+inputNameReferred.addEventListener("focus", async (e) => {
+   
+    inputNameReferred.classList.remove("is-valid");
+    inputNameReferred.classList.remove("is-invalid");
+
 })
 
 inputEmailReferred.addEventListener("blur", async (e) => {
@@ -63,16 +70,43 @@ inputEmailReferred.addEventListener("blur", async (e) => {
     }
 })
 
+inputEmailReferred.addEventListener("focus", async (e) => {
+   
+    inputEmailReferred.classList.remove("is-valid");
+    inputEmailReferred.classList.remove("is-invalid");
+
+})
+
+inputEmailReferred.addEventListener("keyup", async (e) => {
+    let userIsValid = inputEmailReferred.value.length && await validateReferredUser(e.target.value);
+
+    if(userIsValid.state){
+        inputEmailReferred.classList.add("is-invalid");
+        emailReferredError.innerText = userIsValid.message;
+        referredError = true;
+        referredSubmitButton.disabled = true;
+
+    }else if(!userIsValid.state && inputNameReferred.value){
+        inputEmailReferred.classList.remove("is-invalid");
+        emailReferredError.innerText = null;
+        referredError = false;
+        referredSubmitButton.disabled = false;
+
+    }
+});
+
+
 referredForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    if(inputNameReferred.value == "" || inputEmailReferred.value == "") {
+  /*   if(inputNameReferred.value == "" || inputEmailReferred.value == "") {
         referredError = true;
         submitReferredError.innerText = "Completa todos los campos"
     }else{
         submitReferredError.innerText = "";
-    }
+    } */
     
     if(!referredError){
+        referredSubmitButton.disabled = false;
         referredForm.submit()
     }
 })
