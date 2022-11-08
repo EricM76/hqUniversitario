@@ -11,6 +11,8 @@ const BASE_URL = window.location.origin;
 let userMembershipQuota;
 let userQuotasAvailable;
 
+const $ = e => document.getElementById(e)
+
 const doFetch = async (url) => {
     try {
         const request = await fetch(url);
@@ -36,7 +38,7 @@ window.addEventListener("load", async() => {
     /* Obtener universidades y listarlas en el select */
     try {
         const universities = await doFetch(`${BASE_URL}/api/university`);
-        universitySelect.innerHTML = "<option value=''>Elige universidad</option>";
+        universitySelect.innerHTML = "<option value='' selected hidden>Elige la universidad</option>";
         universities.forEach(university => {
             universitySelect.innerHTML += `<option value="${university.id}">${university.name}</option>` 
         });
@@ -107,6 +109,8 @@ const addCourse = (courseId) => {
 const removeSelectedCourse = (courseId) => {
     const coursesInStorage = JSON.parse(localStorage.getItem("selectedCourses"));
     const listWithoutRemovedCourse = coursesInStorage.filter(course => course.id !== Number(courseId))
+    btnCoursesConfirm.disabled = !listWithoutRemovedCourse.length;
+
     localStorage.setItem("selectedCourses", JSON.stringify(listWithoutRemovedCourse));
 
     selectedCoursesContainer.innerHTML = ""
@@ -117,18 +121,23 @@ const removeSelectedCourse = (courseId) => {
 
 const courseItemGenerator = (course) => {
     return `<div class="col-12 col-lg-6 p-2">
-        <div class="d-flex justify-content-between align-items-center border rounded p-1">
+    <div class="card">
+        <div class="card-body d-flex justify-content-between align-items-center gap-2 p-3">
             <a href="/materia/presentacion/${course.id}" target="_blank">${course.name}</a>
             <button id="${course.id}" class="btn btn-outline-success" onclick="addCourse(${String(course.id)})">Agregar</button>
         </div>
+    </div>
+       
     </div>`
 }
 
 const selectedCourseItemGenerator = (course) => {
     return `<div class="col-12 p-2">
-        <div class="d-flex justify-content-between align-items-center border rounded p-1">
-            <span>${course.name}</span>
-            <button id="${course.id}" onclick="removeSelectedCourse(${String(course.id)})" class="btn btn-outline-danger">Quitar</button>
+    <div class="card">
+        <div class="card-body d-flex justify-content-between align-items-center gap-2 p-3">
+                <span>${course.name}</span>
+                <button id="${course.id}" onclick="removeSelectedCourse(${String(course.id)})" class="btn btn-outline-danger">Quitar</button>
+        </div>
         </div>
     </div>`
 }
@@ -154,7 +163,7 @@ const confirmSelectedCourses = async (data) => {
 
 universitySelect.addEventListener("change", async (event) => {
     const selectedUniversityId = event.target.value;
-    facultySelect.innerHTML = "<option value=''>Elige facultad</option>";
+    facultySelect.innerHTML = "<option value='' selected hidden>Elige facultad</option>";
     try {
         const faculties = await doFetch(`${BASE_URL}/faculties/get-by-university?universityId=${selectedUniversityId}`);
         faculties.data.forEach(faculty => {
@@ -162,6 +171,10 @@ universitySelect.addEventListener("change", async (event) => {
         })
         universitySelect.disabled = true;
         facultySelect.disabled = false;
+        $('step01').classList.remove('text-bg-dark')
+        $('step01').classList.add('text-bg-secondary')
+        $('step02').classList.toggle('text-bg-dark')
+
     } catch (error) {
         console.error(error);
     }
@@ -169,7 +182,7 @@ universitySelect.addEventListener("change", async (event) => {
 
 facultySelect.addEventListener("change", async (event) => {
     const selectedFacultyId = event.target.value;
-    careerSelect.innerHTML = "<option value=''>Elige facultad</option>";
+    careerSelect.innerHTML = "<option hidden selected value=''>Elige carrera</option>";
     try {
         const careers = await doFetch(`${BASE_URL}/careers/get-by-faculty?facultyId=${selectedFacultyId}`);
         careers.data.forEach(career => {
@@ -177,6 +190,8 @@ facultySelect.addEventListener("change", async (event) => {
         })
         facultySelect.disabled = true;
         careerSelect.disabled = false;
+        $('step02').classList.toggle('text-bg-dark')
+        $('step03').classList.toggle('text-bg-dark')
     } catch (error) {
         console.error(error);
     }
@@ -195,6 +210,8 @@ careerSelect.addEventListener("change", async (event) => {
             })
         }
         careerSelect.disabled = true;
+        $('step03').classList.toggle('text-bg-dark')
+        $('step04').classList.toggle('text-bg-dark')
     } catch (error) {
         console.error(error);
     }
@@ -203,15 +220,24 @@ careerSelect.addEventListener("change", async (event) => {
 btnClear.addEventListener("click", async () => {
     universitySelect.disabled = false;
     const universities = await doFetch(`${BASE_URL}/api/university`);
-    universitySelect.innerHTML = "<option value=''>Elige universidad</option>";
+    universitySelect.innerHTML = "<option hidden selected value=''>Elige universidad</option>";
     universities.forEach(university => {
         universitySelect.innerHTML += `<option value="${university.id}">${university.name}</option>` 
     });
-    facultySelect.disabled = false;
-    facultySelect.innerHTML = "<option value=''>Elige facultad</option>";
-    careerSelect.disabled = false;
-    careerSelect.innerHTML = "<option value=''>Elige facultad</option>";
+    facultySelect.disabled = true;
+    facultySelect.innerHTML = "<option hidden selected value=''>Elige facultad</option>";
+    careerSelect.disabled = true;
+    careerSelect.innerHTML = "<option hidden selected value=''>Elige carrera</option>";
     coursesContainer.innerHTML = "";
+    
+    $('step01').classList.remove('text-bg-secondary')
+    $('step01').classList.add('text-bg-dark')
+    $('step02').classList.remove('text-bg-dark')
+    $('step03').classList.remove('text-bg-dark')
+    $('step04').classList.remove('text-bg-dark')
+    btnCoursesConfirm.disabled = true;
+
+
 })
 
 btnCoursesConfirm.addEventListener("click", async () => {

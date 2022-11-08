@@ -1,0 +1,17 @@
+    <div class="col-12 col-md-6 col-lg-4 p-1" >
+        <div class="card">
+          <img src="/images/courses/<%- course.image %>" class="card-img" alt="Imagen <%- course.image %>" style="object-fit:fill; height: 150px;">
+      <div class="card-img-overlay text-bg-dark p-4 bg-opacity-50">
+        <h5 class="card-title mb-0"><%- course.name %></h5>
+        <hr class="my-1">
+        <h6 class=""><%= course.university.acronym%> | <%=course.faculty.acronym%> </h6>        
+        <div class="d-flex justify-content-end">
+            <a href="/materia/presentacion/<%- course.id %>">
+                <div class="btn btn-outline-light">
+                    <span>Ir al contenido</span>
+                </div>
+              </a>
+        </div>  
+    </div>
+        </div>
+    </div>

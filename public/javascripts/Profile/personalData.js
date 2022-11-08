@@ -12,7 +12,7 @@ provinceSelect.addEventListener("change", async (e) => {
      })
      .then(cities => {
         citiesSelect.innerHTML = ""
-        cities.localidades.forEach(city => {
+        cities.localidades.sort((a,b) => a.nombre > b.nombre ? 1 : a.nombre <  b.nombre ? -1 : 0).forEach(city => {
             citiesSelect.innerHTML += `<option value="${city.nombre}">${city.nombre} </option>`
         })
      })
