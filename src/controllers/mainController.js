@@ -1,5 +1,6 @@
 const db = require('../database/models');
-const {validationResult} = require('express-validator')
+const {validationResult} = require('express-validator');
+
 
 module.exports = {
     home : (req,res) => {
@@ -22,6 +23,9 @@ module.exports = {
             limit: 10,
             include : ['university','faculty']
         });
+
+        
+       
         Promise.all([getUniversities, getLastestCourses])
         .then(([universities, lastestCourses]) => {
             return res.render("finalUser/home", {

@@ -86,10 +86,10 @@
         </div>
     </nav>
     <% if (typeof locals.session.user !== "undefined") { %>
-        <% if (session.user.daysToExpires < 4) { %>
+        <% if (session.user.daysToExpires < 4 && session.user.daysToExpires > 0) { %>
             <div class="alertContainer">
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>Hola <%= locals.session.user.name  %> !</strong> Tu membresía vence en <%= locals.session.user.daysToExpires %> días.
+                    <strong>Hola <%= locals.session.user.name  %> !</strong> Tu membresía vence en <%= locals.session.user.daysToExpires %> <%= locals.session.user.daysToExpires > 1 ? "días" : "día" %>.
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             </div>

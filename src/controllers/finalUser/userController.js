@@ -97,7 +97,7 @@ module.exports = {
       rol: user.rolId,
       googleId: user.social_id,
       membershipId: user.membershipId,
-      daysToExpires: userMembershipInfo.data.daysToExpires,
+      daysToExpires: userMembershipInfo.data?.daysToExpires,
       status: user.status,
       userMembershipExpiresDate: userMembershipInfo.expires !== undefined ? userMembershipInfo.expires : null,
       userActiveCourses: data.activeUserCourses,
@@ -218,7 +218,6 @@ module.exports = {
         const userActiveCourses = user.courses.filter(
           (course) => course.UserCourse.active
         );
-        console.log(userMembershipInfo.data);
         return res.render("finalUser/userProfile", {
           user,
           userMembershipExpiresDate: format(

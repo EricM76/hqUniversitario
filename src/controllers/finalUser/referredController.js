@@ -2,6 +2,7 @@ const { format, add } = require("date-fns");
 const { validationResult } = require("express-validator");
 const { Op } = require("sequelize");
 const db = require("../../database/models");
+const sendEmail = require("../../services/email.service");
 const { getUserMembershipData } = require("../../services/membershipService");
 
 module.exports = {
@@ -16,6 +17,20 @@ module.exports = {
                     userId: req.session.user.id,
                     active: false,
                 })
+
+                let email = {
+                    subject: `${req.session.user.name} te refirió en HQ Universitario`,
+                    title: "Fuiste referido!", 
+                    content: `Registrate en <a href="http://localhost:3000/usuario/registro" target="_blank" >HQ Universitario</a>`, 
+                    to: [
+                        {
+                            email: req.body.email,
+                            name: req.body.name,
+                        }
+                    ]
+                }
+
+                sendEmail(email)
 
                 return res.redirect("/usuario/perfil#referred")
             } catch(error) {
@@ -112,19 +127,33 @@ module.exports = {
 
             /* Verifica membresia activa */
             const currentUserMembership = await getUserMembershipData(userId);
-            const { expires } = currentUserMembership.data;
                 
-            const winnerUser = await db.User.update({
+            const winnerUserUpdate = await db.User.update({
                 membershipId: membershipObtained.id,
                 entry: new Date(),
                 status: true,
-                expires: expires !== undefined ? expires : add(new Date(), {days: 30}),
+                expires: currentUserMembership.data?.expires !== undefined ? currentUserMembership.data?.expires : add(new Date(), {days: 30}),
                 freeMembership: true,
             }, {
               where: { id: userId } 
             })
 
-            if(winnerUser){
+            let winnerUser = await db.User.findByPk(userId)
+
+            if(winnerUserUpdate){
+                let email = {
+                    subject: `Ganaste una membresía en HQ Universitario!`,
+                    title: "Ganaste una membresía!", 
+                    content: `Ingresá en <a href="http://localhost:3000" target="_blank" >HQ Universitario</a> y elegí tus materias`, 
+                    to: [
+                        {
+                            email: winnerUser.email,
+                            name: winnerUser.name,
+                        }
+                    ]
+                }
+
+                sendEmail(email)
                 return res.status(200).json({ message: `Membresía gratuita activada al usuario ${userId}`})   
             }
         } catch (error) {
