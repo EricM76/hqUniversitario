@@ -89,3 +89,25 @@
 }
     }
 }
+
+@media screen and (min-width:  1024px) {
+    .profile__mainContainer {
+
+    .membershipCard {
+        .membershipCard__name {
+            font-size: 2rem;
+        }
+}
+    }
+}
+
+@media screen and (min-width:  1440px) {
+    .profile__mainContainer {
+
+    .membershipCard {
+        .membershipCard__name {
+            font-size: 3rem;
+        }
+}
+    }
+}
