@@ -110,12 +110,26 @@ module.exports = {
                 }
             });
 
-            const { count : theoreticalCount, rows : theoreticalVideos } = await  db.Video.findAndCountAll({
+          /*   const { count : theoreticalCount, rows : theoreticalVideos } = await  db.Video.findAndCountAll({
                 where: {
                     categoryId: 1,
                     courseId: req.params.id
                 }
-            });
+            }); */
+
+            const theoreticalCount = db.Video.count({
+                where: {
+                    categoryId: 1,
+                    courseId: req.params.id
+                }
+            })
+
+            const theoreticalVideos = db.Video.findAll({
+                where: {
+                    categoryId: 1,
+                    courseId: req.params.id
+                }
+            })
 
             const videoPracticalWorkHours =  db.Video.sum('length', {
                 where: {
@@ -124,7 +138,21 @@ module.exports = {
                 }
             });
 
-            const { count: videoPracticalWorkCount, rows: practicalVideos } = await  db.Video.findAndCountAll({
+           /*  const { count: videoPracticalWorkCount, rows: practicalVideos } = await  db.Video.findAndCountAll({
+                where: {
+                    categoryId: 2,
+                    courseId: req.params.id
+                }
+            }); */
+
+            const videoPracticalWorkCount =  db.Video.count({
+                where: {
+                    categoryId: 2,
+                    courseId: req.params.id
+                }
+            });
+
+            const practicalVideos = db.Video.findAll({
                 where: {
                     categoryId: 2,
                     courseId: req.params.id
@@ -138,7 +166,23 @@ module.exports = {
                 }
             });
 
-            const { count: integrativeVideoExamsCount, rows: integrativeVideoExams } = await  db.Video.findAndCountAll({
+         /*    const { count: integrativeVideoExamsCount, rows: integrativeVideoExams } = await  db.Video.findAndCountAll({
+                where: {
+                    categoryId: 3,
+                    courseId: req.params.id
+                },
+                include : ['turn']
+            }); */
+
+            const integrativeVideoExamsCount =  db.Video.count({
+                where: {
+                    categoryId: 3,
+                    courseId: req.params.id
+                },
+                include : ['turn']
+            });
+
+            const integrativeVideoExams = db.Video.findAll({
                 where: {
                     categoryId: 3,
                     courseId: req.params.id
@@ -153,12 +197,27 @@ module.exports = {
                 }
             });
 
-            const { count: levelingCycleVideosCount, rows: levelingCycleVideos } =  await db.Video.findAndCountAll({
+         /*    const { count: levelingCycleVideosCount, rows: levelingCycleVideos } =  await db.Video.findAndCountAll({
+                where: {
+                    categoryId: 4,
+                    courseId: req.params.id
+                }
+            }); */
+
+            const levelingCycleVideosCount =  await db.Video.count({
                 where: {
                     categoryId: 4,
                     courseId: req.params.id
                 }
             });
+
+            const levelingCycleVideos =  await db.Video.findAll({
+                where: {
+                    categoryId: 4,
+                    courseId: req.params.id
+                }
+            });
+
 
             const integrativeExerciseVideosHours =  db.Video.sum('length', {
                 where: {
@@ -167,7 +226,21 @@ module.exports = {
                 }
             });
 
-            const { count: integrativeExerciseVideosCount, rows: integrativeExerciseVideos } = await db.Video.findAndCountAll({
+         /*    const { count: integrativeExerciseVideosCount, rows: integrativeExerciseVideos } = await db.Video.findAndCountAll({
+                where: {
+                    categoryId: 5,
+                    courseId: req.params.id
+                }
+            }); */
+
+            const integrativeExerciseVideosCount = await db.Video.count({
+                where: {
+                    categoryId: 5,
+                    courseId: req.params.id
+                }
+            });
+
+            const integrativeExerciseVideos = await db.Video.findAll({
                 where: {
                     categoryId: 5,
                     courseId: req.params.id
@@ -181,7 +254,21 @@ module.exports = {
                 }
             });
 
-            const { count: previusExamVideosCount, rows: previusExamVideos } = await  db.Video.findAndCountAll({
+        /*     const { count: previusExamVideosCount, rows: previusExamVideos } = await  db.Video.findAndCountAll({
+                where: {
+                    categoryId: 6,
+                    courseId: req.params.id
+                }
+            }); */
+
+            const previusExamVideosCount = await  db.Video.count({
+                where: {
+                    categoryId: 6,
+                    courseId: req.params.id
+                }
+            });
+
+            const previusExamVideos = await  db.Video.findAll({
                 where: {
                     categoryId: 6,
                     courseId: req.params.id
@@ -303,8 +390,7 @@ module.exports = {
                             include: ['unit', 'turn']
                         },
                         {
-                            association: 'notes',
-                            attributes: ['id']
+                            association: 'notes'
                         },
                         {
                             association: 'tests',
