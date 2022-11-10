@@ -59,6 +59,17 @@ const paymentService = {
   },
   getSubscriptionStatus: async() => {
     const url = "subscription"
+  },
+  getAuthorizedPayments: async(paymentId) => {
+    const url = `${process.env.API_MP}/authorized_payments/${paymentId}`
+    const payment = await axios.get(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.ACCESS_TOKEN}`
+      }
+    });
+
+    return payment.data;
   }
 }
 
