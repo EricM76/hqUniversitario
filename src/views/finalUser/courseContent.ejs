@@ -413,6 +413,22 @@
                   <% }%>
               </div>
             </div>
+            <div class="col-12">
+              <h4 class="mt-4">Apuntes de la materia</h4>
+              <hr>
+              <ul class=" list-group-flush ">
+                <% course.notes.forEach(note => { %>
+                  <li class=" list-group-item d-flex justify-content-between">
+                    <div>
+                      <i class="fa fa-file-pdf text-danger" aria-hidden="true"></i>
+                      <span><%= note.title %></span>
+                    </div>
+                    <a href="" class="btn btn-sm btn-outline-success">Descargar</a>
+                  </li>                       
+                <% }) %>
+              </ul>
+           
+            </div>
             </div>
           </div>
         </section>

@@ -697,6 +697,14 @@ a {
   .profile__mainContainer .membershipCard .membershipCard__name {
     font-size: 3rem; } }
 
+@media screen and (min-width: 1024px) {
+  .profile__mainContainer .membershipCard .membershipCard__name {
+    font-size: 2rem; } }
+
+@media screen and (min-width: 1440px) {
+  .profile__mainContainer .membershipCard .membershipCard__name {
+    font-size: 3rem; } }
+
 .magicCenter, .home .home__content1-data, .home .home__content2--container .home__content2--item, .coursePresentation .coursePresentation__summary-content--buttonContainer {
   display: flex;
   justify-content: center;

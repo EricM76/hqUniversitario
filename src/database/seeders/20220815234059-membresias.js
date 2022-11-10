@@ -7,6 +7,7 @@ const memberships = [
     quota: 1,
     price: 500,
     description: "Acceso a todo el contenido completo de 1 materia",
+    mp_checkout : "https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=2c93808484532acc018454b16a9201e5",
   },
   
   {
@@ -15,6 +16,7 @@ const memberships = [
     quota: 3,
     price: 750,
     description: "Acceso a todo el contenido completo de hasta 3 materias",
+    mp_checkout : "https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=2c9380848451e648018454b48333038d",
   },
 
   {
@@ -23,6 +25,7 @@ const memberships = [
     quota: 5,
     price: 900,
     description: "Acceso a todo el contenido completo de hasta 5 materias",
+    mp_checkout : "https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=2c9380848451e648018454b44601038b",
   },
 
   {

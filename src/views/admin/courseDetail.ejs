@@ -69,7 +69,7 @@
                                                                             <%- include('./modals/showVideo',{
                                                                                 video
                                                                             })%>
-                                                                            <label class="btn <%=video.locked ? 'btn-sm btn-dark' : 'btn-sm btn-warning'%>" for="changeLocked<%= video.id %>" id="changeLocked-label<%= video.id %>">
+                                                                            <label class="btn <%=video.locked ? 'btn-sm btn-dark' : 'btn-sm btn-warning'%> disabled" for="changeLocked<%= video.id %>" id="changeLocked-label<%= video.id %>">
                                                                                 <% if(video.locked) {%>
                                                                                     <i class="fas fa-lock"></i>
                                                                                 <%}else{%>
