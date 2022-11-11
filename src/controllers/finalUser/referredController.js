@@ -132,7 +132,7 @@ module.exports = {
                 membershipId: membershipObtained.id,
                 entry: new Date(),
                 status: true,
-                expires: currentUserMembership.data?.expires !== undefined ? currentUserMembership.data?.expires : add(new Date(), {days: 30}),
+                expires: (currentUserMembership.data && currentUserMembership.data.expires) !== undefined ? (currentUserMembership.data && currentUserMembership.data.expires) : add(new Date(), {days: 30}),
                 freeMembership: true,
             }, {
               where: { id: userId } 

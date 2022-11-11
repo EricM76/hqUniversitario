@@ -35,11 +35,11 @@ module.exports = {
                 expires: user.expires,
                 daysToExpires: Math.abs(Difference_In_Days),
                 status: user.status,
-                membershipName: user.membership?.name,
+                membershipName: user.membership && user.membership.name,
                 freeMembership: user.freeMembership,
-                membershipQuota: user.membership?.quota,
-                activesUserCourses: data?.total,
-                quotasAvailable: user.membership?.quota - data?.total,
+                membershipQuota: user.membership && user.membership.quota,
+                activesUserCourses: data && data.total,
+                quotasAvailable: user.membership && user.membership.quota - data && data.total,
             }
 
             return res.status(200).json(response);
