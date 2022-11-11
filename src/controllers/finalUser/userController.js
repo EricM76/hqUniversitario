@@ -27,7 +27,11 @@ module.exports = {
         secure: true,
       });
     }else {
-      res.cookie("backurl", '/')
+      res.cookie("backurl", '/',{
+        expires: new Date(Date.now() + TIME_IN_MILISECONDS),
+        httpOnly: true,
+        secure: true,
+      })
     }
 
     return res.render("finalUser/userLogin", {
