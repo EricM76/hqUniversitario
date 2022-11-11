@@ -98,7 +98,7 @@ module.exports = {
       rol: user.rolId,
       googleId: user.social_id,
       membershipId: user.membershipId,
-      daysToExpires: userMembershipInfo.data?.daysToExpires,
+      daysToExpires: userMembershipInfo.data && userMembershipInfo.data.daysToExpires,
       status: user.status,
       userMembershipExpiresDate: userMembershipInfo.expires !== undefined ? userMembershipInfo.expires : null,
       userActiveCourses: data.activeUserCourses,
