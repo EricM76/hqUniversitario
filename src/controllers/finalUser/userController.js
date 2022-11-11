@@ -20,18 +20,12 @@ module.exports = {
   login: (req, res) => {
     const baseUrl = `${req.protocol}://${req.headers.host}`;
     const TIME_IN_MILISECONDS = 60000;
-    if (req.headers.referer && req.headers.referer !== "undefined") {
-      res.cookie("backurl", req.headers.referer.split(baseUrl)[1], {
+    if (req.headers.referer) {
+      res.cookie("backurl", req.headers.referer.split(baseUrl)[1] || "/", {
         expires: new Date(Date.now() + TIME_IN_MILISECONDS),
         httpOnly: true,
         secure: true,
       });
-    }else {
-      res.cookie("backurl", '/',{
-        expires: new Date(Date.now() + TIME_IN_MILISECONDS),
-        httpOnly: true,
-        secure: true,
-      })
     }
 
     return res.render("finalUser/userLogin", {
@@ -112,7 +106,7 @@ module.exports = {
     };
 
     return res.redirect(
-      (req.cookies.backurl && req.cookies.backurl !== "undefined")
+      req.cookies.backurl
         ? req.cookies.backurl + "?userId=" + req.session.user.id
         : "/?userId=" + req.session.user.id
     );
