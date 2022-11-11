@@ -20,13 +20,11 @@ module.exports = {
   login: (req, res) => {
     const baseUrl = `${req.protocol}://${req.headers.host}`;
     const TIME_IN_MILISECONDS = 60000;
-    if (req.headers.referer) {
       res.cookie("backurl", req.headers.referer.split(baseUrl)[1] || "/", {
         expires: new Date(Date.now() + TIME_IN_MILISECONDS),
         httpOnly: true,
         secure: true,
       });
-    }
 
     return res.render("finalUser/userLogin", {
       session: req.session,
