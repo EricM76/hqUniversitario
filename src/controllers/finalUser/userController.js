@@ -112,7 +112,7 @@ module.exports = {
     };
 
     return res.redirect(
-      req.cookies.backurl
+      (req.cookies.backurl && req.cookies.backurl !== "undefined")
         ? req.cookies.backurl + "?userId=" + req.session.user.id
         : "/?userId=" + req.session.user.id
     );
