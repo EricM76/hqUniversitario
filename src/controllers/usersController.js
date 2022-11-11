@@ -22,6 +22,47 @@ module.exports = {
             console.log(error)
         }
     },
+    detail : async (req,res) => {
+        const options = {
+            include : ['membership', 'tests', {
+                association : 'courses',
+                attributes : ['id', 'name'],
+                include : [
+                    {
+                        association : 'faculty',
+                        attributes : ['id','acronym'],
+                        include : [
+                            {
+                                association : 'university',
+                                attributes : ['id','acronym']
+                            }
+                        ]
+                    }
+                ]
+            },
+        {
+            association : 'referreds',
+            attributes : ['id','name','email','active']
+        }]
+        }
+        try {
+            let user;
+            if(req.params.id){
+                user = await db.User.findByPk(req.params.id, options)
+             }else{
+                user = await db.User.findOne({
+                    ...options,
+                    where : {email : req.query.referred}
+                });
+             } 
+            return res.render('admin/userDetail', {
+                user,
+                moment : moment
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    },
     register : (req,res) => {
         return res.render('finalUser/userRegister')
     },

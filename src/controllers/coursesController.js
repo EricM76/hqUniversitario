@@ -214,15 +214,17 @@ module.exports = {
 
     },
     edit: async (req, res) => {
-        try {
-            let universities = await db.University.findAll();
-            let faculties = await db.Faculty.findAll();
-            let teachers = await db.Teacher.findAll();
-            let categories = await db.Category.findAll();
-            let turns = await db.Turn.findAll();
-            let countVideos = await db.Video.count({ where: { courseId: req.params.id } });
 
-            let course = await db.Course.findByPk(req.params.id, {
+            let universities =  db.University.findAll({
+                attributes : ['name','id']
+            });
+            let faculties =  db.Faculty.findAll();
+            let teachers =  db.Teacher.findAll();
+            let categories =  db.Category.findAll();
+            let turns =  db.Turn.findAll();
+            let countVideos =  db.Video.count({ where: { courseId: req.params.id } });
+
+            let course =  db.Course.findByPk(req.params.id, {
                 include: [
                     {
                         association: 'university',
@@ -279,20 +281,21 @@ module.exports = {
                     },
                 ]
             });
-            return res.render('admin/courseEdit', {
-                universities,
-                faculties,
-                teachers,
-                course,
-                categories,
-                next: req.query.next ? req.query.next : 'info',
-                turns,
-                countVideos,
-                urlCloudfont : process.env.CLOUDFONT_URL
-            })
-        } catch (error) {
-            console.log(error)
-        }
+            Promise.all([universities,faculties, teachers, categories, turns,countVideos, course ])
+                .then( ([universities,faculties, teachers, categories, turns,countVideos, course ])=> {
+                    return res.render('admin/courseEdit', {
+                        universities,
+                        faculties,
+                        teachers,
+                        course,
+                        categories,
+                        next: req.query.next ? req.query.next : 'info',
+                        turns,
+                        countVideos,
+                        urlCloudfont : process.env.CLOUDFONT_URL
+                    })
+                })
+                .catch(error => console.log(error))
 
     },
     update: async (req, res) => {

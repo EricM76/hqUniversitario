@@ -73,8 +73,8 @@ module.exports = {
               }
             }
         */
-        return res.json(payment.payment);
-        //return res.status(201).json({message: "Created"});
+        //return res.json(payment);
+        return res.status(201).json({message: "Created"});
       }
     } catch (error) {
       console.log(error);

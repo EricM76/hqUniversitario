@@ -4,7 +4,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.addColumn(
               'Memberships',
-              'mp_checkout',
+              'mp_id',
                Sequelize.STRING
              )
   },
@@ -12,7 +12,7 @@ module.exports = {
   down: async (queryInterface, Sequelize) => {
     await queryInterface.removeColumn(
       'Memberships',
-      'mp_checkout',
+      'mp_id',
        Sequelize.STRING
      )
   }

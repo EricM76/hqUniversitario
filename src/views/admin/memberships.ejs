@@ -2,14 +2,14 @@
 <%- include('./partials/head',{
     title : 'Facultades'
 }) %> 
-<body class="faculties bg-light">
+<body class="faculties bg-secondary">
     <%- include('./partials/header') %> 
     <main class="container">
         <section class="row mt-2 mt-md-3 mt-lg-5">
-            <div class="col-12 col-md-10 col-lg-8 mx-auto">
+            <div class="col-12 col-md-10 col-lg-6 mx-auto">
              
                 <article class="card shadow">
-                    <div class="card-header">
+                    <div class="card-header ">
                       <div class="row g-2">
                         <div class="col-12">
                             <nav aria-label="breadcrumb">
@@ -28,38 +28,44 @@
                             <table class="table table-striped">
                                 <thead>
                                   <tr>
-                                    <th scope="col" colspan="2" class="text-center">Membresía</th>
+                                    <th scope="col" class="text-center">Membresía</th>
                                     <th scope="col">Precio</th>
                                     <th scope="col">Materias</th>
+                                    <th scope="col">Por referidos</th>
                                     <th scope="col">Suscriptores</th>
                                     <th scope="col">Acciones</th>
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <% memberships.forEach(({id,name,price,quota,users,image,description}) => { %>
-                                    <tr>
-                                      <td class="align-middle"><img src="/images/<%= image %>" alt="logo" style="width: 50px;"></td>
-                                      <td class="align-middle"><%= name %></td>
-                                      <td class="align-middle"><%= price %></td>
-                                      <td class="align-middle"><%= quota %></td>
-                                      <td class="align-middle"><%= users.length %></td>
-                                      <td class="align-middle">
-                                        <div class="d-flex align-items-center gap-2">
-                                         <!--  <a href="/memberships/detail/<%= id %>" class="btn btn-sm btn-outline-primary">+info</a> -->
-                                          <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#editMemberShip<%=id%>">
-                                            editar
-                                          </button>
-                                          <%-include('modals/editMembership',{
-                                            id: id,
-                                            name : name,
-                                            price: price,
-                                            quota : quota,
-                                            image: image,
-                                            description : description
-                                          }) %> 
-                                        </div>
-                                      </td>
-                                    </tr>
+                                  <% memberships.forEach(({id,name,price,quota,users,image,description, mp_checkout, mp_id}) => { %>
+                                    <% if (name !== 'FREE') { %>
+                                      <tr>
+                                        <td class="align-middle">
+                                          <div class="badge bg-<%= name.toLowerCase() %> w-100 py-3 <%= name === 'FREE' && 'bg-secondary' %> "> <%= name %></div>
+                                        </td>
+                                        <td class="align-middle">$ <%= price %></td>
+                                        <td class="align-middle"><%= quota %></td>
+                                        <td class="align-middle"><%= users.map(user => user.freeMembership && user.membershipId == id).reduce((acum, num) => acum + num , 0) %></td>
+                                        <td class="align-middle"><%= users.map(user => !user.freeMembership && user.membershipId == id).reduce((acum, num) => acum + num , 0) %></td>                                        <td class="align-middle">
+                                          <div class="d-flex align-items-center gap-2">
+                                           <!--  <a href="/memberships/detail/<%= id %>" class="btn btn-sm btn-outline-primary">+info</a> -->
+                                            <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#editMemberShip<%=id%>" onclick="resetModal('<%=id%>', '<%=mp_id%>')">
+                                              editar
+                                            </button>
+                                            <%-include('modals/editMembership',{
+                                              id: id,
+                                              name : name,
+                                              price: price,
+                                              quota : quota,
+                                              description : description,
+                                              mp_checkout : mp_checkout,
+                                              mp_id : mp_id
+                                            }) %> 
+                                          </div>
+                                        </td>
+                                      </tr>
+  
+                                    <% } %>
                                   <% }) %>
                                  
                                 </tbody>
@@ -75,5 +81,6 @@
 
     </main>
     <%- include('./partials/scripts') %> 
+    <script src="/javascripts/editMembership.js"></script>
 </body>
 </html>

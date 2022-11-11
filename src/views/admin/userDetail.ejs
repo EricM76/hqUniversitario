@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<%- include('./partials/head',{ title : 'Usuario' }) %>
+
+  <body class="user bg-secondary">
+    <%- include('./partials/header') %>
+      <main class="container">
+        <section class="row mt-2 mt-md-3 mt-lg-5">
+          <div class="col-12 col-md-10 mx-auto">
+
+            <article class="card shadow">
+              <div class="card-header">
+                <div class="row g-2">
+                  <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                      <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/users">Usuarios</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Perfil Usuario</li>
+                      </ol>
+                    </nav>
+                    <hr>
+                  </div>
+                </div>
+
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <h5 class="card-title">Datos personales</h5>
+                      </div>
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex gap-2">
+                          <span>Nombre:</span>
+                          <strong>
+                            <%= user.name %>
+                          </strong>
+                        </li>
+                        <li class="list-group-item d-flex gap-2">
+                          <span>Apellido:</span>
+                          <% if (user.surname) { %>
+                            <strong>
+                              <%= user.surname %>
+                            </strong>
+                          <% }else{ %>
+                          <span class="text-danger">
+                            sin información
+                          </span>
+                          <% } %>
+                        </li>
+                        <li class="list-group-item d-flex gap-2">
+                          <span>Email:</span>
+                          <strong>
+                            <%= user.email %>
+                          </strong>
+                        </li>
+                        <li class="list-group-item d-flex gap-2">
+                          <span>Fecha de nacimiento:</span>
+                          <% if (user.birthday) { %>
+                            <strong>
+                              <%= moment(user.birthday).utc().format('DD-MM-YYYY') %>
+                              (<%= moment().diff(user.birthday, 'years') %> años)
+                            </strong>
+                          <% } %>
+                            <strong class="text-danger">sin información</strong>
+                        </li>
+                        <li class="list-group-item d-flex gap-2">
+                          <span>Ciudad:</span>
+                          <strong>
+                            <%= user.city %>
+                          </strong>
+                        </li>
+                        <li class="list-group-item d-flex gap-2">
+                          <span>Provincia:</span>
+                          <strong>
+                            <%= user.province %>
+                          </strong>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <h5 class="card-title">Materias</h5>
+                      </div>
+                      <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                          <% if (user.courses.length) { %>
+                             <% user.courses.forEach(course => { %>
+                            <li class="list-group-item d-flex gap-2">
+                              <span><%= course.name %> </span>
+                              <strong>
+                                <%= course.UserCourse.progress %>
+                              </strong>
+                            </li>
+                          <% }) %>
+                          <% }else{ %>
+                          <strong class="alert alert-warning p-2 w-100">El usuario no se ha inscrito a ningún curso.</strong>
+                          <% } %>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <h5 class="card-title">Registración y membresía</h5>
+                      </div>
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex gap-2">
+                          <span>Se registró el:</span>
+                          <strong>
+                            <%= moment(user.createdAt).utc().format('DD-MM-YYYY') %>
+                          </strong>
+                        </li>
+                        <li class="list-group-item d-flex gap-2">
+                          <span>Ingresó como miembro el:</span>
+                          <% if (user.membership) { %>
+                          <strong>
+                            <%= moment(user.entry).utc().format('DD-MM-YYYY') %>
+                          </strong>
+                          <% }else{ %>
+                            <strong class="badge text-bg-secondary">
+                             Sin membresía
+                            </strong>
+                            <% }%>
+                        </li>
+                        <li class="list-group-item d-flex gap-2">
+                          <span>Membresía actual:</span>
+                          <% if (user.membership) { %>
+                            <strong class="badge bg-<%= user.membership.name.toLowerCase() %>">
+                              <%= user.membership.name %>
+                            </strong>
+                          <% }else{ %>
+                            <strong class="badge text-bg-secondary">
+                             Sin membresía
+                            </strong>
+                            <% }%>
+                        </li>
+                        <li class="list-group-item d-flex gap-2">
+                          <span>Obtuvo su membresía por:</span>
+                            <% if (user.freeMembership && user.membership) { %>
+                              <strong class="badge text-bg-success">
+                                Sistema de referidos
+                              </strong>
+                            <% }else if(!user.freeMembership && user.membership){ %>
+                              <strong class="badge text-bg-primary">
+                                Sistema de referidos
+                              </strong>
+                            <% }else{ %>
+                              <strong class="badge text-bg-secondary">
+                                Sin membresía
+                              </strong>
+                            <% } %>
+                        </li>
+                        <li class="list-group-item d-flex gap-2">
+                          <span>Fecha de expiración:</span>
+                          <strong class="text-danger">
+                            <%= user.expires ? moment(user.expires).utc().format('DD-MM-YYYY') : 'sin información' %>
+                          </strong>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <h5 class="card-title">Referidos</h5>
+                      </div>
+                      <ul class="list-group list-group-flush">
+                        <% if (user.referreds.length) { %>
+                          <% user.referreds.forEach(referred => { %>
+                            <li class="list-group-item d-flex gap-2">
+                              <div>
+                                <% if (referred.active) { %>
+                                  <span class="text-success">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                  </span>
+                                <% }else{ %>
+                                  <span class="text-primary">
+                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                  </span>
+                                <% } %>
+                                <span><%= referred.name %> </span>
+                                 
+                              </div>
+                              <a href="/users/detail?referred=<%= referred.email %> ">ver perfil</a>
+                            
+                            </li>
+                          <% }) %>
+                        <% }else{ %>
+                          <li class="list-group-item d-flex gap-2">
+                          <strong class="alert alert-warning p-2 w-100">El usuario no tiene referidos.</strong>
+                          </li>
+                        <% } %>
+                      
+                       
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+
+              </div>
+
+          </div>
+          </article>
+
+          </div>
+        </section>
+
+      </main>
+      <%- include('./partials/scripts') %>
+  </body>
+
+  </html>

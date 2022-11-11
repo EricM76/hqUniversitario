@@ -31,44 +31,57 @@
         <div class="container p-1 profile__formContainer">
           <h3 class="text-center">Modificá tus datos</h3>
           <div class="container">
-            <div class="row align-items-center">
-              <div class="col-12 col-md-6 p-2">
-                <p class="fs-5"><span class="dataItems">Nombre:</span> <i><%= user.name %></i></p>
-                <p class="fs-5"><span class="dataItems">Apellido:</span> <i><%= user.surname %></i></p>
-                <p class="fs-5"><span class="dataItems">Fecha de nacimiento:</span> <i><%= userBirthDay ? userBirthDay : " - " %></i></p>
-                <p class="fs-5"><span class="dataItems">Provincia:</span> <i><%= user.province ? user.province : " - " %></i></p>
-                <p class="fs-5"><span class="dataItems">Localidad: </span> <i><%= user.city ? user.city : " - " %></i></p>
+              <form id="personalDataForm" action="/usuario/perfil?_method=PUT" method="POST" class="row">
+
+              <div class="col-12 col-md-6 p-2 ">
+                <ul class=" list-group list-group-flush fs-5">
+                  <li class=" list-group-item">
+                    <span>Nombre:</span> <strong><%= user.name %></strong>
+                  </li>
+                  <li class=" list-group-item">
+                    <span>Apellido:</span> <strong><%= user.surname %></strong>
+                  </li>
+                  <li class=" list-group-item">
+                    <span>Email:</span> <strong><%= user.email %></strong>
+                  </li>
+                  <li class=" list-group-item">
+                    <span>Fecha de ingreso:</span> <strong><%= moment(user.entry).format('DD-MM-YYYY') %></strong>
+                  </li>
+                </ul>
               </div>
-              <form id="personalDataForm" action="/usuario/perfil?_method=PUT" method="POST" class="col-12 col-md-6 p-2">
-                <div class="col-12 mb-3">
-                  <label for="birthday" class="form-label">Fecha de nacimiento</label>
-                  <input type="date" class="form-control" name="birthday" id="birthday" value="<%= userBirthDayToInput %>">
-                  <div class="feedback"></div>
+                <div class="col-12 col-md-6 p-2">
+                  <ul class="list-group list-group-flush fs-5">
+                    <li class=" list-group-item border-0 d-flex gap-2 flex-wrap">
+                      <small>Fecha de nacimiento:</small>
+                      <input type="date" class="form-control" name="birthday" id="birthday" value="<%= moment(user.birthday).utc().format('YYYY-MM-DD')%>">
+                  </li>
+                    <li class=" list-group-item border-0 d-flex gap-2 flex-wrap">
+                      <small>Provincia:</small>  
+                      <select class="form-select" id="provinceSelect" name="province">
+                        <option selected hidden value="">Selecciona tu provincia</option>
+                        <% provincias.sort((a,b) => a.nombre > b.nombre ? 1 : a.nombre <  b.nombre ? -1 : 0).forEach(provincia => { %>
+                          <option value="<%- provincia.nombre %>" <%= user.province === provincia.nombre ? "selected" : "" %> ><%- provincia.nombre %> </option>
+                        <% }) %>
+                      </select>
+                    </li>
+                    <li class=" list-group-item border-0 d-flex gap-2 flex-wrap">
+                      <small>Localidad:</small> 
+                      <select class="form-select" id="citiesSelect" name="city">
+                        <% if (user.city) { %>
+                          <option selected value="<%= user.city %>"><%= user.city %> </option>
+                        <% } else { %>
+                          <option selected hidden value="">...</option>
+                        <% } %>
+                      </select>
+                    </li>
+                  </ul>
+                 
                 </div>
-                <div class="col-12 mb-3">
-                  <label for="provinceSelect" class="form-label">Provincia</label>
-                  <select class="form-select" id="provinceSelect" name="province">
-                    <option selected hidden value="">Selecciona tu provincia</option>
-                    <% provincias.sort((a,b) => a.nombre > b.nombre ? 1 : a.nombre <  b.nombre ? -1 : 0).forEach(provincia => { %>
-                      <option value="<%- provincia.nombre %>" <%= user.province === provincia.nombre ? "selected" : "" %> ><%- provincia.nombre %> </option>
-                    <% }) %>
-                  </select>
-                </div>
-                <div class="col-12 mb-3">
-                  <label for="citiesSelect" class="form-label">Localidad</label>
-                  <select class="form-select" id="citiesSelect" name="city">
-                    <% if (user.city) { %>
-                      <option selected value="<%= user.city %>"><%= user.city %> </option>
-                    <% } else { %>
-                      <option selected hidden value="">...</option>
-                    <% } %>
-                  </select>
-                </div>
+               
                 <div class="col-12 profile__buttonContainer">
                   <button class="button__dark" type="submit">Guardar</button>
                 </div>
               </form>
-            </div>
           </div>
          
         </div>
@@ -133,10 +146,16 @@
         <div class="container">
           <div class="row p-3">
             <% if (activeReferredsQuantity === 2) { %>
-              <h3>¡Felicitaciones, 3 de tus referidos se registraron en HQ!</h3> 
-              <p>Gracias a eso, ganaste una membresía!</p>
-            <% } else { %>
-              <p>Referí hasta 4 personas y ganá! </p>
+              <h3>¡Felicitaciones, 2 de tus referidos se registraron en HQ!</h3> 
+              <p>Gracias a eso, ganaste una membresía <span class="badge fs-5 bg-basic">BASIC</span></p>
+            <% } else if(activeReferredsQuantity === 3) { %>
+                <h3>¡Felicitaciones, 3 de tus referidos se registraron en HQ!</h3> 
+                <p>Gracias a eso, ganaste una membresía <span class="badge fs-5 bg-pro">PRO</span></p>
+            <% } else if(activeReferredsQuantity === 4) { %>
+              <h3>¡Felicitaciones, 4 de tus referidos se registraron en HQ!</h3> 
+              <p>Gracias a eso, ganaste una membresía <span class="badge fs-5 bg-premium">PREMIUM</span></p>
+              <% } else { %>
+              <p>Referí hasta 4 personas y ganá una membresía! </p>
             <% } %>
             <div class="col-12 col-md-4 p-2">
               <h3 class="border-bottom">Referir</h3>

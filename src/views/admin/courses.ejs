@@ -2,9 +2,9 @@
 <%- include('./partials/head',{
     title : 'Materias'
 }) %> 
-<body class="materias bg-light">
+<body class="materias bg-secondary">
     <%- include('./partials/header') %> 
-    <main class="container">
+    
         <section class="row mt-2 mt-md-3 mt-lg-5">
             <div class="col-12 col-md-10 col-lg-8 mx-auto">
              
@@ -71,10 +71,15 @@
                                       <td class="align-middle">
                                         <div class="d-flex align-items-center gap-2">
                                           <a href="/courses/detail/<%= id %>" class="btn btn-sm btn-outline-primary">+info</a>
-                                          <a href="/courses/edit/<%= id %>" class="btn btn-sm btn-outline-success" >editar</a>
+                                          <a href="/courses/edit/<%= id %>" class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#loader<%= id %>">editar</a>
                                         </div>
                                       </td>
                                     </tr>
+                                    <main class="container">
+                                    <%- include('modals/loader',{
+                                      id : id,
+                                      target : `/courses/edit/${id}`
+                                    }) %> 
                                   <% }) %>
                                 </tbody>
                               </table>

@@ -1,13 +1,156 @@
 <!DOCTYPE html>
-<%- include('./partials/head',{
-    title : 'Home'
-}) %> 
-<body class="admin">
-    <%- include('./partials/header') %> 
-    <main class="container">
-        <h1>Administrador</h1>
+<%- include('./partials/head',{ title : 'Home' }) %>
 
-    </main>
-    <%- include('./partials/scripts') %> 
-</body>
-</html>
+    <body class="admin bg-light">
+        <%- include('./partials/header') %>
+            <main class="container ">
+
+                <div class="row ">
+                    <div class="col-12 col-md-6 col-lg-4 ">
+                        <div class="card my-4 shadow">
+                            <div class="card-header d-flex justify-content-between text-bg-dark">
+                                <h5 class="card-title"><i class="fa fa-star" aria-hidden="true"></i> Membresías | Suscripciones</h5>
+                                <div class="d-flex gap-3"> 
+                                    <a tabindex="0" class="text-bg-dark" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Información" data-bs-content="Subscripciones activas obtenidas por el sistema de referidos y susbcripciones activas en Mercado Pago">+info</a>
+                                </div>
+
+                            </div>
+
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-between fs-5 fw-bold">
+                                        <span>MIEMBROS REGISTRADOS</span>
+                                        <span>
+                                            <%= users.length %>
+                                        </span>
+                                    </li>
+                                 
+                                    <% memberships.forEach(membership => { %>
+                                        <li class="list-group-item d-flex justify-content-between bg-premium">
+                                            <span>Suscripción <%= membership.name %> </span>
+                                            <span>
+                                                Ref: <%= membership.users.length%> | MP: <%= subscriptions.map(subscription => (subscription.id == membership.mp_id && subscription)).subscribed || 0 %> 
+                                            </span>
+                                        </li>
+                                    <% }) %>
+                                 
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card shadow my-4 mt-xl-5">
+                            <div class="card-header d-flex justify-content-between text-bg-dark">
+                                <h5 class="card-title"><i class="fas fa-video"></i> Videos</h5>
+                                <div class="d-flex gap-3"> 
+                                <a tabindex="0" class="text-bg-dark" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Información" data-bs-content="Cantidad de videos publicados catalogados por categoría.">+info</a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-between fs-5 fw-bold"> 
+                                        TOTAL VIDEOS SUBIDOS
+                                     </span>
+                                     <span>
+                                         <%= videos.length %>
+                                     </span>
+                                 </li>
+                                    <% categories.forEach((category,index)=> { %>
+                                        <li class="list-group-item d-flex justify-content-between <%= index%2==0 ? 'text-bg-primary' : 'text-bg-secondary' %> ">
+                                            <span>
+                                                <%= category.name %>
+                                            </span>
+                                            <span>
+                                                <%= videos.filter(video=> video.categoryId === category.id).length %>
+                                            </span>
+                                        </li>
+                                        <% }) %>
+                                   
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-8 my-4">
+                        <div class="card shadow">
+                            <div class="card-header text-bg-dark d-flex justify-content-between gap-2">
+                                <h5 class="card-title"><i class="fa fa-university" aria-hidden="true"></i> Facultades | Materias</h5>
+                                <div class="d-flex gap-3"> 
+                                <a tabindex="0" class="text-bg-dark" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Información" data-bs-content="Cantidad de alumnos cursando materias, según Facultad.">+info</a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <% faculties.forEach((faculty, index)=> { %>
+                                        <li class="list-group-item d-flex justify-content-between gap-4 gap-lg-0 <%= index%2==0 ? 'text-bg-secondary' : 'text-bg-warning' %>">
+                                            <span>
+                                                <%= faculty.name %> | <%= faculty.university.acronym %> 
+                                            </span>
+                                            <span>
+                                                <%= courses.map(course => course.facultyId == faculty.id ? course.users.length : 0).reduce((acum,num) => acum + num) %>
+                                            </span>
+                                        </li>
+                                        <% }) %>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-12  my-4">
+                            <div class="card shadow">
+                                <div class="card-header d-flex justify-content-between text-bg-dark">
+                                    <h5 class="card-title"><i class="fa fa-users" aria-hidden="true"></i> Sistema de Referidos</h5>
+                                    <a tabindex="0" class="text-bg-dark" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Información" data-bs-content="Estadística de referidos.">+info</a>
+
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item d-flex justify-content-between fs-5 fw-bold">
+                                            <span>
+                                                TOTAL REFERIDOS
+                                            </span>
+                                            <span>
+                                                <%= referreds.length %>
+                                            </span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between text-bg-success">
+                                            <span>
+                                                Registrados
+                                            </span>
+                                            <span>
+                                                <%= referreds.map(refer => refer.active).reduce((acum,num) => acum + num, 0) %>
+                                            </span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between text-bg-danger">
+                                            <span>
+                                                No registados
+                                            </span>
+                                            <span>
+                                                <%= referreds.map(refer => !refer.active).reduce((acum,num) => acum + num, 0) %>
+                                            </span>
+                                        </li>
+                                      
+                                     
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  
+                    <div class="col-12 col-md-4 my-4">
+                       
+                    </div>
+
+                 
+
+                
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>
+
+            </main>
+            <%- include('./partials/scripts') %>
+            <script>
+                const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+            </script>
+    </body>
+
+    </html>

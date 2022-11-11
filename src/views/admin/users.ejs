@@ -20,7 +20,7 @@
                             </nav>
                           <hr>
                         </div>
-                        <div class="col-12 col-md-6 col-lg-4">
+                     <!--    <div class="col-12 col-md-6 col-lg-4">
                             <select class="form-select">
                                 <option selected hidden>Ordenar por</option>
                                 <option value="1">One</option>
@@ -41,7 +41,7 @@
                                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                                 <button class="btn btn-outline-dark" type="submit">Buscar</button>
                               </form>
-                        </div>
+                        </div> -->
                     </div>
                        
                     </div>
@@ -70,11 +70,13 @@
                                       <td class="align-middle"><%= user.entry ? moment(user.entry).format('DD/MM/YY') : '--' %></td>
                                       <td class="align-middle"><%= user.expires ? moment(user.expires).format('DD/MM/YY') : '--' %></td>
                                         <td class="align-middle">
-                                        <% if (user.status) { %>
-                                            <span class="badge text-bg-success">Activo</span>
+                                        <% if (user.freeMembership && user.membershipId) { %>
+                                            <span class="badge text-bg-success">Refiriendo</span>
+                                        <% }else if(!user.freeMembership && user.membershipId){ %>
+                                            <span class="badge text-bg-primary">Subscripto</span>
                                         <% }else{ %>
-                                            <span class="badge text-bg-warning">Pasivo</span>
-                                        <% } %>
+                                          <span class="badge text-bg-secondary">Registrado</span>
+                                          <% } %>
                                         </td>
                                       <td class="align-middle">
                                         <div class="d-flex align-items-center gap-2">

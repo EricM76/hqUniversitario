@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
 const axios = require("axios");
 const { format } = require("date-fns");
+const moment = require('moment');
 const process = require("process");
 const {
   getTotalOfActiveReferredUsers,
@@ -236,16 +237,18 @@ module.exports = {
           activeReferredsQuantity,
           userActiveCourses,
           userMembershipInfo: userMembershipInfo.data,
+          moment : moment
         });
       })
       .catch((error) => console.log(error));
   },
   profileUpdate: (req, res) => {
+    
     const userId = req.session.user.id;
     const { birthday, province, city } = req.body;
     db.User.update(
       {
-        birthday: format(new Date(`${birthday}T00:00:00`), "MM/dd/yyyy"),
+        birthday : birthday ? birthday : null,
         province,
         city,
       },
