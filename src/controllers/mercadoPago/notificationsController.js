@@ -31,10 +31,6 @@ module.exports = {
         type,
         paymentId: data.id,
       });
-
-      if (notification) {
-        const payment = await getAuthorizedPayments(data.id);
-
         /* 
         Estructura del payment
             {
@@ -75,7 +71,7 @@ module.exports = {
         */
         //return res.json(payment);
         return res.status(201).json({message: "Created"});
-      }
+  
     } catch (error) {
       console.log(error);
       return res.status(400).json(error);
