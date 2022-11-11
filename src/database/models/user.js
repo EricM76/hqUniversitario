@@ -65,7 +65,9 @@ module.exports = (sequelize, DataTypes) => {
     city: DataTypes.INTEGER,
     province: DataTypes.INTEGER,
     social_id: DataTypes.STRING,
-    freeMembership: DataTypes.BOOLEAN
+    freeMembership: DataTypes.BOOLEAN,
+    verify : DataTypes.BOOLEAN,
+    code : DataTypes.STRING
   }, {
     sequelize,
     modelName: 'User',

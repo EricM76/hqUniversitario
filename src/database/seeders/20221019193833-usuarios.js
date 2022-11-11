@@ -1,5 +1,6 @@
 "use strict";
 const bcryptjs = require('bcryptjs')
+const { v4: uuidv4 } = require('uuid');
 
 const users = [
   {
@@ -8,7 +9,9 @@ const users = [
     email : "hq.universitario@gmail.com",
     password: bcryptjs.hashSync('apoyo22'),
     terms : 1,
-    rolId : 1
+    rolId : 1,
+    verify: 1,
+    code : uuidv4()
   },
   {
     name: "USER",
@@ -16,7 +19,9 @@ const users = [
     email : "user.hq@gmail.com",
     password: bcryptjs.hashSync('apoyohq22'),
     terms : 1,
-    rolId : 2
+    rolId : 2,
+    verify: 1,
+    code : uuidv4()
   },
 ]
 

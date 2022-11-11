@@ -20,8 +20,11 @@ module.exports = {
 
                 let email = {
                     subject: `${req.session.user.name} te refirió en HQ Universitario`,
-                    title: "Fuiste referido!", 
-                    content: `Registrate en <a href="http://localhost:3000/usuario/registro" target="_blank" >HQ Universitario</a>`, 
+                    title: `¡Fuiste referido en HQ Universitario!`, 
+                    content: `
+                    <img src="https://hquniversitario.com/images/logo_hq.jpeg">\n<h3>${req.session.user.name} está aprovechando a full del contenido que <strong>HQ Universitario</strong> ofrece para estudiantes.</h3>\n
+                    <h2>También vos podés hacerlo. Registrate en <a href="${req.protocol}://${req.get('host')}/usuario/registro" target="_blank" >HQ Universitario</a>. Refiriendo a otros ganarás una membresía totalmente gratis.</h2>\n
+                    <h3><strong>HQ Universitario</strong> es una comunidad donde podés tener acceso al contenido que necesitás para aprobar tus materias. Para saber más, seguinos en nuestras redes!</h3>`, 
                     to: [
                         {
                             email: req.body.email,

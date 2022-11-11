@@ -1,5 +1,6 @@
 const db = require("../../database/models");
 const bcrypt = require("bcryptjs");
+const { v4: uuidv4 } = require('uuid');
 const { validationResult } = require("express-validator");
 const axios = require("axios");
 const { format } = require("date-fns");
@@ -25,6 +26,8 @@ module.exports = {
         httpOnly: true,
         secure: true,
       });
+    }else {
+      res.cookie("backurl", '/')
     }
 
     return res.render("finalUser/userLogin", {
@@ -124,6 +127,8 @@ module.exports = {
           password: bcrypt.hashSync(req.body.password, 10),
           rolId: 2,
           terms: 1,
+          code : uuidv4(),
+          verify : false
         });
         const referred = await db.Referred.findOne({
           where: {
