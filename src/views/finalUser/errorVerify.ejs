@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+  <%- include('./partials/head', {
+    title : 'Error de validación'
+  }) %> 
+
+  <body class="">
+    <%- include('./partials/header') %> 
+    <main class="container">
+        <div class="row my-4 mx-4 mx-md-2" >
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Upss. Hubo un error en la validación</h2>
+                    <p class="card-text"><%= errors && errors.code ? errors.code.msg : null %> </p>
+                    <a href="/">Volver al home</a>
+                </div>
+            </div>
+        </div>
+    </main>
+     
+    <%- include('./partials/wappbtn') %> 
+    <%- include('./partials/footer') %> 
+    <%- include('./partials/scripts') %> 
+  </body>
+</html>

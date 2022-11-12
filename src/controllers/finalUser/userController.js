@@ -15,12 +15,13 @@ const { getUserMembershipData } = require("../../services/membershipService");
 const { getActivesUserCourses } = require("../../services/userCoursesService");
 const isActiveCourses = require("../../helpers/userCourses.helper");
 const BASE_URL_PROVINCES = process.env.BASE_URL_PROVINCES;
+const sendEmail = require('../../services/email.service')
 
 module.exports = {
   login: (req, res) => {
     const baseUrl = `${req.protocol}://${req.headers.host}`;
     const TIME_IN_MILISECONDS = 60000;
-      res.cookie("backurl", req.headers.referer.split(baseUrl)[1] || "/", {
+      res.cookie("backurl", req.headers.referer ? req.headers.referer.split(baseUrl)[1] : "/", {
         expires: new Date(Date.now() + TIME_IN_MILISECONDS),
         httpOnly: true,
         secure: true,
@@ -126,47 +127,27 @@ module.exports = {
           code : uuidv4(),
           verify : false
         });
-        const referred = await db.Referred.findOne({
-          where: {
-            email: user.email,
-          },
-        });
-        if (referred) {
-          const updateReferred = await db.Referred.update(
-            {
-              active: true,
-            },
-            {
-              where: {
-                id: referred.id,
-              },
-            }
-          );
-          /* Enviar notificacion al usuario que lo refirió */
-          // obtener total de referidos activos
-          // si tiene 2, enviar mail y poner activa la membresía al usuario que lo refirió
-          const referringUser = await db.User.findByPk(referred.userId);
-          const { data } = await getTotalOfActiveReferredUsers(referred.userId);
-          const totalStatus =
-            data.total === 2 || data.total === 3 || data.total === 4;
-          const haveActiveMembership = referringUser.membershipId !== null;
-          const haveFreeMembership = referringUser.freeMembership;
-          /* Cumple con los referidos y no tiene membresia activa */
-          if (totalStatus && !haveActiveMembership) {
-            await setFreeMembershipToWinnerUser(referred.userId, data.total);
-          } 
-          /* Cumple con referidos, tiene membresia activa, tiene membresia gratuita */
-          if (
-            totalStatus &&
-            haveActiveMembership &&
-            haveFreeMembership
-          ) {
-            await setFreeMembershipToWinnerUser(referred.userId, data.total);
-          }
-          return res.redirect("/usuario/login");
-        } else {
-          return res.redirect("/usuario/login");
-        }
+
+        /* envío email de validación de mail */
+
+        let email = {
+          subject: `Registración en HQ Universitario`,
+          title: `Hola ${user.name}, confirma tu regisración en HQ Universitario.`, 
+          content: `
+          <img src="https://hquniversitario.com/images/logo_hq.jpeg">\n<h3>Para completar tu proceso de registración en HQ Universitario debes hacer click en el siguiente link: <a href="${req.protocol}://${req.get('host')}/usuario/verify?code=${user.code}">Validar registración</a>.</h3>\n
+          <h3><strong>HQ Universitario</strong> es una comunidad donde podés tener acceso al contenido que necesitás para aprobar tus materias. Para saber más, seguinos en nuestras redes!</h3>`, 
+          to: [
+              {
+                  email: req.body.email,
+                  name: req.body.name,
+              }
+          ]
+      }
+
+      sendEmail(email)
+
+      return res.redirect('/')
+
       } catch (error) {
         console.log(error);
       }
@@ -373,4 +354,72 @@ module.exports = {
       res.json(errors.mapped());
     }
   },
+  verifyRegistration : async (req,res) => {
+
+    let errors = validationResult(req);
+
+    if (errors.isEmpty()) {
+    try {
+
+      const user = await db.User.findOne({
+        where : {
+          code : req.query.code
+        }
+      });
+      user.verify = true,
+      await user.save()
+
+      const referred = await db.Referred.findOne({
+        where: {
+          email: user.email,
+        },
+      });
+
+      if (referred) {
+        const updateReferred = await db.Referred.update(
+          {
+            active: true,
+          },
+          {
+            where: {
+              id: referred.id,
+            },
+          }
+        );
+        /* Enviar notificacion al usuario que lo refirió */
+        // obtener total de referidos activos
+        // si tiene 2, enviar mail y poner activa la membresía al usuario que lo refirió
+        const referringUser = await db.User.findByPk(referred.userId);
+        const { data } = await getTotalOfActiveReferredUsers(referred.userId);
+        const totalStatus =
+          data.total === 2 || data.total === 3 || data.total === 4;
+        const haveActiveMembership = referringUser.membershipId !== null;
+        const haveFreeMembership = referringUser.freeMembership;
+        /* Cumple con los referidos y no tiene membresia activa */
+        if (totalStatus && !haveActiveMembership) {
+          await setFreeMembershipToWinnerUser(referred.userId, data.total);
+        } 
+        /* Cumple con referidos, tiene membresia activa, tiene membresia gratuita */
+        if (
+          totalStatus &&
+          haveActiveMembership &&
+          haveFreeMembership
+        ) {
+          await setFreeMembershipToWinnerUser(referred.userId, data.total);
+        }
+        return res.redirect("/usuario/login?verify=true");
+      } else {
+        return res.redirect("/usuario/login?verify=true");
+      }
+      
+    } catch (error) {
+      console.log(error)
+    }
+  }else {
+    return res.render('finalUser/errorVerify', {
+      errors : errors.mapped(),
+      session : req.session
+    })
+  }
+  }
 };
