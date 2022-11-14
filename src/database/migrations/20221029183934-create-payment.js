@@ -14,7 +14,10 @@ module.exports = {
       description: {
         type: Sequelize.STRING,
       },
-      payer: {
+      payer_email: {
+        type: Sequelize.STRING
+      },
+      payer_details: {
         type: Sequelize.STRING
       },
       payment_method_id: {
