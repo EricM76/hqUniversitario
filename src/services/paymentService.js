@@ -44,8 +44,8 @@ const paymentService = {
         transaction_amount,
         currency_id: "ARS"
       },
-      back_url: "https://google.com",
-      payer_email: "test_user_54730463@testuser.com"
+      back_url: "https://hquniversitario.com",
+      payer_email
     };
 
     const subscription = await axios.post(url, body, {
