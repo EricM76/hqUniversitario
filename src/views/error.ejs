@@ -1,3 +1,30 @@
-<h1><%= message %></h1>
-<h2><%= error.status %></h2>
-<pre><%= error.stack %></pre>
+<!DOCTYPE html>
+  <%- include('./finalUser/partials/head', {
+    title : 'Error de validación'
+  }) %> 
+
+  <body class="">
+    <%- include('./finalUser/partials/header') %> 
+    <main class="container " style="height: 100vh;">
+        <div class="row" >
+            <div class="col-12 col-md-6 mx-auto">
+                <img class="img-fluid"src="/images/404ovni.png" alt="">
+                <div class="text-center">
+                    <a class=" link-primary" href="/">Volver al home</a>
+                </div>
+
+            </div>
+          
+             
+          
+            
+                    
+             
+        </div>
+    </main>
+     
+    <%- include('./finalUser/partials/wappbtn') %> 
+    <%- include('./finalUser/partials/footer') %> 
+    <%- include('./finalUser/partials/scripts') %> 
+  </body>
+</html>

@@ -15,7 +15,8 @@ const { getUserMembershipData } = require("../../services/membershipService");
 const { getActivesUserCourses } = require("../../services/userCoursesService");
 const isActiveCourses = require("../../helpers/userCourses.helper");
 const BASE_URL_PROVINCES = process.env.BASE_URL_PROVINCES;
-const sendEmail = require('../../services/email.service')
+const sendEmail = require('../../services/email.service');
+const { serializeUser } = require("passport");
 
 module.exports = {
   login: (req, res) => {
@@ -26,6 +27,20 @@ module.exports = {
         httpOnly: true,
         secure: true,
       });
+      if(req.query.choice){
+        res.cookie("backurl", '/usuario/perfil#membership', {
+          expires: new Date(Date.now() + TIME_IN_MILISECONDS),
+          httpOnly: true,
+          secure: true,
+        });
+      }
+      if(req.query.baja){
+        res.cookie("backurl", '/usuario/perfil', {
+          expires: new Date(Date.now() + TIME_IN_MILISECONDS),
+          httpOnly: true,
+          secure: true,
+        });
+      }
 
     return res.render("finalUser/userLogin", {
       session: req.session,
@@ -131,11 +146,17 @@ module.exports = {
         /* envío email de validación de mail */
 
         let email = {
-          subject: `Registración en HQ Universitario`,
+           subject: `Registración en HQ Universitario`,
+           /*
           title: `Hola ${user.name}, confirma tu regisración en HQ Universitario.`, 
           content: `
           <img src="https://hquniversitario.com/images/logo_hq.jpeg">\n<h3>Para completar tu proceso de registración en HQ Universitario debes hacer click en el siguiente link: <a href="${req.protocol}://${req.get('host')}/usuario/verify?code=${user.code}">Validar registración</a>.</h3>\n
-          <h3><strong>HQ Universitario</strong> es una comunidad donde podés tener acceso al contenido que necesitás para aprobar tus materias. Para saber más, seguinos en nuestras redes!</h3>`, 
+          <h3><strong>HQ Universitario</strong> es una comunidad donde podés tener acceso al contenido que necesitás para aprobar tus materias. Para saber más, seguinos en nuestras redes!</h3>`,  */
+          templateId: 1,
+          params: {
+              name: user.name,
+              code: user.code
+          },
           to: [
               {
                   email: req.body.email,
@@ -421,5 +442,26 @@ module.exports = {
       session : req.session
     })
   }
+  },
+  cancelRegistration : async (req,res) => {
+    let errors = validationResult(req);
+
+    if (errors.isEmpty()) {
+       let confirm = await db.User.destroy({
+        where : {
+          code : req.query.code
+        }
+      });
+      if(confirm){
+        return res.render('finalUser/cancelRegistration', {
+          session : req.session
+        })
+      }
+    }else {
+      return res.render('finalUser/errorVerify', {
+        errors : errors.mapped(),
+        session : req.session
+      })
+    }
   }
 };

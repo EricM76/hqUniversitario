@@ -6,7 +6,8 @@
     "start": "node ./src/bin/www",
     "scss": "node-sass --recursive ./src/scss -o ./public/stylesheets",
     "dev": "concurrently \"nodemon ./src/bin/www \" \"node-sass --watch ./src/scss -o ./public/stylesheets \"  ",
-    "reset-db": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all"
+    "db:create": "sequelize db:create && sequelize db:migrate && sequelize db:seed:all",
+    "db:reset": "sequelize db:drop && sequelize db:create && sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.165.0",
