@@ -23,7 +23,7 @@ module.exports = {
     const baseUrl = `${req.protocol}://${req.headers.host}`;
     const TIME_IN_MILISECONDS = 60000;
     console.log('>>>>>>>>>>>>>referer',req.headers.referer)
-      res.cookie("backurl", req.headers.referer ? req.headers.referer.split(baseUrl)[1] : "/", {
+      res.cookie("backurl", req.headers.referer !== 'undefined' ? req.headers.referer.split(baseUrl)[1] : "/", {
         expires: new Date(Date.now() + TIME_IN_MILISECONDS),
         httpOnly: true,
         secure: true,
