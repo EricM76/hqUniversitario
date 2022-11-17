@@ -193,7 +193,8 @@ module.exports = {
                 let referred = await db.Referred.findOne({
                     where : {
                         code : req.query.code
-                    }
+                    },
+                    include : ['users']
                 })
                 let confirm = await referred.destroy()
 
@@ -202,8 +203,8 @@ module.exports = {
                     let email = {
                         to: [
                             {
-                                email: referred.email,
-                                name: referred.name,
+                                email: referred.users.email,
+                                name: referred.users.name,
                             }
                         ],
                         params : {

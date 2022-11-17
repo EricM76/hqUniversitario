@@ -38,6 +38,7 @@ module.exports = (passport) => {
               where: {
                 email: newUser.email,
               },
+              include : ['users']
             });
             if (referred) {
               const updateReferred = await db.Referred.update(
@@ -56,12 +57,12 @@ module.exports = (passport) => {
                templateId: 5,
                params: {
                    referred: referred.name,
-                   name: req.session.userLogin.name,
+                   name: referred.users.name,
                   },
                to: [
                    {
-                       email: req.session.userLogin.email,
-                       name: req.session.userLogin.name,
+                       email: referred.users.email,
+                       name: referred.users.name,
                    }
                ]
            }

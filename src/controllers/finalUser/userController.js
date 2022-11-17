@@ -395,6 +395,7 @@ module.exports = {
         where: {
           email: user.email,
         },
+        include : ['users']
       });
 
       if (referred) {
@@ -413,12 +414,12 @@ module.exports = {
           templateId: 5,
           params: {
               referred: referred.name,
-              name: req.session.userLogin.name,
+              name: referred.users.name,
              },
           to: [
               {
-                  email: req.session.userLogin.email,
-                  name: req.session.userLogin.name,
+                  email: referred.users.email,
+                  name: referred.users.name,
               }
           ]
       }
