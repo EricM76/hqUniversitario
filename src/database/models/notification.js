@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     notificationId: DataTypes.INTEGER,
     type: DataTypes.STRING,
     paymentId: DataTypes.INTEGER,
+    action: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Notification',

@@ -57,11 +57,8 @@ const paymentService = {
 
     return subscription.data;
   },
-  getSubscriptionStatus: async() => {
-    const url = "subscription"
-  },
-  getAuthorizedPayments: async(paymentId) => {
-    const url = `${process.env.API_MP}/authorized_payments/${paymentId}`
+  getPaymentById: async(preapproval_id) => {
+    const url = `${process.env.API_MP}/v1/payments/${preapproval_id}`
     const payment = await axios.get(url, {
       headers: {
         "Content-Type": "application/json",
