@@ -53,7 +53,7 @@ module.exports = (passport) => {
               /* Enviar notificacion al usuario que lo refirió */
 
               let email = {
-               templateId: 1,
+               templateId: 5,
                params: {
                    referred: referred.name,
                    name: req.session.userLogin.name,

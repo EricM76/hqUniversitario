@@ -409,6 +409,21 @@ module.exports = {
           }
         );
         /* Enviar notificacion al usuario que lo refirió */
+        let email = {
+          templateId: 5,
+          params: {
+              referred: referred.name,
+              name: req.session.userLogin.name,
+             },
+          to: [
+              {
+                  email: req.session.userLogin.email,
+                  name: req.session.userLogin.name,
+              }
+          ]
+      }
+
+      sendEmail(email)
         // obtener total de referidos activos
         // si tiene 2, enviar mail y poner activa la membresía al usuario que lo refirió
         const referringUser = await db.User.findByPk(referred.userId);
