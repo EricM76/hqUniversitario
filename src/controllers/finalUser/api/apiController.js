@@ -144,4 +144,8 @@ module.exports = {
       return res.status(400).json(error);
     }
   },
+  getUserInSession: (req, res) => {
+    console.log(req.session.user)
+    return res.json(req.cookies)
+  }
 };

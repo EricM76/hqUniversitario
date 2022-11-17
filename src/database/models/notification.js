@@ -16,8 +16,14 @@ module.exports = (sequelize, DataTypes) => {
   Notification.init({
     notificationId: DataTypes.INTEGER,
     type: DataTypes.STRING,
-    paymentId: DataTypes.INTEGER,
-    action: DataTypes.STRING
+    data: DataTypes.STRING,
+    action: DataTypes.STRING,
+    live_mode: DataTypes.BOOLEAN,
+    date_created: DataTypes.DATE,
+    application_id: DataTypes.INTEGER,
+    user_id: DataTypes.INTEGER,
+    version: DataTypes.INTEGER,
+    api_version: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Notification',
