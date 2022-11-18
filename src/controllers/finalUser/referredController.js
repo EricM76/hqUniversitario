@@ -4,6 +4,8 @@ const { Op } = require("sequelize");
 const db = require("../../database/models");
 const sendEmail = require("../../services/email.service");
 const { getUserMembershipData } = require("../../services/membershipService");
+const { v4: uuidv4 } = require('uuid');
+const moment = require('moment');
 
 module.exports = {
     addReferred: async (req, res) => {
@@ -11,26 +13,33 @@ module.exports = {
          
         if(errors.isEmpty()){
             try {
-                await db.Referred.create({
+                let referred = await db.Referred.create({
                     name: req.body.name,
                     email: req.body.email,
                     userId: req.session.user.id,
+                    code : uuidv4(),
                     active: false,
                 })
 
                 let email = {
-                    subject: `${req.session.user.name} te refirió en HQ Universitario`,
+                    /* subject: `${req.session.user.name} te refirió en HQ Universitario`,
                     title: `¡Fuiste referido en HQ Universitario!`, 
                     content: `
                     <img src="https://hquniversitario.com/images/logo_hq.jpeg">\n<h3>${req.session.user.name} está aprovechando a full del contenido que <strong>HQ Universitario</strong> ofrece para estudiantes.</h3>\n
                     <h2>También vos podés hacerlo. Registrate en <a href="${req.protocol}://${req.get('host')}/usuario/registro" target="_blank" >HQ Universitario</a>. Refiriendo a otros ganarás una membresía totalmente gratis.</h2>\n
-                    <h3><strong>HQ Universitario</strong> es una comunidad donde podés tener acceso al contenido que necesitás para aprobar tus materias. Para saber más, seguinos en nuestras redes!</h3>`, 
+                    <h3><strong>HQ Universitario</strong> es una comunidad donde podés tener acceso al contenido que necesitás para aprobar tus materias. Para saber más, seguinos en nuestras redes!</h3>`,  */
                     to: [
                         {
                             email: req.body.email,
                             name: req.body.name,
                         }
-                    ]
+                    ],
+                    params : {
+                        name : req.session.user.name,
+                        referred : referred.name,
+                        code : referred.code
+                    },
+                    templateId : 2
                 }
 
                 sendEmail(email)
@@ -141,19 +150,28 @@ module.exports = {
               where: { id: userId } 
             })
 
-            let winnerUser = await db.User.findByPk(userId)
+            let winnerUser = await db.User.findByPk(userId,{
+                include : ['membership']
+            })
 
             if(winnerUserUpdate){
                 let email = {
-                    subject: `Ganaste una membresía en HQ Universitario!`,
+                   /*  subject: `Ganaste una membresía en HQ Universitario!`,
                     title: "Ganaste una membresía!", 
-                    content: `Ingresá en <a href="http://localhost:3000" target="_blank" >HQ Universitario</a> y elegí tus materias`, 
+                    content: `Ingresá en <a href="http://localhost:3000" target="_blank" >HQ Universitario</a> y elegí tus materias`,  */
                     to: [
                         {
                             email: winnerUser.email,
                             name: winnerUser.name,
                         }
-                    ]
+                    ],
+                    params : {
+                        name : winnerUser.name,
+                        membership : winnnerUser.membership.name,
+                        expires : moment(winner.User.expires).utc().format('DD-MM-YYYY'),
+                        quota : winnerUser.membership.quota
+                    },
+                    templateId : 3
                 }
 
                 sendEmail(email)
@@ -165,5 +183,55 @@ module.exports = {
                 message: error
             });
         }
+    },
+    deleteReferred : async (req,res) => {
+
+        let errors = validationResult(req);
+
+        if (errors.isEmpty()) {
+            try {
+                let referred = await db.Referred.findOne({
+                    where : {
+                        code : req.query.code
+                    },
+                    include : ['users']
+                })
+                let confirm = await referred.destroy()
+
+                if(confirm){
+
+                    let email = {
+                        to: [
+                            {
+                                email: referred.users.email,
+                                name: referred.users.name,
+                            }
+                        ],
+                        params : {
+                            contact : referred.name,
+                        },
+                        templateId : 4
+                    }
+    
+                    sendEmail(email)
+
+                    return res.render('finalUser/cancelReferred', {
+                      session : req.session
+                    })
+                  }
+
+            } catch (error) {
+                console.log(error)
+            }
+
+        }else {
+          return res.render('finalUser/errorVerify', {
+            errors : errors.mapped(),
+            session : req.session
+          })
+        }
+
+
+      
     }
 }

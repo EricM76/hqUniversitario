@@ -3,28 +3,30 @@ var SibApiV3Sdk = require("sib-api-v3-sdk");
 SibApiV3Sdk.ApiClient.instance.authentications["api-key"].apiKey =
   process.env.API_KEY;
 
-const sendEmail = ({subject, title, content, to}) => {
+const sendEmail = ({subject, title, content, to, params,templateId}) => {
     // subject
     // title
     // content
     // to
   new SibApiV3Sdk.TransactionalEmailsApi()
     .sendTransacEmail({
-      sender: { email: "sendinblue@sendinblue.com", name: "Sendinblue" },
-      subject: "This is my default subject line",
-      htmlContent:
-        "<!DOCTYPE html><html><body><h1>My First Heading</h1><p>My first paragraph.</p></body></html>",
-      params: {
-        greeting: "This is the default greeting",
-        headline: "This is the default headline",
-      },
-      messageVersions: [
+      sender: { email: "hq.universitario@gmail.com", name: "HQ Universitario" },
+      subject: subject,
+      to, 
+      params,
+      templateId,
+    /*   htmlContent:
+        "<!DOCTYPE html><html><body><h1>My First Heading</h1><p>My first paragraph.</p></body></html>", */
+     /*  messageVersions: [
         //Definition for Message Version 1
         {
           to: to,
           htmlContent:
-            `<!DOCTYPE html><html><body><h1>${title}</h1><p>${content}</p></body></html>`,
+            `<!DOCTYPE html><html><body><h1>${title}</h1><p>${content}</p></body></html>`, 
           subject: subject,
+          params,
+          templateId,
+    
         },
 
         // Definition for Message Version 2
@@ -44,7 +46,7 @@ const sendEmail = ({subject, title, content, to}) => {
             },
           ],
         },
-      ],
+      ], */
     })
     .then(
       function (data) {

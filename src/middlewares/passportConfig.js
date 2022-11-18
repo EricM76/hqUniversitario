@@ -5,6 +5,7 @@ const {
   getTotalOfActiveReferredUsers,
   setFreeMembershipToWinnerUser,
 } = require("../services/referredService");
+const sendEmail = require("../services/email.service");
 
 module.exports = (passport) => {
   passport.use(
@@ -37,6 +38,7 @@ module.exports = (passport) => {
               where: {
                 email: newUser.email,
               },
+              include : ['users']
             });
             if (referred) {
               const updateReferred = await db.Referred.update(
@@ -50,6 +52,22 @@ module.exports = (passport) => {
                 }
               );
               /* Enviar notificacion al usuario que lo refirió */
+
+              let email = {
+               templateId: 5,
+               params: {
+                   referred: referred.name,
+                   name: referred.users.name,
+                  },
+               to: [
+                   {
+                       email: referred.users.email,
+                       name: referred.users.name,
+                   }
+               ]
+           }
+     
+           sendEmail(email)
               // obtener total de referidos activos
               // si tiene 3, enviar mail y poner activa la membresía al usuario que lo refirió
               const referringUser = await db.User.findByPk(referred.userId);

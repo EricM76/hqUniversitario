@@ -17,16 +17,32 @@ const isActiveCourses = require("../../helpers/userCourses.helper");
 const BASE_URL_PROVINCES = process.env.BASE_URL_PROVINCES;
 const sendEmail = require('../../services/email.service');
 const { getSubscriptionPreapproval } = require("../../services/paymentService");
+const { serializeUser } = require("passport");
 
 module.exports = {
   login: (req, res) => {
     const baseUrl = `${req.protocol}://${req.headers.host}`;
-    const TIME_IN_MILISECONDS = 60000;
+    const TIME_IN_MILISECONDS = 0;
+    console.log('>>>>>>>>>>>>>referer',req.headers.referer)
       res.cookie("backurl", req.headers.referer ? req.headers.referer.split(baseUrl)[1] : "/", {
-        expires: new Date(Date.now() + TIME_IN_MILISECONDS),
+        expires: TIME_IN_MILISECONDS,
         httpOnly: true,
         secure: true,
       });
+      if(req.query.choice){
+        res.cookie("backurl", '/usuario/perfil#membership', {
+          expires: TIME_IN_MILISECONDS,
+          httpOnly: true,
+          secure: true,
+        });
+      }
+      if(req.query.baja){
+        res.cookie("backurl", '/usuario/perfil', {
+          expires: TIME_IN_MILISECONDS,
+          httpOnly: true,
+          secure: true,
+        });
+      }
 
     return res.render("finalUser/userLogin", {
       session: req.session,
@@ -106,7 +122,7 @@ module.exports = {
     };
 
     return res.redirect(
-      req.cookies.backurl
+      req.cookies.backurl != 'undefined'
         ? req.cookies.backurl + "?userId=" + req.session.user.id
         : "/?userId=" + req.session.user.id
     );
@@ -132,11 +148,17 @@ module.exports = {
         /* envío email de validación de mail */
 
         let email = {
-          subject: `Registración en HQ Universitario`,
+           subject: `Registración en HQ Universitario`,
+           /*
           title: `Hola ${user.name}, confirma tu regisración en HQ Universitario.`, 
           content: `
           <img src="https://hquniversitario.com/images/logo_hq.jpeg">\n<h3>Para completar tu proceso de registración en HQ Universitario debes hacer click en el siguiente link: <a href="${req.protocol}://${req.get('host')}/usuario/verify?code=${user.code}">Validar registración</a>.</h3>\n
-          <h3><strong>HQ Universitario</strong> es una comunidad donde podés tener acceso al contenido que necesitás para aprobar tus materias. Para saber más, seguinos en nuestras redes!</h3>`, 
+          <h3><strong>HQ Universitario</strong> es una comunidad donde podés tener acceso al contenido que necesitás para aprobar tus materias. Para saber más, seguinos en nuestras redes!</h3>`,  */
+          templateId: 1,
+          params: {
+              name: user.name,
+              code: user.code
+          },
           to: [
               {
                   email: req.body.email,
@@ -388,6 +410,7 @@ module.exports = {
         where: {
           email: user.email,
         },
+        include : ['users']
       });
 
       if (referred) {
@@ -402,6 +425,21 @@ module.exports = {
           }
         );
         /* Enviar notificacion al usuario que lo refirió */
+        let email = {
+          templateId: 5,
+          params: {
+              referred: referred.name,
+              name: referred.users.name,
+             },
+          to: [
+              {
+                  email: referred.users.email,
+                  name: referred.users.name,
+              }
+          ]
+      }
+
+      sendEmail(email)
         // obtener total de referidos activos
         // si tiene 2, enviar mail y poner activa la membresía al usuario que lo refirió
         const referringUser = await db.User.findByPk(referred.userId);
@@ -436,5 +474,26 @@ module.exports = {
       session : req.session
     })
   }
+  },
+  cancelRegistration : async (req,res) => {
+    let errors = validationResult(req);
+
+    if (errors.isEmpty()) {
+       let confirm = await db.User.destroy({
+        where : {
+          code : req.query.code
+        }
+      });
+      if(confirm){
+        return res.render('finalUser/cancelRegistration', {
+          session : req.session
+        })
+      }
+    }else {
+      return res.render('finalUser/errorVerify', {
+        errors : errors.mapped(),
+        session : req.session
+      })
+    }
   }
 };

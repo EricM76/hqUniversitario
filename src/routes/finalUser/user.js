@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { login, processLogin, register, processRegister, profile, logout, googleLogin, profileUpdate, subscriptionStatus, addCourse, verifyRegistration } = require("../../controllers/finalUser/userController");
+const { login, processLogin, register, processRegister, profile, logout, googleLogin, profileUpdate, subscriptionStatus, addCourse, verifyRegistration, cancelRegistration } = require("../../controllers/finalUser/userController");
 const userInSessionCheck = require("../../middlewares/userInSessionCheck");
 const userSessionCheck = require("../../middlewares/userSessionCheck");
 const userLoginValidator = require("../../validations/userLoginValidator");
@@ -26,6 +26,7 @@ router
     .get("/suscripcion/estado", userSessionCheck, subscriptionStatus)
     .post("/materia/agregar", userCoursesValidator, addCourse)
     .get("/verify",userVerifyValidator, verifyRegistration)
+    .get("/cancel",userVerifyValidator, cancelRegistration)
 
 /* Google auth */
 router.get('/auth/google',
