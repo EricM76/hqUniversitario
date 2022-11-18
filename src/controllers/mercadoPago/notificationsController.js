@@ -36,41 +36,48 @@ module.exports = {
         api_version,
       });
 
-      if( type === NOTIFICATION.type.SUBSCRIPTION_PREAPPROVAL) {
-        if (action === NOTIFICATION.action.SUBSCRIPTION_PREAPPROVAL_CREATED) {
+      if( type === NOTIFICATION.type.PAYMENT) {
+        if (action === NOTIFICATION.action.PAYMENT_CREATED) {
           const paymentInfo = await getPaymentById(data.id);
-          const userInSession = await getUserInSessionData();
-          console.log(userInSession)
-
+          const findedUser = await db.User.findOne({
+            where: {
+              payerId: paymentInfo.payer.id
+            }
+          })
           const savedPayment = await db.Payment.create({
             paymentId: paymentInfo.id,
             description: paymentInfo.description,
             payer_email: paymentInfo.payer.email,
+            payerId: paymentInfo.payer.id,
             payer_details: JSON.stringify(paymentInfo.payer),
             payment_method_id: paymentInfo.payment_method_id,
             status: paymentInfo.status,
             status_detail: paymentInfo.status_detail,
             transaction_amount: paymentInfo.transaction_amount,
-            hqUserId: userInSession.id
+            hqUserId: findedUser.id
           });
         }
 
-        if (action === NOTIFICATION.action.SUBSCRIPTION_PREAPPROVAL_CREATED) {
+        if (action === NOTIFICATION.action.PAYMENT_UPDATED) {
           const paymentInfo = await getPaymentById(data.id);
-
-          const savedPayment = await db.Payment.update({
+          const findedUser = await db.User.findOne({
+            where: {
+              payerId: paymentInfo.payer.id
+            }
+          })
+          const savedPayment = await db.Payment.create({
             paymentId: paymentInfo.id,
             description: paymentInfo.description,
             payer_email: paymentInfo.payer.email,
+            payerId: paymentInfo.payer.id,
             payer_details: JSON.stringify(paymentInfo.payer),
             payment_method_id: paymentInfo.payment_method_id,
             status: paymentInfo.status,
             status_detail: paymentInfo.status_detail,
             transaction_amount: paymentInfo.transaction_amount,
-            hqUserId: req.session.user.id
+            hqUserId: findedUser.id
           });
         }
-
       }
 
       // Evaluar todas las actions

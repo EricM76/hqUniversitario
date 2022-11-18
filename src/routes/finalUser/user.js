@@ -23,7 +23,7 @@ router
     .get("/perfil", userSessionCheck, profile)  
     .put("/perfil", profileUpdate)  
     .get("/logout", logout)
-    .get("/suscripcion/estado", userInSessionCheck, subscriptionStatus)
+    .get("/suscripcion/estado", userSessionCheck, subscriptionStatus)
     .post("/materia/agregar", userCoursesValidator, addCourse)
     .get("/verify",userVerifyValidator, verifyRegistration)
 

@@ -15,7 +15,8 @@ const { getUserMembershipData } = require("../../services/membershipService");
 const { getActivesUserCourses } = require("../../services/userCoursesService");
 const isActiveCourses = require("../../helpers/userCourses.helper");
 const BASE_URL_PROVINCES = process.env.BASE_URL_PROVINCES;
-const sendEmail = require('../../services/email.service')
+const sendEmail = require('../../services/email.service');
+const { getSubscriptionPreapproval } = require("../../services/paymentService");
 
 module.exports = {
   login: (req, res) => {
@@ -243,17 +244,31 @@ module.exports = {
       })
       .catch((error) => res.send(error));
   },
-  subscriptionStatus: (req, res) => {
+  subscriptionStatus: async (req, res) => {
     const subscriptionPreaprovalId = req.query.preapproval_id;
 
     /* Llamar a la API con el id */
-    /* Obtener el status de la suscripción */
-    /* Modificar el status de cliente / suscripción */
-    /* Devolver status a la vista */
+    try {
+      /* Obtener el status de la suscripción */
+      const subscription = await getSubscriptionPreapproval(subscriptionPreaprovalId);
 
-    res.render("finalUser/subscriptionStatus", {
-      session: req.session,
-    });
+      if(subscription.status === "authorized") {
+        const updateUserSubscriptionStatus = await db.User.update({
+          subscriptionId: subscription.id,
+          subscriptionStatus: subscription.status,
+        }, {
+          where: {
+            id: req.session.user.id
+          }
+        })
+      }
+      res.render("finalUser/subscriptionStatus", {
+        session: req.session,
+        subscription
+      });
+    } catch (error) {
+      console.log(error)
+    }
   },
   addCourse: async (req, res) => {
     let errors = validationResult(req);

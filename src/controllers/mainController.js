@@ -5,14 +5,6 @@ const {validationResult} = require('express-validator');
 
 module.exports = {
     home : (req,res) => {
-        /* Obtener Banners */
-        /* Obtener Universidades */
-        /* Obtener Últimas materias agregadas */
-        /* Obtener Materias populares */
-        /* const getBanners = db.Banner.findAll(); */
-        /*  const getMostPopularCourses = db.Course.findAll({
-            
-         }) */
         const getUniversities = db.University.findAll({
             include : ['faculties','careers','courses']
         });

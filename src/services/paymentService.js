@@ -2,12 +2,13 @@ const axios = require("axios");
 const process = require("process");
 
 const paymentService = {
-  createSubscription: async ({payer_email, reason, transaction_amount}) => {
+  createSubscription: async ({payer_email, reason, transaction_amount, userId}) => {
     const url = `${process.env.API_MP}/preapproval`;
 
     const body = {
-      preapproval_plan_id: "2c9380848451e648018454b44601038b",
+      /* preapproval_plan_id: "2c9380848451e648018454b44601038b", */
       reason,
+      external_reference: userId,
       auto_recurring: {
         frequency: 1,
         frequency_type: "months",
