@@ -245,7 +245,7 @@ module.exports = {
           moment : moment
         });
       })
-      .catch((error) => console.log(error));
+      .catch((error) => res.send(error));
   },
   profileUpdate: (req, res) => {
     

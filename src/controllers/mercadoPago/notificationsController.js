@@ -79,8 +79,6 @@ module.exports = {
           });
         }
       }
-
-      // Evaluar todas las actions
    
       return res.status(201).json({ message: "Created" });
     } catch (error) {
