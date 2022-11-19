@@ -32,9 +32,6 @@ module.exports = {
       transaction_amount: {
         type: Sequelize.STRING
       },
-      hqUserId: {
-        type: Sequelize.INTEGER
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
