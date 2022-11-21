@@ -16,7 +16,7 @@ const paymentService = {
         currency_id: "ARS"
       },
       back_url: "https://hquniversitario.com",
-      payer_email: "test_user_54730463@testuser.com"
+      payer_email: "test_user_76198889@testuser.com"
     };
 
     const subscription = await axios.post(url, body, {
