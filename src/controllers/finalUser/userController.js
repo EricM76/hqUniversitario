@@ -271,12 +271,9 @@ module.exports = {
 
     /* Llamar a la API con el id */
     try {
-      /* Obtener el status de la suscripción */
       const subscription = await getSubscriptionPreapproval(subscriptionPreaprovalId);
 
       if(subscription.status === "authorized") {
-        // La suscripcion fue pagada y aprobada
-        // Obtener pago y comparar con el preapproval
         const lastUserPayments = await getPaymentByUserId(req.session.user.id);
         
         const currentSubscriptionPayment = lastUserPayments.find((payment) => {
