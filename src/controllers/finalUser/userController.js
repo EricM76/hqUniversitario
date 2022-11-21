@@ -277,7 +277,7 @@ module.exports = {
       if(subscription.status === "authorized") {
         // La suscripcion fue pagada y aprobada
         // Obtener pago y comparar con el preapproval
-        const lastUserPayments = await getPaymentByUserId(3);
+        const lastUserPayments = await getPaymentByUserId(req.session.user.id);
         
         const currentSubscriptionPayment = lastUserPayments.find((payment) => {
           return payment.metadata.preapproval_id === subscription.id
