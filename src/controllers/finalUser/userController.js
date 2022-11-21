@@ -274,13 +274,20 @@ module.exports = {
       const subscription = await getSubscriptionPreapproval(subscriptionPreaprovalId);
 
       if(subscription.status === "authorized") {
-        const lastUserPayments = await getPaymentByUserId(req.session.user.id);
+        /* const lastUserPayments = await getPaymentByUserId(req.session.user.id);
         
         const currentSubscriptionPayment = lastUserPayments.find((payment) => {
           return payment.metadata.preapproval_id === subscription.id
+        }) */
+        const lastPayment = await db.Payment.findAll({
+          where: {
+            hqUserId: req.session.user.id,
+          },
+          order: [["createdAt", "DESC"]],
+          limit: 1
         })
 
-        if (currentSubscriptionPayment.status === "approved") {
+        if (lastPayment.status === "approved") {
           const user = await db.User.findByPk(req.session.user.id);
           const membership = await db.Membership.findByPk(user.pendingMembershipId);
           const date = new Date();
@@ -312,7 +319,7 @@ module.exports = {
         res.render("finalUser/subscriptionStatus", {
           session: req.session,
           subscription,
-          paymentStatus: currentSubscriptionPayment.status
+          paymentStatus: lastPayment.status
         });
       }
       res.render("finalUser/subscriptionStatus", {
