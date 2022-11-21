@@ -69,6 +69,8 @@ module.exports = (sequelize, DataTypes) => {
     subscriptionStatus: DataTypes.STRING,
     payerId: DataTypes.INTEGER,
     freeMembership: DataTypes.BOOLEAN,
+    confirmedSubscription: DataTypes.BOOLEAN,
+    pendingMembershipId: DataTypes.INTEGER,
     verify : DataTypes.BOOLEAN,
     code : DataTypes.STRING
   }, {

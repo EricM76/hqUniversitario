@@ -11,7 +11,7 @@ module.exports = {
             payer_email: req.session.user.email,
             reason: `Suscripción a membresía ${membership.name}`,
             transaction_amount: membership.price,
-            userId: req.session.user.id
+            userId: req.session.user.id,
         }
         const subscription = await createSubscription(dataSubscription);
         const date_created = format(new Date(subscription.date_created), "dd/MM/yyyy")
@@ -21,6 +21,8 @@ module.exports = {
           subscriptionId: subscription.id,
           subscriptionStatus: subscription.status,
           payerId: subscription.payer_id,
+          confirmedSubscription: false,
+          pendingMembershipId: membershipId
         }, {
           where: {
             id: req.session.user.id
@@ -42,5 +44,10 @@ module.exports = {
           .status(500)
           .json({ error: true, msg: "Failed to create subscription" });
       }
+    },
+    getSubscriptionDataByUserId : async (req, res) => {
+      // PaymentId
+      // Estado del pago
+      // 
     }
   }

@@ -49,6 +49,18 @@ const paymentService = {
     });
 
     return payment.data;
+  },
+  getPaymentByUserId: async (userId) => {
+    /* https://api.mercadopago.com/v1/payments/search?sort=date_created&criteria=desc&external_reference=3 */
+    const url = `${process.env.API_MP}/v1/payments/search?sort=date_created&criteria=desc&external_reference=${userId}`
+    const payment = await axios.get(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.ACCESS_TOKEN}`
+      }
+    });
+
+    return payment.data.results;
   }
 }
 

@@ -16,7 +16,7 @@ const { getActivesUserCourses } = require("../../services/userCoursesService");
 const isActiveCourses = require("../../helpers/userCourses.helper");
 const BASE_URL_PROVINCES = process.env.BASE_URL_PROVINCES;
 const sendEmail = require('../../services/email.service');
-const { getSubscriptionPreapproval } = require("../../services/paymentService");
+const { getSubscriptionPreapproval, getPaymentByUserId } = require("../../services/paymentService");
 const { serializeUser } = require("passport");
 
 module.exports = {
@@ -275,18 +275,53 @@ module.exports = {
       const subscription = await getSubscriptionPreapproval(subscriptionPreaprovalId);
 
       if(subscription.status === "authorized") {
-        const updateUserSubscriptionStatus = await db.User.update({
-          subscriptionId: subscription.id,
-          subscriptionStatus: subscription.status,
-        }, {
-          where: {
-            id: req.session.user.id
-          }
+        // La suscripcion fue pagada y aprobada
+        // Obtener pago y comparar con el preapproval
+        const lastUserPayments = await getPaymentByUserId(3);
+        
+        const currentSubscriptionPayment = lastUserPayments.find((payment) => {
+          return payment.metadata.preapproval_id === subscription.id
         })
+
+        if (currentSubscriptionPayment.status === "approved") {
+          const user = await db.User.findByPk(req.session.user.id);
+          const membership = await db.Membership.findByPk(user.pendingMembershipId);
+          const date = new Date();
+
+          const updateUserSubscriptionStatus = await db.User.update({
+            subscriptionStatus: subscription.status,
+            confirmedSubscription: true,
+            status: true,
+            membershipId: membership.id,
+            freeMembership: false,
+            entry: date.toISOString(),
+            expires: subscription.next_payment_date,
+          }, {
+            where: {
+              id: req.session.user.id
+            }
+          })
+        }else{
+          const updateUserSubscriptionStatus = await db.User.update({
+            subscriptionId: subscription.id,
+            subscriptionStatus: subscription.status,
+            //confirmedSubscription: true,
+          }, {
+            where: {
+              id: req.session.user.id
+            }
+          })
+        }
+        res.render("finalUser/subscriptionStatus", {
+          session: req.session,
+          subscription,
+          paymentStatus: currentSubscriptionPayment.status
+        });
       }
       res.render("finalUser/subscriptionStatus", {
         session: req.session,
-        subscription
+        subscription,
+        paymentStatus: "pending"
       });
     } catch (error) {
       console.log(error)

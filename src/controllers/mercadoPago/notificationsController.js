@@ -34,6 +34,7 @@ module.exports = {
         user_id,
         version,
         api_version,
+        paymentId: data.id,
       });
 
       if( type === NOTIFICATION.type.PAYMENT) {
@@ -60,22 +61,18 @@ module.exports = {
 
         if (action === NOTIFICATION.action.PAYMENT_UPDATED) {
           const paymentInfo = await getPaymentById(data.id);
-          const findedUser = await db.User.findOne({
-            where: {
-              payerId: paymentInfo.payer.id
-            }
-          })
-          const savedPayment = await db.Payment.create({
-            paymentId: paymentInfo.id,
+          const updatePayment = await db.Payment.update({
             description: paymentInfo.description,
-            payer_email: paymentInfo.payer.email,
-            payerId: paymentInfo.payer.id,
+            payerId: paymentInfo.payer.id, // Ver que onda -- NULL
             payer_details: JSON.stringify(paymentInfo.payer),
             payment_method_id: paymentInfo.payment_method_id,
             status: paymentInfo.status,
             status_detail: paymentInfo.status_detail,
             transaction_amount: paymentInfo.transaction_amount,
-            hqUserId: findedUser.id
+          }, {
+            where: {
+              paymentId: paymentInfo.id
+            }
           });
         }
       }

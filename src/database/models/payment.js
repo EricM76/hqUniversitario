@@ -14,10 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Payment.init({
-    paymentId: DataTypes.INTEGER,
+    paymentId: DataTypes.STRING,
     description: DataTypes.STRING,
     payer_email: DataTypes.STRING,
-    payer_id: DataTypes.INTEGER,
+    payerId: DataTypes.STRING,
     payer_details: DataTypes.STRING,
     payment_method_id: DataTypes.STRING,
     status: DataTypes.STRING,
