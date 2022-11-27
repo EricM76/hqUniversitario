@@ -132,7 +132,6 @@ module.exports = {
   },
   processRegister: async (req, res) => {
     let errors = validationResult(req);
-
     if (errors.isEmpty()) {
       try {
         const user = await db.User.create({

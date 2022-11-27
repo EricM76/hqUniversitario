@@ -106,7 +106,18 @@ referredForm.addEventListener("submit", (e) => {
     } */
     
     if(!referredError){
-        referredSubmitButton.disabled = false;
-        referredForm.submit()
+
+        Swal.fire({
+            icon: 'info',
+            title: '¡Gracias por referir a\nHQ Universitario!',
+            text: 'Tu referido recibirá un email, con la invitación a registrarse en HQ Universitario. Cuando su registro sea exisotoso te lo comunicaremos.',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                referredSubmitButton.disabled = false;
+                referredForm.submit()
+            } 
+          })
+
+       
     }
 })

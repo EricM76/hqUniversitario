@@ -91,7 +91,12 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
+  console.log("+++++++++++++++++++++++++++")
+  console.log(err)
+  console.log("+++++++++++++++++++++++++++")
   res.render('error',{
+    status : err.status || 500,
+    msg : err.message,
     session : req.session
   });
 });
