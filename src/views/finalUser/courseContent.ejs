@@ -87,42 +87,57 @@
                 <% if (category.videos.length && (category.videos.filter(video => video.courseId == course.id)).length) { %>
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="panelsStayOpen-heading<%=category.id%>">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse<%=category.id%>" aria-expanded="true" aria-controls="panelsStayOpen-collapse<%=category.id%>">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse<%=category.id%>" aria-expanded="false" aria-controls="panelsStayOpen-collapse<%=category.id%>">
                           <%= category.name %> 
                       </button>
                       </h2>
-                      <div id="panelsStayOpen-collapse<%=category.id%>" class="accordion-collapse collapse <%= index == 0 && 'show' %>" aria-labelledby="panelsStayOpen-heading<%=category.id%>" data-bs-parent="#accordionPanelsStayOpenExample">
+                      <div id="panelsStayOpen-collapse<%=category.id%>" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading<%=category.id%>" data-bs-parent="#accordionPanelsStayOpenExample">
                       <div class="accordion-body">
                         <ul class="list-group list-group-flush">
                           <% if (category.id === 4) { %>
                             <% course.units.sort((a,b) => a.number > b.number ? 1 : a.number < b.number ? -1 : 0).forEach(unit => { %>
                               <li class="list-group-item ">
-                              <h5 class="mb-3">Unidad: <%= unit.number %> | <%= unit.name %></h5>
-                              <ul class="list-group-flush">
-                              <% levelingCycleVideos.forEach(video => { %>
-                                <% if (video.unitId === unit.id) { %>
-                                  <li class="list-group-item">
-                                    <p class="text-muted text-end m-0"><%=video.length%> min</p>
-                                    <div class=" d-flex flex-column justify-content-start flex-md-row justify-content-md-between">
-                                    <div class="me-auto">
-                                      <div class="fw-bold">
-                                        
-                                        <a class="text-dark" href="" onclick="showVideo(event,'<%=video.id%>','<%=session.user.id%>','<%=course.id%>')"><i class="fa fa-play" aria-hidden="true"></i> <%=video.title%></a>
-                                      </div>
-    
-                                      </div>
-    
-                                      <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="videoCheck<%= video.id %>" <%= videosViewed.includes(video.id) && 'checked' %> onclick="seedByUser(event,<%=session.user.id%>,<%=video.id%>,<%=course.id%>)">
-                                      </div>   
+                            <div class="accordion accordion-flush" id="accordionFlushExample">
+                              <div class="accordion-item">
+                                <h2 class="accordion-header" id="flush-headingOne">
+                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-nivela1-<%= unit.number %>" aria-expanded="false" aria-controls="flush-nivela1-<%= unit.number %>">
+                                    <h5 class="mb-3">Unidad: <%= unit.number %> | <%= unit.name %></h5>
+                                  </button>
+                                </h2>
+                                <div id="flush-nivela1-<%= unit.number %>" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                  <div class="accordion-body">
+                                    <ul class="list-group-flush">
+                                      <% levelingCycleVideos.forEach(video => { %>
+                                        <% if (video.unitId === unit.id) { %>
+                                          <li class="list-group-item">
+                                            <p class="text-muted text-end m-0"><%=video.length%> min</p>
+                                            <div class=" d-flex flex-column justify-content-start flex-md-row justify-content-md-between">
+                                            <div class="me-auto">
+                                              <div class="fw-bold">
+                                                
+                                                <a class="text-dark" href="" onclick="showVideo(event,'<%=video.id%>','<%=session.user.id%>','<%=course.id%>')"><i class="fa fa-play" aria-hidden="true"></i> <%=video.title%></a>
+                                              </div>
+            
+                                              </div>
+            
+                                              <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="videoCheck<%= video.id %>" <%= videosViewed.includes(video.id) && 'checked' %> onclick="seedByUser(event,<%=session.user.id%>,<%=video.id%>,<%=course.id%>)">
+                                              </div>   
+                                          </div>
+                                            <small class="text-muted ms-3 mt-0"><%= video.description %> </small>     
+                                        </li>
+                                        <% } %>
+                                      <% }) %>
+                                    </ul>
                                   </div>
-                                    <small class="text-muted ms-3 mt-0"><%= video.description %> </small>     
-                                </li>
-                                <% } %>
-                              <% }) %>
-                            </ul>
-                            <% }) %>
+                                </div>
+                              </div>
+                           
+                          
+                            </div>
                           </li>
+                            <% }) %>
+                          
                           <% }else if (category.id === 1) { %>
                             <% theoreticalVideos.forEach(video => { %>
                               <li class="list-group-item">
@@ -147,33 +162,48 @@
                             <% }else if (category.id === 2) { %>
                               <% course.units.sort((a,b) => a.number > b.number ? 1 : a.number < b.number ? -1 : 0).forEach(unit => { %>
                                 <li class="list-group-item ">
-                                <h5 class="mb-3">Unidad: <%= unit.number %> | <%= unit.name %></h5>
-                                <ul class="list-group-flush">
-                                <% practicalVideos.forEach(video => { %>
-                                  <% if (video.unitId === unit.id) { %>
-                                    <li class="list-group-item">
-                                      <p class="text-muted text-end m-0"><%=video.length%> min</p>
-                                      <div class=" d-flex flex-column justify-content-start flex-md-row justify-content-md-between">
-                                      <div class="me-auto">
-                                        <div class="fw-bold">
-                                          
-                                          <a class="text-dark" href="" onclick="showVideo(event,'<%=video.id%>','<%=session.user.id%>','<%=course.id%>')"><i class="fa fa-play" aria-hidden="true"></i> <%=video.title%></a>
-                                        </div>
-      
-                                        </div>
-      
-                                        <div class="form-check">
-                                          <input class="form-check-input" type="checkbox" id="videoCheck<%= video.id %>" <%= videosViewed.includes(video.id) && 'checked' %> onclick="seedByUser(event,<%=session.user.id%>,<%=video.id%>,<%=course.id%>)">
-                                        </div>   
+                              <div class="accordion accordion-flush" id="accordionFlushExample">
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-headingOne">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-practical1-<%= unit.number %>" aria-expanded="false" aria-controls="flush-practical1-<%= unit.number %>">
+                                      <h5 class="mb-3">Unidad: <%= unit.number %> | <%= unit.name %></h5>
+                                    </button>
+                                  </h2>
+                                  <div id="flush-practical1-<%= unit.number %>" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">
+                                      <ul class="list-group-flush">
+                                        <% practicalVideos.forEach(video => { %>
+                                          <% if (video.unitId === unit.id) { %>
+                                            <li class="list-group-item">
+                                              <p class="text-muted text-end m-0"><%=video.length%> min</p>
+                                              <div class=" d-flex flex-column justify-content-start flex-md-row justify-content-md-between">
+                                              <div class="me-auto">
+                                                <div class="fw-bold">
+                                                  
+                                                  <a class="text-dark" href="" onclick="showVideo(event,'<%=video.id%>','<%=session.user.id%>','<%=course.id%>')"><i class="fa fa-play" aria-hidden="true"></i> <%=video.title%></a>
+                                                </div>
+              
+                                                </div>
+              
+                                                <div class="form-check">
+                                                  <input class="form-check-input" type="checkbox" id="videoCheck<%= video.id %>" <%= videosViewed.includes(video.id) && 'checked' %> onclick="seedByUser(event,<%=session.user.id%>,<%=video.id%>,<%=course.id%>)">
+                                                </div>   
+                                            </div>
+                                              <small class="text-muted ms-3 mt-0"><%= video.description %> </small>     
+                                          </li>
+        
+                                          <% } %>
+                                        <% }) %>
+                                      </ul>
                                     </div>
-                                      <small class="text-muted ms-3 mt-0"><%= video.description %> </small>     
-                                  </li>
-
-                                  <% } %>
-                                <% }) %>
-                              </ul>
-                              <% }) %>
+                                  </div>
+                                </div>
+                              
+                              
+                              </div>                              
                             </li>
+
+                              <% }) %>
                             <% }else if (category.id === 3) { %>
                               
                                 <% integrativeVideoExams.forEach(video => { %>
@@ -445,51 +475,71 @@
         <%if(category.videos.filter(video => video.courseId === course.id).length){%>
           <div class="accordion-item">
               <h2 class="accordion-header" id="panelsStayOpen-heading<%=category.id%>">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse<%=category.id%>" aria-expanded="true" aria-controls="panelsStayOpen-collapse<%=category.id%>">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse<%=category.id%>" aria-expanded="false" aria-controls="panelsStayOpen-collapse<%=category.id%>">
                   <h4><%= category.name %></h4>
                  
               </button>
               </h2>
-              <div id="panelsStayOpen-collapse<%=category.id%>" class="accordion-collapse collapse <%= index === 0 && 'show' %> " aria-labelledby="panelsStayOpen-heading<%=category.id%>" data-bs-parent="#accordionPanelsStayOpenExample">
+              <div id="panelsStayOpen-collapse<%=category.id%>" class="accordion-collapse collapse " aria-labelledby="panelsStayOpen-heading<%=category.id%>" data-bs-parent="#accordionPanelsStayOpenExample">
               <div class="accordion-body">
                 <ul class="list-group list-group-flush">
                   <% if (category.id === 4) { %>
                     <% course.units.sort((a,b) => a.number > b.number ? 1 : a.number < b.number ? -1 : 0).forEach(unit => { %>
                       <li class="list-group-item ">
-                      <h5 class="mb-3">Unidad: <%= unit.number %> | <%= unit.name %></h5>
-                      <ul class="list-group-flush">
-                      <% levelingCycleVideos.forEach(video => { %>
-                        <% if (video.unitId === unit.id) { %>
-                          <li class="list-group-item">
-                            <div class=" d-flex flex-column justify-content-start flex-md-row justify-content-md-between">
-                            <div class="fw-bold">
-                              <div class="d-flex">
-                              <p class="text-dark m-0"><i class="fa fa-video-camera" aria-hidden="true"></i> <%=video.title%></p>
-                              <% if (!video.locked) { %>
-                                <p type="button" class="ms-3 border-0 bg-transparent p-0 text-primary m-0" data-bs-toggle="modal" data-bs-target="#modalShowVideo<%=video.id%>">
-                                  ver video
-                              </p>
-                              <%- include('./partials/modal/showVideo',{
-                                  video,
-                                  urlCloudfont
-                              })%>
-                               <% } %>
-      
+
+
+                        <div class="accordion accordion-flush" id="accordionFlushExample">
+                          <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingOne">
+                              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-unit-<%=unit.number%>" aria-expanded="false" aria-controls="flush-unit-<%=unit.number%>">
+                                <h5 class="mb-3">Unidad: <%= unit.number %> | <%= unit.name %></h5>
+
+                              </button>
+                            </h2>
+                            <div id="flush-unit-<%=unit.number%>" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                              <div class="accordion-body">
+                                <ul class="list-group-flush">
+                                  <% levelingCycleVideos.forEach(video => { %>
+                                    <% if (video.unitId === unit.id) { %>
+                                      <li class="list-group-item">
+                                        <div class=" d-flex flex-column justify-content-start flex-md-row justify-content-md-between">
+                                        <div class="fw-bold">
+                                          <div class="d-flex">
+                                          <p class="text-dark m-0"><i class="fa fa-video-camera" aria-hidden="true"></i> <%=video.title%></p>
+                                          <% if (!video.locked) { %>
+                                            <p type="button" class="ms-3 border-0 bg-transparent p-0 text-primary m-0" data-bs-toggle="modal" data-bs-target="#modalShowVideo<%=video.id%>">
+                                              ver video
+                                          </p>
+                                          <%- include('./partials/modal/showVideo',{
+                                              video,
+                                              urlCloudfont
+                                          })%>
+                                           <% } %>
+                  
+                                          </div>
+                  
+                                          </div>
+                                           <div class="d-flex gap-3">
+                                           <p class="text-muted m-0"><i class="fas fa-clock"></i> <%=video.length%> min</p>   
+                                        </div>      
+                                      </div>  
+                                      <small class="text-muted ms-2 mt-0"><%= video.description %> </small>       
+             
+                                    <% } %>
+                                  </li>
+                                  <% }) %>
+                                </ul>
                               </div>
-      
-                              </div>
-                               <div class="d-flex gap-3">
-                               <p class="text-muted m-0"><i class="fas fa-clock"></i> <%=video.length%> min</p>   
-                            </div>      
-                          </div>  
-                          <small class="text-muted ms-2 mt-0"><%= video.description %> </small>       
- 
-                        <% } %>
-                      </li>
-                      <% }) %>
-                    </ul>
-                    <% }) %>
+                            </div>
+                          </div>
+                       
+                        </div>
+
+
+
+                    
                   </li>
+                    <% }) %>
                   <% }else if (category.id === 1) { %>
                     <% theoreticalVideos.forEach(video => { %>
                       <li class="list-group-item ">
@@ -520,40 +570,60 @@
                     <% }else if (category.id === 2) { %>
                       <% course.units.sort((a,b) => a.number > b.number ? 1 : a.number < b.number ? -1 : 0).forEach(unit => { %>
                         <li class="list-group-item ">
-                        <h5 class="mb-3">Unidad: <%= unit.number %> | <%= unit.name %></h5>
-                        <ul class="list-group-flush">
-                        <% practicalVideos.forEach(video => { %>
-                          <% if (video.unitId === unit.id) { %>
-                            <li class="list-group-item">
-                              <div class=" d-flex flex-column justify-content-start flex-md-row justify-content-md-between">
-                              <div class="fw-bold">
-                                <div class="d-flex">
-                                <p class="text-dark m-0"><i class="fa fa-video-camera" aria-hidden="true"></i> <%=video.title%></p>
-                                <% if (!video.locked) { %>
-                                  <p type="button" class="ms-3 border-0 bg-transparent p-0 text-primary m-0" data-bs-toggle="modal" data-bs-target="#modalShowVideo<%=video.id%>">
-                                    ver video
-                                </p>
-                                <%- include('./partials/modal/showVideo',{
-                                    video,
-                                    urlCloudfont
-                                })%>
-                                 <% } %>
-        
+
+                          <div class="accordion accordion-flush" id="accordionFlushExample">
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="flush-headingOne">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-practical-<%=unit.number%>" aria-expanded="false" aria-controls="flush-practical-<%=unit.number%>">
+                                  <h5 class="mb-3">Unidad: <%= unit.number %> | <%= unit.name %></h5>
+                                </button>
+                              </h2>
+                              <div id="flush-practical-<%=unit.number%>" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                  <ul class="list-group-flush">
+                                    <% practicalVideos.forEach(video => { %>
+                                      <% if (video.unitId === unit.id) { %>
+                                        <li class="list-group-item">
+                                          <div class=" d-flex flex-column justify-content-start flex-md-row justify-content-md-between">
+                                          <div class="fw-bold">
+                                            <div class="d-flex">
+                                            <p class="text-dark m-0"><i class="fa fa-video-camera" aria-hidden="true"></i> <%=video.title%></p>
+                                            <% if (!video.locked) { %>
+                                              <p type="button" class="ms-3 border-0 bg-transparent p-0 text-primary m-0" data-bs-toggle="modal" data-bs-target="#modalShowVideo<%=video.id%>">
+                                                ver video
+                                            </p>
+                                            <%- include('./partials/modal/showVideo',{
+                                                video,
+                                                urlCloudfont
+                                            })%>
+                                             <% } %>
+                    
+                                            </div>
+                    
+                                            </div>
+                                             <div class="d-flex gap-3">
+                                             <p class="text-muted m-0"><i class="fas fa-clock"></i> <%=video.length%> min</p>   
+                                          </div>      
+                                        </div>  
+                                        <small class="text-muted ms-2 mt-0"><%= video.description %> </small>       
+               
+                                      <% } %>
+                                    </li>
+                                    <% }) %>
+                                  </ul>
                                 </div>
-        
-                                </div>
-                                 <div class="d-flex gap-3">
-                                 <p class="text-muted m-0"><i class="fas fa-clock"></i> <%=video.length%> min</p>   
-                              </div>      
-                            </div>  
-                            <small class="text-muted ms-2 mt-0"><%= video.description %> </small>       
-   
-                          <% } %>
-                        </li>
-                        <% }) %>
-                      </ul>
-                      <% }) %>
+                              </div>
+                            </div>
+                         
+                          
+                          </div>
+
+
+                        
+                      
                     </li>
+
+                      <% }) %>
                     <% }else if (category.id === 3) { %>
                         <% integrativeVideoExams.forEach(video => { %>
                             <li class="list-group-item  ">
