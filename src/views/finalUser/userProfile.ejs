@@ -25,11 +25,10 @@
         </li>
       </ul>
     </nav>
-    <div class="tab-content bg-white py-5 px-1 " id="myTabContent">
+    <div class="tab-content bg-white pt-3 py-2 " id="myTabContent">
       <!-- Datos personales -->
       <section class="tab-pane fade show active profile__mainContainer " id="datosPersonales-tab-pane" role="tabpanel" aria-labelledby="datosPersonales-tap" tabindex="0">
-        <div class="container p-1 profile__formContainer">
-          <h3 class="text-center">Modificá tus datos</h3>
+        <div class="container profile__formContainer">
           <div class="container">
               <form id="personalDataForm" action="/usuario/perfil?_method=PUT" method="POST" class="row">
 
@@ -88,7 +87,6 @@
       </section>
       <!-- Membresías -->
       <section class="tab-pane fade profile__mainContainer" id="membresia-tab-pane" role="tabpanel" aria-labelledby="membresia-tap" tabindex="1">
-        <div class="container">
           <% if (user.membership) { %>
             <div class="d-flex flex-column flex-lg-row justify-content-between">
             <h4>Tu membresía activa es: <span class="badge <%= user.membership.id === 1 ? 'bg-basic' : user.membership.id === 2 ? 'bg-pro' : 'bg-premium' %> "><%= user.membership.name %></span></h4>
@@ -97,7 +95,7 @@
           <hr>
             <% if (userActiveCourses.length > 0) { %>
               <h5 class="border-bottom alert alert-info">Tenés <span><%= userMembershipInfo.activesUserCourses %> materias activas de un total de <%= userMembershipInfo.membershipQuota %>  </span></h5>
-              <div class="d-flex flex-column flex-md-row flex-wrap justify-content-center">
+              <div class="d-flex flex-column flex-md-row justify-content-center">
                 <% userActiveCourses.forEach(course => { %>
                   <!--  <a href="/materia/contenido/<%- course.id %>"><span class="badge rounded-pill text-bg-success fs-4"><%- course.name %></span></a> -->
                   <%- include('./partials/cardCourse',{
@@ -115,9 +113,9 @@
             <a href="/materia/seleccion?userId=<%= session.user.id %>" class="button__dark float-end">Elegir materias</a>
             <% } %>
           <% } else { %>
-            <h3 class="text-center p-2">Aún no tienes una membresía activa</h3>
-            <h4 class="text-center mb-4">Elije la que mejor se adapte a ti</h4>
-            <div class="d-flex justify-content-around flex-wrap gap-4" data-aos="fade-up" data-aos-duration="1000">
+            <p class="alert alert-info"><i class="fa fa-info-circle" aria-hidden="true"></i> Aún no tienes una membresía activa. Elije la que mejor que se adapte a ti.</p>
+            <!-- <h4 class="text-center mb-4">Elije la que mejor se adapte a ti</h4> -->
+            <div class="d-flex justify-content-around flex-wrap gap-3 px-2" data-aos="fade-up" data-aos-duration="1000">
               <% memberships.forEach(membership => { %>
                 <div class="col-12 col-lg-3">
                   <div class="row shadow rounded p-2 membershipCard <%- membership.name %>">
@@ -137,15 +135,14 @@
                   </div>
                 </div>
               <% }) %>
-            </div>
           <% }  %>
          
         </div>
       </section>
       <!-- Referidos -->
-      <section class="tab-pane fade profile__mainContainer" id="referidos-tab-pane" role="tabpanel" aria-labelledby="referidos-tap" tabindex="2">
+      <section class="tab-pane fade profile__mainContainer px-3" id="referidos-tab-pane" role="tabpanel" aria-labelledby="referidos-tap" tabindex="2">
         <div class="container">
-          <div class="row p-3">
+          <div class="row">
             <% if (activeReferredsQuantity === 2) { %>
               <h3>¡Felicitaciones, 2 de tus referidos se registraron en HQ!</h3> 
               <p>Gracias a eso, ganaste una membresía <span class="badge fs-5 bg-basic">BASIC</span></p>
@@ -156,8 +153,10 @@
               <h3>¡Felicitaciones, 4 de tus referidos se registraron en HQ!</h3> 
               <p>Gracias a eso, ganaste una membresía <span class="badge fs-5 bg-premium">PREMIUM</span></p>
               <% } else { %>
-              <p>Referí hasta 4 personas y ganá una membresía! </p>
-            <% } %>
+                <p class="alert alert-info"><i class="fa fa-info-circle" aria-hidden="true"></i> Referí hasta 4 personas y ganá una membresía gratuíta.</p>
+
+<!--               <p>Referí hasta 4 personas y ganá una membresía! </p>
+ -->            <% } %>
             <div class="col-12 col-md-4 p-2">
               <h3 class="border-bottom">Referir</h3>
               <form action="/referidos" method="post" id="referredForm">

@@ -1,5 +1,6 @@
 const { check, body } = require("express-validator");
 const db = require("../database/models");
+const axios = require('axios');
 
 module.exports = [
   check("name").notEmpty().withMessage("Ingresa tu nombre").bail(),
@@ -38,4 +39,20 @@ module.exports = [
   check("terms")
     .isString("on")
     .withMessage("Debes aceptar los términos y condiciones"),
+  body("g-recaptcha-response")
+    .custom( (value, { req }) => {
+      const url = 'https://www.google.com/recaptcha/api/siteverify'
+
+      return axios.post(`${url}?secret=${process.env.SECRET_KEY_RECAPTCHA}&response=${value}`)
+              .then(response => {
+                console.log(response.data)
+                if(!response.data.success){
+                  return Promise.reject()
+                }
+              })
+              .catch(error => {
+                console.log('>>>>>>>>>>>>',error)
+                return Promise.reject('Verficar que no eres un robot')
+              })
+    })
 ];
