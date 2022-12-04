@@ -29,12 +29,21 @@
         <!-- Suscripción rechazada -->
           <div class="col-12 col-md-6 bg-white rounded border p-3">
             <div class="alert alert-danger" role="alert">
-              Tu suscripción fué cancelada, ocurrió un error en el proceso de pago
+              Ocurrió un error en el proceso de pago
             </div>
             <p>Intenta realizar el proceso de suscripción nuevamente, sino comunicate con nosotros.</p>
             <a href="/usuario/perfil#membership" class="button__dark">Volver a membresías</a>
           </div>
+      <% } else { %>
+        <div class="col-12 col-md-6 bg-white rounded border p-3">
+          <div class="alert alert-danger" role="alert">
+            Ocurrió un error en el proceso de pago
+          </div>
+          <p>Intenta realizar el proceso de suscripción nuevamente, sino comunicate con nosotros.</p>
+          <a href="/usuario/perfil#membership" class="button__dark">Volver a membresías</a>
+        </div>
       <% }  %>
+      
     </section>
   </main>
   <%- include('./partials/footer') %> 

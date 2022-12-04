@@ -316,19 +316,24 @@ module.exports = {
             }
           })
         }
-        res.render("finalUser/subscriptionStatus", {
+        return res.render("finalUser/subscriptionStatus", {
           session: req.session,
           subscription,
           paymentStatus: lastPayment.status
         });
       }
-      res.render("finalUser/subscriptionStatus", {
+      return res.render("finalUser/subscriptionStatus", {
         session: req.session,
         subscription,
         paymentStatus: "pending"
       });
     } catch (error) {
       console.log(error)
+      return res.render("finalUser/subscriptionStatus", {
+        session: req.session,
+        subscription,
+        paymentStatus: "rejected"
+      });
     }
   },
   addCourse: async (req, res) => {
