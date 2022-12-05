@@ -1,0 +1,39 @@
+<div class="modal fade" id="addTurn" tabindex="-1" aria-labelledby="addTurnLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addTurnLabel">Agregar Turno</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="/turns/add?course=<%= course.id %>" class="row" id="form-modal-add-unit" method="POST">
+            <% turns.forEach(turn => { %>
+              <% if (!course.turns.map(turn=>turn.id).includes(turn.id)) { %>
+                <div class="col-12 col-md-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="<%= turn.id %>" name="turns" id="turn<%= turn.id %>">
+                    <label class="form-check-label" for="turn<%= turn.id %>">
+                      <%= turn.month %> 
+                    </label>
+                  </div>
+                 </div>
+                <% } %>
+            
+            <% }) %>
+            <div class="col-12 mb-3">
+              <hr>
+
+                <label for="newTurn" class="form-label">Nuevo turno:</label>
+                <div class="d-flex gap-1">
+                    <input id="newTurn" type="text" class="form-control" name="newTurn" onfocus="this.classList.remove('is-invalid')">
+                </div>
+            </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-outline-dark">Guardar</button>
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>
+<script src="/javascripts/addTurn.js"></script>

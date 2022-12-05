@@ -6,7 +6,8 @@ module.exports = {
     "database": process.env.DB_DEV_DATABASE,
     "host": process.env.DB_DEV_HOST,
     "dialect": "mysql",
-    "port": process.env.DB_DEV_PORT
+    "port": process.env.DB_DEV_PORT,
+    seederStorageTableName : 'SequelizeData'
   },
   "test": {
     "username": process.env.DB_TEST_USERNAME,

@@ -1,4 +1,3 @@
-
 document.getElementById('btn-modal-addUnit').addEventListener('click', () => {
     document.getElementById('checkError').innerHTML =  null;
     let elements = document.getElementById('form-modal-add-unit').elements
@@ -34,20 +33,7 @@ const check = async ({target}, courseId) => {
     }
 }   
 
-const removeUnit = async (id,courseId) => {
-    try {
-        let response = await fetch('/units/remove/' + id,{
-        method : 'DELETE',
-    });
-    let result = await response.json()
 
-    console.log(result.msg);
-    window.location.href = `/courses/edit/${courseId}?next=units`;
-
-    } catch (error) {
-        console.error(result.msg)
-    }
-}
 
 const sendModalForm = async (e,id) => {
 e.preventDefault();

@@ -59,6 +59,12 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey : 'courseId',
         otherKey : 'userId'
       });
+      Course.belongsToMany(models.Turn,{
+        as : 'turns',
+        through : 'TurnCourses',
+        foreignKey : 'courseId',
+        otherKey : 'turnId'
+      });
     }
   };
   Course.init({

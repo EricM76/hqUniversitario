@@ -53,11 +53,11 @@
                         
                                             aria-selected="false">Exámenes</button>
                                     </li>
-                                    <li class="nav-item" role="presentation" hidden>
-                                        <button class="nav-link text-dark" id="disabled-tab" data-bs-toggle="tab"
-                                            data-bs-target="#disabled-tab-pane" type="button" role="tab"
-                                            aria-controls="disabled-tab-pane" aria-selected="false"
-                                            disabled>Disabled</button>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link <%= next === 'turns' && 'active' %>" id="turns-tab" data-bs-toggle="tab"
+                                            data-bs-target="#turns-tab-pane" type="button" role="tab"
+                                            aria-controls="turns-tab-pane" aria-selected="false"
+                                            >Turnos</button>
                                     </li>
                                 </ul>
                                 <div class="tab-content" id="myTabContent">
@@ -496,12 +496,45 @@
                                         </div>
 
                                     </div>
-                                    <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel"
-                                        aria-labelledby="disabled-tab" tabindex="0">...</div>
+                                    <div class="tab-pane fade <%= next === 'turns' && 'show active' %>"
+                                        id="turns-tab-pane" role="tabpanel" aria-labelledby="turns-tab" tabindex="0">
+                                            <div class="d-flex gap-3 p-3 mt-4">
+
+                                            <% course.turns.forEach((turn, index)=> { %>
+
+                                                            <button type="button" class="btn btn-primary position-relative fs-4">
+                                                                <%=turn.month%>
+                                                            <span class="position-absolute top-0 start-100 translate-middle p-1 px-2 bg-danger border border-light rounded-circle fs-6" onclick="removeTurn('<%=turn.id%>','<%=course.id%>')">
+                                                                <i
+                                                                        class="fa fa-times"
+                                                                        aria-hidden="true"></i>
+                                                            </span>
+                                                            </button>
+                                                          
+
+                                                <% }) %>
+                                            </div>
+
+                                                <div class="col-12 text-end">
+                                                    <button type="button"
+                                                        class="btn btn-outline-primary"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#addTurn"
+                                                        id="btn-modal-addTurn">
+                                                        Agregar turno
+                                                    </button>
+                                                   
+                                                </div>
+                                        <%- include('./modals/addUnit') %>
+                                        <%- include('./modals/addTurn') %>
+
+
+
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="card-footer text-end">
+                            <div class="card-footer text-end mt-4">
 
 
                             </div>

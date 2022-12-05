@@ -1,11 +1,15 @@
 const express = require('express');
 const router = express.Router();
 
-const {list} = require('../controllers/turnsController');
+const {list, add, remove, update} = require('../controllers/turnsController');
 
-/* /units */
+/* /turns */
 router
+.put('/update/:id',update)
+
 /* APIs */
+.post('/add',add)
+.delete('/remove',remove)
   .get('/',list)
 
 

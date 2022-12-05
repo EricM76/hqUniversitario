@@ -53,7 +53,6 @@ module.exports = {
       try {
         let categories = await db.Category.findAll();
         let units = await db.Unit.findAll();
-        let turns = await db.Turn.findAll();
         let countVideos = await db.Video.count({where:{courseId:req.params.idCourse}});
         let course = await db.Course.findByPk(req.params.idCourse, {
           include : [
@@ -89,6 +88,10 @@ module.exports = {
                   attributes : ['id','number','name'],
               },
               {
+                association : 'turns',
+                attributes : ['id','month'],
+            },
+              {
                   association : 'videos',
                   attributes : ['id','title'],
               },
@@ -97,7 +100,6 @@ module.exports = {
         return res.render('admin/videoAdd',{
           categories,
           units,
-          turns,
           course,
           countVideos
         })

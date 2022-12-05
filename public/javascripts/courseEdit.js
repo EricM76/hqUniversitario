@@ -99,6 +99,36 @@ const removeNote = async (id,file) => {
     }
 }
 
+const removeUnit = async (id,courseId) => {
+    try {
+        let response = await fetch('/units/remove/' + id,{
+        method : 'DELETE',
+    });
+    let result = await response.json()
+
+    console.log(result.msg);
+    window.location.href = `/courses/edit/${courseId}?next=units`;
+
+    } catch (error) {
+        console.error(result.msg)
+    }
+}
+
+const removeTurn = async (id,courseId) => {
+    try {
+        let response = await fetch(`/turns/remove?courseId=${courseId}&turnId=${id}`,{
+        method : 'DELETE',
+    });
+    let result = await response.json()
+
+    console.log(result.msg);
+    window.location.href = `/courses/edit/${courseId}?next=turns`;
+
+    } catch (error) {
+        console.error(result.msg)
+    }
+}
+
 const changeLocked = async (id, {target}) => {
     console.log(id, target.value);
     document.getElementById('changeLocked-label' + id).innerHTML = target.checked ? `<i class='fas fa-lock'></i>` : `<i class='fas fa-unlock'></i>`;
