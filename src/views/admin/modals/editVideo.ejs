@@ -120,8 +120,8 @@
                                                 <%= !video.turnId && 'disabled'  %>
                                                 >
                                                 <% if (video.turnId) { %>
-                                                    <% for(let i=0; i< turns.length; i++ ) { %>
-                                                        <option value="<%=turns[i].id%>" <%= turns[i].id == video.turnId && 'selected'%> ><%=turns[i].month%></option>
+                                                    <% for(let i=0; i< course.turns.length; i++ ) { %>
+                                                        <option value="<%=course.turns[i].id%>" <%= course.turns[i].id == video.turnId && 'selected'%> ><%=course.turns[i].month%></option>
                                                     <%}%>
                                                 <% }else{ %>
                                                     <option value="">Turno...</option>

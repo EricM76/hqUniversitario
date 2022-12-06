@@ -35,7 +35,7 @@ window.onload = async () => {
             }
 
             selectTurn.innerHTML = '<option value="" selected hidden>Turno...</option>';
-            result = await apiCall('/turns');
+            result = await apiCall('/turns?course=' + 13);
             result.turns.forEach(turn => {
                 selectTurn.innerHTML += `<option value="${turn.id}">${turn.month}</option>`;
             });
@@ -75,7 +75,7 @@ document.getElementById('categoryId').addEventListener('change', async (event) =
             }
 
             selectTurn.innerHTML = '<option value="" selected hidden>Turno...</option>';
-            result = await apiCall('/turns');
+            result = await apiCall('/turns?course=' + inputCourse.value);
             result.turns.forEach(turn => {
                 selectTurn.innerHTML += `<option value="${turn.id}">${turn.month}</option>`;
             });
@@ -123,7 +123,7 @@ const changeOptions = async (e,id) => {
             }
 
             document.getElementById('turnId' + id).innerHTML = '<option value="" selected hidden>Turno...</option>';
-            result = await apiCall('/turns');
+            result = await apiCall('/turns?course=' +  inputCourse.value);
             result.turns.forEach(turn => {
                 document.getElementById('turnId' + id).innerHTML += `<option value="${turn.id}">${turn.month}</option>`;
             });
