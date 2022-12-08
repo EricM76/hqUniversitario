@@ -6,8 +6,8 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <video id="resourceShowPreview<%= video.id %>" controls class="w-100" controlslist="nodownload">
-            <source src="<%= urlCloudfont %><%=video.resource%>"
+          <video  controls class="w-100" controlslist="nodownload">
+            <source id="resourceShowPreview<%= video.id %>" src=""
             type="video/mp4">
           </video>
         </div>
@@ -18,19 +18,18 @@
   <script>
     document.getElementById('resourceShowPreview<%= video.id %>').volume = 0.5;
     
-   /*  document.getElementById('modalShowVideo<%= video.id %>').addEventListener('show.bs.modal', async () => {
+    document.getElementById('modalShowVideo<%= video.id %>').addEventListener('show.bs.modal', async () => {
       try {
-        let response = await fetch(`/videos/transfer?resource=<%= video.resource %>`)
-        let result = await response.json()
-        console.log(result);
-        setTimeout(() => {
-          document.getElementById('resourceShowPreview<%= video.id %>').play();
-
-        }, 2000);
+       let response = await fetch('/courses/get-data-video?videoId=<%= video.id %>');
+       let result = await response.json();
+       console.log(result)
+       if(result.ok){
+        document.getElementById(`resourceShowPreview${result.video.id}`).src = result.urlCloudfont + result.video.resource
+       }
       } catch (error) {
         console.error(error) 
       }
-    }); */
+    });
 
     document.getElementById('modalShowVideo<%= video.id %>').addEventListener('hidden.bs.modal', e => {
         document.getElementById('resourceShowPreview<%= video.id %>').pause()
