@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const {add, store,show, list, detail, edit, update, remove, search, filter, changeLocked, getVideoUrl, transfer, seenByUser, notSeenByUser,getViewedByUser} = require('../controllers/videosController');
+const {add, store,show, list, detail, edit, update, remove, search, filter, changeLocked, getVideoUrl, transfer, seenByUser, notSeenByUser,getViewedByUser, info} = require('../controllers/videosController');
 const { uploadCourse } = require('../middlewares/upLoadFiles');
 
 /* /videos */
@@ -17,6 +17,7 @@ router
   .get('/search',search)
   .get('/filter',filter)
   /* apis */
+  .get('/info',info)
   .put('/locked',changeLocked)
   .post('/geturl/:id',getVideoUrl)
   .get('/transfer',transfer)

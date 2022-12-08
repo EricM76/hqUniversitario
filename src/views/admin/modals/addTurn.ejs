@@ -3,37 +3,68 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="addTurnLabel">Agregar Turno</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btn-close-add-turn"></button>
         </div>
         <div class="modal-body">
-          <form action="/turns/add?course=<%= course.id %>" class="row" id="form-modal-add-unit" method="POST">
-            <% turns.forEach(turn => { %>
-              <% if (!course.turns.map(turn=>turn.id).includes(turn.id)) { %>
-                <div class="col-12 col-md-6">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="<%= turn.id %>" name="turns" id="turn<%= turn.id %>">
-                    <label class="form-check-label" for="turn<%= turn.id %>">
-                      <%= turn.month %> 
-                    </label>
-                  </div>
-                 </div>
-                <% } %>
-            
-            <% }) %>
+          <form action="" class="row" id="form-modal-add-turn" onsubmit="sendModalFormAddTurn(event, '<%= course.id %>')" method="POST">
+          
+            <div class="row" id="box-turn-options">
+
+            </div>
             <div class="col-12 mb-3">
               <hr>
 
                 <label for="newTurn" class="form-label">Nuevo turno:</label>
-                <div class="d-flex gap-1">
+                <div class="">
                     <input id="newTurn" type="text" class="form-control" name="newTurn" onfocus="this.classList.remove('is-invalid')">
+                    <small class="text-danger m-1" id="msg-error-new-turn"></small>
                 </div>
             </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-outline-dark">Guardar</button>
+          <button type="submit" id="btn-submit-add-turn" class="btn btn-outline-primary">Guardar</button>
         </div>
     </form>
       </div>
     </div>
   </div>
+  <script>
+    document.getElementById('addTurn').addEventListener('show.bs.modal', async function (event) {
+     
+      try {
+        let response = await fetch('/turns/all');
+      let result = await response.json();
+      let turnsAll  = result.turns;
+        response = await fetch(`/turns?course=<%= course.id %>`)
+        result = await response.json()
+        let turnsCourseIds = result.turns.map(turn => turn.id)
+
+        if(result.ok){
+          document.getElementById('box-turn-options').innerHTML = null;
+          document.getElementById('newTurn').value = null;
+          document.getElementById('newTurn').classList.remove('is-invalid')
+          turnsAll.forEach(turn => {
+
+              if (!turnsCourseIds.includes(turn.id)) {
+                document.getElementById('box-turn-options').innerHTML += `
+                <div class="col-12 col-md-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="${turn.id}" name="turns" id="turn${turn.id}">
+                    <label class="form-check-label" for="turn${turn.id}">
+                      ${turn.month} 
+                    </label>
+                  </div>
+                 </div>
+                 `
+              
+                }
+            
+           })
+        }
+      } catch (error) {
+        console.error
+      }
+     
+})
+  </script>
 <script src="/javascripts/addTurn.js"></script>

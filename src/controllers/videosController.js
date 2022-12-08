@@ -407,5 +407,48 @@ module.exports = {
           msg: 'ups... error'
         })
       }
+    },
+    info : (req,res) => {
+      const {videoId, courseId} = req.query
+      let video = db.Video.findByPk(videoId);
+      let countVideos =  db.Video.count({ where: { courseId } });
+      let course =  db.Course.findByPk(courseId, {
+        include: [
+            {
+                association: 'faculty', //ok
+                attributes: ['id', 'name', 'acronym'],
+                include:
+                {
+                    association: 'categories', //ok
+                    attributes: ['id', 'name'],
+                    order: ['id'],
+                }
+            },
+            {
+                association: 'units', //ok
+                attributes: ['id', 'number', 'name'],
+            },
+            {
+                association: 'turns', //ok
+                attributes: ['id', 'month'],
+            },
+        ]
+    });
+    Promise.all([video, countVideos, course])
+      .then(([video, countVideos, course]) => {
+        return res.status(200).json({
+          ok: true,
+          video,
+          countVideos,
+          course
+        })
+      })
+      .catch(error => {
+        console.log(error)
+        return res.status(error.status || 500).json({
+          ok : false,
+          msg : error.message || "Comuníquese con el administrdor"
+        })
+      })
     }
 }

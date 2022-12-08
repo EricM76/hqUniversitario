@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const {list, add, remove, update} = require('../controllers/turnsController');
+const {list, add, remove, update, all} = require('../controllers/turnsController');
 
 /* /turns */
 router
@@ -11,6 +11,7 @@ router
 .post('/add',add)
 .delete('/remove',remove)
   .get('/',list)
+  .get('/all',all)
 
 
 module.exports = router;

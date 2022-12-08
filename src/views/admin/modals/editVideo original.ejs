@@ -6,19 +6,18 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body" id="box-data-edit-video">
-            <form action="" class="row mx-3 g-3 mt-2 mt-lg-3"
+            <form action="/videos/update/<%= video.id %>?_method=PUT&course=<%= video.courseId %>" class="row mx-3 g-3 mt-2 mt-lg-3"
                 enctype="multipart/form-data" method="POST" id="form-updateVideos-course">
                                 <div class="col-12 col-lg-4">
-                                    <!-- video -->
                                     <div class="mb-3">
-                                        <input type="file" class="form-control" id="resource<%=video.id%>"
+                                        <input type="file" class="form-control" id="resource"
                                             name="resource" hidden>
-                                        <video id="resourcePreview<%=video.id%>"
-                                            src=""type="video/mp4" width="100%" controls>
+                                        <video id="resourcePreview<%= video.id %>"
+                                            src="https://d1ttls5s7uue53.cloudfront.net/<%=video.resource%>"     type="video/mp4" width="100%" controls>
 
                                     </div>
                                     <div class="mb-3">
-                                        <label for="resource<%=video.id%>"
+                                        <label for="resource"
                                             class="btn btn-outline-dark w-100 mb-3">Reemplazar
                                             video</label>
 
@@ -150,7 +149,8 @@
                                         </div>
                                 </div>
                             </div>
-            </form>  
+            </form>
+           
         </div>
         <div class="modal-footer">
          <!--  <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -165,18 +165,11 @@
         document.getElementById('resourcePreview<%= video.id %>').pause()
     });
     document.getElementById('modalEditVideo<%= video.id %>').addEventListener('show.bs.modal', async function (event) {
-       
         try {
             let response = await fetch('/videos/info?videoId=<%=video.id%>&courseId=<%=id%>')
             let result = await response.json();
             if(result.ok){
-                console.log(result);
-                const {course,video} = result;
-                const form = document.getElementById('form-updateVideos-course');
-                const resourcePreview = document.getElementById(`resourcePreview${video.id}`);
-
-                form.action = `/videos/update/${video.id}?_method=PUT&course=${video.courseId}`
-                resourcePreview.src = `https://d1ttls5s7uue53.cloudfront.net/${video.resource}`
+                console.log(result)
             }
         } catch (error) {
             console.error

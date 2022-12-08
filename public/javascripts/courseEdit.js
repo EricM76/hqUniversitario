@@ -121,11 +121,29 @@ const removeTurn = async (id,courseId) => {
     });
     let result = await response.json()
 
-    console.log(result.msg);
-    window.location.href = `/courses/edit/${courseId}?next=turns`;
+    if(result.ok){
+        let response = await fetch(`/turns?course=${courseId}`)
+        let result = await response.json();
+
+        if(result.ok){
+            $('box-turns').innerHTML = null;
+
+            result.turns.forEach((turn,index) => {
+
+                $('box-turns').innerHTML += `  
+                <button type="button" class="btn btn-primary position-relative fs-4">
+                ${turn.month}
+                    <span class="position-absolute top-0 start-100 translate-middle p-1 px-2 bg-danger border border-light rounded-circle fs-6" onclick="removeTurn('${turn.id}','${courseId}')">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </span>
+                </button>`
+            });
+        }
+
+    }
 
     } catch (error) {
-        console.error(result.msg)
+        console.error
     }
 }
 

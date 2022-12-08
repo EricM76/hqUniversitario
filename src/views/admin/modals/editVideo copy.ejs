@@ -1,0 +1,189 @@
+<div class="modal fade" id="modalEditVideo<%= video.id %>" hidden.bs.modal="alert('raro!')" tabindex="-1" aria-labelledby="exampleModalVideoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalVideoLabel">Editar video</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="box-data-edit-video">
+         
+           
+        </div>
+        <div class="modal-footer">
+         <!--  <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-outline-dark">Guardar</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+   /*  document.getElementById('modalEditVideo<%= video.id %>').addEventListener('hidden.bs.modal', e => {
+        document.getElementById('resourcePreview<%= video.id %>').pause()
+    }); */
+    document.getElementById('modalEditVideo<%= video.id %>').addEventListener('show.bs.modal', async function (event) {
+        try {
+            let response = await fetch('/videos/info?videoId=<%=video.id%>&courseId=<%=id%>')
+            let result = await response.json();
+            console.log(result);
+            if(result.ok){
+                document.getElementById('box-data-edit-video').innerHTML = `
+                <form action="/videos/update/${ video.id}?_method=PUT&course=${ video.courseId}" class="row mx-3 g-3 mt-2 mt-lg-3"
+    enctype="multipart/form-data" method="POST" id="form-updateVideos-course">
+                    <div class="col-12 col-lg-4">
+                        <div class="mb-3">
+                            <input type="file" class="form-control" id="resource"
+                                name="resource" hidden>
+                            <video id="resourcePreview${ video.id}"
+                                src="https://d1ttls5s7uue53.cloudfront.net/${video.resource}"     type="video/mp4" width="100%" controls>
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="resource"
+                                class="btn btn-outline-dark w-100 mb-3">Reemplazar
+                                video</label>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-lg-8">
+                                <div
+                                    class="d-flex flex-column align-items-lg-center flex-lg-row mb-3">
+                                    <label for="length"
+                                        class="form-label me-2">Duración:</label>
+                                    <div class="input-group">
+                                        <input type="number"
+                                            class="form-control" min="0" name="length" value="${video.length}">
+                                        <span class="input-group-text"
+                                            for="">min</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4">
+                                <div class="d-flex justify-content-around">
+                                    <div class=" mb-3">
+                                        <label class="fs-4" for="locked${video.id}" id="label-locked${video.id}">
+                                            <% if(video.locked) {%>
+                                                <i class="fas fa-lock"></i>
+                                            <%}else{%>
+                                                <i class='fas fa-unlock'></i>
+                                            <%}%>
+                                        </label>
+                                        <input type="checkbox" 
+                                            id="locked${video.id}" ${ video.locked && 'checked'}  hidden onchange="document.getElementById('label-locked${video.id}').innerHTML = this.checked ? '<i class='fas fa-lock'></i>' : '<i class='fas fa-unlock'></i>'" name="locked">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-12 col-lg-8">
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label for="title"
+                                    class="form-label">Título</label>
+                                <input type="text" id="title"
+                                    class="form-control" name="title" value="${video.title}">
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="description"
+                                    class="form-label">Descripción</label>
+                                <textarea id="description" class="form-control"
+                                    rows="3" style="resize: none;" name="description">${video.description}</textarea>
+                            </div>
+                            <div class="col-12 col-md-6 mb-3">
+                                <select class="form-select form-select"
+                                    id="categoryId${video.id}"
+                                    name="categoryId"
+                                    onchange="changeOptions(event,'${video.id}')"
+                                    >
+                                    ${course.faculty.categories.map(category => {
+                                        return `<option value='${category.id}' ${category.id === video.categoryId && 'selected'}>${category.name}></option>`
+                                    })}
+                                </select>
+                                <input type="text" value="${course.id}" id="inputCourse" hidden>
+                            </div>
+                            <div class="col-12 col-md-6 mb-3">
+                                <select class="form-select form-select"
+                                    id="unitId${video.id}"
+                                    name="unitId"
+                                    ${ !video.unitId && 'disabled' } 
+                                    >
+                                    ${video.unitId ?
+                                        course.units.sort((a,b)=> a.number>b.number ? 1 : a.number<b.number ? -1 : 0).map(unit => {
+                                            return `<option value="${unit.id}" ${ unit.id == video.unitId && 'selected'}  >${unit.number}></option>`
+                                        })
+                                    :
+                                        `<option value="">Unidad...</option>`
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6 mb-3">
+                                <select class="form-select form-select"
+                                    id="year${ video.id}"
+                                    name="year"
+                                    ${ !video.year && 'disabled' }
+                                    >
+                                    ${
+                                        (video.year)
+                                        ?
+                                        `<option value="" selected hidden>Año...</option>`
+                                        `<option value="2005" >2005</option>`
+                                       /*  for(let i=2005; i<= new Date().getFullYear(); i++ ) {
+                                            `<option value="${i}" ${ i == video.year && 'selected'}>${i}></option>`
+                                        } */
+                                    :
+                                        `<option value="">Año...</option>`
+                                    }
+                                </select>
+                            </div>
+                            
+                            <div class="col-12 col-md-6 mb-3">
+                                <select class="form-select form-select"
+                                    id="turnId${ video.id}"
+                                    name="turnId"
+                                    ${ !video.turnId && 'disabled' }
+                                    >
+
+                                    ${video.turnId
+                                    ?
+                                    course.turns.map(turn => {
+                                        return `<option value="${turn.id}" ${turn.id == video.turnId && 'selected'} >${turn.month}></option>`
+                                    })
+                                    :
+                                    `<option value="">Turno...</option>`
+                                }
+                                </select>
+                            </div>
+
+                            <div class="col-12 col-md-6 mb-3">
+                                <div class="input-group">
+                                    <span class="input-group-text">Orden</span>
+                                    <select class="form-select"
+                                    id="order${ video.id}"
+                                    name="order">
+                                        <option value="" selected hidden>Orden...</option>
+                                      
+                                    </select>                                            
+                                </div>  
+                            </div>
+                            <div class="col-12 col-md-6 mb-3">
+                                    <button class="btn btn-outline-dark w-100" type="submit">
+                                        Guardar cambios
+                                    </button>                                           
+                            </div>
+                    </div>
+                </div>
+</form>
+                `
+            }
+        } catch (error) {
+            console.error
+        }
+    })
+  </script>
+
+
+
+
+ 
+  

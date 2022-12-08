@@ -1,6 +1,23 @@
 const db = require('../database/models')
 
 module.exports = {
+    all : async (req,res) => {
+        try {
+            let turns = await db.Turn.findAll()
+            return res.status(201).json({
+                ok : true,
+                turns,
+                msg : 'turnos'
+            })
+        } catch (error) {
+            console.log(error);
+            return res.status(res.statusCode || 500).json({
+                ok : false,
+                msg : 'Comuníquese con el administrador del sitio'
+            })
+        }
+    }, 
+
     list : async (req,res) => {
         try {
             let {turns} = await db.Course.findByPk(req.query.course,{
@@ -9,7 +26,8 @@ module.exports = {
             return res.status(201).json({
                 ok : true,
                 code : res.statusCode,
-                turns
+                turns,
+                msg : 'turnos'
             })
         } catch (error) {
             console.log(error);
@@ -49,6 +67,7 @@ module.exports = {
     },
     /* APIs */
     add : async (req,res) => {
+
         /* 
         body : {
             turns, -> array de string
@@ -57,8 +76,7 @@ module.exports = {
         */
        let {turns, newTurn} = req.body;
         try {
-            if(turns){
-                turns = typeof turns === "string" && [turns]
+            if(turns.length){
                 let turnsAdded = turns.map(turn => ({
                     courseId : req.query.course,
                     turnId : turn
@@ -74,10 +92,19 @@ module.exports = {
                     courseId : req.query.course
                 })
             }
-            return res.redirect(`/courses/edit/${req.query.course}?next=turns`)
+
+            return res.status(200).json({
+                ok : true,
+                msg : "Turnos agregados exitosamente"
+            })
+            /* return res.redirect(`/courses/edit/${req.query.course}?next=turns`) */
             
         } catch (error) {
             console.log(error)
+            return res.status(error.status || 500).json({
+                ok : false,
+                msg : error.message || "Comuníquese con el administrador"
+            })
            
         }
     },
@@ -92,7 +119,6 @@ module.exports = {
             });
             return res.status(201).json({
                 ok : true,
-                code : res.statusCode,
                 msg : 'Turno eliminado corretamente'
             })
             
@@ -100,7 +126,6 @@ module.exports = {
             console.log(error)
             return res.status(res.statusCode || 500).json({
                 ok : false,
-                code : res.statusCode,
                 msg : 'Comuníquese con el administrador del sitio'
             })
         }

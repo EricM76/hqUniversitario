@@ -420,7 +420,8 @@
                                                                             </div>
                                                                         </li>
                                                                         <%- include('./modals/editVideo',{
-                                                                            video
+                                                                            video,
+                                                                            id : course.id
                                                                         }) %>
                                                                         <%}%>    
                                                                     <%})%>
@@ -440,15 +441,7 @@
                                                     videos agregados</p>
                                                 <% } %>
                                                 <div class="text-end">
-                                                    <!--
-                                                    <button type="button"
-                                                        class="btn btn-outline-primary"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#exampleModalVideo"
-                                                        id="btn-modal-addVideo">
-                                                        Agregar video
-                                                    </button>
-                                                -->
+                                                
                                                     <a class="btn btn-outline-primary mt-3" href="/videos/add/<%=course.id%>">Agregar video</a>
                                                 </div>
                                             <%- include('./modals/addVideo') %>
@@ -498,10 +491,9 @@
                                     </div>
                                     <div class="tab-pane fade <%= next === 'turns' && 'show active' %>"
                                         id="turns-tab-pane" role="tabpanel" aria-labelledby="turns-tab" tabindex="0">
-                                            <div class="d-flex gap-3 p-3 mt-4">
+                                            <div class="d-flex flex-wrap gap-3 p-3 mt-4" id="box-turns">
 
                                             <% course.turns.forEach((turn, index)=> { %>
-
                                                             <button type="button" class="btn btn-primary position-relative fs-4">
                                                                 <%=turn.month%>
                                                             <span class="position-absolute top-0 start-100 translate-middle p-1 px-2 bg-danger border border-light rounded-circle fs-6" onclick="removeTurn('<%=turn.id%>','<%=course.id%>')">
@@ -510,12 +502,12 @@
                                                                         aria-hidden="true"></i>
                                                             </span>
                                                             </button>
+                                                           
                                                           
 
                                                 <% }) %>
                                             </div>
-
-                                                <div class="col-12 text-end">
+                                            <div class="col-12 text-end">
                                                     <button type="button"
                                                         class="btn btn-outline-primary"
                                                         data-bs-toggle="modal"
@@ -525,12 +517,14 @@
                                                     </button>
                                                    
                                                 </div>
+                                        </div>
+
+                                              
                                         <%- include('./modals/addUnit') %>
                                         <%- include('./modals/addTurn') %>
 
 
 
-                                    </div>
                                 </div>
                             </div>
 
