@@ -171,12 +171,12 @@
             let result = await response.json();
             if(result.ok){
                 console.log(result);
-                const {course,video} = result;
+                const {video,urlCloudfont} = result;
                 const form = document.getElementById('form-updateVideos-course');
                 const resourcePreview = document.getElementById(`resourcePreview${video.id}`);
 
                 form.action = `/videos/update/${video.id}?_method=PUT&course=${video.courseId}`
-                resourcePreview.src = `https://d1ttls5s7uue53.cloudfront.net/${video.resource}`
+                resourcePreview.src = `${urlCloudfont}${video.resource}`
             }
         } catch (error) {
             console.error
