@@ -1,8 +1,22 @@
 const { format, add } = require("date-fns");
 const db = require("../../database/models");
-const {createSubscription} = require("../../services/paymentService");
+const {createSubscription, createPayment} = require("../../services/paymentService");
 
 module.exports = {
+ 
+    getPaymentLink: async (req, res) => {
+      try {
+        const payment = await createPayment();
+  
+        return res.json(payment);
+      } catch (error) {
+        console.log(error);
+  
+        return res
+          .status(500)
+          .json({ error: true, msg: "Failed to create payment" });
+      }
+    },
     getSubscriptionLink : async (req, res) => {
       const membershipId = req.params.membershipId;
       try {
