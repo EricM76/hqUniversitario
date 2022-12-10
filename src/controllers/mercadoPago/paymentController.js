@@ -3,10 +3,15 @@ const db = require("../../database/models");
 const {createSubscription, createPayment} = require("../../services/paymentService");
 
 module.exports = {
- 
     getPaymentLink: async (req, res) => {
       try {
-        const payment = await createPayment();
+        const payment = await createPayment({
+          payer_email: req.session.user.email,
+          title: "Membresia HQ",
+          description: "Membresia Basic, acceso a 1 materia por 30 dias",
+          price: 900,
+          userId: req.session.user.id
+        });
   
         return res.json(payment);
       } catch (error) {

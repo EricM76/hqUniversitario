@@ -5,31 +5,60 @@ const memberships = [
     name: "BASIC",
     image: "defaultMembership.jpg",
     quota: 1,
-    price: 500,
-    description: "Acceso a todo el contenido completo de 1 materia",
-    mp_checkout : "https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=2c93808484532acc018454b16a9201e5",
-    mp_id: '2c93808484532acc018454b16a9201e5'
+    price: 900,
+    description: "Acceso a todo el contenido completo de 1 materia por 30 días",
+    days: 30,
+    order: 1,
+  },
+
+  {
+    name: "BASIC",
+    image: "defaultMembership.jpg",
+    quota: 1,
+    price: 1650,
+    description: "Acceso a todo el contenido completo de 1 materia por 90 días",
+    days: 90,
+    order: 2,
   },
   
   {
     name: "PRO",
     image: "defaultMembership.jpg",
     quota: 3,
-    price: 750,
-    description: "Acceso a todo el contenido completo de hasta 3 materias",
-    mp_checkout : "https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=2c9380848451e648018454b44601038b",
-    mp_id :'2c9380848451e648018454b44601038b'
+    price: 1200,
+    description: "Acceso a todo el contenido completo de hasta 3 materias por 30 días",
+    days: 30,
+    order: 3,
+  },
+
+  {
+    name: "PRO",
+    image: "defaultMembership.jpg",
+    quota: 3,
+    price: 2250,
+    description: "Acceso a todo el contenido completo de hasta 3 materias por 90 días",
+    days: 90,
+    order: 4,
   },
 
   {
     name: "PREMIUM",
     image: "defaultMembership.jpg",
     quota: 5,
-    price: 900,
-    description: "Acceso a todo el contenido completo de hasta 5 materias",
-    mp_checkout : "https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=2c9380848451e648018454b48333038d",
-    mp_id : '2c9380848451e648018454b48333038d'
-    
+    price: 1500,
+    description: "Acceso a todo el contenido completo de hasta 5 materias por 30 días", 
+    days: 30,
+    order: 5,
+  },
+
+  {
+    name: "PREMIUM",
+    image: "defaultMembership.jpg",
+    quota: 5,
+    price: 2850,
+    description: "Acceso a todo el contenido completo de hasta 5 materias por 90 días", 
+    days: 90,
+    order: 6,
   },
 
   {
@@ -38,8 +67,8 @@ const memberships = [
     quota: 0,
     price: 0,
     description: "Acceso solo al contenido de muestra",
-    mp_checkout : null,
-    mp_id : null
+    days: 30,
+    order: 7
   },
 
 ]

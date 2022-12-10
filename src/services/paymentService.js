@@ -2,24 +2,24 @@ const axios = require("axios");
 const process = require("process");
 
 const paymentService = {
-  createPayment: async () => {
-    const url = "https://api.mercadopago.com/checkout/preferences";
+  createPayment: async ({payer_email, title, description, price, userId}) => {
+    const url = `${process.env.API_MP}/checkout/preferences`;
     const body = {
-      payer_email: "test_user_46945293@testuser.com",
+      payer_email,
+      external_reference: userId,
       items: [
         {
-          title: "Dummy Title",
-          description: "Dummy description",
-          picture_url: "http://www.myapp.com/myimage.jpg",
-          category_id: "category123",
+          title,
+          description,
+          category_id: "memberships",
           quantity: 1,
-          unit_price: 10
+          unit_price: price
         }
       ],
       back_urls: {
-        failure: "/suscripciones/failure",
-        pending: "/suscripciones/pending",
-        success: "/suscripciones/success"
+        failure: "/usuario/suscripcion/failure",
+        pending: "/usuario/suscripcion/pending",
+        success: "/usuario/suscripcion/success"
       }
     };
     const payment = await axios.post(url, body, {

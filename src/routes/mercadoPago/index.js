@@ -2,7 +2,7 @@
 const express = require("express");
 const router = express.Router();
 
-const {getSubscriptionLink} = require("../../controllers/mercadoPago/paymentController");
+const {getSubscriptionLink, getPaymentLink} = require("../../controllers/mercadoPago/paymentController");
 const {notifications} = require("../../controllers/mercadoPago/notificationsController");
 
 router.get("/", (req, res, next) => {
@@ -12,7 +12,7 @@ router.get("/", (req, res, next) => {
   });
 });
 
-router.get("/:membershipId", getSubscriptionLink);
+router.get("/:membershipId", getPaymentLink);
 router.post("/notifications", notifications);
 
 module.exports = router;

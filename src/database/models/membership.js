@@ -23,8 +23,8 @@ module.exports = (sequelize, DataTypes) => {
     quota: DataTypes.INTEGER,
     price: DataTypes.INTEGER,
     description: DataTypes.STRING,
-    mp_checkout: DataTypes.STRING,
-    mp_id: DataTypes.STRING,
+    days: DataTypes.INTEGER,
+    order: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Membership',
