@@ -101,6 +101,9 @@ module.exports = {
                     {
                         association: 'units',
                     },
+                    {
+                        association: 'turns'
+                    }
                 ]
             });
             const theoreticalHours =  db.Video.sum('length', {
@@ -204,14 +207,14 @@ module.exports = {
                 }
             }); */
 
-            const levelingCycleVideosCount =  await db.Video.count({
+            const levelingCycleVideosCount =  db.Video.count({
                 where: {
                     categoryId: 4,
                     courseId: req.params.id
                 }
             });
 
-            const levelingCycleVideos =  await db.Video.findAll({
+            const levelingCycleVideos =  db.Video.findAll({
                 where: {
                     categoryId: 4,
                     courseId: req.params.id
@@ -233,14 +236,14 @@ module.exports = {
                 }
             }); */
 
-            const integrativeExerciseVideosCount = await db.Video.count({
+            const integrativeExerciseVideosCount = db.Video.count({
                 where: {
                     categoryId: 5,
                     courseId: req.params.id
                 }
             });
 
-            const integrativeExerciseVideos = await db.Video.findAll({
+            const integrativeExerciseVideos = db.Video.findAll({
                 where: {
                     categoryId: 5,
                     courseId: req.params.id
@@ -261,14 +264,14 @@ module.exports = {
                 }
             }); */
 
-            const previusExamVideosCount = await  db.Video.count({
+            const previusExamVideosCount =  db.Video.count({
                 where: {
                     categoryId: 6,
                     courseId: req.params.id
                 }
             });
 
-            const previusExamVideos = await  db.Video.findAll({
+            const previusExamVideos =  db.Video.findAll({
                 where: {
                     categoryId: 6,
                     courseId: req.params.id
@@ -293,7 +296,9 @@ module.exports = {
                     userId : req.session.user.id,
                     courseId : req.params.id
                 }
-            })
+            });
+
+            let turns = db.Turn.findAll()
 
             Promise.all([
                 course,
@@ -317,6 +322,7 @@ module.exports = {
                 previusExamVideosHours,
                 user,
                 results,
+                turns,
             ]).then(([
                 course,
                 theoreticalVideos,
@@ -339,6 +345,7 @@ module.exports = {
                 previusExamVideosHours,
                 user,
                 results,
+                turns,
             ]) => {
 
                 let videosViewedFilter = user.videos.filter(video => video.courseId == req.params.id);
@@ -373,7 +380,8 @@ module.exports = {
                             videosViewed,
                             urlCloudfont: process.env.CLOUDFONT_URL,
                             results,
-                            shuffle
+                            shuffle,
+                            turns
                         });
             }).catch (error =>  {
                     console.log(error)
@@ -419,7 +427,9 @@ module.exports = {
                         facultyId: course.facultyId,
                     },
                     include: ['university', 'faculty']
-                })
+                });
+
+                let turns = await db.Turn.findAll()
 
                 let theoreticalVideos = course.videos.filter(video => video.categoryId === 1);
                 let practicalVideos = course.videos.filter(video => video.categoryId === 2);
@@ -439,7 +449,8 @@ module.exports = {
                     previusExamVideos,
                     session: req.session,
                     suscribed: false,
-                    urlCloudfont: process.env.CLOUDFONT_URL
+                    urlCloudfont: process.env.CLOUDFONT_URL,
+                    turns
                 });
             } catch (error) {
                 console.log(error)

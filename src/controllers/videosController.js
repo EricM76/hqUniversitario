@@ -411,10 +411,24 @@ module.exports = {
     info : async (req,res) => {
       const {videoId, courseId} = req.query;
       try {
+        let course = await db.Course.findByPk(courseId,{
+          attributes : ['id'],
+          include :[
+            {
+            association : 'turns',
+            attributes : ['id','month'],
+        },
+        {
+          association : 'units',
+          attributes : ['id','name','number']
+        },
+      ],
+        })
         let video = await db.Video.findByPk(videoId);
         return res.status(200).json({
           ok: true,
           video,
+          course,
           urlCloudfont : process.env.CLOUDFONT_URL,
         })
       } catch (error) {

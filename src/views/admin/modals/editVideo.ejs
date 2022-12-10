@@ -6,7 +6,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body" id="box-data-edit-video">
-            <form action="" class="row mx-3 g-3 mt-2 mt-lg-3"
+            <form action="/videos/update/<%= video.id %>?_method=PUT&course=<%= video.courseId %>" class="row mx-3 g-3 mt-2 mt-lg-3"
                 enctype="multipart/form-data" method="POST" id="form-updateVideos-course">
                                 <div class="col-12 col-lg-4">
                                     <!-- video -->
@@ -87,13 +87,7 @@
                                                 name="unitId"
                                                 <%= !video.unitId && 'disabled'  %> 
                                                 >
-                                                <% if (video.unitId) { %>
-                                                    <% course.units.sort((a,b)=> a.number>b.number ? 1 : a.number<b.number ? -1 : 0).forEach(unit => {%>
-                                                        <option value="<%=unit.id%>" <%= unit.id == video.unitId && 'selected' %>  ><%=unit.number%></option>
-                                                    <%})%>
-                                                <% }else{ %>
-                                                    <option value="">Unidad...</option>
-                                                <% } %>
+                                                
                                                
                                             </select>
                                         </div>
@@ -120,27 +114,14 @@
                                                 name="turnId"
                                                 <%= !video.turnId && 'disabled'  %>
                                                 >
-                                                <% if (video.turnId) { %>
-                                                    <% for(let i=0; i< course.turns.length; i++ ) { %>
-                                                        <option value="<%=course.turns[i].id%>" <%= course.turns[i].id == video.turnId && 'selected'%> ><%=course.turns[i].month%></option>
-                                                    <%}%>
-                                                <% }else{ %>
-                                                    <option value="">Turno...</option>
-                                                <% } %>
+                                               
                                             </select>
                                         </div>
 
                                         <div class="col-12 col-md-6 mb-3">
                                             <div class="input-group">
                                                 <span class="input-group-text">Orden</span>
-                                                <select class="form-select"
-                                                id="order<%= video.id %>"
-                                                name="order">
-                                                    <option value="" selected hidden>Orden...</option>
-                                                    <% for(let i=1; i <= +countVideos; i++ ) { %>
-                                                        <option value="<%=i%>" <%= i == video.order && 'selected' %>><%=i%></option>
-                                                    <%}%>
-                                                </select>                                            
+                                                <input class="form-control" value="<%= video.order %>" type="number" id="order<%= video.id %>" name="order">                                     
                                             </div>  
                                         </div>
                                         <div class="col-12 col-md-6 mb-3">
@@ -170,14 +151,32 @@
             let response = await fetch('/videos/info?videoId=<%=video.id%>&courseId=<%=id%>')
             let result = await response.json();
             if(result.ok){
-                console.log(result);
-                const {video,urlCloudfont} = result;
-                const form = document.getElementById('form-updateVideos-course');
+                //console.log(result);
+                const {video,urlCloudfont,course} = result;
                 const resourcePreview = document.getElementById(`resourcePreview${video.id}`);
-
-                form.action = `/videos/update/${video.id}?_method=PUT&course=${video.courseId}`
                 resourcePreview.src = `${urlCloudfont}${video.resource}`
-            }
+                const turnSelect = document.getElementById(`turnId${video.id}`);
+                turnSelect.innerHTML = null;
+                if(course.turns.length){
+                    for (let i = 0; i < course.turns.length; i++) {
+                        turnSelect.innerHTML += `
+                    <option value="${course.turns[i].id}" ${course.turns[i].id == video.id && 'selected'} >${course.turns[i].month}</option>
+                    `                        
+                    }
+                 
+                }else{
+                    turnSelect.innerHTML = '<option value="">Turno...</option>'
+                }
+                const unitSelect = document.getElementById(`unitId${video.id}`);
+                unitSelect.innerHTML = null;
+                if(video.unitId){
+                    course.units.sort((a,b)=> a.number>b.number ? 1 : a.number<b.number ? -1 : 0).forEach(unit => {
+                    unitSelect.innerHTML += `<option value="${unit.id}" ${unit.id == video.unitId && 'selected'}  >${unit.number}.${unit.name}</option>`
+                })
+                }else{
+                    unitSelect.innerHTML = `<option value="">Unidad...</option>`
+                }
+            }   
         } catch (error) {
             console.error
         }
