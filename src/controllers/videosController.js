@@ -215,10 +215,9 @@ module.exports = {
           where : {id : req.params.id}
         });
 
+        req.file && await uploadFile(req.file);
         if(req.file){
-          if(fs.existsSync(path.resolve(__dirname, '..','assets','videos',video.resource))){
-            fs.unlinkSync(path.resolve(__dirname, '..','assets','videos',video.resource))
-          }
+          fs.existsSync(`./src/assets/videos/${req.file.filename}`) && fs.unlinkSync(`./src/assets/videos/${req.file.filename}`)
         }
 
         await db.Video.update(
