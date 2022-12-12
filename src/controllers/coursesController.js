@@ -507,5 +507,29 @@ module.exports = {
                 msg : error.message || 'Upss, error!!!'
             })
         }
-    }
+    },
+    getDataVideo: async (req, res) => {
+
+        try {
+
+            const {videoId} = req.query;
+            
+            let video = await db.Video.findByPk(videoId)
+
+            return res.status(200).json({
+                ok: true,
+                    urlCloudfont : process.env.CLOUDFONT_URL,
+                    video
+            
+            })
+            
+        } catch (error) {
+            console.log(error)
+            return res.status(error.status || 500).json({
+                ok : false,
+                msg : error.message || 'Upss, error!!!'
+            })
+        }
+
+},
 }

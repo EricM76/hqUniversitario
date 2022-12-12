@@ -215,10 +215,9 @@ module.exports = {
           where : {id : req.params.id}
         });
 
+        req.file && await uploadFile(req.file);
         if(req.file){
-          if(fs.existsSync(path.resolve(__dirname, '..','assets','videos',video.resource))){
-            fs.unlinkSync(path.resolve(__dirname, '..','assets','videos',video.resource))
-          }
+          fs.existsSync(`./src/assets/videos/${req.file.filename}`) && fs.unlinkSync(`./src/assets/videos/${req.file.filename}`)
         }
 
         await db.Video.update(
@@ -408,47 +407,36 @@ module.exports = {
         })
       }
     },
-    info : (req,res) => {
-      const {videoId, courseId} = req.query
-      let video = db.Video.findByPk(videoId);
-      let countVideos =  db.Video.count({ where: { courseId } });
-      let course =  db.Course.findByPk(courseId, {
-        include: [
+    info : async (req,res) => {
+      const {videoId, courseId} = req.query;
+      try {
+        let course = await db.Course.findByPk(courseId,{
+          attributes : ['id'],
+          include :[
             {
-                association: 'faculty', //ok
-                attributes: ['id', 'name', 'acronym'],
-                include:
-                {
-                    association: 'categories', //ok
-                    attributes: ['id', 'name'],
-                    order: ['id'],
-                }
-            },
-            {
-                association: 'units', //ok
-                attributes: ['id', 'number', 'name'],
-            },
-            {
-                association: 'turns', //ok
-                attributes: ['id', 'month'],
-            },
-        ]
-    });
-    Promise.all([video, countVideos, course])
-      .then(([video, countVideos, course]) => {
+            association : 'turns',
+            attributes : ['id','month'],
+        },
+        {
+          association : 'units',
+          attributes : ['id','name','number']
+        },
+      ],
+        })
+        let video = await db.Video.findByPk(videoId);
         return res.status(200).json({
           ok: true,
           video,
-          countVideos,
-          course
+          course,
+          urlCloudfont : process.env.CLOUDFONT_URL,
         })
-      })
-      .catch(error => {
+      } catch (error) {
         console.log(error)
         return res.status(error.status || 500).json({
           ok : false,
           msg : error.message || "Comuníquese con el administrdor"
         })
-      })
+      }
+      
     }
 }
