@@ -17,9 +17,9 @@ const paymentService = {
         }
       ],
       back_urls: {
-        failure: "http://localhost:3000/usuario/suscripcion/failure",
-        pending: "http://localhost:3000/usuario/suscripcion/pending",
-        success: "http://localhost:3000/usuario/suscripcion/success"
+        failure: process.env.BASE_URL + "/usuario/suscripcion/failure",
+        pending: process.env.BASE_URL + "/usuario/suscripcion/pending",
+        success: process.env.BASE_URL + "/usuario/suscripcion/success"
       }
     };
     const payment = await axios.post(url, body, {
