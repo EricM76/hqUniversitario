@@ -1,4 +1,4 @@
-const { format } = require("date-fns");
+const { format, differenceInDays, differenceInCalendarDays } = require("date-fns");
 const db = require("../../database/models");
 const { getActivesUserCourses } = require("../../services/userCoursesService");
 
@@ -24,16 +24,20 @@ module.exports = {
             });
 
             const {data} = await getActivesUserCourses(userId);
-
+            let date = new Date()
             let date1 = new Date(user.expires);
-            let date2 =  new Date(`${format(new Date(), "yyyy-MM-dd")}T13:22:55.000Z`);
+            let date2 = date;
+           /*  console.log(date1.getTime())
+            console.log(date2.getTime()) */
             let Difference_In_Time = date2.getTime() - date1.getTime();
             let Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-
+            /* console.log(Difference_In_Time)
+            console.log(Difference_In_Days) */
+            /* Nota, pensar en que si la diferencia resulta un numero negativo calcular el total de dias hasta el 31/12 y sumarle el total desde el 01/01 a la fecha de expiracion */
             const response = {
                 membershipId: user.membershipId,
                 expires: user.expires,
-                daysToExpires: Math.abs(Difference_In_Days),
+                daysToExpires: differenceInCalendarDays(date2, date1),
                 status: user.status,
                 membershipName: user.membership && user.membership.name,
                 freeMembership: user.freeMembership,

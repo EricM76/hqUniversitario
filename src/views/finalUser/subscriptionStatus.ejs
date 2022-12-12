@@ -7,7 +7,7 @@
   <%- include('./partials/header') %> 
   <main class="container">
     <section class="row justify-content-center align-items-center p-5">
-      <% if (paymentStatus === "approved") { %>
+      <% if (paymentStatus === "success") { %>
         <!-- Suscripción exitosa -->
         <div class="col-12 col-md-6 bg-white rounded border p-3">
             <div class="alert alert-success" role="alert">
@@ -25,7 +25,7 @@
             <p>Cuando se acredite el pago te informaremos y podrás elegir las materias correspondiente a tu plan.</p>
             <a href="/usuario/perfil" class="button__dark">Volver a mi perfil</a>
         </div>
-      <% } else if (paymentStatus === "refunded" || paymentStatus === "cancelled" ||  paymentStatus === "rejected" ||  paymentStatus === "charged_back" ||  paymentStatus === "in_mediation") { %>
+      <% } else if (paymentStatus === "failure" || paymentStatus === "cancelled" ||  paymentStatus === "rejected" ||  paymentStatus === "charged_back" ||  paymentStatus === "in_mediation") { %>
         <!-- Suscripción rechazada -->
           <div class="col-12 col-md-6 bg-white rounded border p-3">
             <div class="alert alert-danger" role="alert">

@@ -40,11 +40,11 @@ module.exports = {
       if( type === NOTIFICATION.type.PAYMENT) {
         if (action === NOTIFICATION.action.PAYMENT_CREATED) {
           const paymentInfo = await getPaymentById(data.id);
-          const findedUser = await db.User.findOne({
+         /*  const findedUser = await db.User.findOne({
             where: {
               payerId: paymentInfo.payer.id
             }
-          })
+          }) */
           const savedPayment = await db.Payment.create({
             paymentId: paymentInfo.id,
             description: paymentInfo.description,
@@ -55,7 +55,7 @@ module.exports = {
             status: paymentInfo.status,
             status_detail: paymentInfo.status_detail,
             transaction_amount: paymentInfo.transaction_amount,
-            hqUserId: findedUser.id
+            hqUserId: paymentInfo.external_reference
           });
         }
 

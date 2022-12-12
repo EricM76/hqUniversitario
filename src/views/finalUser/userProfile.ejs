@@ -44,7 +44,7 @@
                     <span>Email:</span> <strong><%= user.email %></strong>
                   </li>
                   <li class=" list-group-item">
-                    <span>Fecha de ingreso:</span> <strong><%= moment(user.entry).format('DD-MM-YYYY') %></strong>
+                    <span>Fecha de ingreso:</span> <strong><%= moment(user.createdAt).format('DD-MM-YYYY') %></strong>
                   </li>
                 </ul>
               </div>
@@ -127,7 +127,7 @@
                    <div class="col-12 col-md-4 col-lg-12 col-xl-12">
                     <p class="text-center text-white"><strong class="membershipCard__price">$ <%- membership.price %></strong> final x mes</p>
                     <div class="d-flex justify-content-center align-items-center p-2">
-                      <a class="button__dark button__membership" href="/subscription/<%- membership.id %>">Elegir</a>
+                      <a class="button__dark button__membership" href="/subscription/<%- membership.order %>">Elegir</a>
                       <!-- <a class="button__dark button__membership" href="<%- membership.mp_checkout %>" target="_blank">Elegir</a> -->
                     </div>
                    </div>
@@ -143,17 +143,17 @@
       <section class="tab-pane fade profile__mainContainer px-3" id="referidos-tab-pane" role="tabpanel" aria-labelledby="referidos-tap" tabindex="2">
         <div class="container">
           <div class="row">
-            <% if (activeReferredsQuantity === 2) { %>
-              <h3>¡Felicitaciones, 2 de tus referidos se registraron en HQ!</h3> 
+            <% if (activeReferredsQuantity === 3) { %>
+              <h3>¡Felicitaciones, 3 de tus referidos se registraron en HQ!</h3> 
               <p>Gracias a eso, ganaste una membresía <span class="badge fs-5 bg-basic">BASIC</span></p>
-            <% } else if(activeReferredsQuantity === 3) { %>
-                <h3>¡Felicitaciones, 3 de tus referidos se registraron en HQ!</h3> 
+            <% } else if(activeReferredsQuantity === 5) { %>
+                <h3>¡Felicitaciones, 5 de tus referidos se registraron en HQ!</h3> 
                 <p>Gracias a eso, ganaste una membresía <span class="badge fs-5 bg-pro">PRO</span></p>
-            <% } else if(activeReferredsQuantity === 4) { %>
-              <h3>¡Felicitaciones, 4 de tus referidos se registraron en HQ!</h3> 
+            <% } else if(activeReferredsQuantity === 7) { %>
+              <h3>¡Felicitaciones, 7 de tus referidos se registraron en HQ!</h3> 
               <p>Gracias a eso, ganaste una membresía <span class="badge fs-5 bg-premium">PREMIUM</span></p>
               <% } else { %>
-                <p class="alert alert-info"><i class="fa fa-info-circle" aria-hidden="true"></i> Referí hasta 4 personas y ganá una membresía gratuíta.</p>
+                <p class="alert alert-info"><i class="fa fa-info-circle" aria-hidden="true"></i> Referí hasta 7 personas y ganá una membresía gratuíta.</p>
 
 <!--               <p>Referí hasta 4 personas y ganá una membresía! </p>
  -->            <% } %>

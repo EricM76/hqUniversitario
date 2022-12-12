@@ -116,13 +116,13 @@ module.exports = {
             let freeMembershipObtained;
 
             switch (totalActivesReferreds) {
-                case 2:
+                case 3:
                     freeMembershipObtained = MEMBERSHIP_1;
                     break;
-                case 3:
+                case 5:
                     freeMembershipObtained = MEMBERSHIP_2;
                     break;
-                case 4:
+                case 7:
                     freeMembershipObtained = MEMBERSHIP_3;
                     break;
                 default:
@@ -131,9 +131,7 @@ module.exports = {
 
             const membershipObtained = await db.Membership.findOne({
                 where: {
-                    name: {
-                        [Op.like]: freeMembershipObtained
-                    }
+                    order: freeMembershipObtained
                 }
             }) 
 

@@ -1,25 +1,45 @@
 const { format, add } = require("date-fns");
+const { de } = require("date-fns/locale");
 const db = require("../../database/models");
 const {createSubscription, createPayment} = require("../../services/paymentService");
 
 module.exports = {
     getPaymentLink: async (req, res) => {
+      const membershipOrderId = req.params.membershipId;
       try {
+        const selectedMembership = await db.Membership.findOne({
+          where: {
+            order: membershipOrderId, 
+          }
+        })
+
         const payment = await createPayment({
           payer_email: req.session.user.email,
-          title: "Membresia HQ",
-          description: "Membresia Basic, acceso a 1 materia por 30 dias",
-          price: 900,
+          title: selectedMembership.name,
+          description: selectedMembership.description,
+          price: selectedMembership.price,
           userId: req.session.user.id
         });
+
+        const updateUserSubscriptionStatus = await db.User.update({
+          subscriptionId: payment.id,
+          //subscriptionStatus: payment.status,
+          //payerId: subscription.payer_id,
+          confirmedSubscription: false,
+          pendingMembershipId: membershipOrderId
+        }, {
+          where: {
+            id: req.session.user.id
+          }
+        })
   
-        return res.json(payment);
+        return res.redirect(payment.init_point);
       } catch (error) {
         console.log(error);
   
         return res
           .status(500)
-          .json({ error: true, msg: "Failed to create payment" });
+          .json({ error: error, msg: "Failed to create payment" });
       }
     },
     getSubscriptionLink : async (req, res) => {

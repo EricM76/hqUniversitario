@@ -29,8 +29,6 @@ module.exports = {
       })
       .catch((error) => res.json(error));
   },
-  /* Comprobando si el usuario ya está registrado, si el usuario ya está referido y si el usuario ha
-    alcanzado el número máximo de referencias. */
   referred: (req, res) => {
     let userEmail = req.params.email;
     const userPromise = db.User.findOne({ where: { email: userEmail } });
@@ -44,7 +42,7 @@ module.exports = {
         let userIsReferred = referredUsers.includes(userEmail);
 
         switch (true) {
-          case referredUsers.length >= 12:
+          case referredUsers.length >= 8:
             return res.json({
               state: true,
               message: "Llegaste al máximo de referidos",

@@ -13,13 +13,13 @@ const paymentService = {
           description,
           category_id: "memberships",
           quantity: 1,
-          unit_price: price
+          unit_price: Number(price)
         }
       ],
       back_urls: {
-        failure: "/usuario/suscripcion/failure",
-        pending: "/usuario/suscripcion/pending",
-        success: "/usuario/suscripcion/success"
+        failure: "http://localhost:3000/usuario/suscripcion/failure",
+        pending: "http://localhost:3000/usuario/suscripcion/pending",
+        success: "http://localhost:3000/usuario/suscripcion/success"
       }
     };
     const payment = await axios.post(url, body, {
