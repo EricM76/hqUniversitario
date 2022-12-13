@@ -32,7 +32,7 @@ module.exports = {
 
     },
     update: async (req, res) => {
-        const { name, description, price, quota, reason, transaction_amount, billing_day, repetitions, back_url, billing_day_proportional } = req.body;
+      /*   const { name, description, price, quota, reason, transaction_amount, billing_day, repetitions, back_url, billing_day_proportional } = req.body;
         try {
 
             const url = `${process.env.API_MP}/preapproval_plan/${req.query.mp_id}`;
@@ -80,7 +80,7 @@ module.exports = {
             return res.redirect('/memberships')
         } catch (error) {
             console.log(error)
-        }
+        } */
     },
     remove: (req, res) => {
 
