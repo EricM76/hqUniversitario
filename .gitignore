@@ -4,3 +4,4 @@ package-lock.json
 src/assets
 .DS_STORE
 public/images/questions
+public/videos
