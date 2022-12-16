@@ -61,11 +61,20 @@
             <h2 class="text-center text-light">Llega preparado a los exámenes</h2>
             <p class="text-center text-light">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus corporis illum tempora enim ea eligendi veniam, cupiditate beatae consequuntur minus, ex totam perferendis commodi et. In nesciunt rem quasi, non, impedit sint saepe, ea tenetur neque nemo recusandae labore omnis?</p>
             <div class="home__content1-buttonContainer">
-              <a href="/usuarios/registro">
-                <div class="button__dark">
-                    <span>Registrarme</span>
-                </div>
-              </a>
+              <% if (typeof locals.session.user === "undefined") { %>
+                <a href="/usuario/registro">
+                  <div class="button__dark">
+                      <span>Registrate</span>
+                  </div>
+                </a>
+                <%}else{%>
+                  <a href="/usuario/perfil#membership">
+                    <div class="button__dark">
+                        <span>Elegí tus materias</span>
+                    </div>
+                  </a>
+                <%}%>
+             
             </div>
           </div>
         </div>
