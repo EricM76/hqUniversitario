@@ -38,11 +38,28 @@
         &.PREMIUM {
             background-color: $color-azul-oscuro;
         }
+        img{
+            position: absolute;
+            top: -17px;
+            right: -14px;
+        }
+        width: 300px;
         .membershipCard__name {
             color: white;
             font-weight: bold;
             font-size: 2.5rem;
-            padding: 2rem 0;
+            padding: 1rem 0;
+            background-color: #ffff;
+            border-radius: 5px 5px 0 0;
+            &.BASIC {
+                color: $color-celeste-mate;
+            }
+            &.PRO {
+                color: $color-celeste-oscuro;
+            }
+            &.PREMIUM {
+                color: $color-azul-oscuro;
+            }
         }
         .membershipCard__description {
             color: white;
@@ -83,6 +100,7 @@
     .profile__mainContainer {
 
     .membershipCard {
+        width: 285px;
         .membershipCard__name {
             font-size: 3rem;
         }
@@ -94,6 +112,7 @@
     .profile__mainContainer {
 
     .membershipCard {
+        width: 255px;
         .membershipCard__name {
             font-size: 2rem;
         }
@@ -101,10 +120,12 @@
     }
 }
 
-@media screen and (min-width:  1440px) {
+@media screen and (min-width:  1200px) {
     .profile__mainContainer {
 
     .membershipCard {
+        width: 350px;
+
         .membershipCard__name {
             font-size: 3rem;
         }
