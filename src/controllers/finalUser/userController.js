@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const { v4: uuidv4 } = require("uuid");
 const { validationResult } = require("express-validator");
 const axios = require("axios");
-const { format, add} = require("date-fns");
+const { format, add, formatISO} = require("date-fns");
 const moment = require("moment");
 const process = require("process");
 const {
@@ -341,13 +341,16 @@ module.exports = {
               hqUserId: paymentInfo.external_reference
             });
           }
-          const paymentApprovedDate = new Date(paymentInfo.date_approved)
-          const membershipExpirationDate = format(
+          const paymentApprovedDate = new Date(paymentInfo.date_approved);
+          
+          const membershipExpirationDate = formatISO(
             add(paymentApprovedDate, {
               days: membership.days,
             }),
             "dd/MM/yyyy"
           );
+
+         //const formatToSaveExpirationDate = new Date(membershipExpirationDate);
 
           const updateUserSubscriptionStatus = await db.User.update(
             {
@@ -365,6 +368,30 @@ module.exports = {
               },
             }
           );
+
+          const userMembershipInfo = await getUserMembershipData(
+            req.session.user.id
+          );
+
+          const updatedUser = await db.User.findByPk(req.session.user.id);
+          req.session.user = {
+            ...req.session.user,
+            membershipId: updatedUser.membershipId,
+            daysToExpires: userMembershipInfo.data.daysToExpires,
+            status: updatedUser.status,
+            userMembershipExpiresDate: updatedUser.expires,
+            //userActiveCourses,
+          };
+          if (req.body.sessionCheck) {
+            const TIME_IN_MILISECONDS = 60000;
+            res.cookie("hq", req.session.user, {
+              expires: new Date(Date.now() + TIME_IN_MILISECONDS),
+              httpOnly: true,
+              secure: true,
+            });
+          }
+
+          res.locals.user = req.session.user;
         }
       } catch (error) {
        console.log(error)
