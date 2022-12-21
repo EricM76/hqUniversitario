@@ -21,10 +21,9 @@ const userMembershipExpirationCheck = async (req, res, next) => {
     console.log(status)
 
     if(status && membershipId){
-        const { data } = await getUserMembershipData(
+        const { expires } = await getUserMembershipData(
             req.session.user.id
           );
-        const { expires } = data;
         if (isToday(new Date(expires))) {
           try {
             let updateUser = await db.User.update(

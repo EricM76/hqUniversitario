@@ -7,7 +7,16 @@ module.exports = {
         try {
             const response = await axios.get(`${BASE_URL}/membresias/usuario/${userId}`);
             
-            return response;
+            return response.data;
+        } catch (error) {
+            return error;
+        }
+    },
+    getMembershipData: async (membershipId) => {
+        try {
+            const response = await axios.get(`${BASE_URL}/membresias/obtener/${membershipId}`);
+            
+            return response.data;
         } catch (error) {
             return error;
         }

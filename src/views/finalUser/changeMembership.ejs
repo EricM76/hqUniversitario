@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+  <%- include('./partials/head', {
+    title : 'Perfil de usuario'
+  }) %> 
+
+<body class="profile">
+  <%- include('./partials/header') %> 
+  <main class="container py-5">
+    <div class="row">
+      <!-- Membresías -->
+      <section>
+            <div class="d-flex flex-column flex-lg-row justify-content-between">
+              <h4>Tu membresía activa es: <span class="badge <%= currentMembership.id === 1 ? 'bg-basic' : currentMembership.id === 2 ? 'bg-pro' : 'bg-premium' %> "><%= currentMembership.name %></span></h4>
+              <p class="text-danger">Vigente hasta: <%= expires %></p>
+            </div>
+            <hr>
+            <div class="d-flex flex-wrap justify-content-between gap-4 gap-lg-4" data-aos="fade-up" data-aos-duration="1000">
+              <% membershipsToShow.forEach((membership,index) => { %>
+                  <div class="d-flex flex-column shadow rounded p-2 membershipCard <%- membership.name %> position-relative">
+                    <% if (index%2 !== 0) { %>
+                      <img src="/images/specialOffer.png" alt="" width="35%">
+                    <% } %>
+                   
+                    <h2 class="text-center membershipCard__name   border-bottom mb-3 <%- membership.name %>"><%- membership.name %> </h2>
+                      <p class="text-center display-2 text-white mt-4"><strong class="">$ <%- membership.price %></strong></p>
+
+                      <p class=" text-center fs-5 fw-light text-white">Acceso a todo el contenido <br> de <span class="fs-2"><%= membership.quota %></span> materia<%= membership.quota>1?'s':null %>  por <span class="fs-2"><%= membership.days %></span>  días. </p>
+                   
+                    <div class="d-flex justify-content-center align-items-center p-2">
+                      <a class="button__dark button__membership" href="/subscription/<%- membership.order %>">Elegir</a>
+                      <!-- <a class="button__dark button__membership" href="<%- membership.mp_checkout %>" target="_blank">Elegir</a> -->
+                    </div>
+                  </div>
+              <% }) %>
+            </div>
+      </section>
+    </div>
+  </main>
+  <%- include('./partials/footer') %> 
+  <%- include('./partials/scripts') %> 
+</body>
+</html>

@@ -239,12 +239,11 @@ module.exports = {
         const userActiveCourses = user.courses.filter(
           (course) => course.UserCourse.active
         );
+        const userMembershipExpires = format(new Date(user.expires), "dd/MM/yyyy");
+        
         return res.render("finalUser/userProfile", {
           user,
-          userMembershipExpiresDate: format(
-            new Date(user.expires),
-            "MM/dd/yyyy"
-          ),
+          userMembershipExpiresDate: userMembershipExpires,
           userBirthDay: user.birthday
             ? format(new Date(user.birthday), "dd/MM/yyyy")
             : undefined,

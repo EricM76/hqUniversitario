@@ -89,10 +89,11 @@
       <section class="tab-pane fade profile__mainContainer" id="membresia-tab-pane" role="tabpanel" aria-labelledby="membresia-tap" tabindex="1">
           <% if (user.membership) { %>
             <div class="d-flex flex-column flex-lg-row justify-content-between">
-            <h4>Tu membresía activa es: <span class="badge <%= user.membership.id === 1 ? 'bg-basic' : user.membership.id === 2 ? 'bg-pro' : 'bg-premium' %> "><%= user.membership.name %></span></h4>
-            <p class="text-danger">Vigente hasta: <%= userMembershipExpiresDate %></p>
-          </div>
-          <hr>
+              <h4>Tu membresía activa es: <span class="badge <%= user.membership.id === 1 ? 'bg-basic' : user.membership.id === 2 ? 'bg-pro' : 'bg-premium' %> "><%= user.membership.name %></span></h4>
+              <p class="text-danger">Vigente hasta: <%= userMembershipExpiresDate %></p>
+              <a href="/membresias/modificar" class="btn btn-success">Quiero mejorar mi membresía</a>
+            </div>
+            <hr>
             <% if (userActiveCourses.length > 0) { %>
               <h5 class="border-bottom alert alert-info">Tenés <span><%= userMembershipInfo.activesUserCourses %> materias activas de un total de <%= userMembershipInfo.membershipQuota %>  </span></h5>
               <div class="d-flex flex-column flex-md-row justify-content-center">

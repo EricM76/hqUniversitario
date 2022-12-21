@@ -1,7 +1,8 @@
 const { format, differenceInDays, differenceInCalendarDays } = require("date-fns");
 const db = require("../../database/models");
 const { getActivesUserCourses } = require("../../services/userCoursesService");
-
+const { getUserMembershipData, getMembershipData } = require("../../services/membershipService");
+const { Op } = require("sequelize");
 module.exports = {
     getById: async (req, res) => {
         const membershipId = req.params.membershipId;
@@ -37,7 +38,7 @@ module.exports = {
             const response = {
                 membershipId: user.membershipId,
                 expires: user.expires,
-                daysToExpires: differenceInCalendarDays(date2, date1),
+                daysToExpires: Math.abs(differenceInCalendarDays(date2, date1)),
                 status: user.status,
                 membershipName: user.membership && user.membership.name,
                 freeMembership: user.freeMembership,
@@ -52,4 +53,41 @@ module.exports = {
             res.status(400).json({error: "Sin membresía"})
         }
     },
+    change: async (req, res) => {
+        try {
+            const { daysToExpires, membershipId } = await getUserMembershipData(req.session.user.id);
+            const currentMembership = await getMembershipData(membershipId);
+            const { price, order, days, expires } = currentMembership;
+            // Obtener todas las membresias con order mayor al actual 
+            const membershipsToChange = await db.Membership.findAll({
+                where: {
+                    order: {
+                        [Op.gt]: order,
+                    }
+                }
+            });
+
+            const membershipsToShow = membershipsToChange.map((membership) => {
+                if(membership.days === days) {
+                    const currentPricePerDay = Number(price) / days;
+                    const membershipPricePerDay = Number(membership.price) / membership.days;
+                    const difference = membershipPricePerDay - currentPricePerDay;
+                    const cost = difference * daysToExpires;
+                    membership.days = daysToExpires;
+                    membership.price = cost;
+                }
+
+                return membership
+            })
+
+            return res.render("finalUser/changeMembership", {
+                session: req.session,
+                currentMembership,
+                membershipsToShow,
+                expires
+            })
+        } catch (error) {
+           return res.send(error)
+        }    
+    }
 }
