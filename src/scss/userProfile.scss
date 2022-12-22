@@ -96,6 +96,53 @@
         }
     }
 }
+
+.membershipCard {
+    &.BASIC {
+        background-color: $color-celeste-mate;
+    }
+    &.PRO {
+        background-color: $color-celeste-oscuro;
+    }
+    &.PREMIUM {
+        background-color: $color-azul-oscuro;
+    }
+    img{
+        position: absolute;
+        top: -17px;
+        right: -14px;
+    }
+    width: 300px;
+    .membershipCard__name {
+        color: white;
+        font-weight: bold;
+        font-size: 2.5rem;
+        padding: 1rem 0;
+        background-color: #ffff;
+        border-radius: 5px 5px 0 0;
+        &.BASIC {
+            color: $color-celeste-mate;
+        }
+        &.PRO {
+            color: $color-celeste-oscuro;
+        }
+        &.PREMIUM {
+            color: $color-azul-oscuro;
+        }
+    }
+    .membershipCard__description {
+        color: white;
+        padding: 2rem;
+        font-size: 1.5rem;
+    }
+    .membershipCard__price {
+        color: white;
+        font-size: 4rem;
+    }   
+    .button__membership {
+        width: 150px;
+    }
+}
 @media screen and (min-width:  500px) {
     .profile__mainContainer {
 

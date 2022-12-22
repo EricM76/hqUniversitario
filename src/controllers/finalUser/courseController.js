@@ -470,7 +470,7 @@ module.exports = {
             user,
             userMembership,
             userMembershipExpires,
-            userMembershipInfo: userMembershipInfo.data,
+            userMembershipInfo: userMembershipInfo,
             activeUserCourses: activeCourses.data.activeUserCourses
         });
     },
