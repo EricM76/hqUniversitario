@@ -84,9 +84,44 @@ module.exports = {
           .json({ error: true, msg: "Failed to create subscription" });
       }
     },
-    getSubscriptionDataByUserId : async (req, res) => {
-      // PaymentId
-      // Estado del pago
-      // 
-    }
+    getPaymentLinkToChangeMembership : async (req, res) => {
+      const { membershipOrderId, cost, description } = req.body;
+      try {
+        const selectedMembership = await db.Membership.findOne({
+          where: {
+            order: membershipOrderId, 
+          }
+        })
+
+        const payment = await createPayment({
+          payer_email: req.session.user.email,
+          title: selectedMembership.name,
+          description,
+          price: cost,
+          userId: req.session.user.id,
+          isChange: true,
+        });
+
+        const updateUserSubscriptionStatus = await db.User.update({
+          subscriptionId: payment.id,
+          //subscriptionStatus: payment.status,
+          //payerId: subscription.payer_id,
+          confirmedSubscription: false,
+          pendingMembershipId: membershipOrderId
+        }, {
+          where: {
+            id: req.session.user.id
+          }
+        })
+  
+        return res.redirect(payment.init_point);
+      } catch (error) {
+        console.log(error);
+  
+        return res
+          .status(500)
+          .json({ error: error, msg: "Failed to create payment" });
+      }
+    },
+   
   }

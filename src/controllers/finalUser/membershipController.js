@@ -3,6 +3,7 @@ const db = require("../../database/models");
 const { getActivesUserCourses } = require("../../services/userCoursesService");
 const { getUserMembershipData, getMembershipData } = require("../../services/membershipService");
 const { Op } = require("sequelize");
+const { getPaymentById } = require("../../services/paymentService");
 module.exports = {
     getById: async (req, res) => {
         const membershipId = req.params.membershipId;
@@ -59,22 +60,24 @@ module.exports = {
             const currentMembership = await getMembershipData(membershipId);
             const { price, order, days, expires } = currentMembership;
             // Obtener todas las membresias con order mayor al actual 
-            const membershipsToChange = await db.Membership.findAll({
+            const memberships = await db.Membership.findAll({
                 where: {
-                    order: {
-                        [Op.gt]: order,
-                    }
-                }
-            });
+                  name: {
+                    [Op.notLike]: "%FREE%",
+                  },
+                },
+              });
+            const sameDaysMemberships = memberships.filter(membership => membership.days === days && membership.order > order);
+            const otherDaysMemberships = memberships.filter(membership => membership.days !== days && membership.order > order);
 
-            const membershipsToShow = membershipsToChange.map((membership) => {
+            const membershipsFirstGroup = sameDaysMemberships.map((membership) => {
                 if(membership.days === days) {
                     const currentPricePerDay = Number(price) / days;
                     const membershipPricePerDay = Number(membership.price) / membership.days;
                     const difference = membershipPricePerDay - currentPricePerDay;
                     const cost = difference * daysToExpires;
                     membership.days = daysToExpires;
-                    membership.price = cost;
+                    membership.price = Math.round(cost);
                 }
 
                 return membership
@@ -83,11 +86,149 @@ module.exports = {
             return res.render("finalUser/changeMembership", {
                 session: req.session,
                 currentMembership,
-                membershipsToShow,
-                expires
+                membershipsFirstGroup,
+                membershipsSecondGroup: otherDaysMemberships,
+                daysToExpires
             })
         } catch (error) {
            return res.send(error)
         }    
+    },
+    changeState: async (req, res) => {
+        const {
+            collection_id,
+            collection_status,
+            payment_id,
+            status,
+            external_reference,
+            preference_id,
+          } = req.query;
+          /*   failure: "http://localhost:3000/usuario/suscripcion/failure",
+              pending: "http://localhost:3000/usuario/suscripcion/pending",
+              success: */
+          const paymentStatus = req.params.estado;
+          if (paymentStatus === "success") {
+            try {
+              if (status === "approved") {
+                const user = await db.User.findByPk(external_reference);
+                const membership = await db.Membership.findOne({
+                  where: {
+                    order: user.pendingMembershipId
+                  }
+                });
+                const date = new Date();
+                const paymentInfo = await getPaymentById(payment_id);
+      
+                // si el pago existe en la db actualizarlo
+                // si no, crearlo
+                const payment = await db.Payment.findOne({
+                  where: {
+                    paymentId: payment_id,
+                  }
+                })
+      
+                if(payment){
+                  db.Payment.update({
+                    description: paymentInfo.description,
+                    payerId: paymentInfo.payer.id, // Ver que onda -- NULL
+                    payer_details: JSON.stringify(paymentInfo.payer),
+                    payment_method_id: paymentInfo.payment_method_id,
+                    status: paymentInfo.status,
+                    status_detail: paymentInfo.status_detail,
+                    transaction_amount: paymentInfo.transaction_amount,
+                  }, {
+                    where: {
+                      id: payment.id
+                    }
+                  })
+                } else {
+                  await db.Payment.create({
+                    paymentId: paymentInfo.id,
+                    description: paymentInfo.description,
+                    payer_email: paymentInfo.payer.email,
+                    payerId: paymentInfo.payer.id,
+                    payer_details: JSON.stringify(paymentInfo.payer),
+                    payment_method_id: paymentInfo.payment_method_id,
+                    status: paymentInfo.status,
+                    status_detail: paymentInfo.status_detail,
+                    transaction_amount: paymentInfo.transaction_amount,
+                    hqUserId: paymentInfo.external_reference
+                  });
+                }
+                const paymentApprovedDate = new Date(paymentInfo.date_approved);
+                
+                /* const membershipExpirationDate = formatISO(
+                  add(paymentApprovedDate, {
+                    days: membership.days,
+                  }),
+                  "dd/MM/yyyy"
+                ); */
+      
+               //const formatToSaveExpirationDate = new Date(membershipExpirationDate);
+      
+                const updateUserSubscriptionStatus = await db.User.update(
+                  {
+                    subscriptionStatus: status,
+                    confirmedSubscription: true,
+                    status: true,
+                    membershipId: membership.id,
+                    freeMembership: false,
+                    /* entry: date.toISOString(),
+                    expires: membershipExpirationDate, */
+                  },
+                  {
+                    where: {
+                      id: user.id,
+                    },
+                  }
+                );
+      
+                const userMembershipInfo = await getUserMembershipData(
+                  req.session.user.id
+                );
+      
+                const updatedUser = await db.User.findByPk(req.session.user.id);
+                req.session.user = {
+                  ...req.session.user,
+                  membershipId: updatedUser.membershipId,
+                  status: updatedUser.status,
+                  //userActiveCourses,
+                };
+                if (req.body.sessionCheck) {
+                  const TIME_IN_MILISECONDS = 60000;
+                  res.cookie("hq", req.session.user, {
+                    expires: new Date(Date.now() + TIME_IN_MILISECONDS),
+                    httpOnly: true,
+                    secure: true,
+                  });
+                }
+      
+                res.locals.user = req.session.user;
+              }
+            } catch (error) {
+             console.log(error)
+            }
+          } else {
+            try {
+              const updateUserSubscriptionStatus = await db.User.update(
+                {
+                  subscriptionId: preference_id,
+                  subscriptionStatus: status,
+                  //confirmedSubscription: true,
+                },
+                {
+                  where: {
+                    id: external_reference,
+                  },
+                }
+              );
+            } catch (error) {
+              console.log(error);
+            }
+          }
+          return res.render("finalUser/changeSubscriptionStatus", {
+            session: req.session,
+            paymentStatus,
+          });
     }
 }

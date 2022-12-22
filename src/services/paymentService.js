@@ -2,7 +2,7 @@ const axios = require("axios");
 const process = require("process");
 
 const paymentService = {
-  createPayment: async ({payer_email, title, description, price, userId}) => {
+  createPayment: async ({payer_email, title, description, price, userId, isChange}) => {
     const url = `${process.env.API_MP}/checkout/preferences`;
     const body = {
       payer_email,
@@ -17,9 +17,9 @@ const paymentService = {
         }
       ],
       back_urls: {
-        failure: process.env.BASE_URL + "/usuario/suscripcion/failure",
-        pending: process.env.BASE_URL + "/usuario/suscripcion/pending",
-        success: process.env.BASE_URL + "/usuario/suscripcion/success"
+        failure: isChange ? process.env.BASE_URL + "/membresias/modificar/estado/failure" : process.env.BASE_URL + "/usuario/suscripcion/failure",
+        pending: isChange ? process.env.BASE_URL + "/membresias/modificar/estado/pending" : process.env.BASE_URL + "/usuario/suscripcion/pending",
+        success: isChange ? process.env.BASE_URL + "/membresias/modificar/estado/success" : process.env.BASE_URL + "/usuario/suscripcion/success"
       }
     };
     const payment = await axios.post(url, body, {
