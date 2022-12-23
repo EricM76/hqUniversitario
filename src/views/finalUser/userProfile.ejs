@@ -124,7 +124,20 @@
                     <% } %>
                    
                     <h2 class="text-center membershipCard__name   border-bottom mb-3 <%- membership.name %>"><%- membership.name %> </h2>
-                      <p class="text-center display-2 text-white mt-4"><strong class="">$ <%- membership.price %></strong></p>
+                    <div class="d-flex flex-column align-items-end mx-auto mt-4">
+                      <% if (index === 1) { %>
+                        <p class="fs-4 text-white">ahorrás: <span class="fs-3 text-bg-danger">$ <%= (memberships[0].price * 3) - membership.price%> </span></p>  
+                        <% }else if (index === 3) { %>
+                          <p class="fs-4 text-white">ahorrás: <span class="fs-3 text-bg-danger">$ <%= (memberships[2].price * 3) - membership.price%> </span></p>  
+                          <% }else if (index === 5) { %>
+                            <p class="fs-4 text-white">ahorrás: <span class="fs-3 text-bg-danger">$ <%= (memberships[4].price * 3) - membership.price%> </span></p>  
+                      <% }else{ %>
+                        <p  class="fs-4" style="color:transparent;">sin info</p>
+                      <% } %>
+                      <p class="text-center display-2 text-white"><strong class="">$ <%- membership.price %></strong></p>
+                   
+                    </div>
+                   
 
                       <p class=" text-center fs-5 fw-light text-white">Acceso a todo el contenido <br> de <span class="fs-2"><%= membership.quota %></span> materia<%= membership.quota>1?'s':null %>  por <span class="fs-2"><%= membership.days %></span>  días. </p>
                    
