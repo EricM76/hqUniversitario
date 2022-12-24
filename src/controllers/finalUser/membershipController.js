@@ -26,6 +26,7 @@ module.exports = {
             });
 
             const {data} = await getActivesUserCourses(userId);
+            
             let date = new Date()
             let date1 = new Date(user.expires);
             let date2 = date;

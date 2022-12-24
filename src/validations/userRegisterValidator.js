@@ -39,7 +39,7 @@ module.exports = [
   check("terms")
     .isString("on")
     .withMessage("Debes aceptar los términos y condiciones"),
-  body("g-recaptcha-response")
+ /*  body("g-recaptcha-response")
     .custom( (value, { req }) => {
       const url = 'https://www.google.com/recaptcha/api/siteverify'
 
@@ -54,5 +54,5 @@ module.exports = [
                 console.log('>>>>>>>>>>>>',error)
                 return Promise.reject('Verficar que no eres un robot')
               })
-    })
+    }) */
 ];

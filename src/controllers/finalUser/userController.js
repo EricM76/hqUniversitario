@@ -78,7 +78,7 @@ module.exports = {
             email: user.email,
             rol: user.rolId,
             membershipId: user.membershipId,
-            daysToExpires: userMembershipInfo.data.daysToExpires,
+            daysToExpires: userMembershipInfo.daysToExpires,
             status: user.status,
             userMembershipExpiresDate: user.expires,
             userActiveCourses,
@@ -124,7 +124,7 @@ module.exports = {
       googleId: user.social_id,
       membershipId: user.membershipId,
       daysToExpires:
-        userMembershipInfo.data && userMembershipInfo.data.daysToExpires,
+        userMembershipInfo && userMembershipInfo.daysToExpires,
       status: user.status,
       userMembershipExpiresDate:
         userMembershipInfo.expires !== undefined
@@ -255,7 +255,7 @@ module.exports = {
           memberships,
           activeReferredsQuantity,
           userActiveCourses,
-          userMembershipInfo: userMembershipInfo.data,
+          userMembershipInfo,
           moment: moment,
         });
       })
@@ -376,7 +376,7 @@ module.exports = {
           req.session.user = {
             ...req.session.user,
             membershipId: updatedUser.membershipId,
-            daysToExpires: userMembershipInfo.data.daysToExpires,
+            daysToExpires: userMembershipInfo.daysToExpires,
             status: updatedUser.status,
             userMembershipExpiresDate: updatedUser.expires,
             //userActiveCourses,
