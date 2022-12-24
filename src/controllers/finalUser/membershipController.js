@@ -26,11 +26,6 @@ module.exports = {
             });
 
             const {data} = await getActivesUserCourses(userId);
-            console.log(data)
-            console.log(user.membership && user.membership.quota - data && data.total)
-            console.log(user.membership)
-            console.log(user.membership.quota - data.total)
-            console.log(data.total)
 
             let quotasAvailable = null;
             if (user.membership) {
