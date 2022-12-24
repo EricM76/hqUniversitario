@@ -159,7 +159,7 @@
     .profile__mainContainer {
 
     .membershipCard {
-        width: 255px;
+        width: 205px;
         .membershipCard__name {
             font-size: 2rem;
         }
@@ -167,7 +167,20 @@
     }
 }
 
-@media screen and (min-width:  1200px) {
+@media screen and (min-width:  1366px) {
+    .profile__mainContainer {
+
+    .membershipCard {
+        width: 300px;
+
+        .membershipCard__name {
+            font-size: 3rem;
+        }
+}
+    }
+}
+
+@media screen and (min-width:  1440px) {
     .profile__mainContainer {
 
     .membershipCard {
