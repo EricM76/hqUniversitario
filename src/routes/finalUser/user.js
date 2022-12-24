@@ -17,7 +17,7 @@ done(null, user);
 });
 router
     .get("/login", userInSessionCheck, login)    
-    .post("/login", userLoginValidator ,processLogin)    
+    .post("/login", userLoginValidator, processLogin)    
     .get("/registro", userInSessionCheck, register)    
     .post("/registro", userRegisterValidator, processRegister)    
     .get("/perfil", userSessionCheck, profile)  

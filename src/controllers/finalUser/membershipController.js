@@ -26,7 +26,16 @@ module.exports = {
             });
 
             const {data} = await getActivesUserCourses(userId);
-            
+            console.log(data)
+            console.log(user.membership && user.membership.quota - data && data.total)
+            console.log(user.membership)
+            console.log(user.membership.quota - data.total)
+            console.log(data.total)
+
+            let quotasAvailable = null;
+            if (user.membership) {
+              quotasAvailable = user.membership.quota - data.total;
+            }
             let date = new Date()
             let date1 = new Date(user.expires);
             let date2 = date;
@@ -46,7 +55,7 @@ module.exports = {
                 freeMembership: user.freeMembership,
                 membershipQuota: user.membership && user.membership.quota,
                 activesUserCourses: data && data.total,
-                quotasAvailable: user.membership && user.membership.quota - data && data.total,
+                quotasAvailable,
             }
 
             return res.status(200).json(response);

@@ -424,8 +424,7 @@ module.exports = {
     if (errors.isEmpty()) {
       try {
         const user = await db.User.findByPk(req.session.user.id);
-        const { data } = await getUserMembershipData(user.id);
-        const { quotasAvailable } = data;
+        const userMembershipData = await getUserMembershipData(user.id);
         const { data: activeCourses } = await getActivesUserCourses(user.id);
 
         /********* VALIDACIONES ***********/
@@ -433,7 +432,7 @@ module.exports = {
           return res
             .status(400)
             .json({ status: 400, message: "No tiene una membresia activa" });
-        if (quotasAvailable === 0)
+        if (userMembershipData.quotasAvailable === 0)
           return res
             .status(400)
             .json({ status: 400, message: "No tiene cupos disponibles" });
