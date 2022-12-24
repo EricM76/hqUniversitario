@@ -459,13 +459,15 @@ module.exports = {
             .json({ status: 400, message: "No seleccionaste cursos" });
 
         /**** Carga de cursos al usuario ****/
-
+        let courseConfirmationDate = add(new Date(user.entry), {days: 30})
         if (selectedCourses.length > 1) {
           let coursesToAdd = selectedCourses.map((course) => {
             return {
               userId: user.id,
               courseId: course.id,
               active: true,
+              continueConfirmationDate: courseConfirmationDate,
+              continueConfirm: false,
             };
           });
           try {
@@ -492,6 +494,8 @@ module.exports = {
               userId: user.id,
               courseId: selectedCourses[0].id,
               active: true,
+              continueConfirmationDate: courseConfirmationDate,
+              continueConfirm: false,
             };
             const course = await db.UserCourse.create(courseToAdd);
             const { data: activeCourses } = await getActivesUserCourses(

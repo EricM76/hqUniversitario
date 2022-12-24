@@ -22,6 +22,8 @@ module.exports = (sequelize, DataTypes) => {
     comment : DataTypes.TEXT,
     progress : DataTypes.INTEGER,
     validated : DataTypes.BOOLEAN,
+    continueConfirmationDate: DataTypes.DATE,
+    continueConfirm: DataTypes.BOOLEAN,
   }, {
     sequelize,
     modelName: 'UserCourse',
