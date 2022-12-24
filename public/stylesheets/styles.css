@@ -750,7 +750,7 @@ a {
 
 @media screen and (min-width: 1024px) {
   .profile__mainContainer .membershipCard {
-    width: 205px; }
+    width: 250px; }
     .profile__mainContainer .membershipCard .membershipCard__name {
       font-size: 2rem; } }
 
