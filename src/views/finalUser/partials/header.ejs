@@ -55,6 +55,8 @@
                                     <% session.user.userActiveCourses.forEach(course => { %>
                                         <li><a class="dropdown-item" href="/materia/contenido/<%- course.id %>"><%- course.name %></a></li>
                                     <% }) %>
+                                <% } else if(!session.user.userActiveCourses.length && session.user.status) {%>
+                                    <li><a class="dropdown-item" href="/usuario/perfil#membership">Elegí tus materias</a></li>
                                 <% } else {%>
                                     <li><a class="dropdown-item" href="/usuario/perfil#membership">Obtener membresía</a></li>
                                 <% } %>

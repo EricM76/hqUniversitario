@@ -32,46 +32,16 @@ module.exports = {
 
     },
     update: async (req, res) => {
-      /*   const { name, description, price, quota, reason, transaction_amount, billing_day, repetitions, back_url, billing_day_proportional } = req.body;
+        const { name, description, price, quota, days} = req.body;
         try {
-
-            const url = `${process.env.API_MP}/preapproval_plan/${req.query.mp_id}`;
-            const body = {
-                reason,
-                auto_recurring: {
-                    frequency: 1,
-                    frequency_type: "months",
-                    repetitions,
-                    billing_day,
-                    billing_day_proportional : billing_day_proportional ? true : false,
-                    transaction_amount,
-                    currency_id: "ARS"
-                },
-                payment_methods_allowed: {
-                    payment_types: [
-                        {}
-                    ],
-                    payment_methods: [
-                        {}
-                    ]
-                },
-                back_url
-            };
-
-            const updateMP = await axios.put(url,body, {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${process.env.ACCESS_TOKEN}`
-                }
-            });
 
             await db.Membership.update(
                 {
                     name: name.trim(),
-                    price :transaction_amount,
+                    price,
                     quota,
                     description: description.trim(),
-                    mp_checkout : updateMP.init_point
+                    days
                 },
                 {
                     where: { id: req.params.id }
@@ -80,7 +50,7 @@ module.exports = {
             return res.redirect('/memberships')
         } catch (error) {
             console.log(error)
-        } */
+        }
     },
     remove: (req, res) => {
 

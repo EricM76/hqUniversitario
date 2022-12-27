@@ -4,7 +4,7 @@ const resetModal = async (id, mp_id) => {
     
     $('form-editMembership' + id).classList.remove('was-validated');
 
-    try {
+   /*  try {
 
         let response = await fetch('/memberships/get-plan-subscription/' + mp_id);
         let result = await response.json();
@@ -24,6 +24,6 @@ const resetModal = async (id, mp_id) => {
        
     } catch (error) {
         console.error
-    }
+    } */
 
 }

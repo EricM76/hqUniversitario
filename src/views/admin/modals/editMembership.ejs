@@ -7,44 +7,7 @@
          </div>
         <div class="modal-body">
           <form action="/memberships/update/<%= id %>?_method=PUT&mp_id=<%= mp_id %>" method="POST" enctype="multipart/form-data" class=" needs-validation" novalidate id="form-editMembership<%= id %>">
-            <div class="card mb-3">
-              <div class="card-header">
-                Mercado Pago
-              </div>
-              <div class="card-body row">
-                <div class="col-12 col-lg-8  mb-3 ">
-                  <label for="reason<%= id %>" class="form-label">Nombre del plan</label>
-                  <input type="text" class="form-control" id="reason<%= id %>" name="reason" value="" required>
-                </div>
-                <div class="col-12 col-md-3 col-lg-2  mb-3">
-                  <label for="transaction_amount<%= id %>" class="form-label">Monto</label>
-                  <input type="number" class="form-control" id="transaction_amount<%= id %>" name="transaction_amount" value="" required>
-                </div>
-                <div class="col-12 col-md-3 col-lg-2 mb-3">
-                  <label for="billing_day<%= id %>" class="form-label">Día de cobro</label>
-                  <input type="number" min="1" max="31" class="form-control" id="billing_day<%= id %>" name="billing_day" value="" required>
-                </div>
-                <div class="col-12 col-md-2 col-lg-2  mb-3">
-                  <label for="repetitions<%= id %>" class="form-label">Duración</label>
-                  <input type="number" min="1" max="31" class="form-control" id="repetitions<%= id %>" name="repetitions" value="" required>
-                </div>              
-                <div class="col-12 col-lg-6  mb-3 order-2 order-md-1">
-                  <label for="back_url<%= id %>" class="form-label">URL de redirección</label>
-                  <input type="text" class="form-control" id="back_url<%= id %>" name="back_url" value="" required>
-                </div>
-                <div class="col-12 col-md-4 col-lg-4 mb-3 d-flex justify-content-center align-items-end order-1 order-md-2">
-                  <div class="form-check form-switch">
-                    <label class="form-check-label" for="billing_day_proportional<%= id %>">Proporcional</label>
-                    <input class="form-check-input" type="checkbox" role="switch" name="billing_day_proportional" id="billing_day_proportional<%= id %>">
-                  </div>
-                </div>
-                <div class="col-12  mb-3 order-3">
-                  <label for="mp_checkout<%= id %>" class="form-label">Link Mercado Pago</label>
-                  <textarea style="resize: none;" type="text" class="form-control" name="mp_checkout" id="mp_checkout<%= id %>" disabled><%= mp_checkout %></textarea>
-                </div>
-              </div>
-              
-            </div>
+          
             <div class="card mb-3">
               <div class="card-header">
                 Información en el sitio
@@ -54,14 +17,18 @@
                   <label for="name<%= id %>" class="form-label">Nombre</label>
                   <input type="text" class="form-control" id="name<%= id %>" name="name" aria-describedby="emailHelp" value="<%= name %>" required>
                 </div>
-                <div class="col-12 col-md-3 mb-3">
+                <div class="col-12 col-md-2 mb-3">
                   <label for="price<%= id %>" class="form-label">Precio</label>
-                  <input type="number" class="form-control" name="price" id="price<%= id %>" value="<%= price %>" disabled>
+                  <input type="number" class="form-control" name="price" id="price<%= id %>" value="<%= price %>">
                 </div>
-                <div class="col-12 col-md-3 mb-3">
+                <div class="col-12 col-md-2 mb-3">
                   <label for="quota<%= id %>" class="form-label">Materias</label>
                   <input type="number" class="form-control" name="quota" id="quota<%= id %>" value="<%= quota %>">
               </div>
+              <div class="col-12 col-md-2 mb-3">
+                <label for="days<%= id %>" class="form-label">Días</label>
+                <input type="number" class="form-control" name="days" id="days<%= id %>" value="<%= days %>">
+            </div>
                 <div class="col-12 mb-3">
                     <label for="description<%= id %>" class="form-label">Descripción</label>
                     <textarea style="resize: none;" type="text" class="form-control" name="description" id="description<%= id %>"><%= description %></textarea>

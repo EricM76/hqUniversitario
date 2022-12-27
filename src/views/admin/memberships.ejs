@@ -6,7 +6,7 @@
     <%- include('./partials/header') %> 
     <main class="container">
         <section class="row mt-2 mt-md-3 mt-lg-5">
-            <div class="col-12 col-md-10 col-lg-6 mx-auto">
+            <div class="col-12 col-md-10 col-lg-8 mx-auto">
              
                 <article class="card shadow">
                     <div class="card-header ">
@@ -31,13 +31,14 @@
                                     <th scope="col" class="text-center">Membresía</th>
                                     <th scope="col">Precio</th>
                                     <th scope="col">Materias</th>
+                                    <th scope="col">Días</th>
                                     <th scope="col">Por referidos</th>
                                     <th scope="col">Suscriptores</th>
                                     <th scope="col">Acciones</th>
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <% memberships.forEach(({id,name,price,quota,users,image,description, mp_checkout, mp_id}) => { %>
+                                  <% memberships.forEach(({id,name,price,quota,days, users,image,description, mp_checkout, mp_id}) => { %>
                                     <% if (name !== 'FREE') { %>
                                       <tr>
                                         <td class="align-middle">
@@ -45,6 +46,7 @@
                                         </td>
                                         <td class="align-middle">$ <%= price %></td>
                                         <td class="align-middle"><%= quota %></td>
+                                        <td class="align-middle"><%= days %></td>
                                         <td class="align-middle"><%= users.map(user => user.freeMembership && user.membershipId == id).reduce((acum, num) => acum + num , 0) %></td>
                                         <td class="align-middle"><%= users.map(user => !user.freeMembership && user.membershipId == id).reduce((acum, num) => acum + num , 0) %></td>                                        <td class="align-middle">
                                           <div class="d-flex align-items-center gap-2">
@@ -57,6 +59,7 @@
                                               name : name,
                                               price: price,
                                               quota : quota,
+                                              days : days,
                                               description : description,
                                               mp_checkout : mp_checkout,
                                               mp_id : mp_id
