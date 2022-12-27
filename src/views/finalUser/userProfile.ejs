@@ -89,7 +89,11 @@
       <section class="tab-pane fade profile__mainContainer" id="membresia-tab-pane" role="tabpanel" aria-labelledby="membresia-tap" tabindex="1">
           <% if (user.membership) { %>
             <div class="d-flex flex-column flex-lg-row justify-content-between">
-              <h4>Tu membresía activa es: <span class="badge <%= user.membership.id === 1 ? 'bg-basic' : user.membership.id === 2 ? 'bg-pro' : 'bg-premium' %> "><%= user.membership.name %></span></h4>
+              <h4>Tu membresía activa es: <span class="badge <%= user.membership.id === 1 ? 'bg-basic' : user.membership.id === 2 ? 'bg-pro' : 'bg-premium' %> "><%= user.membership.name %></span>
+              <% if (userMembershipInfo.freeMembership) { %>
+                <span class="badge bg-premium">FREE</span>
+              <% } %>
+              </h4>
               <p class="text-danger">Vigente hasta: <%= userMembershipExpiresDate %></p>
               <a href="/membresias/modificar" class="btn btn-success">Quiero mejorar mi membresía</a>
             </div>
@@ -168,16 +172,18 @@
               <h3>¡Felicitaciones, 7 de tus referidos se registraron en HQ!</h3> 
               <p>Gracias a eso, ganaste una membresía <span class="badge fs-5 bg-premium">PREMIUM</span></p>
               <% } else { %>
-                <p class="alert alert-info"><i class="fa fa-info-circle" aria-hidden="true"></i> Referí hasta 7 personas y ganá una membresía gratuíta.</p>
-
-<!--               <p>Referí hasta 4 personas y ganá una membresía! </p>
- -->            <% } %>
+                <% if (userMembershipInfo.status && !userMembershipInfo.freeMembership) { %>
+                  <p class="alert alert-warning"><i class="fa fa-info-circle" aria-hidden="true"></i> Tenés una membresía activa, no podés utilizar el sistema de referidos.</p>
+                  <% } else { %>
+                    <p class="alert alert-info"><i class="fa fa-info-circle" aria-hidden="true"></i> Referí hasta 7 personas y ganá una membresía gratuíta.</p>
+                <% } %>
+            <% } %>
             <div class="col-12 col-md-4 p-2">
               <h3 class="border-bottom">Referir</h3>
               <form action="/referidos" method="post" id="referredForm">
                 <div class="mb-3">
                   <label for="nameReferred" class="form-label">Nombre*</label>
-                  <input type="text" class="form-control" name="name" id="nameReferred" <%= (activeReferredsQuantity === 5) ? "disabled" : "" %> value="<%= locals.old && old.name %>">
+                  <input type="text" class="form-control" name="name" id="nameReferred" <%= (activeReferredsQuantity === 7) || userMembershipInfo.status && !userMembershipInfo.freeMembership ? "disabled" : "" %> value="<%= locals.old && old.name %>">
                   <small class="text-danger" id="nameReferredError"></small>
                   <% if (locals.errors && errors.name) { %>
                     <small class="text-danger"><%= errors.name.msg %></small>
@@ -185,7 +191,7 @@
                 </div>
                 <div class="col-12 mb-3">
                   <label for="emailReferred" class="form-label">Email*</label>
-                  <input type="text" class="form-control" name="email" id="emailReferred" <%= (activeReferredsQuantity === 5) ? "disabled" : "" %> value="<%= locals.old && old.email %>">
+                  <input type="text" class="form-control" name="email" id="emailReferred" <%= (activeReferredsQuantity === 7) || userMembershipInfo.status && !userMembershipInfo.freeMembership ? "disabled" : "" %> value="<%= locals.old && old.email %>">
                   <small class="text-danger" id="emailReferredError"></small>
                   <% if (locals.errors && errors.email) { %>
                     <small class="text-danger"><%= errors.email.msg %></small>
