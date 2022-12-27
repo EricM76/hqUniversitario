@@ -471,7 +471,9 @@ module.exports = {
             userMembership,
             userMembershipExpires,
             userMembershipInfo: userMembershipInfo,
-            activeUserCourses: activeCourses.data.activeUserCourses
+            activeUserCourses: activeCourses.data.activeUserCourses,
+            haveToConfirmContinueCourses: activeCourses.data.haveToConfirmContinueCourses, 
+            expiresCoursesToConfirm: activeCourses.data.expiresCoursesToConfirm, 
         });
     },
     search: async (req, res) => {

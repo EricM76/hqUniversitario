@@ -113,9 +113,13 @@
                 <p class="alert alert-warning mt-4">Aún tienes <strong class="fs-5"><%= userMembershipInfo.quotasAvailable %> materias disponibles</strong>. Acordate que tenés 30 días para hacerlo desde la fecha de alta de tu membresía. Una vez realizada la selección de materias no podrás cambiarlas hasta la próxima renovación.</p>
                 <a href="/materia/seleccion?userId=<%= session.user.id %>" class="button__dark float-end">Elegir materias</a>
               <% } %>
+              <% if (haveToConfirmContinueCourses) { %>
+                <p class="alert alert-warning mt-4">Puedes renovar tus materias</p>
+                <a href="/materia/seleccion?userId=<%= session.user.id %>" class="button__dark float-end">Renovar materias</a>
+              <% } %>
             <% } else { %>
               <p class="alert alert-warning mt-4">Aún no elegiste tus materías. Acordate que tenés 30 días para hacerlo desde la fecha de alta de tu membresía. Una vez realizada la selección de materias no podrás cambiarlas hasta la próxima renovación.</p>
-            <a href="/materia/seleccion?userId=<%= session.user.id %>" class="button__dark float-end">Elegir materias</a>
+              <a href="/materia/seleccion?userId=<%= session.user.id %>" class="button__dark float-end">Elegir materias</a>
             <% } %>
           <% } else { %>
             <p class="alert alert-info"><i class="fa fa-info-circle" aria-hidden="true"></i> Aún no tienes una membresía activa. Elije la que mejor que se adapte a ti.</p>

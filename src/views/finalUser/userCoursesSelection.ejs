@@ -4,10 +4,26 @@
   }) %> 
 
 <body class="coursesSelection">
-  <%- include('./partials/header') %> 
-    <main class="container p-1 p-md-3">
-        <section class="row justify-content-center align-items-center py-4 px-3  my-5 bg-white">
-            <% if (userMembershipInfo.quotasAvailable === 0) { %>
+    <%- include('./partials/header') %> 
+        <main class="container p-1 p-md-3">
+            <section class="row justify-content-center align-items-center py-4 px-3  my-5 bg-white">
+            <% if (haveToConfirmContinueCourses) { %>
+                    <h6 class="alert alert-info">Ya podes cambiar tus materias (recuerda que lo podes hacer cada 30 días o al renovar tu membresía)</h6>
+                    <p>Elije con cuales quieres continuar. </p>
+                    <div class="border rounded p-4">
+                        <form action="/userCourses?_method=PUT" method="POST">
+                            <% expiresCoursesToConfirm.forEach(course => { %>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="<%- course.id %>" id="<%- course.name %>" name="confirmedCourses" checked>
+                                    <label class="form-check-label" for="<%- course.name %>">
+                                    <%- course.name %> 
+                                    </label>
+                                </div>
+                            <% }) %> 
+                            <button class="btn btn-success mt-4" type="submit">Confirmar</button>
+                        </form>
+                    </div>
+            <% } else if (userMembershipInfo.quotasAvailable === 0 && !haveToConfirmContinueCourses) { %>
                 <div class="container p-5">
                     <div class="row p-5">
                         <div class="h-100">
@@ -23,7 +39,7 @@
                         </h1>
                     </div>
                 </div>
-            <% } else { %>
+            <% } else if (userMembershipInfo.quotasAvailable > 0 && !haveToConfirmContinueCourses) { %>
                 <div class="col-12">
                     <div class="container">
                         <div class="row border rounded p-3">
@@ -105,10 +121,7 @@
                     </div>
                 </div>
             <% } %>
-            
-
-            
-            
+    
         </section>
     </main>
     <script src="/javascripts/Profile/userCoursesSelection.js"></script>

@@ -226,13 +226,17 @@ module.exports = {
       req.session.user.id
     );
 
+    const activeCoursesInfoPromise = getActivesUserCourses(req.session.user.id)
+
+
     Promise.all([
       provincesPromise,
       userPromise,
       membershipsPromise,
       userMembershipInfoPromise,
+      activeCoursesInfoPromise
     ])
-      .then(([{ data }, user, memberships, userMembershipInfo]) => {
+      .then(([{ data }, user, memberships, userMembershipInfo, activeCoursesInfo]) => {
         const activeReferredsQuantity = user.referreds.filter(
           (referred) => referred.active
         ).length;
@@ -243,6 +247,7 @@ module.exports = {
           new Date(user.expires),
           "dd/MM/yyyy"
         );
+
 
         return res.render("finalUser/userProfile", {
           user,
@@ -260,6 +265,8 @@ module.exports = {
           userActiveCourses,
           userMembershipInfo,
           moment: moment,
+          expiresCoursesToConfirm: activeCoursesInfo.data.expiresCoursesToConfirm,
+          haveToConfirmContinueCourses: activeCoursesInfo.data.haveToConfirmContinueCourses,
         });
       })
       .catch((error) => console.log(error));
