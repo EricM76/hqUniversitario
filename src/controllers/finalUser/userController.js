@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const { v4: uuidv4 } = require("uuid");
 const { validationResult } = require("express-validator");
 const axios = require("axios");
-const { format, add, formatISO} = require("date-fns");
+const { format, add, formatISO } = require("date-fns");
 const moment = require("moment");
 const process = require("process");
 const {
@@ -123,8 +123,7 @@ module.exports = {
       rol: user.rolId,
       googleId: user.social_id,
       membershipId: user.membershipId,
-      daysToExpires:
-        userMembershipInfo && userMembershipInfo.daysToExpires,
+      daysToExpires: userMembershipInfo && userMembershipInfo.daysToExpires,
       status: user.status,
       userMembershipExpiresDate:
         userMembershipInfo.expires !== undefined
@@ -148,6 +147,7 @@ module.exports = {
       try {
         const user = await db.User.create({
           name: req.body.name,
+          surname: req.body.surname,
           email: req.body.email,
           password: bcrypt.hashSync(req.body.password, 10),
           rolId: 2,
@@ -239,8 +239,11 @@ module.exports = {
         const userActiveCourses = user.courses.filter(
           (course) => course.UserCourse.active
         );
-        const userMembershipExpires = format(new Date(user.expires), "dd/MM/yyyy");
-        
+        const userMembershipExpires = format(
+          new Date(user.expires),
+          "dd/MM/yyyy"
+        );
+
         return res.render("finalUser/userProfile", {
           user,
           userMembershipExpiresDate: userMembershipExpires,
@@ -298,8 +301,8 @@ module.exports = {
           const user = await db.User.findByPk(external_reference);
           const membership = await db.Membership.findOne({
             where: {
-              order: user.pendingMembershipId
-            }
+              order: user.pendingMembershipId,
+            },
           });
           const date = new Date();
           const paymentInfo = await getPaymentById(payment_id);
@@ -309,23 +312,26 @@ module.exports = {
           const payment = await db.Payment.findOne({
             where: {
               paymentId: payment_id,
-            }
-          })
+            },
+          });
 
-          if(payment){
-            db.Payment.update({
-              description: paymentInfo.description,
-              payerId: paymentInfo.payer.id, // Ver que onda -- NULL
-              payer_details: JSON.stringify(paymentInfo.payer),
-              payment_method_id: paymentInfo.payment_method_id,
-              status: paymentInfo.status,
-              status_detail: paymentInfo.status_detail,
-              transaction_amount: paymentInfo.transaction_amount,
-            }, {
-              where: {
-                id: payment.id
+          if (payment) {
+            db.Payment.update(
+              {
+                description: paymentInfo.description,
+                payerId: paymentInfo.payer.id, // Ver que onda -- NULL
+                payer_details: JSON.stringify(paymentInfo.payer),
+                payment_method_id: paymentInfo.payment_method_id,
+                status: paymentInfo.status,
+                status_detail: paymentInfo.status_detail,
+                transaction_amount: paymentInfo.transaction_amount,
+              },
+              {
+                where: {
+                  id: payment.id,
+                },
               }
-            })
+            );
           } else {
             await db.Payment.create({
               paymentId: paymentInfo.id,
@@ -337,11 +343,11 @@ module.exports = {
               status: paymentInfo.status,
               status_detail: paymentInfo.status_detail,
               transaction_amount: paymentInfo.transaction_amount,
-              hqUserId: paymentInfo.external_reference
+              hqUserId: paymentInfo.external_reference,
             });
           }
           const paymentApprovedDate = new Date(paymentInfo.date_approved);
-          
+
           const membershipExpirationDate = formatISO(
             add(paymentApprovedDate, {
               days: membership.days,
@@ -349,7 +355,7 @@ module.exports = {
             "dd/MM/yyyy"
           );
 
-         //const formatToSaveExpirationDate = new Date(membershipExpirationDate);
+          //const formatToSaveExpirationDate = new Date(membershipExpirationDate);
 
           const updateUserSubscriptionStatus = await db.User.update(
             {
@@ -393,7 +399,7 @@ module.exports = {
           res.locals.user = req.session.user;
         }
       } catch (error) {
-       console.log(error)
+        console.log(error);
       }
     } else {
       try {
@@ -459,7 +465,7 @@ module.exports = {
             .json({ status: 400, message: "No seleccionaste cursos" });
 
         /**** Carga de cursos al usuario ****/
-        let courseConfirmationDate = add(new Date(user.entry), {days: 30})
+        let courseConfirmationDate = add(new Date(user.entry), { days: 30 });
         if (selectedCourses.length > 1) {
           let coursesToAdd = selectedCourses.map((course) => {
             return {
@@ -567,11 +573,14 @@ module.exports = {
 
           sendEmail(email);
           // obtener total de referidos activos
-          // si tiene 2, enviar mail y poner activa la membresía al usuario que lo refirió
+          // si tiene 3 5 o 7, enviar mail y poner activa la membresía al usuario que lo refirió
+          const totalReferred1 = process.env.TOTAL_REFERRED_1;
+          const totalReferred2 = process.env.TOTAL_REFERRED_2;
+          const totalReferred3 = process.env.TOTAL_REFERRED_3;
           const referringUser = await db.User.findByPk(referred.userId);
           const { data } = await getTotalOfActiveReferredUsers(referred.userId);
           const totalStatus =
-            data.total === 2 || data.total === 3 || data.total === 4;
+            data.total === totalReferred1 || data.total === totalReferred2 || data.total === totalReferred3;
           const haveActiveMembership = referringUser.membershipId !== null;
           const haveFreeMembership = referringUser.freeMembership;
           /* Cumple con los referidos y no tiene membresia activa */
