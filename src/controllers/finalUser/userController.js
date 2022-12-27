@@ -240,7 +240,6 @@ module.exports = {
           (course) => course.UserCourse.active
         );
         const userMembershipExpires = format(new Date(user.expires), "dd/MM/yyyy");
-        
         return res.render("finalUser/userProfile", {
           user,
           userMembershipExpiresDate: userMembershipExpires,

@@ -119,18 +119,16 @@
             <div class="d-flex flex-wrap justify-content-between gap-4 gap-lg-4" data-aos="fade-up" data-aos-duration="1000">
               <% memberships.forEach((membership,index) => { %>
                   <div class="d-flex flex-column shadow rounded p-2 membershipCard <%- membership.name %> position-relative">
-                    <% if (index%2 !== 0) { %>
-                      <img src="/images/specialOffer.png" alt="" width="35%">
-                    <% } %>
+                 <!--  -->
                    
                     <h2 class="text-center membershipCard__name   border-bottom mb-3 <%- membership.name %>"><%- membership.name %> </h2>
                     <div class="d-flex flex-column align-items-end mx-auto mt-4">
                       <% if (index === 1) { %>
-                        <p class="fs-4 text-white">ahorrás: <span class="fs-3 text-bg-danger">$ <%= (memberships[0].price * 3) - membership.price%> </span></p>  
+                        <p class="fs-6 text-white text-bg-danger px-1">ahorrás: <span class="fs-4 ">$ <%= (memberships[0].price * 3) - membership.price%> </span></p>  
                         <% }else if (index === 3) { %>
-                          <p class="fs-4 text-white">ahorrás: <span class="fs-3 text-bg-danger">$ <%= (memberships[2].price * 3) - membership.price%> </span></p>  
+                          <p class="fs-6 text-white text-bg-danger px-1">ahorrás: <span class="fs-4 ">$ <%= (memberships[2].price * 3) - membership.price%> </span></p>  
                           <% }else if (index === 5) { %>
-                            <p class="fs-4 text-white">ahorrás: <span class="fs-3 text-bg-danger">$ <%= (memberships[4].price * 3) - membership.price%> </span></p>  
+                            <p class="fs-6 text-white text-bg-danger px-1">ahorrás: <span class="fs-4 ">$ <%= (memberships[4].price * 3) - membership.price%> </span></p>  
                       <% }else{ %>
                         <p  class="fs-4" style="color:transparent;">sin info</p>
                       <% } %>

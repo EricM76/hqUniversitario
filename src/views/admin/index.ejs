@@ -26,8 +26,8 @@
                                     </li>
                                  
                                     <% memberships.forEach(membership => { %>
-                                        <li class="list-group-item d-flex justify-content-between bg-premium">
-                                            <span>Suscripción <%= membership.name %> </span>
+                                        <li class="list-group-item d-flex justify-content-between bg-<%= membership.name.toLowerCase() %>">
+                                            <span>Suscripción <%= membership.name %> x<%= membership.days%> </span>
                                             <span>
                                                 Ref: <%= membership.users.length%> | MP: <%= subscriptions.map(subscription => (subscription.id == membership.mp_id && subscription)).subscribed || 0 %> 
                                             </span>
@@ -54,7 +54,7 @@
                                      </span>
                                  </li>
                                     <% categories.forEach((category,index)=> { %>
-                                        <li class="list-group-item d-flex justify-content-between <%= index%2==0 ? 'text-bg-primary' : 'text-bg-secondary' %> ">
+                                        <li class="list-group-item d-flex justify-content-between <%= index%2==0 ? 'text-bg-light' : 'text-bg-white' %> ">
                                             <span>
                                                 <%= category.name %>
                                             </span>
@@ -79,7 +79,7 @@
                             <div class="card-body">
                                 <ul class="list-group list-group-flush">
                                     <% faculties.forEach((faculty, index)=> { %>
-                                        <li class="list-group-item d-flex justify-content-between gap-4 gap-lg-0 <%= index%2==0 ? 'text-bg-secondary' : 'text-bg-warning' %>">
+                                        <li class="list-group-item d-flex justify-content-between gap-4 gap-lg-0 <%= index%2==0 ? 'text-bg-light' : 'text-bg-white' %>">
                                             <span>
                                                 <%= faculty.name %> | <%= faculty.university.acronym %> 
                                             </span>
