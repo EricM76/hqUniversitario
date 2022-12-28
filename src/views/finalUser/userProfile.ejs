@@ -100,7 +100,7 @@
             <hr>
             <% if (userActiveCourses.length > 0) { %>
               <h5 class="border-bottom alert alert-info">Tenés <span><%= userMembershipInfo.activesUserCourses %> materias activas de un total de <%= userMembershipInfo.membershipQuota %>  </span></h5>
-              <div class="d-flex flex-column flex-md-row justify-content-center">
+              <div class="d-flex flex-column flex-md-row flex-wrap justify-content-center">
                 <% userActiveCourses.forEach(course => { %>
                   <!--  <a href="/materia/contenido/<%- course.id %>"><span class="badge rounded-pill text-bg-success fs-4"><%- course.name %></span></a> -->
                   <%- include('./partials/cardCourse',{
