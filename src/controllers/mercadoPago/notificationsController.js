@@ -1,4 +1,4 @@
-const { add } = require("date-fns");
+const { add, formatISO } = require("date-fns");
 const db = require("../../database/models");
 const {
   getAuthorizedPayments,
@@ -57,6 +57,55 @@ module.exports = {
             transaction_amount: paymentInfo.transaction_amount,
             hqUserId: paymentInfo.external_reference
           });
+
+          const user = await db.User.findByPk(paymentInfo.external_reference);
+          const membership = await db.Membership.findOne({
+            where: {
+              order: user.pendingMembershipId
+            }
+          });
+          const date = new Date();
+
+          if (paymentInfo.status === "approved") {
+            const paymentApprovedDate = new Date(paymentInfo.date_approved);
+
+            const membershipExpirationDate = formatISO(
+              add(paymentApprovedDate, {
+                days: membership.days,
+              }),
+              "dd/MM/yyyy"
+            );
+  
+            const updateUserSubscriptionStatus = await db.User.update(
+              {
+                subscriptionStatus: "approved",
+                confirmedSubscription: true,
+                status: true,
+                membershipId: membership.id,
+                freeMembership: false,
+                entry: date.toISOString(),
+                expires: membershipExpirationDate,
+              },
+              {
+                where: {
+                  id: user.id,
+                },
+              }
+            );
+          } else {
+            const updateUserSubscriptionStatus = await db.User.update(
+              {
+                subscriptionId: paymentInfo.id,
+                subscriptionStatus: paymentInfo.status,
+                //confirmedSubscription: true,
+              },
+              {
+                where: {
+                  id: paymentInfo.external_reference,
+                },
+              }
+            );
+          }
         }
 
         if (action === NOTIFICATION.action.PAYMENT_UPDATED) {
@@ -74,6 +123,56 @@ module.exports = {
               paymentId: paymentInfo.id
             }
           });
+
+          const user = await db.User.findByPk(paymentInfo.external_reference);
+          const membership = await db.Membership.findOne({
+            where: {
+              order: user.pendingMembershipId
+            }
+          });
+          const date = new Date();
+
+
+          if (paymentInfo.status === "approved") {
+            const paymentApprovedDate = new Date(paymentInfo.date_approved);
+
+            const membershipExpirationDate = formatISO(
+              add(paymentApprovedDate, {
+                days: membership.days,
+              }),
+              "dd/MM/yyyy"
+            );
+  
+            const updateUserSubscriptionStatus = await db.User.update(
+              {
+                subscriptionStatus: "approved",
+                confirmedSubscription: true,
+                status: true,
+                membershipId: membership.id,
+                freeMembership: false,
+                entry: date.toISOString(),
+                expires: membershipExpirationDate,
+              },
+              {
+                where: {
+                  id: user.id,
+                },
+              }
+            );
+          } else {
+            const updateUserSubscriptionStatus = await db.User.update(
+              {
+                subscriptionId: paymentInfo.id,
+                subscriptionStatus: paymentInfo.status,
+                //confirmedSubscription: true,
+              },
+              {
+                where: {
+                  id: paymentInfo.external_reference,
+                },
+              }
+            );
+          }
         }
       }
    
