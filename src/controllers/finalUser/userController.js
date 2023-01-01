@@ -27,28 +27,21 @@ module.exports = {
   login: (req, res) => {
     const baseUrl = `${req.protocol}://${req.headers.host}`;
     const TIME_IN_MILISECONDS = 0;
-    console.log(req.headers.referer)
     res.cookie(
       "backurl",
       req.headers.referer ? req.headers.referer.split(baseUrl)[1] : "/",
       {
         expires: TIME_IN_MILISECONDS,
-        httpOnly: true,
-        secure: true,
       }
     );
     if (req.query.choice) {
       res.cookie("backurl", "/usuario/perfil#membership", {
         expires: TIME_IN_MILISECONDS,
-        httpOnly: true,
-        secure: true,
       });
     }
     if (req.query.baja) {
       res.cookie("backurl", "/usuario/perfil", {
         expires: TIME_IN_MILISECONDS,
-        httpOnly: true,
-        secure: true,
       });
     }
 
