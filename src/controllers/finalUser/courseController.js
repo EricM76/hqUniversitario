@@ -387,8 +387,7 @@ module.exports = {
                     console.log(error)
                 })
         } else {
-            try {
-                let course = await db.Course.findByPk(req.params.id, {
+                let course = db.Course.findByPk(req.params.id, {
                     include: [
                         {
                             association: 'features'
@@ -422,39 +421,45 @@ module.exports = {
                         }
                     ]
                 })
-                let relatedCourses = await db.Course.findAll({
-                    where: {
-                        facultyId: course.facultyId,
-                    },
-                    include: ['university', 'faculty']
-                });
+              
 
-                let turns = await db.Turn.findAll()
+                let turns = db.Turn.findAll()
 
-                let theoreticalVideos = course.videos.filter(video => video.categoryId === 1);
-                let practicalVideos = course.videos.filter(video => video.categoryId === 2);
-                let integrativeVideoExams = course.videos.filter(video => video.categoryId === 3);
-                let levelingCycleVideos = course.videos.filter(video => video.categoryId === 4);
-                let integrativeExerciseVideos = course.videos.filter(video => video.categoryId === 5);
-                let previusExamVideos = course.videos.filter(video => video.categoryId === 6);
+                Promise.all([course, turns])
+                    .then(async ([course, turns]) => {
+                        let theoreticalVideos = course.videos.filter(video => video.categoryId === 1);
+                        let practicalVideos = course.videos.filter(video => video.categoryId === 2);
+                        let integrativeVideoExams = course.videos.filter(video => video.categoryId === 3);
+                        let levelingCycleVideos = course.videos.filter(video => video.categoryId === 4);
+                        let integrativeExerciseVideos = course.videos.filter(video => video.categoryId === 5);
+                        let previusExamVideos = course.videos.filter(video => video.categoryId === 6);
 
-                return res.render("finalUser/courseContent", {
-                    course,
-                    relatedCourses,
-                    theoreticalVideos,
-                    practicalVideos,
-                    integrativeVideoExams,
-                    levelingCycleVideos,
-                    integrativeExerciseVideos,
-                    previusExamVideos,
-                    session: req.session,
-                    suscribed: false,
-                    urlCloudfont: process.env.CLOUDFONT_URL,
-                    turns
-                });
-            } catch (error) {
-                console.log(error)
-            }
+                        let relatedCourses = await db.Course.findAll({
+                            where: {
+                                facultyId: course.facultyId,
+                            },
+                            include: ['university', 'faculty']
+                        });
+
+
+                        return res.render("finalUser/courseContent", {
+                            course,
+                            relatedCourses,
+                            theoreticalVideos,
+                            practicalVideos,
+                            integrativeVideoExams,
+                            levelingCycleVideos,
+                            integrativeExerciseVideos,
+                            previusExamVideos,
+                            session: req.session,
+                            suscribed: false,
+                            urlCloudfont: process.env.CLOUDFONT_URL,
+                            turns
+                        });
+                    }).catch(error => console.log(error))
+
+                    
+         
 
         }
     },
