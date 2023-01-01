@@ -28,9 +28,11 @@ module.exports = {
     const baseUrl = `${req.protocol}://${req.headers.host}`;
     const TIME_IN_MILISECONDS = 0;
     console.log(req.headers.referer.split(baseUrl));
+    console.log(req.headers.referer);
+
     res.cookie(
       "backurl",
-      req.headers.referer ? req.headers.referer.split(baseUrl)[1] : "/",
+      req.headers.referer ? req.headers.referer : "/",
       {
         expires: TIME_IN_MILISECONDS,
       }
