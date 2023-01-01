@@ -239,7 +239,8 @@ module.exports = {
                             attributes: ['id', 'name'],
                             order: ['id'],
                             include: {
-                                association : 'videos'
+                                association : 'videos',
+                                attributes : ['courseId','order','title','length','locked','id','resource']
                             }
                         }
                     },
