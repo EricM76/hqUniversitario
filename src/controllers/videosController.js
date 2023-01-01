@@ -204,8 +204,24 @@ module.exports = {
     detail : (req,res) => {
 
     },
-    edit : (req,res) => {
-
+    edit : async (req,res) => {
+      const {videoId,courseId} = req.params;
+      try {
+        let video = await db.Video.findByPk(videoId);
+        let course = await db.Course.findByPk(courseId,{
+          include : [{
+            association : 'faculty',
+            include : ['categories']
+          }]
+        })
+        return res.render('admin/videoEdit',{
+          video,
+          id : courseId,
+          course
+        })
+      } catch (error) {
+        console.log(error)
+      }
     },
     update : async (req,res) => {
       const {length, title, description, locked, categoryId, year, turnId, unitId, order }= req.body;

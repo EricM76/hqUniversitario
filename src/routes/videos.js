@@ -11,7 +11,7 @@ router
   .get('/detail/:id',detail)
   .get('/add/:idCourse',add)
   .post('/add',uploadCourse.single('resource'), store)
-  .get('/edit/:id',edit)
+  .get('/edit/:videoId/:courseId',edit)
   .put('/update/:id',uploadCourse.single('resource'),update)
   .delete('/remove/:id',remove)
   .get('/search',search)

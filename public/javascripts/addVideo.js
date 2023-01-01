@@ -43,7 +43,7 @@ window.onload = async () => {
 }
 
 
-document.getElementById('categoryId').addEventListener('change', async (event) => {
+document.getElementById('categoryId') && document.getElementById('categoryId').addEventListener('change', async (event) => {
     
     switch (event.target.value) {
         case "2":
@@ -140,7 +140,7 @@ const changeOptions = async (e,id) => {
     }
 }
 
-inputResource.addEventListener('change', (event) => {
+inputResource && inputResource.addEventListener('change', (event) => {
 
     if (event.target.files && event.target.files[0]) {
         let reader = new FileReader();
@@ -159,6 +159,6 @@ inputResource.addEventListener('change', (event) => {
     }
 });
 
-videoTag.addEventListener('loadeddata', ({target}) => {
+videoTag && videoTag.addEventListener('loadeddata', ({target}) => {
     inputLenth.value = Math.round(target.duration / 60)
 });

@@ -1,0 +1,241 @@
+
+        <!DOCTYPE html>
+        <%- include('./partials/head',{
+            title : 'Materias'
+        }) %> 
+        <body class="materias bg-light">
+            <%- include('./partials/header') %> 
+        <main class="conatiner" id="box-data-edit-video">
+            <div class="row">
+                <div class="col-12 col-md-10 mx-auto mt-4">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <form action="/videos/update/<%= video.id %>?_method=PUT&course=<%= video.courseId %>" class="row mx-3 g-3 mt-2 mt-lg-3"
+                                enctype="multipart/form-data" method="POST" id="form-updateVideos-<%= video.id %>" novalidate>
+                                <div class="col-12 alert alert-danger" hidden id="msg-error-<%=video.id%>">
+                                    Los campos señalados son obligatorios
+                                </div>
+                                                <div class="col-12 col-lg-4">
+                                                    <!-- video -->
+                                                    <div class="mb-3">
+                                                        <input type="file" class="form-control" id="resource<%=video.id%>"
+                                                            name="resource" hidden>
+                                                            
+                                                        <video id="resourcePreview<%=video.id%>"
+                                                            src=""type="video/mp4" width="100%" controls>
+                
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="resource<%=video.id%>"
+                                                            class="btn btn-outline-dark w-100 mb-3">Reemplazar
+                                                            video</label>
+                
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-12 col-lg-8">
+                                                            <div
+                                                                class="d-flex flex-column align-items-lg-center flex-lg-row mb-3">
+                                                                <label for="length"
+                                                                    class="form-label me-2">Duración:</label>
+                                                                <div class="input-group">
+                                                                    <input type="number"
+                                                                        class="form-control" min="0" name="length" value="<%= video.length %>" onblur="!this.value ? this.classList.add('is-invalid'):this.classList.remove('is-invalid')">
+                                                                    <span class="input-group-text"
+                                                                        for="">min</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-lg-4">
+                                                            <div class="d-flex justify-content-around">
+                                                                <div class=" mb-3">
+                                                                    <label class="fs-4" for="locked<%= video.id %>" id="label-locked<%= video.id %>">
+                                                                        <% if(video.locked) {%>
+                                                                            <i class="fas fa-lock"></i>
+                                                                        <%}else{%>
+                                                                            <i class='fas fa-unlock'></i>
+                                                                        <%}%>
+                                                                    </label>
+                                                                    <input type="checkbox" 
+                                                                        id="locked<%= video.id %>" <%= video.locked && 'checked' %>  hidden onchange="document.getElementById('label-locked<%= video.id %>').innerHTML = this.checked ? `<i class='fas fa-lock'></i>` : `<i class='fas fa-unlock'></i>`" name="locked">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                
+                                                </div>
+                                                <div class="col-12 col-lg-8">
+                                                    <div class="row">
+                                                        <div class="col-12 mb-3 has-validation">
+                                                            <label for="title"
+                                                                class="form-label">Título</label>
+                                                            <input type="text" id="title"
+                                                                class="form-control" name="title" value="<%= video.title %>" onblur="!this.value ? this.classList.add('is-invalid'):this.classList.remove('is-invalid')">
+                                                        </div>
+                                                        <div class="col-12 mb-3">
+                                                            <label for="description"
+                                                                class="form-label">Descripción</label>
+                                                            <textarea id="description" class="form-control"
+                                                                rows="3" style="resize: none;" name="description"><%= video.description %></textarea>
+                                                        </div>
+                                                        <div class="col-12 col-md-6 mb-3">
+                                                            <select class="form-select form-select"
+                                                                id="categoryId<%= video.id %>"
+                                                                name="categoryId"
+                                                                onchange="changeOptions(event,'<%=video.id%>')"
+                                                                >
+                                                                <% course.faculty.categories.forEach(category => {%>
+                                                                    <option value="<%=category.id%>" <%= category.id === video.categoryId && 'selected' %> ><%=category.name%></option>
+                                                                <%})%>
+                                                            </select>
+                                                            <input type="text" value="<%= course.id %>" id="inputCourse" hidden>
+                                                        </div>
+                                                        <div class="col-12 col-md-6 mb-3">
+                                                            <select class="form-select form-select"
+                                                                id="unitId<%= video.id %>"
+                                                                name="unitId"
+                                                                <%= !video.unitId && 'disabled'  %> 
+                                                                >
+                                                                
+                                                               
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-12 col-md-6 mb-3">
+                                                            <select class="form-select form-select"
+                                                                id="year<%= video.id %>"
+                                                                name="year"
+                                                                <%= !video.year && 'disabled'  %>
+                                                                >
+                                                                <% if (video.year) { %>
+                                                                    <option value="" selected hidden>Año...</option>
+                                                                    <% for(let i=2005; i<= new Date().getFullYear(); i++ ) { %>
+                                                                        <option value="<%=i%>" <%= i == video.year && 'selected' %> ><%=i%></option>
+                                                                    <%}%>
+                                                                <% }else{ %>
+                                                                    <option value="">Año...</option>
+                                                                <% } %>
+                                                            </select>
+                                                        </div>
+                                                        
+                                                        <div class="col-12 col-md-6 mb-3">
+                                                            <select class="form-select form-select"
+                                                                id="turnId<%= video.id %>"
+                                                                name="turnId"
+                                                                <%= !video.turnId && 'disabled'  %>
+                                                                >
+                                                               
+                                                            </select>
+                                                        </div>
+                
+                                                        <div class="col-12 col-md-6 mb-3">
+                                                            <div class="input-group has-validation">
+                                                                <span class="input-group-text">Orden</span>
+                                                                <input class="form-control" value="<%= video.order %>" type="number" id="order<%= video.id %>" name="order" onblur="!this.value ? this.classList.add('is-invalid'):this.classList.remove('is-invalid')">                                     
+                                                            </div>  
+                                                        </div>
+                                                        <div class="col-12 col-md-6 mb-3">
+                                                                <button class="btn btn-outline-dark w-100" type="submit" id="btn-submit-form-edit-video<%= video.id %>">
+                                                                    Guardar cambios
+                                                                </button>                                           
+                                                        </div>
+                                                </div>
+                                            </div>
+                            </form>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
+        </main>
+            
+        <%- include('./partials/scripts') %>
+
+  <script src="/javascripts/formValidator.js"></script>
+  <script src="/javascripts/addVideo.js"></script>
+  <script>
+
+    
+ 
+
+    document.getElementById('resource<%=video.id%>').addEventListener('change', (event) => {
+
+        if (event.target.files && event.target.files[0]) {
+            let reader = new FileReader();
+
+            reader.onload = function(e) {
+            document.getElementById('resourcePreview<%=video.id%>').src = e.target.result
+            document.getElementById('resourcePreview<%=video.id%>').load()
+
+            }.bind(this)
+
+            reader.readAsDataURL(event.target.files[0]);
+        
+        }
+    });
+
+    window.addEventListener('load', async function (event) {
+       
+        try {
+            let response = await fetch('/videos/info?videoId=<%=video.id%>&courseId=<%=id%>')
+            let result = await response.json();
+            if(result.ok){
+                //console.log(result);
+                const {video,urlCloudfont,course} = result;
+                const resourcePreview = document.getElementById(`resourcePreview${video.id}`);
+                resourcePreview.src = `${urlCloudfont}${video.resource}`
+                const turnSelect = document.getElementById(`turnId${video.id}`);
+                turnSelect.innerHTML = null;
+                turnSelect.innerHTML = `
+                    <option value="" 'selected' >Seleccione...</option>
+                    `       
+                if(course.turns.length){
+                    for (let i = 0; i < course.turns.length; i++) {
+                        turnSelect.innerHTML += `
+                    <option value="${course.turns[i].id}" ${course.turns[i].id == video.id && 'selected'} >${course.turns[i].month}</option>
+                    `                        
+                    }
+                 
+                }else{
+                    turnSelect.innerHTML = '<option value="">Turno...</option>'
+                }
+                const unitSelect = document.getElementById(`unitId${video.id}`);
+                unitSelect.innerHTML = null;
+                if(video.unitId){
+                    course.units.sort((a,b)=> a.number>b.number ? 1 : a.number<b.number ? -1 : 0).forEach(unit => {
+                    unitSelect.innerHTML += `<option value="${unit.id}" ${unit.id == video.unitId && 'selected'}  >${unit.number}.${unit.name}</option>`
+                })
+                }else{
+                    unitSelect.innerHTML = `<option value="">Unidad...</option>`
+                }
+            }   
+        } catch (error) {
+            console.error
+        }
+    });
+
+    document.getElementById('form-updateVideos-<%= video.id %>').addEventListener('submit', e => {
+        const formEdit = document.getElementById('form-updateVideos-<%= video.id %>');
+        const msgError = document.getElementById('msg-error-<%=video.id%>');
+
+        e.preventDefault();
+        console.log(formEdit.elements);
+        msgError.hidden = true;
+        Array.from(formEdit.elements).forEach(element => {
+            if(element.classList.contains('is-invalid')){
+                msgError.hidden = false
+            }
+        });
+
+        if(msgError.hidden){
+            const btnSubmitEditVideo = document.getElementById('btn-submit-form-edit-video<%=video.id%>')
+        btnSubmitEditVideo.innerText = 'Guardando...'
+        btnSubmitEditVideo.classList.add('disabled');
+        formEdit.submit()
+        }
+       
+
+    })
+
+  </script>
+
+ 
+</body>

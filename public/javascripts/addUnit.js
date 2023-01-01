@@ -9,7 +9,7 @@ document.getElementById('btn-modal-addUnit').addEventListener('click', () => {
 
 })
 
-const check = async ({target}, courseId) => {
+let check = async ({target}, courseId) => {
 
     if(target.getAttribute('data-unit') != target.value){
         try {
