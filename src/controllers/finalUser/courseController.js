@@ -394,7 +394,8 @@ module.exports = {
                         },
                         {
                             association: 'videos',
-                            include: ['unit', 'turn']
+                            include: ['unit', 'turn'],
+                            attributes : ['title','unitId','categoryId','length','resource','locked','description','id']
                         },
                         {
                             association: 'notes'
