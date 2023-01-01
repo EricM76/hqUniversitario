@@ -374,6 +374,7 @@
                                                 <div class="accordion" id="accordionPanelsStayOpenExample">
 
                                                 <%course.faculty.categories.forEach((category,index) => {%>
+                                                    <%if(category.videos.filter(video => video.courseId === course.id).length){%>
                                                     <div class="accordion-item">
                                                         <h2 class="accordion-header" id="panelsStayOpen-heading<%=category.id%>">
                                                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse<%=category.id%>" aria-expanded="true" aria-controls="panelsStayOpen-collapse<%=category.id%>">
@@ -383,8 +384,8 @@
                                                         <div id="panelsStayOpen-collapse<%=category.id%>" class="accordion-collapse collapse <%= next === 'videos' ? 'show' : !index ? 'show' : null %>" aria-labelledby="panelsStayOpen-heading<%=category.id%>">
                                                         <div class="accordion-body">
                                                             <ul class="list-group list-group-flush">
-                                                                <%if(course.videos.length){%>
-                                                                    <%course.videos.filter(video=> video.categoryId === category.id).sort((a,b)=> a.order > b.order ? 1 : a.order < b.order ? -1 : 0).forEach(video => {%>
+                                                                <%if(category.videos.length){%>
+                                                                    <%category.videos.sort((a,b)=> a.order > b.order ? 1 : a.order < b.order ? -1 : 0).forEach(video => {%>
                                                                         <%if(video.courseId === course.id){%>
                                                                         <li class="list-group-item d-flex justify-content-between">
 
@@ -423,6 +424,7 @@
                                                     </div>
                                                     <%}%>
                                                     
+                                                                <%}%>
                                                 <%})%>
                                                 </div>
                                                

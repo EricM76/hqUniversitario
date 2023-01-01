@@ -238,10 +238,10 @@ module.exports = {
                             association: 'categories',
                             attributes: ['id', 'name'],
                             order: ['id'],
-                            include: {
+                          /*   include: {
                                 association : 'videos',
                                 attributes : ['courseId','order','title','length','locked','id','resource']
-                            }
+                            } */
                         }
                     },
                     {
@@ -266,7 +266,9 @@ module.exports = {
                     },
                     {
                         association: 'videos',
-                        attributes: ['id', 'title'],
+                        /* attributes: ['id', 'title'], */
+                        attributes : ['courseId','order','title','length','locked','id','resource','categoryId']
+
                     },
                     {
                         association: 'tests',
