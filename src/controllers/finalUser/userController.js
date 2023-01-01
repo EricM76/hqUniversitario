@@ -27,7 +27,6 @@ module.exports = {
   login: (req, res) => {
     const baseUrl = `${req.protocol}://${req.headers.host}`;
     const TIME_IN_MILISECONDS = 0;
-    console.log(">>>>>>>>>>>>>referer", req.headers.referer);
     res.cookie(
       "backurl",
       req.headers.referer ? req.headers.referer.split(baseUrl)[1] : "/",
@@ -97,7 +96,7 @@ module.exports = {
           return res.redirect(
             req.session.user.rol == 1
               ? "/admin"
-              : req.cookies.backurl
+              : req.cookies.backurl != "undefined"
               ? `${req.cookies.backurl}?userId=${req.session.user.id}`
               : "/?userId=" + req.session.user.id
           );
