@@ -389,20 +389,21 @@ module.exports = {
         } else {
                 let course = db.Course.findByPk(req.params.id, {
                     include: [
-                        {
+                     /*    {
                             association: 'features'
-                        },
+                        }, */
                         {
                             association: 'videos',
                             include: ['unit', 'turn'],
                             attributes : ['title','unitId','categoryId','length','resource','locked','description','id']
                         },
                         {
-                            association: 'notes'
+                            association: 'notes',
+                            attributes : ['title', 'file']
                         },
                         {
                             association: 'tests',
-                            attributes: ['id']
+                            attributes : ['id']
                         },
                         {
                             association: 'faculty',
@@ -415,10 +416,12 @@ module.exports = {
                             }
                         },
                         {
-                            association: 'university'
+                            association: 'university',
+                            attributes : ['acronym']
                         },
                         {
-                            association: 'units'
+                            association: 'units',
+                            attributes : ['id','name','number']
                         }
                     ]
                 })
@@ -439,7 +442,16 @@ module.exports = {
                             where: {
                                 facultyId: course.facultyId,
                             },
-                            include: ['university', 'faculty']
+                            include: [
+                                {
+                                    association: 'university',
+                                    attributes : ['acronym']
+                                },
+                                {
+                                    association :'faculty',
+                                    attributes : ['acronym']
+                                }
+                            ]
                         });
 
 
