@@ -262,8 +262,17 @@ module.exports = {
         console.log(error)
       }
     },
-    remove : (req,res) => {
-
+    remove : async (req,res) => {
+      try {
+        await db.Video.destroy({
+          where : {
+            id : req.params.id
+          }
+        })
+        return res.redirect(`/courses/edit/${req.query.course}?next=videos`)
+      } catch (error) {
+        console.log(error)
+      }
     },
     search : (req,res) => {
 
