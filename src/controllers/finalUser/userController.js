@@ -27,6 +27,7 @@ module.exports = {
   login: (req, res) => {
     const baseUrl = `${req.protocol}://${req.headers.host}`;
     const TIME_IN_MILISECONDS = 0;
+    console.log(req.headers.referer.split(baseUrl));
     res.cookie(
       "backurl",
       req.headers.referer ? req.headers.referer.split(baseUrl)[1] : "/",
