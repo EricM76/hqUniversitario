@@ -227,8 +227,9 @@
                     selectYear.innerHTML += `<option value="${i}">${i}</option>`
                     }
     
-                    selectTurn.innerHTML = '<option value="" selected hidden>Turno...</option>';
-                    result = await apiCall('/turns');
+                selectTurn.innerHTML = '<option value="" selected hidden>Turno...</option>';
+                    /* result = await apiCall('/turns'); */
+                    result = await apiCall('/turns?course=' + inputCourse.value);
                     result.turns.forEach(turn => {
                         selectTurn.innerHTML += `<option value="${turn.id}">${turn.month}</option>`;
                     });
