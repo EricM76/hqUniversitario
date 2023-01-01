@@ -341,3 +341,21 @@ $('check-all') && $('check-all').addEventListener('click', ({target}) => {
     }
    
 }); */
+
+const confirmDeleteVideo = (e) => {
+    e.preventDefault();
+    Swal.fire({
+        title: '¿Está seguro que desea eliminar el video?',
+        text: '¡No se podrán revertir los cambios!',
+        showDenyButton: true,
+        confirmButtonText: 'Eliminar',
+        denyButtonText: `Cancelar`,
+        confirmButtonColor: '#FF0000',
+        denyButtonColor: '#696969',
+    }).then(async (result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+           e.target.submit()
+        }
+    })
+}

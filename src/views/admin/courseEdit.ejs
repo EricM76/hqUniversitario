@@ -410,7 +410,7 @@
                                                                                     id="changeLocked<%= video.id %>" <%= video.locked && 'checked' %>  hidden onchange="this.value=this.checked; changeLocked('<%=video.id%>',event)">
                                                                             
                                                                                 <a href="/videos/edit/<%=video.id%>/<%=course.id%>"  class="btn btn-sm btn-success"><i class="fas fa-edit"></i></a>
-                                                                                <form action="/videos/remove/<%=video.id%>?_method=DELETE&course=<%=course.id%>" method="POST">
+                                                                                <form action="/videos/remove/<%=video.id%>?_method=DELETE&course=<%=course.id%>" method="POST" onsubmit="confirmDeleteVideo(event)">
                                                                                     <button class="btn btn-sm btn-danger" type="submit"><i class="fas fa-trash-alt"></i></button>    
 
                                                                                 </form>
