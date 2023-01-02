@@ -93,9 +93,13 @@
           </div>
           <div class="col-12 col-md-6 p-2 d-flex justify-content-center">
             <div class="coursePresentation__summary-content--buttonContainer">
-              <a onclick="verifyCourse(event,'<%= course.id %>')" href="" class="button__dark" >
+            <!--   <a onclick="verifyCourse(event,'<%= course.id %>')" href="" class="button__dark" >
                   VER EL CONTENIDO DE LA MATERIA
-              </a>
+              </a> -->
+              <a href=""  class="button__dark" data-bs-toggle="modal" data-bs-target="#loader">VER EL CONTENIDO DE LA MATERIA</a>
+              <%- include('partials/modal/loader',{
+                id :  course.id
+              }) %> 
             </div>
           </div>
           </div>
@@ -155,18 +159,6 @@
   <%- include('./partials/footer') %> 
   <%- include('./partials/scripts') %> 
     <script src="/javascripts/slider.js"></script>
-    <script>
-      const verifyCourse = async (e,courseId) => {
-        e.preventDefault()
-        try {
-          let response = await fetch('/users/verifycourse/' + courseId);
-          let result = await response.json();
-          window.location.href = result.ok && result.url;
-
-        } catch (error) {
-          console.error
-        }
-      }
-    </script>
+  
 </body>
 </html>
