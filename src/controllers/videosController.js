@@ -68,7 +68,7 @@ module.exports = {
                       association : 'categories',
                       attributes : ['id','name'],
                       order : ['id'],
-                      include : ['videos']
+                      /* include : ['videos'] */
                   }
               },
               {
