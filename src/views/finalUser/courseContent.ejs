@@ -223,7 +223,7 @@
                                           <div class="accordion-body">
                                             <ul class="list-group-flush">
                                               <% turns.forEach(turn => { %>
-                                                <% if (integrativeVideoExams.map(video => video.turnId).includes(turn.id) && integrativeVideoExams.filter(video => video.turnId === turn.id && video.year === year).length) { %>
+                                                <% if (integrativeVideoExams.map(video => video.turnId).includes(turn.id) && integrativeVideoExams.filter(video => video.turnId == turn.id && video.year == year).length) { %>
     
                                                 <div class="accordion accordion-flush" id="accordionFlushExample">
                                                   <div class="accordion-item">
@@ -236,7 +236,7 @@
                                                       <div class="accordion-body">
                                                         <ul class="list-group-flush">
                                                           <% integrativeVideoExams.forEach(video => { %>
-                                                            <% if (video.year === year && video.turnId === turn.id) { %>
+                                                            <% if (video.year == year && video.turnId == turn.id) { %>
                                                               <li class="list-group-item">
                                                                 <p class="text-muted text-end m-0"><%=video.length%> min</p>
                                                             <div class=" d-flex flex-column justify-content-start flex-md-row justify-content-md-between">

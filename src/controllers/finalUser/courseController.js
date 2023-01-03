@@ -353,7 +353,6 @@ module.exports = {
                 let videosViewed = videosViewedFilter.map(video => video.id)
     
     
-    
                         return res.render("finalUser/courseContent", {
                             session: req.session,
                             course,
@@ -395,7 +394,7 @@ module.exports = {
                         {
                             association: 'videos',
                             include: ['unit', 'turn'],
-                            attributes : ['title','unitId','categoryId','length','resource','locked','description','id']
+                            attributes : ['title','unitId','categoryId','length','resource','locked','description','id','turnId','year']
                         },
                         {
                             association: 'notes',
@@ -453,7 +452,6 @@ module.exports = {
                                 }
                             ]
                         });
-
 
                         return res.render("finalUser/courseContent", {
                             course,
