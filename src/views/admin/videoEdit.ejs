@@ -120,7 +120,6 @@
                                                             <select class="form-select form-select"
                                                                 id="turnId<%= video.id %>"
                                                                 name="turnId"
-                                                                <%= !video.turnId && 'disabled'  %>
                                                                 >
                                                                
                                                             </select>
@@ -190,7 +189,7 @@
                 if(course.turns.length){
                     for (let i = 0; i < course.turns.length; i++) {
                         turnSelect.innerHTML += `
-                    <option value="${course.turns[i].id}" ${course.turns[i].id == video.id && 'selected'} >${course.turns[i].month}</option>
+                    <option value="${course.turns[i].id}" ${course.turns[i].id == video.turnId && 'selected'} >${course.turns[i].month}</option>
                     `                        
                     }
                  
