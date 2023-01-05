@@ -225,14 +225,14 @@
                                               <% turns.forEach(turn => { %>
                                                 <% if (integrativeVideoExams.map(video => video.turnId).includes(turn.id) && integrativeVideoExams.filter(video => video.turnId == turn.id && video.year == year).length) { %>
     
-                                                <div class="accordion accordion-flush" id="accordionFlushExample">
+                                                <div class="accordion accordion-flush" id="accordionFlushExample-<%=turn.id%><%= year %>">
                                                   <div class="accordion-item">
-                                                    <h2 class="accordion-header" id="flush-headingOne">
+                                                    <h2 class="accordion-header" id="flush-headingOne-<%=turn.id%><%= year %>">
                                                       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-integrativeVideoExams-<%=turn.id%><%= year %>" aria-expanded="false" aria-controls="flush-integrativeVideoExams-<%=turn.id%><%= year %>">
                                                         <h6 class="mb-3">Turno: <%= turn.month %></h6>
                                                       </button>
                                                     </h2>
-                                                    <div id="flush-integrativeVideoExams-<%=turn.id%><%= year %>" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                                    <div id="flush-integrativeVideoExams-<%=turn.id%><%= year %>" class="accordion-collapse collapse" aria-labelledby="flush-headingOne-<%=turn.id%><%= year %>" data-bs-parent="#accordionFlushExample-<%=turn.id%><%= year %>">
                                                       <div class="accordion-body">
                                                         <ul class="list-group-flush">
                                                           <% integrativeVideoExams.forEach(video => { %>
@@ -694,14 +694,14 @@
                                           <% turns.forEach(turn => { %>
                                             <% if (integrativeVideoExams.map(video => video.turnId).includes(turn.id) && integrativeVideoExams.filter(video => video.turnId === turn.id && video.year === year).length) { %>
 
-                                            <div class="accordion accordion-flush" id="accordionFlushExample">
+                                            <div class="accordion accordion-flush" id="accordionFlushExample-<%=turn.id%><%= year %>">
                                               <div class="accordion-item">
-                                                <h2 class="accordion-header" id="flush-headingOne">
+                                                <h2 class="accordion-header" id="flush-headingOne-<%=turn.id%><%= year %>">
                                                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-integrativeVideoExams-<%=turn.id%><%= year %>" aria-expanded="false" aria-controls="flush-integrativeVideoExams-<%=turn.id%><%= year %>">
                                                     <h6 class="mb-3">Turno: <%= turn.month %></h6>
                                                   </button>
                                                 </h2>
-                                                <div id="flush-integrativeVideoExams-<%=turn.id%><%= year %>" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                                <div id="flush-integrativeVideoExams-<%=turn.id%><%= year %>" class="accordion-collapse collapse" aria-labelledby="flush-headingOne-<%=turn.id%><%= year %>" data-bs-parent="#accordionFlushExample-<%=turn.id%><%= year %>">
                                                   <div class="accordion-body">
                                                     <ul class="list-group-flush">
                                                       <% integrativeVideoExams.forEach(video => { %>
