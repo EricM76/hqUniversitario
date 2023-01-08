@@ -131,7 +131,8 @@ module.exports = {
                 where: {
                     categoryId: 1,
                     courseId: req.params.id
-                }
+                },
+                order : ['order']
             })
 
             const videoPracticalWorkHours =  db.Video.sum('length', {
@@ -159,7 +160,8 @@ module.exports = {
                 where: {
                     categoryId: 2,
                     courseId: req.params.id
-                }
+                },
+                order : ['order']
             });
 
             const integrativeVideoExamsHours =  db.Video.sum('length', {
@@ -190,7 +192,9 @@ module.exports = {
                     categoryId: 3,
                     courseId: req.params.id
                 },
-                include : ['turn']
+                order : ['order'],
+                include : ['turn'],
+
             });
 
             const levelingCycleVideosHours =  db.Video.sum('length', {
@@ -218,7 +222,8 @@ module.exports = {
                 where: {
                     categoryId: 4,
                     courseId: req.params.id
-                }
+                },
+                order : ['order']
             });
 
 
@@ -247,7 +252,8 @@ module.exports = {
                 where: {
                     categoryId: 5,
                     courseId: req.params.id
-                }
+                },
+                order : ['order']
             });
 
             const previusExamVideosHours =  db.Video.sum('length', {
@@ -275,7 +281,8 @@ module.exports = {
                 where: {
                     categoryId: 6,
                     courseId: req.params.id
-                }
+                },
+                order : ['order']
             });
 
             let user =  db.User.findByPk(req.session.user.id, {
@@ -394,7 +401,8 @@ module.exports = {
                         {
                             association: 'videos',
                             include: ['unit', 'turn'],
-                            attributes : ['title','unitId','categoryId','length','resource','locked','description','id','turnId','year']
+                            attributes : ['title','unitId','categoryId','length','resource','locked','description','id','turnId','year','order'],
+                            order : ['order']
                         },
                         {
                             association: 'notes',
@@ -430,12 +438,12 @@ module.exports = {
 
                 Promise.all([course, turns])
                     .then(async ([course, turns]) => {
-                        let theoreticalVideos = course.videos.filter(video => video.categoryId === 1);
-                        let practicalVideos = course.videos.filter(video => video.categoryId === 2);
-                        let integrativeVideoExams = course.videos.filter(video => video.categoryId === 3);
-                        let levelingCycleVideos = course.videos.filter(video => video.categoryId === 4);
-                        let integrativeExerciseVideos = course.videos.filter(video => video.categoryId === 5);
-                        let previusExamVideos = course.videos.filter(video => video.categoryId === 6);
+                        let theoreticalVideos = course.videos.filter(video => video.categoryId === 1).sort((a,b) => a.order > b.order ? 1 : a.order < b.order ? -1 : 0);
+                        let practicalVideos = course.videos.filter(video => video.categoryId === 2).sort((a,b) => a.order > b.order ? 1 : a.order < b.order ? -1 : 0);
+                        let integrativeVideoExams = course.videos.filter(video => video.categoryId === 3).sort((a,b) => a.order > b.order ? 1 : a.order < b.order ? -1 : 0);
+                        let levelingCycleVideos = course.videos.filter(video => video.categoryId === 4).sort((a,b) => a.order > b.order ? 1 : a.order < b.order ? -1 : 0);
+                        let integrativeExerciseVideos = course.videos.filter(video => video.categoryId === 5).sort((a,b) => a.order > b.order ? 1 : a.order < b.order ? -1 : 0);
+                        let previusExamVideos = course.videos.filter(video => video.categoryId === 6).sort((a,b) => a.order > b.order ? 1 : a.order < b.order ? -1 : 0);
 
                         let relatedCourses = await db.Course.findAll({
                             where: {
