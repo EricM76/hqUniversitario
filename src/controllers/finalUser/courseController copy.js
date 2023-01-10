@@ -65,7 +65,7 @@ module.exports = {
 
         if (suscribed) {
 
-            
+                
             let course =  db.Course.findByPk(req.params.id, {
                 include: [
                     {
@@ -106,63 +106,184 @@ module.exports = {
                     }
                 ]
             });
-            
+            const theoreticalHours =  db.Video.sum('length', {
+                where: {
+                    categoryId: 1,
+                    courseId: req.params.id
+                }
+            });
 
-            const videos = await db.Video.findAll({
-                where : {
+          /*   const { count : theoreticalCount, rows : theoreticalVideos } = await  db.Video.findAndCountAll({
+                where: {
+                    categoryId: 1,
+                    courseId: req.params.id
+                }
+            }); */
+
+            const theoreticalCount = db.Video.count({
+                where: {
+                    categoryId: 1,
+                    courseId: req.params.id
+                }
+            })
+
+            const theoreticalVideos = db.Video.findAll({
+                where: {
+                    categoryId: 1,
+                    courseId: req.params.id
+                },
+                order : ['order']
+            })
+
+            const videoPracticalWorkHours =  db.Video.sum('length', {
+                where: {
+                    categoryId: 2,
+                    courseId: req.params.id
+                }
+            });
+
+           /*  const { count: videoPracticalWorkCount, rows: practicalVideos } = await  db.Video.findAndCountAll({
+                where: {
+                    categoryId: 2,
+                    courseId: req.params.id
+                }
+            }); */
+
+            const videoPracticalWorkCount =  db.Video.count({
+                where: {
+                    categoryId: 2,
+                    courseId: req.params.id
+                }
+            });
+
+            const practicalVideos = db.Video.findAll({
+                where: {
+                    categoryId: 2,
+                    courseId: req.params.id
+                },
+                order : ['order']
+            });
+
+            const integrativeVideoExamsHours =  db.Video.sum('length', {
+                where: {
+                    categoryId: 3,
+                    courseId: req.params.id
+                }
+            });
+
+         /*    const { count: integrativeVideoExamsCount, rows: integrativeVideoExams } = await  db.Video.findAndCountAll({
+                where: {
+                    categoryId: 3,
+                    courseId: req.params.id
+                },
+                include : ['turn']
+            }); */
+
+            const integrativeVideoExamsCount =  db.Video.count({
+                where: {
+                    categoryId: 3,
                     courseId: req.params.id
                 },
                 include : ['turn']
             });
 
+            const integrativeVideoExams = db.Video.findAll({
+                where: {
+                    categoryId: 3,
+                    courseId: req.params.id
+                },
+                order : ['order'],
+                include : ['turn'],
 
-            const theoreticalVideos = videos.filter(video => video.categoryId === 1).sort((a,b) => a.order > b.order ? 1 : a.order < b.order ? -1 : 0);
-            const theoreticalCount = theoreticalVideos.length;
-            let theoreticalHours;
-            
-            if(theoreticalCount){
-                theoreticalHours = theoreticalVideos.map(video => video.length).reduce((acum,sum)=> acum + sum , 0)
-            };
+            });
 
-            const practicalVideos = videos.filter(video => video.categoryId === 2).sort((a,b) => a.order > b.order ? 1 : a.order < b.order ? -1 : 0);
-            const videoPracticalWorkCount = practicalVideos.length;
-            let videoPracticalWorkHours;
-            
-            if(videoPracticalWorkCount){
-                videoPracticalWorkHours = practicalVideos.map(video => video.length).reduce((acum,sum)=> acum + sum , 0)
-            };
+            const levelingCycleVideosHours =  db.Video.sum('length', {
+                where: {
+                    categoryId: 4,
+                    courseId: req.params.id
+                }
+            });
 
-            const integrativeVideoExams = videos.filter(video => video.categoryId === 3).sort((a,b) => a.order > b.order ? 1 : a.order < b.order ? -1 : 0);
-            const integrativeVideoExamsCount = integrativeVideoExams.length;
-            let integrativeVideoExamsHours;
-            
-            if(videoPracticalWorkCount){
-                integrativeVideoExamsHours = integrativeVideoExams.map(video => video.length).reduce((acum,sum)=> acum + sum , 0)
-            };
+         /*    const { count: levelingCycleVideosCount, rows: levelingCycleVideos } =  await db.Video.findAndCountAll({
+                where: {
+                    categoryId: 4,
+                    courseId: req.params.id
+                }
+            }); */
 
-            const levelingCycleVideos = videos.filter(video => video.categoryId === 4).sort((a,b) => a.order > b.order ? 1 : a.order < b.order ? -1 : 0);
-            const levelingCycleVideosCount = levelingCycleVideos.length;
-            let levelingCycleVideosHours;
-            
-            if(videoPracticalWorkCount){
-                levelingCycleVideosHours = levelingCycleVideos.map(video => video.length).reduce((acum,sum)=> acum + sum , 0)
-            };
+            const levelingCycleVideosCount =  db.Video.count({
+                where: {
+                    categoryId: 4,
+                    courseId: req.params.id
+                }
+            });
 
-            const integrativeExerciseVideos = videos.filter(video => video.categoryId === 5).sort((a,b) => a.order > b.order ? 1 : a.order < b.order ? -1 : 0);
-            const integrativeExerciseVideosCount = integrativeExerciseVideos.length;
-            let integrativeExerciseVideosHours;
-            
-            if(videoPracticalWorkCount){
-                integrativeExerciseVideosHours = integrativeExerciseVideos.map(video => video.length).reduce((acum,sum)=> acum + sum , 0)
-            };
+            const levelingCycleVideos =  db.Video.findAll({
+                where: {
+                    categoryId: 4,
+                    courseId: req.params.id
+                },
+                order : ['order']
+            });
 
-            const previusExamVideos = videos.filter(video => video.categoryId === 6).sort((a,b) => a.order > b.order ? 1 : a.order < b.order ? -1 : 0);
-            const previusExamVideosCount = previusExamVideos.length;
-            let previusExamVideosHours;
-            
-            if(previusExamVideosCount){
-                previusExamVideosHours = previusExamVideos.map(video => video.length).reduce((acum,sum)=> acum + sum , 0)
-            }
+
+            const integrativeExerciseVideosHours =  db.Video.sum('length', {
+                where: {
+                    categoryId: 5,
+                    courseId: req.params.id
+                }
+            });
+
+         /*    const { count: integrativeExerciseVideosCount, rows: integrativeExerciseVideos } = await db.Video.findAndCountAll({
+                where: {
+                    categoryId: 5,
+                    courseId: req.params.id
+                }
+            }); */
+
+            const integrativeExerciseVideosCount = db.Video.count({
+                where: {
+                    categoryId: 5,
+                    courseId: req.params.id
+                }
+            });
+
+            const integrativeExerciseVideos = db.Video.findAll({
+                where: {
+                    categoryId: 5,
+                    courseId: req.params.id
+                },
+                order : ['order']
+            });
+
+            const previusExamVideosHours =  db.Video.sum('length', {
+                where: {
+                    categoryId: 6,
+                    courseId: req.params.id
+                }
+            });
+
+        /*     const { count: previusExamVideosCount, rows: previusExamVideos } = await  db.Video.findAndCountAll({
+                where: {
+                    categoryId: 6,
+                    courseId: req.params.id
+                }
+            }); */
+
+            const previusExamVideosCount =  db.Video.count({
+                where: {
+                    categoryId: 6,
+                    courseId: req.params.id
+                }
+            });
+
+            const previusExamVideos =  db.Video.findAll({
+                where: {
+                    categoryId: 6,
+                    courseId: req.params.id
+                },
+                order : ['order']
+            });
 
             let user =  db.User.findByPk(req.session.user.id, {
                 attributes: ['id'],
@@ -188,11 +309,47 @@ module.exports = {
 
             Promise.all([
                 course,
+                theoreticalVideos,
+                theoreticalCount,
+                theoreticalHours,
+                practicalVideos,
+                videoPracticalWorkCount,
+                videoPracticalWorkHours,
+                integrativeVideoExams,
+                integrativeVideoExamsCount,
+                integrativeVideoExamsHours,
+                levelingCycleVideos,
+                levelingCycleVideosCount,
+                levelingCycleVideosHours,
+                integrativeExerciseVideos,
+                integrativeExerciseVideosHours,
+                integrativeExerciseVideosCount,
+                previusExamVideos,
+                previusExamVideosCount,
+                previusExamVideosHours,
                 user,
                 results,
                 turns,
             ]).then(([
                 course,
+                theoreticalVideos,
+                theoreticalCount,
+                theoreticalHours,
+                practicalVideos,
+                videoPracticalWorkCount,
+                videoPracticalWorkHours,
+                integrativeVideoExams,
+                integrativeVideoExamsCount,
+                integrativeVideoExamsHours,
+                levelingCycleVideos,
+                levelingCycleVideosCount,
+                levelingCycleVideosHours,
+                integrativeExerciseVideos,
+                integrativeExerciseVideosHours,
+                integrativeExerciseVideosCount,
+                previusExamVideos,
+                previusExamVideosCount,
+                previusExamVideosHours,
                 user,
                 results,
                 turns,
@@ -243,14 +400,9 @@ module.exports = {
                         }, */
                         {
                             association: 'videos',
-                            include: [
-                                {
-                                    association : 'turn',
-                                    attributes : ['month']
-                                },
-                              
-                            ],
+                            include: ['unit', 'turn'],
                             attributes : ['title','unitId','categoryId','length','resource','locked','description','id','turnId','year','order'],
+                            order : ['order']
                         },
                         {
                             association: 'notes',
@@ -306,8 +458,7 @@ module.exports = {
                                     association :'faculty',
                                     attributes : ['acronym']
                                 }
-                            ],
-                            attributes : ['name','image','description']
+                            ]
                         });
 
                         return res.render("finalUser/courseContent", {
