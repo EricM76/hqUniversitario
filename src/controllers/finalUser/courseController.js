@@ -307,7 +307,7 @@ module.exports = {
                                     attributes : ['acronym']
                                 }
                             ],
-                            attributes : ['name','image','description']
+                            attributes : ['name','image','description','id','review']
                         });
 
                         return res.render("finalUser/courseContent", {
