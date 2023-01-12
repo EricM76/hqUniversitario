@@ -143,17 +143,25 @@ const changeOptions = async (e,id) => {
 inputResource && inputResource.addEventListener('change', (event) => {
 
     if (event.target.files && event.target.files[0]) {
-        let reader = new FileReader();
+        if(!regExExt.exec(event.target.value)){
+            errorVideo.innerHTML = "Solo videos con extensión mp4";
+            event.target.value = null;
+        }else {
+            let reader = new FileReader();
 
-        reader.onload = function(e) {
-        videoPreview.src = e.target.result
-        videoTag.load()
+            reader.onload = function(e) {
+            videoPreview.src = e.target.result
+            videoTag.load()
+    
+            }.bind(this)
+    
+    
+            reader.readAsDataURL(event.target.files[0]);
+            resourceLabel.innerText = 'Cambiar video';
+            errorVideo.innerHTML = null;
 
-        }.bind(this)
-
-
-        reader.readAsDataURL(event.target.files[0]);
-        resourceLabel.innerText = 'Cambiar video';
+        }
+       
 
        
     }

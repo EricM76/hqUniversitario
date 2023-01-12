@@ -63,7 +63,7 @@ const filters = (req,file, cb) => {
             break;
         case 'video':
         case 'resource':
-            if(!file.originalname.match(/\.(mp4)$/)){
+            if(!file.originalname.match(/\.(mp4|MP4)$/)){
                 req.fileValidationError = "Solo se permite videos mp4";
                 console.log(req.fileValidationError)
                 return cb(null,false,req.fileValidationError);

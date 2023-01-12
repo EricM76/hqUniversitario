@@ -31,7 +31,7 @@
                                     <div class="col-12 col-lg-4">
                                         <div class="mb-3 has-validation">
                                             <input type="file" class="form-control" id="resource"
-                                                name="resource" accept="video/*" hidden>
+                                                name="resource" accept="video/*" hidden required>
                                             <video id="resourceTag" controls width="100%" onchange="console.log('epaaa')">
                                                 <source 
                                                     id="resourcePreview"
@@ -41,6 +41,7 @@
                                                 >
                                                 <p class="alert alert-danger">Upss, su navegador no soporta la reproducción de videos</p>
                                             </video>
+                                            <small class="text-danger" id="errorVideo"></small>
                                             <div class="invalid-feedback">
                                                 Debe cargar un video
                                               </div>
@@ -203,6 +204,10 @@
         let resourceLabel = document.getElementById('resourceLabel');
         let inputLenth = document.getElementById('length');
         let result;
+
+        let errorVideo = document.getElementById('errorVideo');
+        const regExExt = /(.mp4|MP4)$/i;
+
     
         const apiCall = async(url) => {
             try {
@@ -337,22 +342,26 @@
         inputResource.addEventListener('change', (event) => {
     
             if (event.target.files && event.target.files[0]) {
-                let reader = new FileReader();
-    
-                reader.onload = function(e) {
-                videoPreview.src = e.target.result
-                console.log(e.target.result);
-                console.log(videoTag)
-                videoTag.load()
-    
-                }.bind(this)
-    
-    
-                reader.readAsDataURL(event.target.files[0]);
-                resourceLabel.innerText = 'Cambiar video';
-    
-               
+                if(!regExExt.exec(event.target.value)){
+                    errorVideo.innerHTML = "Solo videos con extensión mp4";
+                    event.target.value = null;
+                    videoPreview.src = null;
+                }else {
+                    let reader = new FileReader();
+
+                    reader.onload = function(e) {
+                    videoPreview.src = e.target.result
+                    videoTag.load()
+            
+                    }.bind(this)
+            
+            
+                    reader.readAsDataURL(event.target.files[0]);
+                    resourceLabel.innerText = 'Cambiar video';
+                    errorVideo.innerHTML = null;
+                }
             }
+
         });
     
         videoTag.addEventListener('loadeddata', ({target}) => {
