@@ -96,10 +96,8 @@
             <!--   <a onclick="verifyCourse(event,'<%= course.id %>')" href="" class="button__dark" >
                   VER EL CONTENIDO DE LA MATERIA
               </a> -->
-              <a href=""  class="button__dark" data-bs-toggle="modal" data-bs-target="#loader">VER EL CONTENIDO DE LA MATERIA</a>
-              <%- include('partials/modal/loader',{
-                id :  course.id
-              }) %> 
+              <a href="/materia/contenido/<%=course.id%>?suscribe=false"  class="button__dark">VER EL CONTENIDO DE LA MATERIA</a>
+             
             </div>
           </div>
           </div>
