@@ -245,6 +245,7 @@ module.exports = {
                         }, */
                         {
                             association: 'videos',
+                            attributes : ['title','unitId','categoryId','length','resource','locked','description','id','turnId','year','order'],
                             include: [
                                 {
                                     association : 'turn',
@@ -252,7 +253,7 @@ module.exports = {
                                 },
                               
                             ],
-                            attributes : ['title','unitId','categoryId','length','resource','locked','description','id','turnId','year','order'],
+                         
                         },
                         {
                             association: 'notes',
@@ -264,8 +265,10 @@ module.exports = {
                         },
                         {
                             association: 'faculty',
+                            attributes : ['acronym'],
                             include: {
                                 association: 'categories',
+                                attributes : ['id'],
                                 include: {
                                     association: 'videos',
                                     attributes: ['courseId']
