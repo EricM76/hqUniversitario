@@ -295,7 +295,7 @@ module.exports = {
                         let integrativeExerciseVideos = course.videos.filter(video => video.categoryId === 5).sort((a,b) => a.order > b.order ? 1 : a.order < b.order ? -1 : 0);
                         let previusExamVideos = course.videos.filter(video => video.categoryId === 6).sort((a,b) => a.order > b.order ? 1 : a.order < b.order ? -1 : 0);
 
-                        let relatedCourses = await db.Course.findAll({
+                      /*   let relatedCourses = await db.Course.findAll({
                             where: {
                                 facultyId: course.facultyId,
                             },
@@ -310,11 +310,11 @@ module.exports = {
                                 }
                             ],
                             attributes : ['name','image','description','id','review']
-                        });
+                        }); */
 
                         return res.render("finalUser/courseContent", {
                             course,
-                            relatedCourses,
+                            relatedCourses : [],
                             theoreticalVideos,
                             practicalVideos,
                             integrativeVideoExams,
