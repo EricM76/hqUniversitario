@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Career',
-    paranoid : true
+    paranoid : false
   });
   return Career;
 };

@@ -80,7 +80,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Course',
-    paranoid : true
+    paranoid : false
   });
   return Course;
 };

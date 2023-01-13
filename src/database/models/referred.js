@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Referred',
-    paranoid : true
+    paranoid : false
   });
   return Referred;
 };
