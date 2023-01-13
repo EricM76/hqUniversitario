@@ -55,14 +55,16 @@ module.exports = {
     content: async (req, res) => {
 
 
-        let suscribed = await db.UserCourse.findOne({
+      /*   let suscribed = await db.UserCourse.findOne({
             where: {
                 userId: req.session.user && req.session.user.id || 0,
                 courseId: req.params.id,
                 active: true
             }
         });
+ */
 
+        let suscribed = false;
         if (suscribed) {
 
             
