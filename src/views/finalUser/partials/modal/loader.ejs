@@ -66,9 +66,11 @@
       const verifyCourse = async (courseId) => {
         
         try {
-          let response = await fetch('/users/verifycourse/' + courseId);
+          /* let response = await fetch('/users/verifycourse/' + courseId);
           let result = await response.json();
-          window.location.href = result.ok && result.url;
+          window.location.href = result.ok && result.url; */
+
+          window.location.href = `/materia/contenido/${courseId}?suscribe=false`
 
         } catch (error) {
           console.error
