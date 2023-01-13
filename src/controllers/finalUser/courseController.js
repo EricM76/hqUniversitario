@@ -311,7 +311,7 @@ module.exports = {
                             ],
                             attributes : ['name','image','description','id','review']
                         }); */
-
+                        return res.send(course)
                         return res.render("finalUser/courseContent", {
                             course,
                             relatedCourses : [],
