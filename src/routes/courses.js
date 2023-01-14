@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const {presentation,content, add, store, detail, edit, update,remove, filter, search, list, removeFeature, removeCareer, getDataVideo } = require('../controllers/coursesController');
+const {presentation,content, add, store, detail, edit, update,editVideos, remove, filter, search, list, removeFeature, removeCareer, getDataVideo, editTests } = require('../controllers/coursesController');
 
 const {uploadCourse} = require('../middlewares/upLoadFiles')
 
@@ -13,6 +13,8 @@ router
   .get('/detail/:id',detail)
   .get('/edit/:id',edit)
   .put('/update/:id',uploadCourse.fields([ {name:'image'}, {name:'video'}, {name:'note'}]),update)
+  .get('/edit/videos/:id', editVideos)
+  .get('/edit/tests/:id', editTests)
   .delete('/remove/:id',remove)
   .get('/filter',filter)
   .get('/search',search)

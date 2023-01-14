@@ -218,9 +218,11 @@ module.exports = {
             let universities =  db.University.findAll({
                 attributes : ['name','id']
             });
-            let faculties =  db.Faculty.findAll();
+            let faculties =  db.Faculty.findAll({
+                attributes : ['name','id']
+            });
             let teachers =  db.Teacher.findAll();
-            let categories =  db.Category.findAll();
+            /* let categories =  db.Category.findAll(); */
             let turns =  db.Turn.findAll();
             let countVideos =  db.Video.count({ where: { courseId: req.params.id } });
 
@@ -264,13 +266,12 @@ module.exports = {
                         association: 'turns',
                         attributes: ['id', 'month'],
                     },
-                    {
+              /*       {
                         association: 'videos',
-                        /* attributes: ['id', 'title'], */
                         attributes : ['courseId','order','title','length','locked','id','resource','categoryId']
 
-                    },
-                    {
+                    }, */
+                  /*   {
                         association: 'tests',
                         attributes: ['id', 'name', 'time'],
                         include: [
@@ -285,17 +286,16 @@ module.exports = {
                                 ]
                             }
                         ]
-                    },
+                    }, */
                 ]
             });
-            Promise.all([universities,faculties, teachers, categories, turns,countVideos, course ])
-                .then( ([universities,faculties, teachers, categories, turns,countVideos, course ])=> {
+            Promise.all([universities,faculties, teachers, turns,countVideos, course ])
+                .then( ([universities,faculties, teachers, turns,countVideos, course ])=> {
                     return res.render('admin/courseEdit', {
                         universities,
                         faculties,
                         teachers,
                         course,
-                        categories,
                         next: req.query.next ? req.query.next : 'info',
                         turns,
                         countVideos,
@@ -435,6 +435,95 @@ module.exports = {
             default:
                 break;
         }
+    },
+    editVideos :  (req,res) => {
+        let turns =  db.Turn.findAll();
+        let countVideos =  db.Video.count({ where: { courseId: req.params.id } });
+        let course = db.Course.findByPk(req.params.id, {
+            include: [
+                {
+                    association: 'university',
+                    attributes: ['id', 'name', 'acronym']
+                },
+                {
+                    association: 'faculty',
+                    attributes: ['id', 'name', 'acronym'],
+                    include:
+                    {
+                        association: 'categories',
+                        attributes: ['id', 'name'],
+                        order: ['id'],
+                      /*   include: {
+                            association : 'videos',
+                            attributes : ['courseId','order','title','length','locked','id','resource']
+                        } */
+                    }
+                },
+               
+                {
+                    association: 'videos',
+                    attributes : ['courseId','order','title','length','locked','id','resource','categoryId']
+
+                },
+                {
+                    association: 'units',
+                    attributes: ['id', 'number', 'name'],
+                },
+                {
+                    association: 'turns',
+                    attributes: ['id', 'month'],
+                },
+            
+            ]
+        })
+        
+        Promise.all([turns, course, countVideos]).then(([turns,course, countVideos]) => {
+            return res.render('admin/courseEditVideos',{
+                turns,
+                course,
+                countVideos,
+                urlCloudfont : process.env.CLOUDFONT_URL
+
+            })
+        }).catch(error => console.log(error))
+    },
+    editTests : (req,res) => {
+        db.Course.findByPk(req.params.id, {
+            include: [
+                {
+                    association: 'university',
+                    attributes: ['id', 'name', 'acronym']
+                },
+                {
+                    association: 'faculty',
+                    attributes: ['id', 'name', 'acronym'],
+                   
+                },
+                {
+                    association: 'tests',
+                    attributes: ['id', 'name', 'time'],
+                    include: [
+                        {
+                            association: 'questions',
+                            attributes: ['content','score'],
+                            include: [
+                                {
+                                    association: 'answers',
+                                    attributes: ['content', 'correct']
+                                }
+                            ]
+                        }
+                    ]
+                }, 
+            
+            ]
+        }).then((course) => {
+            return res.render('admin/courseEditTests',{
+                course,
+
+            })
+        }).catch(error => console.log(error))
+
     },
     remove: (req, res) => {
 

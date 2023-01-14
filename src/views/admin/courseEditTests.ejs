@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<%- include('./partials/head',{ title : 'Nueva materia' }) %>
+
+    <body class="courses bg-light">
+        <%- include('./partials/header') %>
+            <main class="container">
+                <section class="row mt-2 mt-md-3 mt-lg-5">
+                    <div class="col-12 mx-auto">
+                        <article class="card shadow">
+                            <div class="card-header">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="/courses">Materias</a></li>
+                                        <li class="breadcrumb-item"><a href="/courses/edit/<%= course.id %>"><%= course.name %> | <%= course.university.acronym %> | <%= course.faculty.acronym %></a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Editando exámenes</li>
+                                    </ol>
+                                </nav>
+                                <hr>
+                            </div>
+                            <div class="card-body">
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                   
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="examenes-tab"
+                                            data-bs-toggle="tab" data-bs-target="#examenes-tab-pane" type="button"
+                                            role="tab" aria-controls="exame
+                                            
+                                            -tab-pane"
+                        
+                        
+                                            aria-selected="false">Exámenes</button>
+                                    </li>
+                                  
+                                </ul>
+                                <div class="tab-content" id="myTabContent">
+                                  
+                                    <div class="tab-pane fade show active"
+                                        id="examenes-tab-pane" role="tabpanel" aria-labelledby="examenes-tab"
+                                        tabindex="0">
+                                        <div class="row mx-3 mt-2 mt-lg-3">
+
+                                            <%if(course.tests.length){%>
+                                                <div class="col-12 col-lg-6 mb-3 px-lg-1">
+                                                    <ol class="list-group">
+                                                        <%for (let i = 0; i < course.tests.length / 2; i++) {%>
+                                                        <li class="list-group-item d-flex flex-column flex-md-row justify-content-between">
+                                                            <a href="/tests/edit/<%=course.tests[i].id%>?course=<%=course.id%>"><%=course.tests[i].name%></a>
+                                                            <div class="text-secondary">
+                                                                <span><b><%=course.tests[i].questions.length%></b> preguntas</span> | <span><b><%=course.tests[i].time%></b> minutos</span>
+                                                            </div> 
+                                                        </li>
+                                                    <%}%>
+                                                    </ol>
+                                                   
+                                                </div>
+                                                <div class="col-12 col-lg-6 mb-3 px-md-1">
+                                                    <ol class="list-group ">
+                                                    <%for (let i = Math.round(course.tests.length / 2); i < course.tests.length; i++) {%>
+                                                        <li class="list-group-item d-flex flex-column flex-md-row justify-content-between">
+                                                            <a href="/tests/edit/<%=course.tests[i].id%>?course=<%=course.id%>"><%=course.tests[i].name%></a>
+                                                            <div class="text-secondary">
+                                                                <span><b><%=course.tests[i].questions.length%></b> preguntas</span> | <span><b><%=course.tests[i].time%></b> minutos</span>
+                                                            </div> 
+                                                        </li>
+                                                    <%}%> 
+                                                </ol>
+                                                </div>
+                                                
+                                            <%}else{%>
+                                                <p class="alert alert-warning">El curso aún no tiene exámenes agregados</p>
+                                               
+                                            <%}%>
+                                            <div class="text-end">
+                                                    <a class="btn btn-outline-primary" href="/tests/add/<%=course.id%>">Agregar exámen</a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                 
+                            </div>
+
+                            <div class="card-footer text-end mt-4">
+
+
+                            </div>
+                    </div>
+
+                    </article>
+
+                    </div>
+                </section>
+
+            </main>
+            <%- include('./partials/scripts') %>
+               <script src="/javascripts/courseEdit.js"></script>
+    </body>
+
+    </html>

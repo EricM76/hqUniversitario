@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<%- include('./partials/head',{ title : 'Nueva materia' }) %>
+
+    <body class="courses bg-light">
+        <%- include('./partials/header') %>
+            <main class="container">
+                <section class="row mt-2 mt-md-3 mt-lg-5">
+                    <div class="col-12 mx-auto">
+                        <article class="card shadow">
+                            <div class="card-header">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="/courses">Materias</a></li>
+                                        <li class="breadcrumb-item"><a href="/courses/edit/<%= course.id %>"><%= course.name %> | <%= course.university.acronym %> | <%= course.faculty.acronym %></a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Editando videos</li>
+                                    </ol>
+                                </nav>
+                                <hr>
+                            </div>
+                            <div class="card-body">
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                   
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="videos-tab"
+                                            data-bs-toggle="tab" data-bs-target="#videos-tab-pane" type="button"
+                                            role="tab" aria-controls="videos-tab-pane"
+                                            aria-selected="false">Videos</button>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="myTabContent">
+                                 
+                                    <div class="tab-pane fade show active"
+                                        id="videos-tab-pane" role="tabpanel" aria-labelledby="videos-tab" tabindex="0">
+                                        <div class="mx-3 mt-2 mt-lg-3">
+                                            <% if (course.videos.length> 0) { %>
+                                                <div class="accordion" id="accordionPanelsStayOpenExample">
+
+                                                <%course.faculty.categories.forEach((category,index) => {%>
+                                                    <div class="accordion-item">
+                                                        <h2 class="accordion-header" id="panelsStayOpen-heading<%=category.id%>">
+                                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse<%=category.id%>" aria-expanded="true" aria-controls="panelsStayOpen-collapse<%=category.id%>">
+                                                            <%= category.name %>
+                                                        </button>
+                                                        </h2>
+                                                        <div id="panelsStayOpen-collapse<%=category.id%>" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-heading<%=category.id%>">
+                                                        <div class="accordion-body">
+                                                            <ul class="list-group list-group-flush">
+                                                                <%if(course.videos.length){%>
+                                                                    <%course.videos.filter(video=> video.categoryId === category.id).sort((a,b)=> a.order > b.order ? 1 : a.order < b.order ? -1 : 0).forEach(video => {%>
+                                                                        <%if(video.courseId === course.id){%>
+                                                                        <li class="list-group-item d-flex justify-content-between">
+
+                                                                            <div class="d-flex align-items-center gap-2">
+                                                                                <strong><%= video.order%>.- <%=video.title%></strong> | <%=video.length%> min
+                                                                            </div>
+                                                                            <div class="d-flex gap-1">
+                                                                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalShowVideo<%=video.id%>">
+                                                                                    <i class="fas fa-play"></i>
+                                                                                </button>
+                                                                                <%- include('./modals/showVideo',{
+                                                                                    video,
+                                                                                    urlCloudfont
+                                                                                })%>
+                                                                                <label class="btn <%=video.locked ? 'btn-sm btn-dark' : 'btn-sm btn-warning'%>" for="changeLocked<%= video.id %>" id="changeLocked-label<%= video.id %>">
+                                                                                    <% if(video.locked) {%>
+                                                                                        <i class="fas fa-lock"></i>
+                                                                                    <%}else{%>
+                                                                                        <i class='fas fa-unlock'></i>
+                                                                                    <%}%>
+                                                                                </label>
+                                                                                <input type="checkbox"
+                                                                                    id="changeLocked<%= video.id %>" <%= video.locked && 'checked' %>  hidden onchange="this.value=this.checked; changeLocked('<%=video.id%>',event)">
+                                                                            
+                                                                                <a href="/videos/edit/<%=video.id%>/<%=course.id%>"  class="btn btn-sm btn-success"><i class="fas fa-edit"></i></a>
+                                                                                <form action="/videos/remove/<%=video.id%>?_method=DELETE&course=<%=course.id%>" method="POST" onsubmit="confirmDeleteVideo(event)">
+                                                                                    <button class="btn btn-sm btn-danger" type="submit"><i class="fas fa-trash-alt"></i></button>    
+
+                                                                                </form>
+                                                                            </div>
+                                                                        </li>
+                                                                     
+                                                                        <%}%>    
+                                                                    <%})%>
+                                                               
+                                                            </ul>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                    <%}%>
+                                                    
+                                                <%})%>
+                                                </div>
+                                               
+                                            <% }else{ %>
+                                                <p class="alert alert-warning">El curso aún no tiene
+                                                    videos agregados</p>
+                                                <% } %>
+                                                <div class="text-end">
+                                                
+                                                    <a class="btn btn-outline-primary mt-3" href="/videos/add/<%=course.id%>">Agregar video</a>
+                                                </div>
+                                            <%- include('./modals/addVideo') %>
+                                        </div>    
+                                    </div>
+                                   
+                                </div>
+                            </div>
+
+                            <div class="card-footer text-end mt-4">
+
+
+                            </div>
+                    </div>
+
+                    </article>
+
+                    </div>
+                </section>
+
+            </main>
+            <%- include('./partials/scripts') %>
+               <script src="/javascripts/courseEdit.js"></script>
+    </body>
+
+    </html>

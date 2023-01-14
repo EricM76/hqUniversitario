@@ -219,11 +219,11 @@ const addFeature = (feature) => {
     $('add-feature').focus();
 }
 
-$('btn-add-feature').addEventListener('click', () => {
+$('btn-add-feature') && $('btn-add-feature').addEventListener('click', () => {
     $('add-feature').value && addFeature($('add-feature').value)
 })
 
-$('add-feature').addEventListener('keyup', function(e) {
+$('add-feature') && $('add-feature').addEventListener('keyup', function(e) {
     if (e.key === 'Enter') {
         if (this.value) {
             addFeature(this.value)
@@ -231,33 +231,33 @@ $('add-feature').addEventListener('keyup', function(e) {
     }
 });
 
-$('add-feature').addEventListener('focus', () => {
+$('add-feature') && $('add-feature').addEventListener('focus', () => {
     $('form-addInfo-course') && $('form-addInfo-course').addEventListener('submit', (e) => e.preventDefault());
 })
 
-$('features').addEventListener('click', (e) => {
+$('features') && $('features').addEventListener('click', (e) => {
     if (e.target.id !== "features" && e.target.childNodes.length > 0) {
         e.target.parentElement.removeChild(e.target);
         $('add-feature') &&  $('add-feature').focus()
     }
 });
 
-$('careers').addEventListener('click', (e) => {
+$('careers') && $('careers').addEventListener('click', (e) => {
     if (e.target.id !== "careers" && e.target.childNodes.length > 0) {
         e.target.parentElement.removeChild(e.target);
     }
 });
 
-$('btn-submit').addEventListener('focus', () => {
+$('btn-submit') && $('btn-submit').addEventListener('focus', () => {
     $('form-addInfo-course').submit()
 });
 
-$('video').addEventListener('change', ({ target }) => {
+$('video') && $('video').addEventListener('change', ({ target }) => {
     let file = target.files[0];
     let blobURL = URL.createObjectURL(file);
     $("videoSource").src = blobURL;
 });
-$('image').addEventListener('change', ({ target }) => {
+$('image') && $('image').addEventListener('change', ({ target }) => {
     let reader = new FileReader();
     reader.readAsDataURL(target.files[0])
     reader.onload = () => {
