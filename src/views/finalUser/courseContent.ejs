@@ -84,7 +84,7 @@
               <div class="accordion w-100" id="accordionPanelsStayOpenExample">
   
               <%course.faculty.categories.forEach((category,index) => {%>
-                <% if (category.videos.length && (category.videos.filter(video => video.courseId == course.id)).length) { %>
+                <% if (course.videos.filter(video => video.categoryId == category.id).length) { %>
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="panelsStayOpen-heading<%=category.id%>">
                       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse<%=category.id%>" aria-expanded="false" aria-controls="panelsStayOpen-collapse<%=category.id%>">
@@ -525,7 +525,7 @@
       <div class="accordion w-100" id="accordionPanelsStayOpenExample">
 
       <%course.faculty.categories.forEach((category,index) => {%>
-        <%if(category.videos.filter(video => video.courseId === course.id).length){%>
+        <%if(course.videos.filter(video => video.categoryId === category.id).length){%>
           <div class="accordion-item">
               <h2 class="accordion-header" id="panelsStayOpen-heading<%=category.id%>">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse<%=category.id%>" aria-expanded="false" aria-controls="panelsStayOpen-collapse<%=category.id%>">

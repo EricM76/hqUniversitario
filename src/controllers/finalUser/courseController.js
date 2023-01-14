@@ -78,10 +78,10 @@ module.exports = {
                         association: 'faculty',
                         include: {
                             association: 'categories',
-                            include: {
+                           /*  include: {
                                 association: 'videos',
                                 attributes: ['courseId']
-                            }
+                            } */
                         }
                     },
                     {
@@ -244,7 +244,7 @@ module.exports = {
                         }, */
                         {
                             association: 'videos',
-                            attributes : ['title','unitId','categoryId','length','locked','description','id','turnId','year','order'],
+                            attributes : ['title','unitId','categoryId','length','resource','locked','description','id','turnId','year','order'],
                             include: [
                                 {
                                     association : 'turn',
@@ -268,10 +268,10 @@ module.exports = {
                             include: {
                                 association: 'categories',
                                 attributes : ['id','name'],
-                                include: {
+                               /*  include: {
                                     association: 'videos',
                                     attributes: ['courseId']
-                                }
+                                } */
                             }
                         },
                         {
