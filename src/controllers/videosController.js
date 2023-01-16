@@ -256,7 +256,7 @@ module.exports = {
           }
         )
 
-        return res.redirect(`/courses/edit/${req.query.course}?next=videos`)
+        return res.redirect(`/courses/edit/videos/${req.query.course}`)
 
       } catch (error) {
         console.log(error)
