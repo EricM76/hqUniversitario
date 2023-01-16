@@ -133,6 +133,15 @@ module.exports = {
     );
   },
   register: (req, res) => {
+    const TIME_IN_MILISECONDS = 0;
+
+    res.cookie(
+      "backurl",
+      req.headers.referer ? req.headers.referer : "/",
+      {
+        expires: TIME_IN_MILISECONDS,
+      }
+    );
     return res.render("finalUser/userRegister", { session: req.session });
   },
   processRegister: async (req, res) => {
