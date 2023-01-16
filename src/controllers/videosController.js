@@ -129,7 +129,7 @@ module.exports = {
         req.file && await uploadFile(req.file);
         fs.existsSync(`./src/assets/videos/${req.file.filename}`) && fs.unlinkSync(`./src/assets/videos/${req.file.filename}`)
 
-        return res.redirect(`/courses/edit/${req.query.course}?next=videos`)
+        return res.redirect(`/courses/edit/videos/${req.query.course}`)
 
       } catch (error) {
         console.log(error)
