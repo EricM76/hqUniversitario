@@ -10,7 +10,7 @@ module.exports = {
         });
         const getLastestCourses = db.Course.findAll({
             where: {
-                visible: true,
+                visible: false,
             },
             order: [["updatedAt", "DESC"]],
             limit: 10,
@@ -27,6 +27,7 @@ module.exports = {
                 session: req.session,
             })
         })
+        .catch(error => console.log(error))
     },
     admin : async (req,res) => {
         try {
