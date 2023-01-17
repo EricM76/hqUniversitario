@@ -12,7 +12,7 @@ module.exports = {
             where: {
                 visible: true,
             },
-            order: [["id", "DESC"]],
+            order: [["updatedAt", "DESC"]],
             limit: 10,
             include : ['university','faculty']
         });
