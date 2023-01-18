@@ -6,8 +6,8 @@ const { getUserMembershipData } = require("../../services/membershipService");
 const { getActivesUserCourses } = require("../../services/userCoursesService");
 
 module.exports = {
-    presentation: (req, res) => {
-        const courseId = req.params.id;
+    presentation: async (req, res) => {
+       /*  const courseId = req.params.id;
         db.Course.findByPk(courseId, {
             include: [
                 {
@@ -51,7 +51,7 @@ module.exports = {
             .catch(error => console.log(error))
 
     },
-    content: async (req, res) => {
+    content: async (req, res) => { */
 
 
         let suscribed = await db.UserCourse.findOne({
