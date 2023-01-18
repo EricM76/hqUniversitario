@@ -457,50 +457,8 @@
       </section>
       <!-- FIN BANNER -->
       <div class="row px-3">
-        <div class="col-12">
-        
-        </div>
         <div class="col-12 col-lg-4">
-           <!-- SECCIÓN RESUMEN DE CONTENIDO -->
-      <section class="coursePresentation__summary-content container py-5 ">
-        <div class="container">
-          <div class="row">
-            <div class="col-12 col-md-4 p-2">
-              <div class="shadow-sm p-2">
-                <h4 class="text-center">Apuntes</h4>
-                <p class="coursePresentation__summary-content-number text-center"><%= course.notes.length %></p>
-              </div>
-            </div>
-            <div class="col-12 col-md-4 p-2">
-              <div class="shadow-sm p-2">
-                <h4 class="text-center">Videos</h4>
-                <p class="coursePresentation__summary-content-number text-center"><%= course.videos.length %> </p>
-              </div>
-            </div>
-            <div class="col-12 col-md-4 p-2">
-              <div class="shadow-sm p-2">
-                <h4 class="text-center">Exámenes</h4>
-                <p class="coursePresentation__summary-content-number text-center"><%= course.tests.length %></p>
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="coursePresentation__summary-content--buttonContainer p-4 text-center">
-                <% if (!session.user) { %>
-                  <a  href="/usuario/registro"  class="button__dark--extended" >
-                    REGISTRATE Y OBTENÉ TU MEMBRESÍA
-                </a>
-                <% }else{ %>
-                  <a  href="/usuario/perfil#membership" class="button__dark--extended" >
-                    SUSCRIBITE A ESTA MATERIA
-                </a>
-                  <% }%>
-              </div>
-            </div>
-        
-            </div>
-          </div>
-        </section>
-      <!-- FIN RESUMEN DE CONTENIDO -->
+         
       <section class="px-4 mb-4">
         <div class="row gap-4">
          
@@ -533,10 +491,50 @@
           </div>
         </div>
       </section>
+        <!-- SECCIÓN RESUMEN DE CONTENIDO -->
+        <section class="coursePresentation__summary-content container py-5 ">
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-4 p-2">
+                <div class="shadow-sm p-2">
+                  <h4 class="text-center">Apuntes</h4>
+                  <p class="coursePresentation__summary-content-number text-center"><%= course.notes.length %></p>
+                </div>
+              </div>
+              <div class="col-12 col-md-4 p-2">
+                <div class="shadow-sm p-2">
+                  <h4 class="text-center">Videos</h4>
+                  <p class="coursePresentation__summary-content-number text-center"><%= course.videos.length %> </p>
+                </div>
+              </div>
+              <div class="col-12 col-md-4 p-2">
+                <div class="shadow-sm p-2">
+                  <h4 class="text-center">Exámenes</h4>
+                  <p class="coursePresentation__summary-content-number text-center"><%= course.tests.length %></p>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="coursePresentation__summary-content--buttonContainer p-4 text-center">
+                  <% if (!session.user) { %>
+                    <a  href="/usuario/registro"  class="button__dark--extended" >
+                      REGISTRATE Y OBTENÉ TU MEMBRESÍA
+                  </a>
+                  <% }else{ %>
+                    <a  href="/usuario/perfil#membership" class="button__dark--extended" >
+                      SUSCRIBITE A ESTA MATERIA
+                  </a>
+                    <% }%>
+                </div>
+              </div>
+          
+              </div>
+            </div>
+          </section>
+        <!-- FIN RESUMEN DE CONTENIDO -->
         </div>
         <div class="col-12 col-lg-8">
   <!-- SECCIÓN LISTADOVIDEOS -->
-  <section class="container mt-3 mt-lg-5 mb-5">
+  <section class="container mt-0 mt-md-0 mb-5">
     <% if (course.videos.length || course.notes.length) { %>
       <div class="accordion w-100" id="accordionPanelsStayOpenExample">
         <div class="accordion-item">
