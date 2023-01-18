@@ -559,8 +559,9 @@
                                         <div class=" d-flex flex-column justify-content-start flex-md-row justify-content-md-between">
                                         <div class="fw-bold">
                                           <div class="d-flex">
+                                            <% if (!video.locked) { %>
+
                                           <p class="text-dark m-0"><i class="fa fa-video-camera" aria-hidden="true"></i> <%=video.title%></p>
-                                          <% if (!video.locked) { %>
                                             <p type="button" class="ms-3 border-0 bg-transparent p-0 text-primary m-0" data-bs-toggle="modal" data-bs-target="#modalShowVideo<%=video.id%>">
                                               ver video
                                           </p>
@@ -568,8 +569,13 @@
                                               video,
                                               urlCloudfont
                                           })%>
-                                           <% } %>
-                  
+                                           <% }else{ %>
+                                              <% if (session.user) { %>
+                                                <a href="/usuario/perfil#membership"><i class="fa fa-video-camera" aria-hidden="true"></i> <%=video.title%></a>
+                                              <% }else{ %>
+                                                <a href="/usuario/registro"><i class="fa fa-video-camera" aria-hidden="true"></i> <%=video.title%></a>
+                                              <% } %>
+                                            <% } %>
                                           </div>
                   
                                           </div>
@@ -597,16 +603,22 @@
                         <div class="d-flex flex-column justify-content-start flex-md-row justify-content-md-between ">
                         <div class="fw-bold">
                           <div class="d-flex">
-                          <p class="text-dark m-0"><i class="fa fa-video-camera" aria-hidden="true"></i> <%=video.title%></p>
-                          <% if (!video.locked) { %>
-                            <p type="button" class="ms-3 border-0 bg-transparent p-0 text-primary m-0" data-bs-toggle="modal" data-bs-target="#modalShowVideo<%=video.id%>">
-                              ver video
-                          </p>
-                          <%- include('./partials/modal/showVideo',{
-                              video,
-                              urlCloudfont
-                          })%>
-                           <% } %>
+                            <% if (!video.locked) { %>
+                                <p class="text-dark m-0"><i class="fa fa-video-camera" aria-hidden="true"></i> <%=video.title%></p>
+                                  <p type="button" class="ms-3 border-0 bg-transparent p-0 text-primary m-0" data-bs-toggle="modal" data-bs-target="#modalShowVideo<%=video.id%>">
+                                    ver video
+                                </p>
+                                <%- include('./partials/modal/showVideo',{
+                                    video,
+                                    urlCloudfont
+                                })%>
+                            <% }else{ %>
+                                <% if (session.user) { %>
+                                  <a href="/usuario/perfil#membership"><i class="fa fa-video-camera" aria-hidden="true"></i> <%=video.title%></a>
+                                <% }else{ %>
+                                  <a href="/usuario/registro"><i class="fa fa-video-camera" aria-hidden="true"></i> <%=video.title%></a>
+                                <% } %>
+                            <% } %>
   
                           </div>
   
@@ -639,16 +651,25 @@
                                           <div class=" d-flex flex-column justify-content-start flex-md-row justify-content-md-between">
                                           <div class="fw-bold">
                                             <div class="d-flex">
-                                            <p class="text-dark m-0"><i class="fa fa-video-camera" aria-hidden="true"></i> <%=video.title%></p>
+
                                             <% if (!video.locked) { %>
-                                              <p type="button" class="ms-3 border-0 bg-transparent p-0 text-primary m-0" data-bs-toggle="modal" data-bs-target="#modalShowVideo<%=video.id%>">
-                                                ver video
-                                            </p>
-                                            <%- include('./partials/modal/showVideo',{
-                                                video,
-                                                urlCloudfont
-                                            })%>
-                                             <% } %>
+
+
+                                                <p class="text-dark m-0"><i class="fa fa-video-camera" aria-hidden="true"></i> <%=video.title%></p>
+                                                  <p type="button" class="ms-3 border-0 bg-transparent p-0 text-primary m-0" data-bs-toggle="modal" data-bs-target="#modalShowVideo<%=video.id%>">
+                                                    ver video
+                                                </p>
+                                                <%- include('./partials/modal/showVideo',{
+                                                    video,
+                                                    urlCloudfont
+                                                })%>
+                                                  <% }else{ %>
+                                                    <% if (session.user) { %>
+                                                      <a href="/usuario/perfil#membership"><i class="fa fa-video-camera" aria-hidden="true"></i> <%=video.title%></a>
+                                                    <% }else{ %>
+                                                      <a href="/usuario/registro"><i class="fa fa-video-camera" aria-hidden="true"></i> <%=video.title%></a>
+                                                    <% } %>
+                                                <% } %>
                     
                                             </div>
                     
@@ -710,17 +731,23 @@
               
                                                             <div class="fw-bold">
                                                               <div class="d-flex">
-                                                              <p class="text-dark m-0"><i class="fa fa-video-camera" aria-hidden="true"></i> <%=video.title%> <!-- <span class="text-muted">|  <%= video.turn.month %>/<%= video.year %></span> --></p>
+
                                                               <% if (!video.locked) { %>
-                                                                <p type="button" class="ms-3 border-0 bg-transparent p-0 text-primary m-0" data-bs-toggle="modal" data-bs-target="#modalShowVideo<%=video.id%>">
-                                                                  ver video
-                                                              </p>
-                                                              <%- include('./partials/modal/showVideo',{
-                                                                  video,
-                                                                  urlCloudfont
-                                                              })%>
-                                                               <% } %>
-                                      
+                                                                  <p class="text-dark m-0"><i class="fa fa-video-camera" aria-hidden="true"></i> <%=video.title%> <!-- <span class="text-muted">|  <%= video.turn.month %>/<%= video.year %></span> --></p>
+                                                                    <p type="button" class="ms-3 border-0 bg-transparent p-0 text-primary m-0" data-bs-toggle="modal" data-bs-target="#modalShowVideo<%=video.id%>">
+                                                                      ver video
+                                                                  </p>
+                                                                  <%- include('./partials/modal/showVideo',{
+                                                                      video,
+                                                                      urlCloudfont
+                                                                  })%>
+                                                                  <% }else{ %>
+                                                                    <% if (session.user) { %>
+                                                                      <a href="/usuario/perfil#membership"><i class="fa fa-video-camera" aria-hidden="true"></i> <%=video.title%></a>
+                                                                    <% }else{ %>
+                                                                      <a href="/usuario/registro"><i class="fa fa-video-camera" aria-hidden="true"></i> <%=video.title%></a>
+                                                                    <% } %>
+                                                                <% } %>
                                                               </div>
                                       
                                                               </div>
@@ -766,16 +793,22 @@
                               <div class="d-flex flex-column justify-content-start flex-md-row justify-content-md-between ">
                               <div class="fw-bold">
                                 <div class="d-flex">
-                                <p class="text-dark m-0"><i class="fa fa-video-camera" aria-hidden="true"></i> <%=video.title%></p>
-                                <% if (!video.locked) { %>
-                                  <p type="button" class="ms-3 border-0 bg-transparent p-0 text-primary m-0" data-bs-toggle="modal" data-bs-target="#modalShowVideo<%=video.id%>">
-                                    ver video
-                                </p>
-                                <%- include('./partials/modal/showVideo',{
-                                    video,
-                                    urlCloudfont
-                                })%>
-                                 <% } %>
+                                  <% if (!video.locked) { %>
+                                      <p class="text-dark m-0"><i class="fa fa-video-camera" aria-hidden="true"></i> <%=video.title%></p>
+                                      <p type="button" class="ms-3 border-0 bg-transparent p-0 text-primary m-0" data-bs-toggle="modal" data-bs-target="#modalShowVideo<%=video.id%>">
+                                        ver video
+                                      </p>
+                                      <%- include('./partials/modal/showVideo',{
+                                          video,
+                                          urlCloudfont
+                                      })%>
+                                  <% }else{ %>
+                                        <% if (session.user) { %>
+                                          <a href="/usuario/perfil#membership"><i class="fa fa-video-camera" aria-hidden="true"></i> <%=video.title%></a>
+                                        <% }else{ %>
+                                          <a href="/usuario/registro"><i class="fa fa-video-camera" aria-hidden="true"></i> <%=video.title%></a>
+                                        <% } %>
+                                  <% } %>
         
                                 </div>
         
@@ -795,16 +828,22 @@
                             <div class="d-flex flex-column justify-content-start flex-md-row justify-content-md-between ">
                             <div class="fw-bold">
                               <div class="d-flex">
-                                <p class="text-dark m-0"><i class="fa fa-video-camera" aria-hidden="true"></i> <%=video.title%> <span class="text-muted">|  <%= video.turn.month %>/<%= video.year %></span></p>
-                              <% if (!video.locked) { %>
-                                <p type="button" class="ms-3 border-0 bg-transparent p-0 text-primary m-0" data-bs-toggle="modal" data-bs-target="#modalShowVideo<%=video.id%>">
-                                  ver video
-                              </p>
-                              <%- include('./partials/modal/showVideo',{
-                                  video,
-                                  urlCloudfont
-                              })%>
-                               <% } %>
+                                <% if (!video.locked) { %>
+                                    <p class="text-dark m-0"><i class="fa fa-video-camera" aria-hidden="true"></i> <%=video.title%> <span class="text-muted">|  <%= video.turn.month %>/<%= video.year %></span></p>
+                                    <p type="button" class="ms-3 border-0 bg-transparent p-0 text-primary m-0" data-bs-toggle="modal" data-bs-target="#modalShowVideo<%=video.id%>">
+                                      ver video
+                                    </p>
+                                    <%- include('./partials/modal/showVideo',{
+                                        video,
+                                        urlCloudfont
+                                    })%>
+                                <% }else{ %>
+                                  <% if (session.user) { %>
+                                    <a href="/usuario/perfil#membership"><i class="fa fa-video-camera" aria-hidden="true"></i> <%=video.title%></a>
+                                  <% }else{ %>
+                                    <a href="/usuario/registro"><i class="fa fa-video-camera" aria-hidden="true"></i> <%=video.title%></a>
+                                  <% } %>
+                                <% } %>
       
                               </div>
       
