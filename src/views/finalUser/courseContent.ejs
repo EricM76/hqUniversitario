@@ -467,6 +467,19 @@
             <hr> -->
             <h5><%= course.description ? course.description : "Descripción de la materia" %> </h5>
           </div>
+          <div class="col-12">
+            <div class="coursePresentation__summary-content--buttonContainer p-4 text-center">
+              <% if (!session.user) { %>
+                <a  href="/usuario/registro"  class="button__dark--extended" >
+                  REGISTRATE Y OBTENÉ TU MEMBRESÍA
+              </a>
+              <% }else{ %>
+                <a  href="/usuario/perfil#membership" class="button__dark--extended" >
+                  SUSCRIBITE A ESTA MATERIA
+              </a>
+                <% }%>
+            </div>
+          </div>
           <div class="col-12 p-3 border">
             <h5 class="mb-2">Aprenderás</h5>
             <hr>
@@ -513,19 +526,7 @@
                   <p class="coursePresentation__summary-content-number text-center"><%= course.tests.length %></p>
                 </div>
               </div>
-              <div class="col-12">
-                <div class="coursePresentation__summary-content--buttonContainer p-4 text-center">
-                  <% if (!session.user) { %>
-                    <a  href="/usuario/registro"  class="button__dark--extended" >
-                      REGISTRATE Y OBTENÉ TU MEMBRESÍA
-                  </a>
-                  <% }else{ %>
-                    <a  href="/usuario/perfil#membership" class="button__dark--extended" >
-                      SUSCRIBITE A ESTA MATERIA
-                  </a>
-                    <% }%>
-                </div>
-              </div>
+            
           
               </div>
             </div>
