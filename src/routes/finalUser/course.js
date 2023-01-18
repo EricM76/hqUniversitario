@@ -5,7 +5,7 @@ const userSessionCheck = require("../../middlewares/userSessionCheck");
 
 router
     .get("/presentacion/:id", presentation)
-    //.get("/contenido/:id?", content)
+    .get("/contenido/:id?", presentation)
     .get("/seleccion", userSessionCheck, courseSelection)
     .get('/buscar', search)
     
