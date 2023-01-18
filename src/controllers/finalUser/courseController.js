@@ -238,9 +238,9 @@ module.exports = {
         } else {
                 let course = db.Course.findByPk(req.params.id, {
                     include: [
-                     /*    {
+                        {
                             association: 'features'
-                        }, */
+                        },
                         {
                             association: 'videos',
                             attributes : ['title','unitId','categoryId','length','resource','locked','description','id','turnId','year','order'],
