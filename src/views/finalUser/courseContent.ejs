@@ -527,25 +527,7 @@
                   <% }%>
               </div>
             </div>
-            <div class="col-12">
-              <% if (course.notes.length) { %>
-                <h4 class="mt-4">Apuntes de la materia</h4>
-                <hr>
-                <ul class=" list-group-flush ">
-                  <% course.notes.forEach(note => { %>
-                    <li class=" list-group-item d-flex justify-content-between align-items-start mb-3">
-                      <div>
-                        <i class="fa fa-file-pdf text-danger" aria-hidden="true"></i>
-                        <span><%= note.title %></span>
-                      </div>
-                      <a href="/notes/downloads/<%= note.file %>" class="btn btn-sm btn-outline-success">Descargar</a>
-                    </li>                       
-                  <% }) %>
-                </ul>
-              <% } %>
-            
-           
-            </div>
+        
             </div>
           </div>
         </section>
@@ -555,9 +537,33 @@
         <div class="col-12 col-lg-8">
   <!-- SECCIÓN LISTADOVIDEOS -->
   <section class="container mt-3 mt-lg-5 mb-5">
-    <% if (course.videos.length> 0) { %>
+    <% if (course.videos.length || course.notes.length) { %>
       <div class="accordion w-100" id="accordionPanelsStayOpenExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="panelsStayOpen-headingNotes">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseNotes" aria-expanded="false" aria-controls="panelsStayOpen-collapseNotes">
+              <h4>Apuntes de la materia</h4>
+          </button>
+          </h2>
+          <div id="panelsStayOpen-collapseNotes" class="accordion-collapse collapse " aria-labelledby="panelsStayOpen-headingNotes" data-bs-parent="#accordionPanelsStayOpenExample">
+            <div class="accordion-body">
+              <ul class="list-group list-group-flush">
+                <% if (course.notes.length) { %>
+                  <% course.notes.forEach(note => { %>
+                    <li class=" list-group-item d-flex justify-content-between align-items-start mb-3">
+                      <div>
+                        <i class="fa fa-file-pdf text-danger" aria-hidden="true"></i>
+                        <span><%= note.title %></span>
+                      </div>
+                      <a href="/notes/downloads/<%= note.file %>" class="btn btn-sm btn-outline-success">Descargar</a>
+                    </li>                       
+                  <% }) %>
+                <% } %>
 
+              </ul>
+            </div>
+          </div>
+      </div>
       <%course.faculty.categories.forEach((category,index) => {%>
         <%if(course.videos.filter(video => video.categoryId === category.id).length){%>
           <div class="accordion-item">
@@ -901,7 +907,37 @@
       </div>
      
   <% }else{ %>
-      <p class="alert alert-warning">El curso aún no tiene videos agregados</p>
+      <!-- <p class="alert alert-warning">El curso aún no tiene videos agregados</p> -->
+      <div class="accordion w-100" id="accordionPanelsStayOpenExample">
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingNotes">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseNotes" aria-expanded="false" aria-controls="panelsStayOpen-collapseNotes">
+                    <h4>Apuntes de la materia</h4>
+                   
+                </button>
+                </h2>
+                <div id="panelsStayOpen-collapseNotes" class="accordion-collapse collapse " aria-labelledby="panelsStayOpen-headingNotes" data-bs-parent="#accordionPanelsStayOpenExample">
+                  <div class="accordion-body">
+                    <ul class="list-group list-group-flush">
+                      <% if (course.notes.length) { %>
+                        <% course.notes.forEach(note => { %>
+                          <li class=" list-group-item d-flex justify-content-between align-items-start mb-3">
+                            <div>
+                              <i class="fa fa-file-pdf text-danger" aria-hidden="true"></i>
+                              <span><%= note.title %></span>
+                            </div>
+                            <a href="/notes/downloads/<%= note.file %>" class="btn btn-sm btn-outline-success">Descargar</a>
+                          </li>                       
+                        <% }) %>
+                      <% } %>
+
+                    </ul>
+                  </div>
+                </div>
+            </div>
+          
+          </div>
       <% } %>
   </section>
         <!-- FIN LISTADO DE VIDEOS -->
