@@ -90,10 +90,10 @@ module.exports = {
                 association : 'turns',
                 attributes : ['id','month'],
             },
-              {
+            /*   {
                   association : 'videos',
                   attributes : ['id','title'],
-              },
+              }, */
           ]
         })
 
