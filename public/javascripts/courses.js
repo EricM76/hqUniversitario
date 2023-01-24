@@ -129,9 +129,9 @@ $('features').addEventListener('click', (e) => {
     }
 });
 
-$('btn-submit').addEventListener('focus', () => {
+/* $('btn-submit').addEventListener('focus', () => {
     $('form-addInfo-course').submit()
-});
+}); */
 
 $('video').addEventListener('change', ({ target }) => {
     let file = target.files[0];

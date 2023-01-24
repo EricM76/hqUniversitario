@@ -18,14 +18,14 @@
                                 <hr>
                             </div>
                             <div class="card-body">
-                                <form action="" class="row g-2" method="POST">
+                                <form action="" class="needs-validation row g-2" method="POST" novalidate>
                                         <div class=" col-12 mb-3">
                                             <label for="area" class="form-label">Nombre:</label>
-                                            <input type="text" class="form-control" id="area" name="name">
+                                            <input type="text" class="form-control" id="area" name="name" required>
                                         </div>
                                         <div class=" col-12 col-md-6 mb-3">
                                             <label for="area" class="form-label">Universidad:</label>
-                                            <select class="form-select" aria-label="Default select example" name="universityId" id="universityId">
+                                            <select class="form-select" aria-label="Default select example" name="universityId" id="universityId" required>
                                                 <option value="" selected hidden>Seleccione...</option>
                                                 <% universities.forEach(university => { %>
                                                  <option value="<%= university.id %>"><%= university.name %></option>
@@ -34,7 +34,7 @@
                                         </div>
                                         <div class=" col-12 col-md-6 mb-3">
                                             <label for="area" class="form-label">Facultad:</label>
-                                            <select class="form-select" aria-label="Default select example" name="facultyId" id="facultyId">
+                                            <select class="form-select" aria-label="Default select example" name="facultyId" id="facultyId" required>
                                               </select>
                                         </div>
                                         <div class=" col-12 mb-3">

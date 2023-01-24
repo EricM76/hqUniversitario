@@ -18,7 +18,7 @@
                                 <hr>
                             </div>
                             <div class="card-body">
-                                <form action="" class="row g-2" enctype="multipart/form-data" method="POST">
+                                <form action="" class="row g-2 needs-validation" enctype="multipart/form-data" method="POST" novalidate>
                                     <div class="col-12 col-md-4 text-center">
                                         <img class="img-fluid" id="imgPrev" width="150px" src="/images/noImage.png"
                                             alt="vista previa">
@@ -34,15 +34,15 @@
                                     <div class="col-12 col-md-8">
                                         <div class="mb-3">
                                             <label for="name" class="form-label">Nombre:</label>
-                                            <input type="text" class="form-control" id="name" name="name">
+                                            <input type="text" class="form-control" id="name" name="name" required>
                                         </div>
                                         <div class="mb-3">
                                             <label for="acronym" class="form-label">Siglas:</label>
-                                            <input type="text" class="form-control" id="acronym" name="acronym">
+                                            <input type="text" class="form-control" id="acronym" name="acronym" required>
                                         </div>
                                         <div class="mb-3">
                                             <label for="universityId" class="form-label">Universidad:</label>
-                                            <select name="universityId" id="universityId" class="form-control">
+                                            <select name="universityId" id="universityId" class="form-control" required>
                                                 <option value="" selected hidden>Seleccione...</option>
                                                 <% universities.forEach(university => { %>
                                                  <option value="<%= university.id %>"><%= university.name %></option>

@@ -19,15 +19,15 @@
                             </div>
                             <div class="card-body">
                                
-                                        <form action="" class="row g-3 position-relative" enctype="multipart/form-data"
-                                            method="POST" id="form-addInfo-course">
+                                        <form action="" class="needs-validation row g-3 position-relative" enctype="multipart/form-data"
+                                            method="POST" id="form-addInfo-course" novalidate>
 
                                             <div class="col-12 col-lg-6">
                                                 <div class="row">
 
                                                     <div class=" col-12 mb-3">
                                                         <label for="name" class="form-label">Nombre:</label>
-                                                        <input type="text" class="form-control" id="name" name="name">
+                                                        <input type="text" class="form-control" id="name" name="name" required>
                                                     </div>
 
 
@@ -78,7 +78,7 @@
                                                         <label for="universityId"
                                                             class="form-label">Universidad:</label>
                                                         <select class="form-select" name="universityId"
-                                                            id="universityId">
+                                                            id="universityId" required>
                                                             <option value="" selected hidden>Seleccione...</option>
                                                             <% universities.forEach(university=> { %>
                                                                 <option value="<%= university.id %>">
@@ -89,7 +89,7 @@
                                                     </div>
                                                     <div class=" col-12 col-md-6 mb-3">
                                                         <label for="facultyId" class="form-label">Facultad:</label>
-                                                        <select class="form-select" name="facultyId" id="facultyId">
+                                                        <select class="form-select" name="facultyId" id="facultyId" required>
 
                                                         </select>
                                                     </div>
@@ -115,7 +115,7 @@
                                                         <div class="mb-3">
                                                             <label for="teacherId"
                                                                 class="form-label">Profesor/a:</label>
-                                                            <select class="form-select" id="teacherId" name="teacherId">
+                                                            <select class="form-select" id="teacherId" name="teacherId" required>
                                                                 <option value="" selected hidden>Seleccione...</option>
                                                                 <% teachers.forEach(teacher=> { %>
                                                                     <option value="<%= teacher.id %>">
