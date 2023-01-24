@@ -49,12 +49,11 @@ async function getFileURL(filename){
 }
 
 module.exports = {
-    add : async (req,res) => {
-      try {
-        let categories = await db.Category.findAll();
-        let units = await db.Unit.findAll();
-        let countVideos = await db.Video.count({where:{courseId:req.params.idCourse}});
-        let course = await db.Course.findByPk(req.params.idCourse, {
+    add :  (req,res) => {
+        let categories =  db.Category.findAll();
+        let units =  db.Unit.findAll();
+        let countVideos =  db.Video.count({where:{courseId:req.params.idCourse}});
+        let course =  db.Course.findByPk(req.params.idCourse, {
           include : [
               {
                   association : 'university',
@@ -96,16 +95,18 @@ module.exports = {
                   attributes : ['id','title'],
               },
           ]
-      });
-        return res.render('admin/videoAdd',{
-          categories,
-          units,
-          course,
-          countVideos
         })
-      } catch (error) {
-        console.log(error)
-      }
+
+      Promise.all([categories, units, countVideos,course])
+        .then(([categories, units, countVideos, course]) => {
+          return res.render('admin/videoAdd',{
+            categories,
+            units,
+            course,
+            countVideos
+          })
+        }) 
+   
     },
     store : async (req,res) => {
       const {length, title, description, locked, categoryId, year, turnId, unitId, order }= req.body;
