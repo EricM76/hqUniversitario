@@ -54,10 +54,12 @@ module.exports = {
                     ...options,
                     where : {email : req.query.referred}
                 });
-             } 
+             }
+             let memberships = await db.Membership.findAll()
             return res.render('admin/userDetail', {
                 user,
-                moment : moment
+                moment : moment,
+                memberships
             })
         } catch (error) {
             console.log(error)

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { universities, careers, referred, coursesByCarerr, userCourses, activeUserCourses, storeUserCourse, updateUserCourse, getUserInSession } = require("../../../controllers/finalUser/api/apiController");
+const { universities, careers, referred, coursesByCarerr, userCourses, activeUserCourses, storeUserCourse, updateUserCourse, getUserInSession, addMembershipUser } = require("../../../controllers/finalUser/api/apiController");
 
 router.get("/university", universities)
       .get("/career", careers)
@@ -12,5 +12,6 @@ router.get("/university", universities)
       .post("/userCourses/:userId", storeUserCourse)
       .put("/userCourses/:userId", updateUserCourse)
       .get("/usuario/sesion", getUserInSession)
+      .post("/usuario/add-membership",addMembershipUser)
       
 module.exports = router;
