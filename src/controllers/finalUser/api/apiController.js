@@ -1,5 +1,6 @@
 const { Op } = require("sequelize");
 const db = require("../../../database/models");
+const {add} = require('date-fns')
 
 module.exports = {
   universities: (req, res) => {
@@ -119,7 +120,7 @@ module.exports = {
 
       if (!newUserCourse) throw "Hubo un error al agregar el curso";
 
-      return res.status(201).json({message: `Materia agregada al usuario ${userId} correctamente`});
+      return res.status(201).json({ message: `Materia agregada al usuario ${userId} correctamente` });
     } catch (error) {
       return res.status(400).json(error);
     }
@@ -129,14 +130,14 @@ module.exports = {
       const userId = Number(req.params.userId);
 
       if (!userId) throw "Usuario no válido";
-      
+
       const { active, courseId } = req.body;
-      
-      const updateUserCourse = await db.UserCourse.update( { active }, { where: { [Op.and]: [ { userId }, { courseId }, ], }, } );
+
+      const updateUserCourse = await db.UserCourse.update({ active }, { where: { [Op.and]: [{ userId }, { courseId },], }, });
 
       if (!updateUserCourse) throw "Hubo un error al modificar la materia";
 
-      return res.status(201).json({message: `Materia modificada correctamente`})
+      return res.status(201).json({ message: `Materia modificada correctamente` })
 
     } catch (error) {
       return res.status(400).json(error);
@@ -145,5 +146,32 @@ module.exports = {
   getUserInSession: (req, res) => {
     console.log(req.session.user)
     return res.json(req.cookies)
+  },
+  addMembershipUser: async (req, res) => {
+    console.log(req.body);
+    const { userId, membershipId, days } = req.body;
+    try {
+      await db.User.update({
+        membershipId,
+        entry: new Date(),
+        status: true,
+        expires: add(new Date(), { days }),
+        freeMembership: true,
+      }, {
+        where: { id: userId }
+      })
+
+      return res.status(201).json({
+        ok : true,
+        msg : "Membresía asisgnada correctamente"
+      })
+
+    } catch (error) {
+      console.log(error)
+      return res.status(error.status || 500).json({
+        ok : false,
+        msg : error.message || "Upss, error!!"
+      })
+    }
   }
 };
