@@ -208,6 +208,9 @@ module.exports = {
     edit : async (req,res) => {
       const {videoId,courseId} = req.params;
       try {
+        let categories = await db.Category.findAll({
+          attributes : ['id','name']
+        })
         let video = await db.Video.findByPk(videoId);
         let course = await db.Course.findByPk(courseId,{
           include : [{
@@ -218,7 +221,8 @@ module.exports = {
         return res.render('admin/videoEdit',{
           video,
           id : courseId,
-          course
+          course,
+          categories
         })
       } catch (error) {
         console.log(error)

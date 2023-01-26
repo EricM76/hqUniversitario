@@ -83,9 +83,15 @@
                                                                 name="categoryId"
                                                                 onchange="changeOptions(event,'<%=video.id%>')"
                                                                 >
-                                                                <% course.faculty.categories.forEach(category => {%>
-                                                                    <option value="<%=category.id%>" <%= category.id === video.categoryId && 'selected' %> ><%=category.name%></option>
-                                                                <%})%>
+                                                                <% if (course.faculty.categories.length) { %>
+                                                                    <% course.faculty.categories.forEach(category => {%>
+                                                                        <option value="<%=category.id%>" <%= category.id === video.categoryId && 'selected' %> ><%=category.name%></option>
+                                                                    <%})%>
+                                                                <% }else{ %>
+                                                                    <% categories.forEach(category => {%>
+                                                                        <option value="<%=category.id%>" <%= category.id === video.categoryId && 'selected' %> ><%=category.name%></option>
+                                                                    <%})%>
+                                                                <% } %>
                                                             </select>
                                                             <input type="text" value="<%= course.id %>" id="inputCourse" hidden>
                                                         </div>

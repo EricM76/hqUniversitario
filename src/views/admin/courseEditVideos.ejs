@@ -35,61 +35,118 @@
                                         <div class="mx-3 mt-2 mt-lg-3">
                                             <% if (course.videos.length> 0) { %>
                                                 <div class="accordion" id="accordionPanelsStayOpenExample">
-
-                                                <%course.faculty.categories.forEach((category,index) => {%>
-                                                    <div class="accordion-item">
-                                                        <h2 class="accordion-header" id="panelsStayOpen-heading<%=category.id%>">
-                                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse<%=category.id%>" aria-expanded="true" aria-controls="panelsStayOpen-collapse<%=category.id%>">
-                                                            <%= category.name %>
-                                                        </button>
-                                                        </h2>
-                                                        <div id="panelsStayOpen-collapse<%=category.id%>" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-heading<%=category.id%>">
-                                                        <div class="accordion-body">
-                                                            <ul class="list-group list-group-flush">
-                                                                <%if(course.videos.length){%>
-                                                                    <%course.videos.filter(video=> video.categoryId === category.id).sort((a,b)=> a.order > b.order ? 1 : a.order < b.order ? -1 : 0).forEach(video => {%>
-                                                                        <%if(video.courseId === course.id){%>
-                                                                        <li class="list-group-item d-flex justify-content-between">
-
-                                                                            <div class="d-flex align-items-center gap-2">
-                                                                                <strong><%= video.order%>.- <%=video.title%></strong> | <%=video.length%> min
-                                                                            </div>
-                                                                            <div class="d-flex gap-1">
-                                                                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalShowVideo<%=video.id%>">
-                                                                                    <i class="fas fa-play"></i>
-                                                                                </button>
-                                                                                <%- include('./modals/showVideo',{
-                                                                                    video,
-                                                                                    urlCloudfont
-                                                                                })%>
-                                                                                <label class="btn <%=video.locked ? 'btn-sm btn-dark' : 'btn-sm btn-warning'%>" for="changeLocked<%= video.id %>" id="changeLocked-label<%= video.id %>">
-                                                                                    <% if(video.locked) {%>
-                                                                                        <i class="fas fa-lock"></i>
-                                                                                    <%}else{%>
-                                                                                        <i class='fas fa-unlock'></i>
-                                                                                    <%}%>
-                                                                                </label>
-                                                                                <input type="checkbox"
-                                                                                    id="changeLocked<%= video.id %>" <%= video.locked && 'checked' %>  hidden onchange="this.value=this.checked; changeLocked('<%=video.id%>',event)">
-                                                                            
-                                                                                <a href="/videos/edit/<%=video.id%>/<%=course.id%>"  class="btn btn-sm btn-success"><i class="fas fa-edit"></i></a>
-                                                                                <form action="/videos/remove/<%=video.id%>?_method=DELETE&course=<%=course.id%>" method="POST" onsubmit="confirmDeleteVideo(event)">
-                                                                                    <button class="btn btn-sm btn-danger" type="submit"><i class="fas fa-trash-alt"></i></button>    
-
-                                                                                </form>
-                                                                            </div>
-                                                                        </li>
-                                                                     
-                                                                        <%}%>    
-                                                                    <%})%>
-                                                               
-                                                            </ul>
-                                                        </div>
-                                                        </div>
-                                                    </div>
-                                                    <%}%>
-                                                    
-                                                <%})%>
+                                                    <% if (course.faculty.categories.length) { %>
+                                                        <%course.faculty.categories.forEach((category,index) => {%>
+                                                            <div class="accordion-item">
+                                                                <h2 class="accordion-header" id="panelsStayOpen-heading<%=category.id%>">
+                                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse<%=category.id%>" aria-expanded="true" aria-controls="panelsStayOpen-collapse<%=category.id%>">
+                                                                    <%= category.name %>
+                                                                </button>
+                                                                </h2>
+                                                                <div id="panelsStayOpen-collapse<%=category.id%>" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-heading<%=category.id%>">
+                                                                <div class="accordion-body">
+                                                                    <ul class="list-group list-group-flush">
+                                                                        <%if(course.videos.length){%>
+                                                                            <%course.videos.filter(video=> video.categoryId === category.id).sort((a,b)=> a.order > b.order ? 1 : a.order < b.order ? -1 : 0).forEach(video => {%>
+                                                                                <%if(video.courseId === course.id){%>
+                                                                                <li class="list-group-item d-flex justify-content-between">
+        
+                                                                                    <div class="d-flex align-items-center gap-2">
+                                                                                        <strong><%= video.order%>.- <%=video.title%></strong> | <%=video.length%> min
+                                                                                    </div>
+                                                                                    <div class="d-flex gap-1">
+                                                                                        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalShowVideo<%=video.id%>">
+                                                                                            <i class="fas fa-play"></i>
+                                                                                        </button>
+                                                                                        <%- include('./modals/showVideo',{
+                                                                                            video,
+                                                                                            urlCloudfont
+                                                                                        })%>
+                                                                                        <label class="btn <%=video.locked ? 'btn-sm btn-dark' : 'btn-sm btn-warning'%>" for="changeLocked<%= video.id %>" id="changeLocked-label<%= video.id %>">
+                                                                                            <% if(video.locked) {%>
+                                                                                                <i class="fas fa-lock"></i>
+                                                                                            <%}else{%>
+                                                                                                <i class='fas fa-unlock'></i>
+                                                                                            <%}%>
+                                                                                        </label>
+                                                                                        <input type="checkbox"
+                                                                                            id="changeLocked<%= video.id %>" <%= video.locked && 'checked' %>  hidden onchange="this.value=this.checked; changeLocked('<%=video.id%>',event)">
+                                                                                    
+                                                                                        <a href="/videos/edit/<%=video.id%>/<%=course.id%>"  class="btn btn-sm btn-success"><i class="fas fa-edit"></i></a>
+                                                                                        <form action="/videos/remove/<%=video.id%>?_method=DELETE&course=<%=course.id%>" method="POST" onsubmit="confirmDeleteVideo(event)">
+                                                                                            <button class="btn btn-sm btn-danger" type="submit"><i class="fas fa-trash-alt"></i></button>    
+        
+                                                                                        </form>
+                                                                                    </div>
+                                                                                </li>
+                                                                             
+                                                                                <%}%>    
+                                                                            <%})%>
+                                                                       
+                                                                    </ul>
+                                                                </div>
+                                                                </div>
+                                                            </div>
+                                                            <%}%>
+                                                            
+                                                        <%})%>
+                                                    <% }else{ %>
+                                                        <%categories.forEach((category,index) => {%>
+                                                            <div class="accordion-item">
+                                                                <h2 class="accordion-header" id="panelsStayOpen-heading<%=category.id%>">
+                                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse<%=category.id%>" aria-expanded="true" aria-controls="panelsStayOpen-collapse<%=category.id%>">
+                                                                    <%= category.name %>
+                                                                </button>
+                                                                </h2>
+                                                                <div id="panelsStayOpen-collapse<%=category.id%>" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-heading<%=category.id%>">
+                                                                <div class="accordion-body">
+                                                                    <ul class="list-group list-group-flush">
+                                                                        <%if(course.videos.length){%>
+                                                                            <%course.videos.filter(video=> video.categoryId === category.id).sort((a,b)=> a.order > b.order ? 1 : a.order < b.order ? -1 : 0).forEach(video => {%>
+                                                                                <%if(video.courseId === course.id){%>
+                                                                                <li class="list-group-item d-flex justify-content-between">
+        
+                                                                                    <div class="d-flex align-items-center gap-2">
+                                                                                        <strong><%= video.order%>.- <%=video.title%></strong> | <%=video.length%> min
+                                                                                    </div>
+                                                                                    <div class="d-flex gap-1">
+                                                                                        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalShowVideo<%=video.id%>">
+                                                                                            <i class="fas fa-play"></i>
+                                                                                        </button>
+                                                                                        <%- include('./modals/showVideo',{
+                                                                                            video,
+                                                                                            urlCloudfont
+                                                                                        })%>
+                                                                                        <label class="btn <%=video.locked ? 'btn-sm btn-dark' : 'btn-sm btn-warning'%>" for="changeLocked<%= video.id %>" id="changeLocked-label<%= video.id %>">
+                                                                                            <% if(video.locked) {%>
+                                                                                                <i class="fas fa-lock"></i>
+                                                                                            <%}else{%>
+                                                                                                <i class='fas fa-unlock'></i>
+                                                                                            <%}%>
+                                                                                        </label>
+                                                                                        <input type="checkbox"
+                                                                                            id="changeLocked<%= video.id %>" <%= video.locked && 'checked' %>  hidden onchange="this.value=this.checked; changeLocked('<%=video.id%>',event)">
+                                                                                    
+                                                                                        <a href="/videos/edit/<%=video.id%>/<%=course.id%>"  class="btn btn-sm btn-success"><i class="fas fa-edit"></i></a>
+                                                                                        <form action="/videos/remove/<%=video.id%>?_method=DELETE&course=<%=course.id%>" method="POST" onsubmit="confirmDeleteVideo(event)">
+                                                                                            <button class="btn btn-sm btn-danger" type="submit"><i class="fas fa-trash-alt"></i></button>    
+        
+                                                                                        </form>
+                                                                                    </div>
+                                                                                </li>
+                                                                             
+                                                                                <%}%>    
+                                                                            <%})%>
+                                                                       
+                                                                    </ul>
+                                                                </div>
+                                                                </div>
+                                                            </div>
+                                                            <%}%>
+                                                            
+                                                        <%})%>
+                                                    <% } %>
+                                              
                                                 </div>
                                                
                                             <% }else{ %>

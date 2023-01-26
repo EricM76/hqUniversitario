@@ -438,6 +438,9 @@ module.exports = {
     },
     editVideos :  (req,res) => {
         let turns =  db.Turn.findAll();
+        let categories = db.Category.findAll({
+            attributes : ['id','name']
+        })
         let countVideos =  db.Video.count({ where: { courseId: req.params.id } });
         let course = db.Course.findByPk(req.params.id, {
             include: [
@@ -477,12 +480,13 @@ module.exports = {
             ]
         })
         
-        Promise.all([turns, course, countVideos]).then(([turns,course, countVideos]) => {
+        Promise.all([turns, course, countVideos, categories]).then(([turns,course, countVideos, categories]) => {
             return res.render('admin/courseEditVideos',{
                 turns,
                 course,
                 countVideos,
-                urlCloudfont : process.env.CLOUDFONT_URL
+                urlCloudfont : process.env.CLOUDFONT_URL,
+                categories
 
             })
         }).catch(error => console.log(error))
