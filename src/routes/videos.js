@@ -2,20 +2,22 @@ const express = require('express');
 const router = express.Router();
 
 const {add, store,show, list, detail, edit, update, remove, search, filter, changeLocked, getVideoUrl, transfer, seenByUser, notSeenByUser,getViewedByUser, info} = require('../controllers/videosController');
+const adminCheck = require('../middlewares/adminCheck');
 const { uploadCourse } = require('../middlewares/upLoadFiles');
+const userSessionCheck = require('../middlewares/userSessionCheck');
 
 /* /videos */
 router
-  .get('/', list)
-  .get('/show',show)
-  .get('/detail/:id',detail)
-  .get('/add/:idCourse',add)
-  .post('/add',uploadCourse.single('resource'), store)
-  .get('/edit/:videoId/:courseId',edit)
-  .put('/update/:id',uploadCourse.single('resource'),update)
-  .delete('/remove/:id',remove)
-  .get('/search',search)
-  .get('/filter',filter)
+  .get('/',userSessionCheck, adminCheck, list)
+  .get('/show',userSessionCheck, adminCheck,show)
+  .get('/detail/:id',userSessionCheck, adminCheck,detail)
+  .get('/add/:idCourse',userSessionCheck, adminCheck,add)
+  .post('/add',uploadCourse.single('resource'),userSessionCheck, adminCheck, store)
+  .get('/edit/:videoId/:courseId',userSessionCheck, adminCheck,edit)
+  .put('/update/:id',uploadCourse.single('resource'),userSessionCheck, adminCheck,update)
+  .delete('/remove/:id',userSessionCheck, adminCheck,remove)
+  .get('/search',userSessionCheck, adminCheck,search)
+  .get('/filter',userSessionCheck, adminCheck,filter)
   /* apis */
   .get('/info',info)
   .put('/locked',changeLocked)
