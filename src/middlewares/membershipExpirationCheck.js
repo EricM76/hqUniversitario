@@ -11,20 +11,21 @@
             - active: false
 */
 
-const { isToday } = require("date-fns");
+const { isToday, isAfter } = require("date-fns");
 const db = require("../database/models");
 const { getUserMembershipData } = require("../services/membershipService");
+const { getActivesUserCourses } = require("../services/userCoursesService");
 
 const userMembershipExpirationCheck = async (req, res, next) => {
   if (req.session.user) {
     const { status, membershipId } = req.session.user;
-    console.log(status)
 
     if(status && membershipId){
         const { expires } = await getUserMembershipData(
             req.session.user.id
           );
-        if (isToday(new Date(expires))) {
+
+        if (isToday(new Date(expires)) || isAfter(new Date(),new Date(expires))) {
           try {
             let updateUser = await db.User.update(
               {

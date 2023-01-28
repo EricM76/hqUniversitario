@@ -17,8 +17,6 @@ module.exports = {
             include : ['university','faculty']
         });
 
-        
-       
         Promise.all([getUniversities, getLastestCourses])
         .then(([universities, lastestCourses]) => {
             return res.render("finalUser/home", {

@@ -9,13 +9,18 @@ module.exports = {
     const userId = req.params.userId;
 
     try {
-        const user = await db.User.findOne({
+        /* const user = await db.User.findOne({
             where: { id: userId },
             include: ["courses"],
         });
 
-        const activeUserCourses = user.courses.filter((course) => course.UserCourse.active);
-        const expiresCoursesToConfirm = activeUserCourses.filter((course) => isPast(course.UserCourse.continueConfirmationDate) && !course.UserCourse.continueConfirm)
+        const activeUserCourses = user.courses.filter((course) => course.UserCourse.active); */
+        const activeUserCourses = await db.UserCourse.findAll({
+          where: {
+            [Op.and]: [{userId: userId}, {active: 1}]
+          }
+        })
+        const expiresCoursesToConfirm = activeUserCourses.filter((course) => isPast(course.continueConfirmationDate) && !course.continueConfirm)
         const haveToConfirmContinueCourses = expiresCoursesToConfirm.length > 0;
         let response = {
             total: activeUserCourses.length,
