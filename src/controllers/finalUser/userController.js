@@ -126,6 +126,10 @@ module.exports = {
       userActiveCourses: data.activeUserCourses,
     };
 
+    console.log('====================================');
+    console.log(data);
+    console.log('====================================');
+
     return res.redirect(
       req.cookies.backurl != "undefined"
         ? req.cookies.backurl + "?userId=" + req.session.user.id
