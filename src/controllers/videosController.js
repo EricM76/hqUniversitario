@@ -3,7 +3,7 @@ const path = require('path');
 const db = require('../database/models');
 
 /* AWS S3 */
-const {S3Client, PutObjectCommand, GetObjectCommand} = require('@aws-sdk/client-s3');
+const {S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand} = require('@aws-sdk/client-s3');
 const {getSignedUrl} = require('@aws-sdk/s3-request-presigner')
 const {bucketName, bucketRegion, publicKey, secretKey} =require('../config/configAWS');
 
@@ -269,12 +269,16 @@ module.exports = {
     },
     remove : async (req,res) => {
       try {
+        let video = await db.Video.findByPk(req.params.id);
         await db.Video.destroy({
           where : {
             id : req.params.id
           }
-        })
-        return res.redirect(`/courses/edit/${req.query.course}?next=videos`)
+        });
+        await client.send(
+          new DeleteObjectCommand({ Bucket: bucketName, Key: video.resource })
+        );
+        return res.redirect(`/courses/edit/videos/${req.query.course}`)
       } catch (error) {
         console.log(error)
       }

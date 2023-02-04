@@ -31,7 +31,8 @@ module.exports = (sequelize, DataTypes) => {
         as : 'users',
         through : 'UserVideos',
         foreignKey : 'videoId',
-        otherKey : 'userId'
+        otherKey : 'userId',
+        onDelete :  'cascade'
       });
     }
   };

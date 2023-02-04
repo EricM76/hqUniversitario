@@ -37,7 +37,8 @@ module.exports = (sequelize, DataTypes) => {
         as : 'videos',
         through : 'UserVideos',
         foreignKey : 'userId',
-        otherKey : 'videoId'
+        otherKey : 'videoId',
+        onDelete : 'cascade'
       });
 
       User.belongsToMany(models.Test,{
