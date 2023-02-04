@@ -269,15 +269,15 @@ module.exports = {
     },
     remove : async (req,res) => {
       try {
-        let video = await db.Video.findByPk(req.params.id);
+        //let video = await db.Video.findByPk(req.params.id);
         await db.Video.destroy({
           where : {
             id : req.params.id
           }
         });
-        await client.send(
+        /* await client.send(
           new DeleteObjectCommand({ Bucket: bucketName, Key: video.resource })
-        );
+        ); */
         return res.redirect(`/courses/edit/videos/${req.query.course}`)
       } catch (error) {
         console.log(error)
