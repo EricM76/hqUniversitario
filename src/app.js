@@ -25,6 +25,7 @@ const methoOverride = require('method-override');
 const session = require('express-session');
 const passport = require('passport');
 const userMembershipExpirationCheck = require('./middlewares/membershipExpirationCheck');
+const localsUserCheck = require('./middlewares/localsUserCheck');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -46,6 +47,7 @@ app.use(cookieSession);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(userMembershipExpirationCheck);
+app.use(localsUserCheck)
 
 
 /* ROUTES */
