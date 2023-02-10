@@ -65,7 +65,7 @@
             <div class="col-12 col-md-6 p-3 d-flex  flex-column">
               <h2>Progreso</h2>       
               <div class="progress">
-                <div class="progress-bar progress-bar-striped bg-dark" role="progressbar" id="showProgress" style="width: <%= videosViewed.length ? Math.floor(videosViewed.length * 100 / course.videos.length) : 0 %>%"><%= videosViewed.length ? Math.floor(videosViewed.length * 100 / course.videos.length) : 0 %> %</div>
+                <div class="progress-bar progress-bar-striped bg-dark" role="progressbar" id="showProgress" style="width: <%= videosViewed.length ? Math.floor(videosViewed.length * 100 / videosCount.length) : 0 %>%"><%= videosViewed.length ? Math.floor(videosViewed.length * 100 / videosCount.length) : 0 %> %</div>
               </div> 
           </div>       
         </div>
