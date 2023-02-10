@@ -68,11 +68,10 @@ module.exports = {
             
             let course =  db.Course.findByPk(req.params.id, {
                 include: [
-                  /*   {
+                    {
                         association: 'videos',
-                        include: ['category'],
-                        order: [['order']]
-                    }, */
+                        attributes : ['id']
+                    },
                     {
                         association: 'faculty',
                         include: {
