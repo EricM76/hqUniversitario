@@ -73,6 +73,7 @@ module.exports = {
                         include: ['category'],
                         order: [['order']]
                     },
+                     */
                     {
                         association: 'faculty',
                         include: {
