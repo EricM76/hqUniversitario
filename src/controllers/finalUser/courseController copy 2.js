@@ -68,11 +68,11 @@ module.exports = {
             
             let course =  db.Course.findByPk(req.params.id, {
                 include: [
-                  /*   {
+                    {
                         association: 'videos',
                         include: ['category'],
                         order: [['order']]
-                    }, */
+                    },
                     {
                         association: 'faculty',
                         include: {
@@ -230,8 +230,7 @@ module.exports = {
                             urlCloudfont: process.env.CLOUDFONT_URL,
                             results,
                             shuffle,
-                            turns,
-                            videosCount : videos.length
+                            turns
                         });
             }).catch (error =>  {
                     console.log(error)
