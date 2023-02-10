@@ -70,8 +70,9 @@ module.exports = {
                 include: [
                    /*  {
                         association: 'videos',
-                        attributes : ['id']
-                    }, */
+                        include: ['category'],
+                        order: [['order']]
+                    },
                     {
                         association: 'faculty',
                         include: {
