@@ -464,6 +464,7 @@ module.exports = {
           activeCourses.activeUserCourses,
           selectedCourses
         );
+
         if (isActive) {
           const activeNameCoursesList = coursesFound.map(
             (course) => course.name
@@ -518,12 +519,12 @@ module.exports = {
               continueConfirm: false,
             };
             const course = await db.UserCourse.create(courseToAdd);
-            const { data: activeCourses } = await getActivesUserCourses(
+            const { data } = await getActivesUserCourses(
               user.id
             );
             req.session.user = {
               ...req.session.user,
-              userActiveCourses: activeCourses,
+              userActiveCourses: data.activeUserCourses,
             };
 
             return res

@@ -17,8 +17,9 @@ module.exports = {
         const activeUserCourses = user.courses.filter((course) => course.UserCourse.active); */
         const activeUserCourses = await db.UserCourse.findAll({
           where: {
-            [Op.and]: [{userId: userId}, {active: 1}]
-          }
+            [Op.and]: [{userId: userId}, {active: 1}],
+          },
+          include: ["course"]
         })
         const expiresCoursesToConfirm = activeUserCourses.filter((course) => isPast(course.continueConfirmationDate) && !course.continueConfirm)
         const haveToConfirmContinueCourses = expiresCoursesToConfirm.length > 0;

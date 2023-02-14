@@ -336,22 +336,29 @@ module.exports = {
         }
     },
     courseSelection: async (req, res) => {
-        const user = await db.User.findByPk(req.session.user.id, { include: ["membership"] });
-        const userMembershipInfo = await getUserMembershipData(req.session.user.id)
-        const activeCourses = await getActivesUserCourses(req.session.user.id)
-        const userMembership = user.membership;
-        const userMembershipExpires = format(new Date(user.expires), "dd/MM/yyyy");
 
-        res.render("finalUser/userCoursesSelection", {
-            session: req.session,
-            user,
-            userMembership,
-            userMembershipExpires,
-            userMembershipInfo: userMembershipInfo,
-            activeUserCourses: activeCourses.data.activeUserCourses,
-            haveToConfirmContinueCourses: activeCourses.data.haveToConfirmContinueCourses, 
-            expiresCoursesToConfirm: activeCourses.data.expiresCoursesToConfirm, 
-        });
+        try {
+            const user = await db.User.findByPk(req.session.user.id, { include: ["membership"] });
+            const userMembershipInfo = await getUserMembershipData(req.session.user.id)
+            const activeCourses = await getActivesUserCourses(req.session.user.id)
+            const userMembership = user.membership;
+            const userMembershipExpires = format(new Date(user.expires), "dd/MM/yyyy");
+            //req.session.user.userActiveCourses = activeCourses.data.activeUserCourses,
+
+            res.render("finalUser/userCoursesSelection", {
+                session: req.session,
+                user,
+                userMembership,
+                userMembershipExpires,
+                userMembershipInfo: userMembershipInfo,
+                activeUserCourses: activeCourses.data.activeUserCourses,
+                haveToConfirmContinueCourses: activeCourses.data.haveToConfirmContinueCourses, 
+                expiresCoursesToConfirm: activeCourses.data.expiresCoursesToConfirm, 
+            });
+        } catch (error) {
+            console.log(error);
+        }
+       
     },
     search: async (req, res) => {
         try {
