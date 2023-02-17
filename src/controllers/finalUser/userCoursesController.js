@@ -9,18 +9,18 @@ module.exports = {
     const userId = req.params.userId;
 
     try {
-        /* const user = await db.User.findOne({
+        const user = await db.User.findOne({
             where: { id: userId },
             include: ["courses"],
         });
 
-        const activeUserCourses = user.courses.filter((course) => course.UserCourse.active); */
-        const activeUserCourses = await db.UserCourse.findAll({
+        const activeUserCourses = user.courses.filter((course) => course.UserCourse.active);
+       /*  const activeUserCourses = await db.UserCourse.findAll({
           where: {
             [Op.and]: [{userId: userId}, {active: 1}],
           },
           include: ["course"]
-        });
+        }); */
         console.log('====================================');
         console.log(activeUserCourses);
         console.log('====================================');
