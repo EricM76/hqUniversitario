@@ -20,7 +20,10 @@ module.exports = {
             [Op.and]: [{userId: userId}, {active: 1}],
           },
           include: ["course"]
-        })
+        });
+        console.log('====================================');
+        console.log(activeUserCourses);
+        console.log('====================================');
         const expiresCoursesToConfirm = activeUserCourses.filter((course) => isPast(course.continueConfirmationDate) && !course.continueConfirm)
         const haveToConfirmContinueCourses = expiresCoursesToConfirm.length > 0;
         let response = {

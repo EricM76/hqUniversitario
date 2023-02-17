@@ -106,9 +106,7 @@ module.exports = {
   },
   googleLogin: async (req, res) => {
     let user = req.session.passport.user;
-    let userActiveCourses = user.courses.filter(
-      (course) => course.UserCourse.active
-    );    
+    const { data } = await getActivesUserCourses(user.id);
     const userMembershipInfo = await getUserMembershipData(user.id);
 
     req.session.user = {
@@ -125,8 +123,12 @@ module.exports = {
         userMembershipInfo.expires !== undefined
           ? userMembershipInfo.expires
           : null,
-      userActiveCourses,
+      userActiveCourses: data.activeUserCourses,
     };
+
+    console.log('====================================');
+    console.log(data);
+    console.log('====================================');
 
     return res.redirect(
       req.cookies.backurl != "undefined"
