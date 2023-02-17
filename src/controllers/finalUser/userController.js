@@ -61,7 +61,7 @@ module.exports = {
       })
         .then(async (user) => {
           let userActiveCourses = user.courses.filter(
-            (course) => course.UserCourse.active
+            (course) => course.active
           );
           const userMembershipInfo = await getUserMembershipData(user.id);
 
