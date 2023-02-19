@@ -209,6 +209,7 @@
                             <% }else if (category.id === 3) { %>
                               <!-- examenes integradores -->
                               <% for( let year = 2005; year <= (new Date()).getFullYear(); year++ ) { %>
+                                
                                 <% if (integrativeVideoExams.map(video => video.year).includes(year)) { %>
                                   <li class="list-group-item ">
                                     <div class="accordion accordion-flush" id="accordionFlushExample">
@@ -297,9 +298,37 @@
                           
                               <% }else if (category.id === 6) { %>
                                 <!-- examenes anteriores -->
-                                <% previusExamVideos.forEach(video => { %>
-                                  <li class="list-group-item ">
-                                    <p class="text-muted text-end m-0"><%=video.length%> min</p>
+
+
+                                <% for( let year = 2005; year <= (new Date()).getFullYear(); year++ ) { %>
+                                  <% if (previusExamVideos.map(video => video.year).includes(year)) { %>
+                                    <li class="list-group-item ">
+                                      <div class="accordion accordion-flush" id="accordionFlushExample">
+                                        <div class="accordion-item">
+                                          <h2 class="accordion-header" id="flush-headingOne">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-previusExamVideos-<%=year%>" aria-expanded="false" aria-controls="flush-previusExamVideos-<%=year%>">
+                                              <h6 class="mb-3">Año: <%= year %></h6>
+                                            </button>
+                                          </h2>
+                                          <div id="flush-previusExamVideos-<%=year%>" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                            <div class="accordion-body">
+                                              <ul class="list-group-flush">
+                                                <% turns.forEach(turn => { %>
+                                                  <% if (previusExamVideos.map(video => video.turnId).includes(turn.id) && previusExamVideos.filter(video => video.turnId === turn.id && video.year === year).length) { %>
+        
+                                                  <div class="accordion accordion-flush" id="accordionFlushExample-<%=turn.id%><%= year %>">
+                                                    <div class="accordion-item">
+                                                      <h2 class="accordion-header" id="flush-headingOne-<%=turn.id%><%= year %>">
+                                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-previusExamVideos-<%=turn.id%><%= year %>" aria-expanded="false" aria-controls="flush-previusExamVideos-<%=turn.id%><%= year %>">
+                                                          <h6 class="mb-3">Turno: <%= turn.month %></h6>
+                                                        </button>
+                                                      </h2>
+                                                      <div id="flush-previusExamVideos-<%=turn.id%><%= year %>" class="accordion-collapse collapse" aria-labelledby="flush-headingOne-<%=turn.id%><%= year %>" data-bs-parent="#accordionFlushExample-<%=turn.id%><%= year %>">
+                                                        <div class="accordion-body">
+                                                          <ul class="list-group-flush">
+                                                            <% previusExamVideos.forEach(video => { %>
+                                                              <% if (video.year === year && video.turnId === turn.id) { %>
+                                                                <p class="text-muted text-end m-0"><%=video.length%> min</p>
                                 <div class=" d-flex flex-column justify-content-start flex-md-row justify-content-md-between">
                                 <div class="me-auto">
                                   <div class="fw-bold">
@@ -314,8 +343,27 @@
                                   </div>   
                               </div>
                                 <small class="text-muted ms-3 mt-0"><%= video.description %> </small>      
-                                </li>
-                            <% }) %>
+                      
+                                                              <% } %>
+                                                              <% }) %>
+                                                          </ul>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <% } %>
+                                                <% }) %>
+                                              </ul>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </li>
+                                  <% } %>
+                                 
+                                <% } %>
+
+                          
                         
                             <% } %>
                         
