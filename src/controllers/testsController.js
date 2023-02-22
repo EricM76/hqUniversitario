@@ -22,7 +22,7 @@ module.exports = {
                 courseId: req.query.course
             })
             if (test) {
-                return res.redirect(`/tests/edit/${test.id}?course=${req.query.course}&new=true`)
+                return res.redirect(`/courses/edit/tests/${test.courseId}`)
             }
 
         } catch (error) {
@@ -146,7 +146,7 @@ module.exports = {
                 )
             })
            
-            return res.redirect(`/courses/edit/${req.query.course}?next=tests`)
+            return res.redirect(`/courses/edit/tests/${req.query.course}`)
             
         } catch (error) {
             console.log(error)

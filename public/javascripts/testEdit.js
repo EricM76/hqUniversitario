@@ -295,7 +295,7 @@ const deleteTest = async (idTest, idCourse) => {
                     timer: 1500
                 })
                 setTimeout(() => {
-                    window.location.href = `/courses/edit/${idCourse}?next=tests`
+                    window.location.href = `/courses/edit/tests/${idCourse}`
                 }, 1500);
 
             } catch (error) {

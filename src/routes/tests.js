@@ -8,6 +8,7 @@ const userSessionCheck = require('../middlewares/userSessionCheck');
 /* /tests */
 router
   .get('/',userSessionCheck, adminCheck, list)
+  .get('/edit/:id',userSessionCheck, adminCheck,edit)
   .get('/detail/:id',userSessionCheck, adminCheck,detail)
   .get('/add/:idCourse',userSessionCheck, adminCheck,add)
   .post('/add',userSessionCheck, adminCheck,store)
