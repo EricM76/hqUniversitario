@@ -29,7 +29,7 @@
                         <div class="h-100">
                             <h5 class="border-bottom p-2 mb-2">Tus materias activas <span><%= userMembershipInfo.activesUserCourses %> de un total de <%= userMembershipInfo.membershipQuota %>  </span></h5>
                             <% activeUserCourses.forEach(course => { %>
-                                <a href="/materia/contenido/<%- course.courseId %>"><span class="badge rounded-pill text-bg-success fs-4"><%- course.course.name %></span></a>
+                                <a href="/materia/contenido/<%- course.courseId %>"><span class="badge rounded-pill text-bg-success fs-4"><%- course.name %></span></a>
                             <% }) %>
                         </div> 
                     </div>
