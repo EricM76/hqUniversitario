@@ -10,9 +10,10 @@
                     <div class="mb-3">
                         <label class="form-label">Pregunta:</label>
                         <div class="row gap-3">
-                            <div class="col-12 col-lg-7 d-flex gap-3">
-                                <input type="text" name="question" id="question" class="form-control new-question"
-                                placeholder="Escriba aquí el texto de la pregunta" onfocus="this.classList.remove('is-invalid')"/>
+                            <div class="col-12 d-flex gap-3">
+                                <textarea class="form-control new-question" name="question" rows=2 id="question" rows="1" onfocus="this.classList.remove('is-invalid')" placeholder="Escriba aquí el texto de la pregunta" style="resize: none;"></textarea>
+                                <!-- <input type="text" name="question" id="question" class="form-control new-question"
+                                placeholder="Escriba aquí el texto de la pregunta" onfocus="this.classList.remove('is-invalid')"/> -->
                                 <div class="input-group" style="width: 200px;">
                                     <span class="input-group-text" id="basic-addon1">Puntaje</span>
                                     <input type="text" class="form-control" name="score"  onfocus="this.classList.remove('is-invalid')">
