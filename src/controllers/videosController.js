@@ -403,6 +403,9 @@ module.exports = {
     },
     getViewedByUser : async (req,res) => {
       try {
+        if(!req.session.user ){
+          throw new Error('No hay usuario logueado')
+        }
         let user = await db.User.findByPk(req.session.user.id,{
           attributes : ['id'],
           include : [
