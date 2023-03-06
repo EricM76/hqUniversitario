@@ -444,6 +444,9 @@ module.exports = {
     info : async (req,res) => {
       const {videoId, courseId} = req.query;
       try {
+        if(!videoId || !courseId){
+          throw new Error('upss, faltan parámetros')
+        }
         let course = await db.Course.findByPk(courseId,{
           attributes : ['id'],
           include :[
@@ -457,7 +460,7 @@ module.exports = {
         },
       ],
         })
-        let video = await db.Video.findByPk(videoId);
+        let video =   await db.Video.findByPk(videoId);
         return res.status(200).json({
           ok: true,
           video,
