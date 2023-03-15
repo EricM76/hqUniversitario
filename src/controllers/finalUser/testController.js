@@ -1,5 +1,44 @@
 const db = require('../../database/models')
 module.exports = {
+    list : (req,res) => {
+
+     let course = db.Course.findByPk(req.params.id, {
+        attributes : ['id'],
+            include: [
+             
+                {
+                    association: 'tests',
+                    include: [
+                        {
+                            association: 'questions',
+                            include: ['answers']
+                        }
+                    ]
+                },
+            
+            ]
+        })
+
+        let results = db.UserTest.findAll({
+            where : {
+                userId : req.session.user.id,
+                courseId : req.params.id
+            }
+        });
+        
+        
+        
+        Promise.all([course,results]).then(([course,results]) => {
+            return res.render('finalUser/test',{
+                tests : course.tests,
+                results,
+                session: req.session 
+            }
+            )
+        }).catch(error => console.log(error))
+
+
+    },
     feedback: async (req, res) => {
         const {timeHour, timeMinute, timeSecond} = req.body;
         try {

@@ -89,12 +89,7 @@ module.exports = {
                     },
                     {
                         association: 'tests',
-                        include: [
-                            {
-                                association: 'questions',
-                                include: ['answers']
-                            }
-                        ]
+                        attributes : ['id']
                     },
                     {
                         association: 'notes',
@@ -178,24 +173,17 @@ module.exports = {
                 ]
             });
             
-            let results = db.UserTest.findAll({
-                where : {
-                    userId : req.session.user.id,
-                    courseId : req.params.id
-                }
-            });
+         
 
             let turns = db.Turn.findAll()
 
             Promise.all([
                 course,
                 user,
-                results,
                 turns,
             ]).then(([
                 course,
                 user,
-                results,
                 turns,
             ]) => {
 
@@ -229,7 +217,6 @@ module.exports = {
                             suscribed: true,
                             videosViewed,
                             urlCloudfont: process.env.CLOUDFONT_URL,
-                            results,
                             shuffle,
                             turns,
                             videosCount : videos.length

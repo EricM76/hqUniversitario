@@ -6,101 +6,69 @@
 <body class="test">
   <%- include('./partials/header') %> 
   <main class="container">
-    <!-- CABECERA -->
-    <header class="test__header container p-3 mb-5 border-bottom">
-      <div class="row align-items-center">
-        <div class="col-12 col-md-5 p-2 mb-3">
-          <h1>Examen xxx</h1>
-          <h1>Materia - Universidad</h1>
-        </div>
-        <div class="col-12 col-md-4 p-2 mb-3">
-          <h4>Progreso</h4>
-          <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-label="Example with label" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Viste el 25% del contenido</div>
-          </div>
-        </div>
-        <div class="col-12 col-md-3 p-2 mb-3">
-          <h4 class="text-center">TIEMPO RESTANTE</h4>
-          <div class="test__header--timer">
-            <p class="text-center">01:20:18</p>
-          </div>
-        </div>
-      </div>
-    </header>
-    <!-- FIN CABECERA -->
-    <!-- SECCIÓN CUESTIONARIO -->
-    <section>
-      <form action="">
-        <div class="container">
-          <div class="row">
-            <div class="col-12 p-2 mb-3">
-              <div class="shadow rounded p-3">
-                <h4 class="p-3 border-botom">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem ipsum eaque at asperiores dolorum, labore veniam vero, inventore earum officiis debitis nesciunt aliquam ab nulla quasi voluptatum animi in laudantium repellat harum quae reprehenderit! Ut id cum possimus maiores sit.</h4>
-                <div>
-                  <div class="form-check mb-2">
-                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
-                    <label class="form-check-label" for="exampleRadios1">
-                      Lorem ipsum dolor sit amet consectetur adipisicing.
-                    </label>
+
+    <div class="container">
+      <div class="row">
+        <% if (tests.length) { %>
+          <% tests.forEach(test => { %>
+            <!-- Download card -->
+            <div class="col-12 col-md-6 col-xl-4 p-2 mb-2">
+              <div class="card shadow">
+                <div class="card-header">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="card-title"><i class="fas fa-user-clock"></i> <%= test.name %></h5>
                   </div>
-                  <div class="form-check mb-2">
-                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                    <label class="form-check-label" for="exampleRadios2">
-                      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Alias, velit.
-                    </label>
-                  </div>
-                  <div class="form-check mb-2">
-                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
-                    <label class="form-check-label" for="exampleRadios3">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Error, libero, dicta perspiciatis ad omnis in accusantium placeat sit sapiente quisquam ut, reprehenderit laborum tempore molestiae?
-                    </label>
-                  </div>
+                </div>
+                <div class="card-body">
+                 
+                       
+                          <ul class="list-group list-group-flush text-bg-dark">
+                            <li class="list-group-item d-flex justify-content-between">
+                              <span><i class="fas fa-question-circle"></i> Preguntas:</span>
+                              <span><%=test.questions.length%></span> 
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                              <span><i class="fas fa-clock"></i> Tiempo:</span><span><%=test.time%> min</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                              <% if (results.find(result => result.testId == test.id)) { %>
+                                <span><i class="fa fa-check-circle" aria-hidden="true"></i> Último puntaje:</span><span><%= results.find(result => result.testId == test.id).score %>/<%= results.find(result => result.testId == test.id).totalScore%> en <%= results.find(result => result.testId == test.id).time %> min</span>
+                              <% }else{ %>
+                                <span><i class="fa fa-info-circle" aria-hidden="true"></i> Aún no has hecho este simulacro</span>
+                                
+                              <% } %>
+                            </li>
+                          
+                        </ul>
+                       
+                        <%- include('./partials/modal/modalTest',{
+                          test
+                        }) %> 
+                </div>
+                <div class="card-footer text-end">
+                  <button id="btn-test<%= test.id %>" type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#viewTest<%= test.id %>">
+                    Iniciar simulacro                            
+                  </button>
                 </div>
               </div>
             </div>
-            <div class="col-12 p-2 mb-3">
-              <div class="shadow rounded p-3">
-                <h4 class="p-3 border-botom">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem ipsum eaque at asperiores dolorum, labore veniam vero, inventore earum officiis debitis nesciunt aliquam ab nulla quasi voluptatum animi in laudantium repellat harum quae reprehenderit! Ut id cum possimus maiores sit.</h4>
-                <div>
-                  <div class="form-check mb-2">
-                    <input class="form-check-input" type="radio" name="exampleRadios1" id="exampleRadios12" value="option11">
-                    <label class="form-check-label" for="exampleRadios12">
-                      Lorem ipsum dolor sit amet consectetur adipisicing.
-                    </label>
-                  </div>
-                  <div class="form-check mb-2">
-                    <input class="form-check-input" type="radio" name="exampleRadios1" id="exampleRadios21" value="option22">
-                    <label class="form-check-label" for="exampleRadios21">
-                      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Alias, velit.
-                    </label>
-                  </div>
-                  <div class="form-check mb-2">
-                    <input class="form-check-input" type="radio" name="exampleRadios1" id="exampleRadios31" value="option33">
-                    <label class="form-check-label" for="exampleRadios31">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Error, libero, dicta perspiciatis ad omnis in accusantium placeat sit sapiente quisquam ut, reprehenderit laborum tempore molestiae?
-                    </label>
-                  </div>
-                </div>
-                <div>
-                  <span><a href="" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver imagen</a></span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="p-3 mb-4">
-          <button type="submit" class="button__dark">
-            Entregar exámen
-          </button>
-        </div>
-      </form>
-      
-    </section>
-    <!-- FIN CUESTIONARIO -->
+            <!-- END Download card -->
+            <% }) %>
+        <% }else{ %>
+          <p class="alert alert-warning">El curso aún no tiene simulacros de exámen agregados</p>
+        <% } %>
+    </div>
+  </div>
+    
   </main>
   <%- include('./partials/modal/modal') %> 
   <%- include('./partials/wappbtn') %> 
   <%- include('./partials/footer') %> 
-  <%- include('./partials/scripts') %> 
+  <%- include('./partials/scripts') %>
+  <script src="/javascripts/slider.js"></script>
+  <script src="/javascripts/courseContent.js"></script>
+  <script>
+    document.oncontextmenu = () => false;
+  </script>
 </body>
 </html>
