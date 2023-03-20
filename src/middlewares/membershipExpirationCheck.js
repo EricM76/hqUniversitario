@@ -55,10 +55,10 @@ const userMembershipExpirationCheck = async (req, res, next) => {
     
             if(updateUser && updateUserCourse) {
                 const { data } = await getActivesUserCourses(req.session.user.id);
-                const { data: userMembershipInfo } = await getUserMembershipData(
+                const userMembershipInfo = await getUserMembershipData(
                   req.session.user.id
                 );
-                if(userMembershipInfo.error !== undefined){
+                if(userMembershipInfo.error === undefined){
                     const { expires, membershipId } = userMembershipInfo;
         
                     req.session.user = {

@@ -20,7 +20,7 @@ router
   .delete('/remove/:id',userSessionCheck, adminCheck,remove)
   .get('/filter',userSessionCheck, adminCheck,filter)
   .get('/search',userSessionCheck, adminCheck,search)
-  .get('/presentation', userSessionCheck, adminCheck,presentation)
+  .get('/presentation', userSessionCheck, adminCheck, presentation)
   .get('/content', userSessionCheck, adminCheck,content)
   /* APIs */
   .delete('/features/:id', removeFeature)
