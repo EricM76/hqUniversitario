@@ -403,6 +403,9 @@ module.exports = {
     },
     getViewedByUser : async (req,res) => {
       try {
+        if(!req.session.user ){
+          throw new Error('No hay usuario logueado')
+        }
         let user = await db.User.findByPk(req.session.user.id,{
           attributes : ['id'],
           include : [
@@ -435,7 +438,7 @@ module.exports = {
 
       } catch (error) {
         console.log(error)
-        return res.status(error.status).json({
+        return res.status(error.status || 500).json({
           ok: false,
           msg: 'ups... error'
         })
@@ -444,6 +447,9 @@ module.exports = {
     info : async (req,res) => {
       const {videoId, courseId} = req.query;
       try {
+        if(!videoId || !courseId){
+          throw new Error('upss, faltan parámetros')
+        }
         let course = await db.Course.findByPk(courseId,{
           attributes : ['id'],
           include :[
@@ -457,7 +463,7 @@ module.exports = {
         },
       ],
         })
-        let video = await db.Video.findByPk(videoId);
+        let video =   await db.Video.findByPk(videoId);
         return res.status(200).json({
           ok: true,
           video,
