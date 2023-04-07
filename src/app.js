@@ -26,6 +26,7 @@ const session = require('express-session');
 const passport = require('passport');
 const userMembershipExpirationCheck = require('./middlewares/membershipExpirationCheck');
 const localsUserCheck = require('./middlewares/localsUserCheck');
+const paginate = require('express-paginate');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -48,6 +49,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(userMembershipExpirationCheck);
 app.use(localsUserCheck)
+app.use(paginate.middleware(10,50))
 
 
 /* ROUTES */

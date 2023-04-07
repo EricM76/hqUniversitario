@@ -10,42 +10,62 @@
              
                 <article class="card shadow">
                     <div class="card-header">
-                      <div class="row g-2">
-                        <div class="col-12">
-                            <nav aria-label="breadcrumb">
-                              <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="/admin">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Usuarios</li>
-                              </ol>
-                            </nav>
-                          <hr>
-                        </div>
-                     <!--    <div class="col-12 col-md-6 col-lg-4">
-                            <select class="form-select">
-                                <option selected hidden>Ordenar por</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                              </select>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-4">
-                            <select class="form-select">
-                                <option selected hidden>Filtar por</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                              </select>
-                        </div>
-                        <div class="col-12 col-md-12 col-lg-4">
-                            <form class="d-flex" role="search">
-                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                                <button class="btn btn-outline-dark" type="submit">Buscar</button>
-                              </form>
-                        </div> -->
-                    </div>
-                       
+                        <div class="d-flex flex-column flex-md-row justify-content-between gap-2">
+                          <div >
+                              <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                  <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+                                  <li class="breadcrumb-item active" aria-current="page">Usuarios</li>
+                                </ol>
+                              </nav>
+                          </div>
+                          <form class="d-flex" role="search" action="/users" onsubmit="event.preventDefault();document.getElementById('search').value.trim().length !== 0 ? this.submit() : null">
+                            <input style="width: 200px;" class="form-control me-2" name="search" id="search" type="search" placeholder="email, nombre o apellido" aria-label="Search">
+                            <input type="text" hidden name="page" value="1">
+                            <button class="btn btn-outline-dark" type="submit"><i class="fa fa-search"></i></button>
+                          </form>
+                          <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                              <% if (paginate.hasPreviousPages || paginate.hasNextPages(pageCount)) { %>
+                                <% if (paginate.hasPreviousPages) { %>
+                                  <li class="page-item">
+                                    <a class="page-link" href="<%= paginate.href(true).prev %>" aria-label="Previous">
+                                      <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                  </li>
+                                <% } %>
+                                <% if (pages) { %>
+                                  <% pages.forEach(page => { %>
+                                    <li class="page-item <%= page.number === currentPage && 'active' %>"><a class="page-link" href="<%= page.url %>"><%= page.number %></a></li>
+                                  <% }) %>
+                                <% } %>
+                                <% if (paginate.hasNextPages(pageCount)) { %>
+                                  <li class="page-item">
+                                    <a class="page-link" href="<%= paginate.href() %>" aria-label="Next">
+                                      <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                  </li>
+                                <% } %>
+                               
+                              <% } %>
+                             
+                            </ul>
+                          </nav>
+                      </div>
+                      <div>
+                        <% if (search) { %>
+                          <div class="d-flex gap-2">
+                            <a href="/users?page=1" class="text-danger"><i class="fa fa-times"></i></a>
+                            <p>Resultado de la búsqueda: <b>"<%= search %>"</b></p>
+
+                          </div>
+                        <% } %>
+                      </div>
                     </div>
                     <div class="card-body">
+                      <% if (search && users.length === 0) { %>
+                        <div class="alert alert-warning">No hay resultados</div>
+                      <% }else{ %>
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
@@ -89,6 +109,7 @@
                                 </tbody>
                               </table>
                         </div>
+                        <% } %>
                     </div>
                     <div class="card-footer">
                     
