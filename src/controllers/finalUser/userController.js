@@ -87,7 +87,7 @@ module.exports = {
           }
 
           res.locals.user = req.session.user;
-          console.log(req.cookies.backurl);
+          //console.log(req.cookies.backurl);
           return res.redirect(
             req.session.user.rol == 1
               ? "/admin"
@@ -126,9 +126,9 @@ module.exports = {
       userActiveCourses: data.activeUserCourses,
     };
 
-    console.log('====================================');
+   /*  console.log('====================================');
     console.log(data);
-    console.log('====================================');
+    console.log('===================================='); */
 
     return res.redirect(
       req.cookies.backurl != "undefined"
