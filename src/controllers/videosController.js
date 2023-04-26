@@ -318,7 +318,9 @@ module.exports = {
     getVideoUrl : async (req,res) => {
       try {
         let {resource} = await db.Video.findByPk(req.params.id);
-
+        console.log('====================================');
+        console.log(process.env.CLOUDFONT_URL + resource);
+        console.log('====================================');
         return res.status(200).json({
           ok : true,
           url : process.env.CLOUDFONT_URL + resource
