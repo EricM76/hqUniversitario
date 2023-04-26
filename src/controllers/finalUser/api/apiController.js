@@ -144,11 +144,11 @@ module.exports = {
     }
   },
   getUserInSession: (req, res) => {
-    console.log(req.session.user)
+    //console.log(req.session.user)
     return res.json(req.cookies)
   },
   addMembershipUser: async (req, res) => {
-    console.log(req.body);
+    //console.log(req.body);
     const { userId, membershipId, days } = req.body;
     try {
       await db.User.update({
