@@ -21,9 +21,9 @@ module.exports = {
           },
           include: ["course"]
         }); */
-        console.log('====================================');
+       /*  console.log('====================================');
         console.log(activeUserCourses);
-        console.log('====================================');
+        console.log('===================================='); */
         const expiresCoursesToConfirm = activeUserCourses.filter((course) => isPast(course.continueConfirmationDate) && !course.continueConfirm)
         const haveToConfirmContinueCourses = expiresCoursesToConfirm.length > 0;
         let response = {
