@@ -25,7 +25,7 @@ async function uploadFile(file) {
   const command = new PutObjectCommand(uploadParams);
   const result = await client.send(command);
   
-  //console.log(result)
+  console.log(result)
 }
 
 async function donwloadFile(filename) {
