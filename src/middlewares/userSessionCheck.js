@@ -1,8 +1,8 @@
 const userSessionCheck = (req, res, next) => {
     if(req.session.user){
-        next()
+        return next()
     }else{
-        res.redirect('/usuario/login')
+        return res.redirect('/usuario/login')
     }
 }
 

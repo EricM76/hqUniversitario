@@ -3,7 +3,7 @@ const cookieSession = (req, res, next) => {
         req.session.user = req.cookies.hq;
         res.locals.user = req.session.user;
     }
-    next()
+    return next()
 }
 
 module.exports = cookieSession;

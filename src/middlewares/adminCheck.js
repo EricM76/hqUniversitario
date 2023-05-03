@@ -1,6 +1,6 @@
 const adminCheck = (req, res, next) => {
     if(req.session.user.rol == 1){
-        next()
+        return next()
     }else{
         res.redirect("/")
     }
