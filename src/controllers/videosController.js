@@ -2,52 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const db = require('../database/models');
 
-/* AWS S3 */
-const {S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand} = require('@aws-sdk/client-s3');
-const {getSignedUrl} = require('@aws-sdk/s3-request-presigner')
-const {bucketName, bucketRegion, publicKey, secretKey} =require('../config/configAWS');
-
-const client = new S3Client({
-  region : bucketRegion,
-  credentials : {
-    accessKeyId : publicKey,
-    secretAccessKey : secretKey
-  }
-});
-
-async function uploadFile(file) {
-  const stream = file && fs.createReadStream(file.path);
-  const uploadParams = {
-    Bucket : bucketName,
-    Key : file.filename,
-    Body : stream,
-  }
-  const command = new PutObjectCommand(uploadParams);
-  const result = await client.send(command);
-  
-  console.log(result)
-}
-
-async function donwloadFile(filename) {
-  const command = new GetObjectCommand({
-    Bucket : bucketName,
-    Key : filename
-  });
-  const result = await client.send(command);
-  //console.log(result)
-  result.Body.pipe(fs.createWriteStream(`./src/assets/videos/${filename}`))
-}
-
-async function getFileURL(filename){
-  const command = new GetObjectCommand({
-    Bucket : bucketName,
-    Key : filename
-  });
-  return await getSignedUrl(client, command, {
-    expiresIn : 3600
-  })
-}
-
 module.exports = {
     add :  (req,res) => {
         let categories =  db.Category.findAll();
