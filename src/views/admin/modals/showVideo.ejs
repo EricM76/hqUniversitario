@@ -7,7 +7,7 @@
         </div>
         <div class="modal-body">
           <video id="resourceShowPreview<%= video.id %>" controls class="w-100" controlslist="nodownload">
-            <source id="resourceShowPreviewScreen<%= video.id %>" src="<%=urlCloudfont%><%=video.resource%>"
+            <source id="resourceShowPreviewScreen<%= video.id %>" src=""
             type="video/mp4">
           </video>
         </div>
@@ -18,8 +18,8 @@
   <script>
     document.getElementById('resourceShowPreview<%= video.id %>').volume = 0.5;
     
-    document.getElementById('modalShowVideo<%= video.id %>').addEventListener('show.bs.modal', async () => {
-    
+    document.getElementById('modalShowVideo<%= video.id %>').addEventListener('show.bs.modal', async (e) => {
+      document.getElementById('resourceShowPreview<%= video.id %>').src = '/videos/show?video=<%= video.resource%>'
     });
 
     document.getElementById('modalShowVideo<%= video.id %>').addEventListener('hidden.bs.modal', e => {

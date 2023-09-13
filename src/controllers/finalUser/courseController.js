@@ -7,53 +7,7 @@ const { getActivesUserCourses } = require("../../services/userCoursesService");
 
 module.exports = {
     presentation: async (req, res) => {
-       /*  const courseId = req.params.id;
-        db.Course.findByPk(courseId, {
-            include: [
-                {
-                    association: 'features'
-                },
-                {
-                    association: 'videos',
-                    attributes: ['id']
-                },
-                {
-                    association: 'notes',
-                    attributes: ['id']
-                },
-                {
-                    association: 'tests',
-                    attributes: ['id']
-                },
-                {
-                    association: 'university'
-                },
-                {
-                    association: 'faculty'
-                }
-            ]
-        })
-            .then((course) => {
-                db.Course.findAll({
-                    where: {
-                        facultyId: course.facultyId,
-                    },
-                    include: ['university', 'faculty']
-                })
-                    .then((relatedCourses) => {
-                        res.render("finalUser/coursePresentation", {
-                            course,
-                            relatedCourses,
-                            session: req.session,
-                        });
-                    })
-            })
-            .catch(error => console.log(error))
-
-    },
-    content: async (req, res) => { */
-
-
+      
         let suscribed = await db.UserCourse.findOne({
             where: {
                 userId: req.session.user && req.session.user.id || 0,
@@ -68,20 +22,10 @@ module.exports = {
             
             let course =  db.Course.findByPk(req.params.id, {
                 include: [
-                   /*  {
-                        association: 'videos',
-                        include: ['category'],
-                        order: [['order']]
-                    },
-                     */
                     {
                         association: 'faculty',
                         include: {
                             association: 'categories',
-                           /*  include: {
-                                association: 'videos',
-                                attributes: ['courseId']
-                            } */
                         }
                     },
                     {
@@ -165,7 +109,7 @@ module.exports = {
                 include: [
                     {
                         association: 'videos',
-                        attributes: ['id','courseId']
+                        attributes: ['id','courseId','resource']
                     },
                     {
                         association : 'tests',
@@ -256,10 +200,6 @@ module.exports = {
                             include: {
                                 association: 'categories',
                                 attributes : ['id','name'],
-                               /*  include: {
-                                    association: 'videos',
-                                    attributes: ['courseId']
-                                } */
                             }
                         },
                         {

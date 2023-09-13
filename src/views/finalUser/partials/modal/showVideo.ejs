@@ -1,25 +1,29 @@
 <div class="modal fade" id="modalShowVideo<%= video.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Reproduciendo <strong><%= video.title %></strong></h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <video id="resourceShowPreview<%= video.id %>" controls class="w-100" controlslist="nodownload">
-            <source src="<%= urlCloudfont %><%=video.resource%>"
-            type="video/mp4">
-          </video>
-        </div>
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Reproduciendo <strong><%= video.title %></strong></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <video id="resourceShowPreview<%= video.id %>" controls class="w-100" controlslist="nodownload">
+          <source id="resourceShowPreviewScreen<%= video.id %>" src=""
+          type="video/mp4">
+        </video>
       </div>
     </div>
   </div>
+</div>
 
-  <script>
-    document.getElementById('resourceShowPreview<%= video.id %>').volume = 0.5;
+<script>
+  document.getElementById('resourceShowPreview<%= video.id %>').volume = 0.5;
+  
+  document.getElementById('modalShowVideo<%= video.id %>').addEventListener('show.bs.modal', async (e) => {
+    document.getElementById('resourceShowPreview<%= video.id %>').src = '/videos/show?video=<%= video.resource%>'
+  });
 
-    document.getElementById('modalShowVideo<%= video.id %>').addEventListener('hidden.bs.modal', e => {
-        document.getElementById('resourceShowPreview<%= video.id %>').pause()
-    });
+  document.getElementById('modalShowVideo<%= video.id %>').addEventListener('hidden.bs.modal', e => {
+      document.getElementById('resourceShowPreview<%= video.id %>').pause()
+  });
 
-  </script>
+</script>

@@ -9,7 +9,7 @@ const userSessionCheck = require('../middlewares/userSessionCheck');
 /* /videos */
 router
   .get('/',userSessionCheck, adminCheck, list)
-  .get('/show',userSessionCheck, adminCheck,show)
+  .get('/show', show)
   .get('/detail/:id',userSessionCheck, adminCheck,detail)
   .get('/add/:idCourse',userSessionCheck, adminCheck,add)
   .post('/add',uploadCourse.single('resource'),userSessionCheck, adminCheck, store)
