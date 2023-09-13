@@ -345,7 +345,7 @@
             }
         }
     
-        inputResource.addEventListener('change', (event) => {
+        inputResource.addEventListener('change', function (event) {
     
             if (event.target.files && event.target.files[0]) {
                 if(!regExExt.exec(event.target.value)){
@@ -353,16 +353,17 @@
                     event.target.value = null;
                     videoPreview.src = null;
                 }else {
-                    let reader = new FileReader();
+                     let reader = new FileReader();
 
                     reader.onload = function(e) {
-                    videoPreview.src = e.target.result
+                    //videoPreview.src = e.target.result
+                    videoPreview.src = URL.createObjectURL(this.files[0])
                     videoTag.load()
             
                     }.bind(this)
             
-            
                     reader.readAsDataURL(event.target.files[0]);
+                
                     resourceLabel.innerText = 'Cambiar video';
                     errorVideo.innerHTML = null;
                 }

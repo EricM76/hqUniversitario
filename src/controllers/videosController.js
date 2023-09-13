@@ -81,8 +81,8 @@ module.exports = {
           length
         });
 
-        req.file && await uploadFile(req.file);
-        fs.existsSync(`./src/assets/videos/${req.file.filename}`) && fs.unlinkSync(`./src/assets/videos/${req.file.filename}`)
+        //req.file && await uploadFile(req.file);
+        //fs.existsSync(`./src/assets/videos/${req.file.filename}`) && fs.unlinkSync(`./src/assets/videos/${req.file.filename}`)
 
         return res.redirect(`/courses/edit/videos/${req.query.course}`)
 
