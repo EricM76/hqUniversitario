@@ -18,15 +18,20 @@
                                                 <div class="col-12 col-lg-4">
                                                     <!-- video -->
                                                     <div class="mb-3">
-                                                        <input type="file" class="form-control" id="resource<%=video.id%>"
+                                                        <input type="file" class="form-control" id="resource"
                                                             name="resource" hidden>
-                                                            
-                                                        <video id="resourcePreview<%=video.id%>"
-                                                            src=""type="video/mp4" width="100%" controls>
-                
+                                                            <video id="resourceTag" controls width="100%" onchange="console.log('epaaa')">
+                                                                <source 
+                                                                    id="resourcePreview"
+                                                                    src="/videos/show?video=<%= video.resource%>"
+                                                                    type="video/mp4"
+                                                                    
+                                                                >  
+                                                        
+                                                        <small class="text-danger" id="errorVideo"></small>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="resource<%=video.id%>"
+                                                        <label for="resource" id="resourceLabel"
                                                             class="btn btn-outline-dark w-100 mb-3">Reemplazar
                                                             video</label>
                 
@@ -39,7 +44,7 @@
                                                                     class="form-label me-2">Duración:</label>
                                                                 <div class="input-group">
                                                                     <input type="number"
-                                                                        class="form-control" min="0" name="length" value="<%= video.length %>" onblur="!this.value ? this.classList.add('is-invalid'):this.classList.remove('is-invalid')">
+                                                                        class="form-control" min="0" name="length" value="<%= video.length %>" onblur="!this.value ? this.classList.add('is-invalid'):this.classList.remove('is-invalid')" id="length">
                                                                     <span class="input-group-text"
                                                                         for="">min</span>
                                                                 </div>
@@ -160,7 +165,7 @@
 
     
  
-
+/* 
     document.getElementById('resource<%=video.id%>').addEventListener('change', (event) => {
 
         if (event.target.files && event.target.files[0]) {
@@ -175,7 +180,44 @@
             reader.readAsDataURL(event.target.files[0]);
         
         }
-    });
+    }); */
+
+    let inputResource = document.getElementById('resource');
+    let resourceLabel = document.getElementById('resourceLabel');
+    let videoTag = document.getElementById('resourceTag');
+    let inputLenth = document.getElementById('length');
+    const regExExt = /(.mp4|MP4)$/i;
+
+        
+    inputResource.addEventListener('change', function (event) {
+    
+    if (event.target.files && event.target.files[0]) {
+        if(!regExExt.exec(event.target.value)){
+            errorVideo.innerHTML = "Solo videos con extensión mp4";
+            event.target.value = null;
+            videoPreview.src = null;
+        }else {
+             let reader = new FileReader();
+
+            reader.onload = function(e) {
+            //videoPreview.src = e.target.result
+            videoPreview.src = URL.createObjectURL(this.files[0])
+            videoTag.load()
+    
+            }.bind(this)
+    
+            reader.readAsDataURL(event.target.files[0]);
+        
+            resourceLabel.innerText = 'Cambiar video';
+            errorVideo.innerHTML = null;
+        }
+    }
+
+});
+
+videoTag.addEventListener('loadeddata', ({target}) => {
+            inputLenth.value = Math.round(target.duration / 60)
+        })
 
     window.addEventListener('load', async function (event) {
        
@@ -185,8 +227,8 @@
             if(result.ok){
                 //console.log(result);
                 const {video,urlCloudfont,course} = result;
-                const resourcePreview = document.getElementById(`resourcePreview${video.id}`);
-                resourcePreview.src = `${urlCloudfont}${video.resource}`
+                /* const resourcePreview = document.getElementById(`resourcePreview${video.id}`);
+                resourcePreview.src = `${urlCloudfont}${video.resource}` */
                 const turnSelect = document.getElementById(`turnId${video.id}`);
                 turnSelect.innerHTML = null;
                 turnSelect.innerHTML = `

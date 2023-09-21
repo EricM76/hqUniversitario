@@ -4,11 +4,11 @@ let selectUnit = document.getElementById('unitId');
 let selectYear = document.getElementById('year');
 let selectTurn = document.getElementById('turnId');
 let inputCourse = document.getElementById('inputCourse');
-let inputResource = document.getElementById('resource');
-let videoTag = document.getElementById('resourceTag');
+//let inputResource = document.getElementById('resource');
+//let videoTag = document.getElementById('resourceTag');
 let videoPreview = document.getElementById('resourcePreview');
-let resourceLabel = document.getElementById('resourceLabel');
-let inputLenth = document.getElementById('length');
+//let resourceLabel = document.getElementById('resourceLabel');
+//let inputLenth = document.getElementById('length');
 let result;
 
 const apiCall = async(url) => {
@@ -140,7 +140,7 @@ const changeOptions = async (e,id) => {
     }
 }
 
-inputResource && inputResource.addEventListener('change', (event) => {
+/* inputResource && inputResource.addEventListener('change', (event) => {
 
     if (event.target.files && event.target.files[0]) {
         if(!regExExt.exec(event.target.value)){
@@ -165,8 +165,8 @@ inputResource && inputResource.addEventListener('change', (event) => {
 
        
     }
-});
+}); */
 
-videoTag && videoTag.addEventListener('loadeddata', ({target}) => {
+/* videoTag && videoTag.addEventListener('loadeddata', ({target}) => {
     inputLenth.value = Math.round(target.duration / 60)
-});
+}); */
