@@ -5,3 +5,4 @@ src/assets
 .DS_STORE
 public/images/questions
 public/videos
+src/database/seeders
