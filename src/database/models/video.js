@@ -52,6 +52,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Video',
+    tableName : 'videos',
     paranoid : false
   });
   return Video;
